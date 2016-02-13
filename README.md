@@ -1,2 +1,1 @@
-# RTFAP
-Real-time Fraud Analysis Platform
+# RTFAP - Real-time Fraud Analysis Platform
