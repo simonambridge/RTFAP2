@@ -5,10 +5,10 @@ They also need reports generated for all merchants every morning encompassing al
 
 The client wants a REST API to return:  
 - the ratio of transaction success based on the first 6 digits of their credit card no. (Blacklisting of CC Nos.)     
-- the ratio of confirmed transactions against fraudulent transactions in the last minute. (Roll-Ups by time-windows & txn status)
-- the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average)
-- Daily Roll-Up of trailing-Weekly and last-Day transaction totals for each merchant.
-- Search capability to search the entire transaction database by merchant, cc#, ccp, amounts.
+- the ratio of confirmed transactions against fraudulent transactions in the last minute. (Solr query to scan all in last 10 minutes faceted by status)
+- the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average, Streaming query)
+- Daily Roll-Up Report of last-Week and last-Day transactions for each merchant.
+- Search capability to search the entire transaction database by merchant, cc_no, cc_type, amounts.
 
 Performance SLAs:
 - The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
@@ -32,10 +32,11 @@ We will use single DC for testing purposes. For production deployment, we recomm
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
 
-Table for: Transactions by cc_no and txn_time
+Table for: Transactions by cc_no and txn_time; We will create a Solr index on this tables to fulfill the above search and grouping/faceting needs.
 ```
 create table if not exists rtfap.transactions_by_status(
-	cc_no text,	
+	cc_no text,
+	cc_type text,
 	exp_year int,
 	exp_month int,
 	day int,
@@ -50,15 +51,17 @@ create table if not exists rtfap.transactions_by_status(
 	amount double,
 	status text,
 	notes text,
-	tags set<text>,
 	PRIMARY KEY (cc_no, txn_time)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 ```
 
-Table for: Transactions by Status and clustered by narrowing time windows:
+Table for: Transactions by Merchant clustered by day.
 ```
-create table if not exists rtfap.transactions_by_status(
-	cc_no text,	
+create table if not exists rtfap.transactions_by_merchant(
+	cc_no text,
+	cc_type text,
+	year int,
+	month int,
 	day int,
 	hour int,
 	min int,
@@ -70,8 +73,8 @@ create table if not exists rtfap.transactions_by_status(
 	amount double,
 	status text,
 	notes text,
-	PRIMARY KEY (status, day,hour,min, txn_time)
-) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
+	PRIMARY KEY ((merchant, year, month), day, txn_time)
+) WITH CLUSTERING ORDER BY (day desc,  txn_time desc);
 ```
 
 ##Sample inserts
