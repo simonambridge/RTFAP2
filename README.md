@@ -1,19 +1,24 @@
 # RTFAP - Real-time Fraud Analysis Platform
-A bank wants to help locate and tag all their expenses/transactions in their bank account to help them categorise their spending. The users will be able to tag any expense/transaction to allow for efficient retrieval and reporting. There will be 10 millions customers with on average 500 transactions a year. Some business customers may have up to 10,000 transactions a year. The bank wants the user's tagged items to show up in searches in less than a second to give users a seamless experience between devices.
 
-The bank would like
+A large payments processor wants to monitor credit transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
+They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant. 
 
-1. to understand how this can be done with DSE
-2. some latency examples of how they can search all of their users data
-3. the users need to be able to filter the queries using time as well as tags e.g. show me all shopping vs luxury in the last 3 months.
-4. some assurances that peak traffic of over 10,000 writes, 4,000 reads and 1,000 searches per second can be accommodated by the solution using DSE.
-5. a short example of how they can access the data through a JSON rest service.
+The client wants a REST API to return:  
+- the ratio of transaction success based on the first 6 digits of their credit card no.      
+- the ratio of confirmed transactions against fraudulent transactions in the last minute
+- the moving average of the transaction amount over the last hour compared with the transaction amount per minute e.g. 60 min moving average  
+
+Performance SLAs:
+The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
+
 
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
 We will need to start DSE in Search mode to allow us to use the search functionalities that we need on top on Cassandra. To do this see the following 
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
+and the Spark (Analytics) functionality using:
+http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 
 ##DataModel 
 
