@@ -32,7 +32,7 @@ We will use single DC for testing purposes. For production deployment, we recomm
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
 
-Table for storing Transactions by Status and clustered by narrowing time windows:
+Table for: Transactions by cc_no and txn_time
 ```
 create table if not exists rtfap.transactions_by_status(
 	cc_no text,	
@@ -41,8 +41,8 @@ create table if not exists rtfap.transactions_by_status(
 	day int,
 	hour int,
 	min int,
-	transaction_time timestamp,
- 	transaction_id text,
+	txn_time timestamp,
+ 	txn_id text,
  	user_id text,
 	location text,
 	items map<text, double>,
@@ -51,8 +51,27 @@ create table if not exists rtfap.transactions_by_status(
 	status text,
 	notes text,
 	tags set<text>,
-	PRIMARY KEY (status, day,hour,min, transaction_time)
-) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, transaction_time desc);
+	PRIMARY KEY (cc_no, txn_time)
+) WITH CLUSTERING ORDER BY (txn_time desc);
+```
+
+Table for: Transactions by Status and clustered by narrowing time windows:
+```
+create table if not exists rtfap.transactions_by_status(
+	cc_no text,	
+	day int,
+	hour int,
+	min int,
+	txn_time timestamp,
+ 	txn_id text,
+ 	user_id text,
+	location text,
+	merchant text,
+	amount double,
+	status text,
+	notes text,
+	PRIMARY KEY (status, day,hour,min, txn_time)
+) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
 ##Sample inserts
