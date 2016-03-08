@@ -32,7 +32,7 @@ We will use single DC for testing purposes. For production deployment, we recomm
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
 
-Table for storing Transactions by Status and cluster by narrowing time windows:
+Table for storing Transactions by Status and clustered by narrowing time windows:
 ```
 create table if not exists rtfap.transactions_by_status(
 	cc_no text,	
