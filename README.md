@@ -25,17 +25,22 @@ http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sp
 
 ##DataModel 
 
-Depending on the lenght of time that the transactions are to be held for it may be worth breaking the transactions table into 2 tables, one for historic requests and one for the most recent transactions.
+We will need to multiple tables for fulfill the above query patterns and workloads. (De-normalization is a good thing with NoSQL databases!)
 
-We can use a testing keyspace for the time being as their is no requirement for this to multi-data-center.
+We will use single DC for testing purposes. For production deployment, we recommend an Active-Active HA setup across geographical regions with RF=2 or 3.
 ```
-create keyspace if not exists datastax_banking_iot WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
+create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
-The general table for transactions would be 
+
+Table for storing Transactions by Status and cluster by narrowing time windows:
 ```
-create table if not exists datastax_banking_iot.transactions(
+create table if not exists rtfap.transactions_by_status(
 	cc_no text,	
-	year int,
+	exp_year int,
+	exp_month int,
+	day int,
+	hour int,
+	min int,
 	transaction_time timestamp,
  	transaction_id text,
  	user_id text,
@@ -46,29 +51,9 @@ create table if not exists datastax_banking_iot.transactions(
 	status text,
 	notes text,
 	tags set<text>,
-	PRIMARY KEY ((cc_no, year), transaction_time)
-) WITH CLUSTERING ORDER BY (transaction_time desc);
+	PRIMARY KEY (status, day,hour,min, transaction_time)
+) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, transaction_time desc);
 ```
-Note because of the number  of transactions per year for some business customers it may be beneficial to separate the transaction into years for each card. This will only be needed for the historic transactions. 
-If another 'latest transactions' table is required we could add another table with a specific default time to live. 
-```
-create table if not exists datastax_banking_iot.latest_transactions(
-	cc_no text,
-	transaction_time timestamp,
- 	transaction_id text,
- 	user_id text,
-	location text,
-	items map<text, double>,
-	merchant text,
-	amount double,
-	status text,
-	notes text,
-	tags set<text>,
-	PRIMARY KEY (cc_no, transaction_time)
-) WITH CLUSTERING ORDER BY (transaction_time desc) 
-and default_time_to_live = 2592000;
-```
-This default_time_to_live of 2592000 seconds ensures that data will be removed from the table 90 days after its been inserted.
 
 ##Sample inserts
 
