@@ -4,9 +4,11 @@ A large payments processor wants to monitor credit transactions to detect and de
 They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant. 
 
 The client wants a REST API to return:  
-- the ratio of transaction success based on the first 6 digits of their credit card no.      
-- the ratio of confirmed transactions against fraudulent transactions in the last minute
-- the moving average of the transaction amount over the last hour compared with the transaction amount per minute e.g. 60 min moving average  
+- the ratio of transaction success based on the first 6 digits of their credit card no. (Blacklisting of CC Nos.)     
+- the ratio of confirmed transactions against fraudulent transactions in the last minute. (Roll-Ups by time-windows & txn status)
+- the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average)
+- Daily Roll-Up of trailing-Weekly and last-Day transaction totals for each merchant.
+- Search capability to search the entire transaction database by merchant, cc#, ccp, amounts.
 
 Performance SLAs:
 - The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
