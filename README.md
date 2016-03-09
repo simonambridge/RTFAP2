@@ -8,7 +8,7 @@ The client wants a REST API to return:
 - the ratio of confirmed transactions against fraudulent transactions in the last minute. (Solr query to scan all in last 10 minutes faceted by status)
 - the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average, Streaming query)
 - Daily Roll-Up Report of last-Week and last-Day transactions for each merchant.
-- Search capability to search the entire transaction database by merchant, cc_no, cc_type, amounts.
+- Search capability to search the entire transaction database by merchant, cc_no, amounts.
 
 Performance SLAs:
 - The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
