@@ -52,7 +52,7 @@ create table if not exists rtfap.transactions(
 	amount double,
 	status text,
 	notes text,
-	PRIMARY KEY ((year, month), day, hour, min, cc_no, txn_time)
+	PRIMARY KEY ((year, month), day, hour, min, txn_time, cc_no)
 ) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
