@@ -1,6 +1,6 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
-A large payments processor wants to monitor credit transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
+A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
 They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant. 
 
 The client wants a REST API to return:  
