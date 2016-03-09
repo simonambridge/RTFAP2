@@ -59,17 +59,11 @@ create table if not exists rtfap.transactions(
 ##Sample inserts
 
 ```
-use datastax_banking_iot;
-Insert into latest_transactions (cc_no, transaction_time, transaction_id, location, merchant, amount, user_id, status, notes, tags) values ('1234123412341234', '2016-01-26 15:30:14', '1231514114', 'London, UK', 'PC World', 100.00, '141511111', '', '', {'Work', 'Tech'});
-Insert into latest_transactions (cc_no, transaction_time, transaction_id, location, merchant, amount, user_id, status, notes, tags) values ('1234123412341234', '2016-01-26 15:33:41', '1231514111', 'Glasgow, UK', 'Amazon', 100.00, '141511111', '', '', {'Home', 'Tech'});
-
-Insert into transactions (cc_no, year, transaction_time, transaction_id, location, merchant, amount, user_id, status, notes, tags) values ('1234123412341234', 2016, '2016-01-26 15:30:14', '1231514114', 'London, UK', 'PC World', 100.00, '141511111', '', '', {'Work', 'Tech'});
-Insert into transactions (cc_no, year, transaction_time, transaction_id, location, merchant, amount, user_id, status, notes, tags) values ('1234123412341234', 2016, '2016-01-26 15:33:41', '1231514111', 'Glasgow, UK', 'Amazon', 100.00, '141511111', '', '', {'Home', 'Tech'});
-
+insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id) VALUES ( 2016, 03, 09, 11, 04, '2016-03-09 11:04:19', '1234123412341234', 200.0, 'VISA', {'tshirt':25, 'dressshirt':50, 'trousers':125}, 'San Francisco', 'Nordstrom', 'pretty good clothing', 'Approved', '098765', 'kunalak') ; 
 ```
 
 ##Sample queries
-
+still all patrick below this -
 For straight-forward queries which only use the credit card no and transaction times, we will use cql to access the data. 
 
 For the latest transaction table we can run the following types of queries
