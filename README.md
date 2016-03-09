@@ -36,6 +36,7 @@ Table for: Transactions by cc_no and txn_time; We will create a Solr index on th
 ```
 create table if not exists rtfap.transactions_by_status(
 	cc_no text,
+	cc_provider text,
 	exp_year int,
 	exp_month int,
 	txn_time timestamp,
@@ -55,6 +56,7 @@ Table for: Transactions by Merchant clustered by day.
 ```
 create table if not exists rtfap.transactions_by_merchant(
 	cc_no text,
+	cc_provider text,
 	year int,
 	month int,
 	day int,
@@ -69,7 +71,7 @@ create table if not exists rtfap.transactions_by_merchant(
 	status text,
 	notes text,
 	PRIMARY KEY ((merchant, year, month), day, hour, min, txn_time)
-) WITH CLUSTERING ORDER BY (day desc,  txn_time desc);
+) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
 ##Sample inserts
