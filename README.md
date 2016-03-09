@@ -5,7 +5,7 @@ They also need reports generated for all merchants every morning encompassing al
 
 The client wants a REST API to return:  
 - the ratio of transaction success based on the first 6 digits of their credit card no. (Blacklisting of CC Nos.)     
-- the ratio of confirmed transactions against fraudulent transactions in the last minute. (Solr query to scan all in last 10 minutes faceted by status)
+- the ratio of confirmed transactions against fraudulent transactions in the last minute. (Solr query to scan all in last 10 minutes filtered/faceted by status)
 - the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average, Streaming query)
 - Daily Roll-Up Report of last-Week and last-Day transactions for each merchant.
 - Search capability to search the entire transaction database by merchant, cc_no, amounts.
@@ -32,29 +32,10 @@ We will use single DC for testing purposes. For production deployment, we recomm
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
 
-Table for: Transactions by cc_no and txn_time; We will create a Solr index on this tables to fulfill the above search and grouping/faceting needs.
-```
-create table if not exists rtfap.transactions_by_status(
-	cc_no text,
-	cc_provider text,
-	exp_year int,
-	exp_month int,
-	txn_time timestamp,
- 	txn_id text,
- 	user_id text,
-	location text,
-	items map<text, double>,
-	merchant text,
-	amount double,
-	status text,
-	notes text,
-	PRIMARY KEY (cc_no, txn_time)
-) WITH CLUSTERING ORDER BY (txn_time desc);
-```
+Table for: Transactions by txn_time buckets; We will create a Solr index on this tables to fulfill the above search and grouping/faceting needs.
 
-Table for: Transactions by Merchant clustered by day.
 ```
-create table if not exists rtfap.transactions_by_merchant(
+create table if not exists rtfap.transactions(
 	cc_no text,
 	cc_provider text,
 	year int,
@@ -66,11 +47,12 @@ create table if not exists rtfap.transactions_by_merchant(
  	txn_id text,
  	user_id text,
 	location text,
+	items map<text, double>,
 	merchant text,
 	amount double,
 	status text,
 	notes text,
-	PRIMARY KEY ((merchant, year, month), day, hour, min, txn_time)
+	PRIMARY KEY ((year, month), day, hour, min, cc_no, txn_time)
 ) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
