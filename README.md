@@ -52,20 +52,11 @@ create table if not exists rtfap.transactions(
 	amount double,
 	status text,
 	notes text,
-	PRIMARY KEY ((year, month), day, hour, min, txn_time, cc_no)
+	tags <text>,
+	PRIMARY KEY ((year, month, day), hour, min, txn_time, cc_no)
 ) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
-Table for: tagged_transactions
-```
-create table if not exists rtfap.tagged_transactions(
-txn_id text,
-cc_no text,
-tag text,
-tag_time timestamp,
-PRIMARY KEY(tag, cc_no, txn_id)
-) WITH CLUSTER ORDER BY (tag_time desc);
-```
 ##Sample inserts
 
 ```
