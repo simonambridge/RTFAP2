@@ -54,7 +54,7 @@ create table if not exists rtfap.transactions(
 	notes text,
 	tags set<text>,
 	PRIMARY KEY ((year, month, day), hour, min, txn_time, cc_no)
-) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
+) WITH CLUSTERING ORDER BY (hour desc, min desc, txn_time desc);
 ```
 
 ##Sample inserts
