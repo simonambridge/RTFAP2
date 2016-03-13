@@ -56,6 +56,16 @@ create table if not exists rtfap.transactions(
 ) WITH CLUSTERING ORDER BY (day desc, hour desc, min desc, txn_time desc);
 ```
 
+Table for: tagged_transactions
+```
+create table if not exists rtfap.tagged_transactions(
+txn_id text,
+cc_no text,
+tag text,
+tag_time timestamp,
+PRIMARY KEY(tag, cc_no, txn_id)
+) WITH CLUSTER ORDER BY (tag_time desc);
+```
 ##Sample inserts
 
 ```
