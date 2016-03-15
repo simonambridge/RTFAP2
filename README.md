@@ -71,6 +71,10 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 still all patrick below this -
 For straight-forward queries which only use the credit card no and transaction times, we will use cql to access the data. 
 
+```
+SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}'
+```
+
 For the latest transaction table we can run the following types of queries
 ```
 use datastax_banking_iot;
