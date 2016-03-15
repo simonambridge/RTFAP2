@@ -72,7 +72,8 @@ still all patrick below this -
 For straight-forward queries which only use the credit card no and transaction times, we will use cql to access the data. 
 
 ```
-SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}'
+SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
+SELECT * FROM transactions where solr_query='cc_no: 1234123412341234';
 ```
 
 For the latest transaction table we can run the following types of queries
