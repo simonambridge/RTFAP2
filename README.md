@@ -61,7 +61,7 @@ Table for: Roll-up of Daily transactions by merchant
 create table if not exists rtfap.dailytxns_bymerchant(
 	cc_no text,
 	cc_provider text,
-	day long,
+	day int,
 	txn_time timestamp,
  	txn_id text,
  	user_id text,
@@ -74,7 +74,7 @@ create table if not exists rtfap.dailytxns_bymerchant(
 	tags set<text>,
 	total_amount double STATIC,
 	avg_amount double STATIC,
-	total_count long STATIC,
+	total_count bigint STATIC,
 	PRIMARY KEY ((merchant, day), txn_time, txn_id)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 ```
