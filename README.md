@@ -93,32 +93,14 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 ```
 
 ##Sample queries
-still all patrick below this -
-For straight-forward queries which only use the credit card no and transaction times, we will use cql to access the data. 
-
+ 
+Queries to look up all transactions for given cc_no. (Transactions table is primarily writes-oriented and for searches)
 ```
-SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
-SELECT * FROM transactions where solr_query='cc_no: 1234123412341234';
+SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' limit 5
 ```
-
-For the latest transaction table we can run the following types of queries
+Queries to roll-up transactions for each merchant by day (dailytxns_bymerchant table itself will be populated using scheduled Spark Jobs)
 ```
-use datastax_banking_iot;
-
-select * from latest_transactions where cc_no = '1234123412341234';
-
-select * from latest_transactions where cc_no = '1234123412341234' and transaction_time > '2015-12-31';
-
-select * from latest_transactions where cc_no = '1234123412341234' and transaction_time > '2015-12-31' and transaction_time < '2016-01-27';
-```
-For the (historic) transaction table we need to add the year into our queries.
-
-```
-select * from transactions where cc_no = '1234123412341234' and year = 2016;
-
-select * from transactions where cc_no = '1234123412341234' and year = 2016 and transaction_time > '2015-12-31';
-
-select * from transactions where cc_no = '1234123412341234' and year = 2016 and transaction_time > '2015-12-31' and transaction_time < '2016-01-27';
+SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317
 ```
 
 ##Searching Data in DSE
@@ -126,32 +108,54 @@ select * from transactions where cc_no = '1234123412341234' and year = 2016 and 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on. 
 
 ```
-dsetool create_core datastax_banking_iot.transactions generateResources=true reindex=true
-
-dsetool create_core datastax_banking_iot.latest_transactions generateResources=true reindex=true
+dsetool create_core rtfap.transactions generateResources=true reindex=true
 ```
 
 To check that DSE Search is up and running sucessfully go to http://{servername}:8983/solr/
 
 Now we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through rest.
 
-An example of cql queries would be
+Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
 
-Get all the latest transactions from PC World in Glasgow (This is accross all credit cards and users)
+Get counts (&records) of transactions faceted by merchant or cc_provider.
 ```
-select * from latest_transactions where solr_query = 'merchant:PC+World location:London' limit  100;
+SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}'
+SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"cc_provider"}}'
 ```
-Get all the latest transactions for credit card '1' that have a tag of Work. 
+
+Get transactions by first 6 digits of cc_no (and perhaps filter query it further by the status!).
 ```
-select * from latest_transactions where solr_query = '{"q":"cc_no:1234123412341234", "fq":"tags:Work"}' limit  1000;
+SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no: 123412*",  "fq":"status: Rejected"}';
 ```
-Gell all the transaction for credit card '1' that have a tag of Work and are within the last month
+
+Get all the transactions tagged as Fraudulent in the last day and last minute.
 ```
-select * from latest_transactions where solr_query = '{"q":"cc_no:1234123412341234", "fq":"tags:Work AND transaction_time:[NOW-30DAY TO *]"}' limit  1000;
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}'
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}'
 ```
+(just like above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.)
+
+
+## Analyzing data using DSE Spark Analytics
+
+DSE provides integration with Spark out of the box. This allows for ETL'ing and analyses of data in-place on the same cluster where the data is ingested with workload isolation. The data ingested in a Cassandra only (oltp) ring is automatically replicated to the logical ring of nodes hosting Spark Workers as well.
+
+This provides huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus increasing time to insight from your data through a "cohesive lambda architecture" sans its complexities.
+
+###Batch Analytics
+
+A Spark batch job that runs daily rolling up all the transactions in the last day by merchant and calculating the total_amount, avg_amount and total_count.
+(Daily Roll-Up Reports of last-Week and last-Day transactions for each merchant.)
+
+<<link to the job here>> in Jupyter notebook for now.
+http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb
+
+###Streaming Analytics
+Cary to update here
 
 ##Stress yaml
 
+THIS IS TBD.
 To help show how DSE will perform in terms of latency and throughput we can use the Cassandra-stress tool to write and read from the system.
 
 You will find the stress.yaml file here - 
@@ -174,7 +178,7 @@ cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(getall=1\) cl=LOCAL_ONE
 
 ##Code Sample
 
-A full code example with inserts and queries can be found here - https://github.com/PatrickCallaghan/datastax-banking-iot
+A full code example with inserts and queries can be found here - https://github.com/kunalak/rtfap
 
 Please follow the instructions to download and populate your cluster with example data. This example also shows how to provide access to the data through a JSON rest web service. 
 
