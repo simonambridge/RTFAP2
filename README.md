@@ -147,11 +147,35 @@ This provides huge value in terms of significantly reduced ETL complexity (no da
 A Spark batch job that runs daily rolling up all the transactions in the last day by merchant and calculating the total_amount, avg_amount and total_count.
 (Daily Roll-Up Reports of last-Week and last-Day transactions for each merchant.)
 
-<<link to the job here>> in Jupyter notebook for now.
-http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb
+```
+sqlContext.sql("""CREATE TEMPORARY TABLE temp_transactions
+     USING org.apache.spark.sql.cassandra
+     OPTIONS (
+       table "transactions",
+       keyspace "rtfap",
+       cluster "Test Cluster",
+       pushdown "true"
+     )""")
+     
+val rollup1= sqlContext.sql("select txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags, int(translate(string(date(txn_time)),'-','')) as day from temp_transactions")    
+
+rollup1 show
+rollup1 printSchema
+
+import org.apache.spark.sql.SaveMode
+
+rollup1.write.format("org.apache.spark.sql.cassandra")
+.mode(SaveMode.Overwrite)
+.options(Map("keyspace" -> "rtfap", "table" -> "dailytxns_bymerchant"))
+.save()
+```
+
+Jupyter notebook: http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 ###Streaming Analytics
 Cary to update here
+
+
 
 ##Stress yaml
 
