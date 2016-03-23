@@ -23,6 +23,15 @@ https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/sr
 and the Spark (Analytics) functionality using:
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 
+For the packathon - the cluster info is below:
+public ip's of 3 node cluster=> 104.42.107.223, 104.42.105.51, 104.42.109.110
+SSH to any one of the 3 nodes => e.g. ssh datastax@104.42.109.110; pwd=<<on internal hipchat room, scroll a bit>>
+(private ip= 10.0.0.4 and other 2 DSE nodes will have 10.0.0.5 and 10.0.0.7; 10.0.0.6 is the opscenter node)
+
+Opscenter=> http://104.42.108.173:8888/opscenter/index.html
+Spark Master (currently running on) => http://104.42.105.51:7080/
+Jupyter notebook with RTFAP Test queries=> http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+
 ##DataModel 
 
 We will need to multiple tables for fulfill the above query patterns and workloads. (De-normalization is a good thing with NoSQL databases!)
