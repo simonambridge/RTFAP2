@@ -82,7 +82,8 @@ create table if not exists rtfap.dailytxns_bymerchant(
 	notes text,
 	tags set<text>,
 	total_amount double STATIC,
-	avg_amount double STATIC,
+	max_amount double STATIC,
+	min_amount double STATIC,
 	total_count bigint STATIC,
 	PRIMARY KEY ((merchant, day), txn_time, txn_id)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
