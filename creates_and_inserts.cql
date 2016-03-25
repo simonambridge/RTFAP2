@@ -20,7 +20,7 @@ create table if not exists rtfap.transactions(
 	status text,
 	notes text,
 	tags set<text>,
-	PRIMARY KEY (cc_no, txn_time)
+	PRIMARY KEY ((cc_no, year, month, day),txn_time)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 
 create table if not exists rtfap.dailytxns_bymerchant(
