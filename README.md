@@ -1,7 +1,7 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
 A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
-They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant. 
+They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant.
 
 The client wants a REST API to return:  
 - the ratio of transaction success based on the first 6 digits of their credit card no.     
@@ -18,7 +18,7 @@ Performance SLAs:
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
-We will need to start DSE in Search mode to allow us to use the search functionalities that we need on top on Cassandra. To do this see the following 
+We will need to start DSE in Search mode to allow us to use the search functionalities that we need on top on Cassandra. To do this see the following
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
 and the Spark (Analytics) functionality using:
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
@@ -32,7 +32,7 @@ For the packathon - the cluster info is below:
 - Spark Master (currently running on) => http://104.42.105.51:7080/
 - Jupyter notebook with RTFAP Test queries=> http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
 
-##DataModel 
+##DataModel
 
 We will need to multiple tables for fulfill the above query patterns and workloads. (De-normalization is a good thing with NoSQL databases!)
 
@@ -61,7 +61,7 @@ create table if not exists rtfap.transactions(
 	status text,
 	notes text,
 	tags set<text>,
-	PRIMARY KEY (cc_no, txn_time)
+	PRIMARY KEY ((cc_no, year, month,day), txn_time)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 ```
 
@@ -103,7 +103,7 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 ```
 
 ##Sample queries
- 
+
 Queries to look up all transactions for given cc_no. (Transactions table is primarily writes-oriented and for searches)
 ```
 SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' limit 5
@@ -115,7 +115,7 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 ##Searching Data in DSE
 
-The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on. 
+The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on.
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
@@ -166,7 +166,7 @@ sqlContext.sql("""CREATE TEMPORARY TABLE temp_transactions
        cluster "Test Cluster",
        pushdown "true"
      )""")
-     
+
 val rollup1= sqlContext.sql("select txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags, int(translate(string(date(txn_time)),'-','')) as day from temp_transactions")    
 
 rollup1 show
@@ -192,29 +192,26 @@ Cary to update here
 THIS IS TBD.
 To help show how DSE will perform in terms of latency and throughput we can use the Cassandra-stress tool to write and read from the system.
 
-You will find the stress.yaml file here - 
+You will find the stress.yaml file here -
 https://gist.github.com/PatrickCallaghan/1e16c3eb38fada08a2c0
 
-You can read more about stress testing a data model here 
-http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema 
+You can read more about stress testing a data model here
+http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
 http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
 
 Examples of running the stress tool are (please change node0 to whatever your contact point may be)
 
 For inserts
 ```
-cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0 
+cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0
 ```
 For reads
 ```
-cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(getall=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0 
+cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(getall=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0
 ```
 
 ##Code Sample
 
 A full code example with inserts and queries can be found here - https://github.com/kunalak/rtfap
 
-Please follow the instructions to download and populate your cluster with example data. This example also shows how to provide access to the data through a JSON rest web service. 
-
-
-
+Please follow the instructions to download and populate your cluster with example data. This example also shows how to provide access to the data through a JSON rest web service.
