@@ -89,6 +89,57 @@ create table if not exists rtfap.dailytxns_bymerchant(
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 ```
 
+Table for: hourlyaggregates_bycc
+```
+create table if not exists rtfap.hourlyaggregates_bycc(
+    cc_no text,
+		hour int,
+		total_amount double,
+    max_amount double,
+		min_amount double,
+		total_count bigint,
+    PRIMARY KEY ((cc_no, hour))
+);
+```
+
+Table for: dailyaggregates_bycc
+```
+create table if not exists rtfap.dailyaggregates_bycc(
+    cc_no text,
+		day int,
+		total_amount double,
+    max_amount double,
+		min_amount double,
+		total_count bigint,
+    PRIMARY KEY ((cc_no, day))
+);
+```
+
+Table for: monthlyaggregates_bycc
+```
+create table if not exists rtfap.monthlyaggregates_bycc(
+    cc_no text,
+		month int,
+		total_amount double,
+    max_amount double,
+		min_amount double,
+		total_count bigint,
+    PRIMARY KEY ((cc_no, month))
+);
+```
+
+Table for: yearlyaggregates_bycc
+```
+create table if not exists rtfap.yearlyaggregates_bycc(
+    cc_no text,
+		year int,
+		total_amount double,
+    max_amount double,
+		min_amount double,
+		total_count bigint,
+    PRIMARY KEY ((cc_no, year))
+);
+```
 
 ##Sample inserts
 
