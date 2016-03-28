@@ -1,0 +1,1 @@
+bin/dsetool create_core datastax_transaction_search_demo.latest_transactions generateResources=true reindex=true coreOptions=rt.yaml
