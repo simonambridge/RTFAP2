@@ -26,7 +26,8 @@ public class Main {
 
 	public Main() {
 		SearchService service=new SearchServiceImpl();
-		logger.info(service.getAllRtfapTransactionsByCC("1234123412341235", DateTime.now().withDayOfMonth(8)).toString());
+		//logger.info(service.getAllrTFAPTransactionsByCC("1234123412341235", DateTime.now().withDayOfMonth(8)).toString());
+		//logger.info(service.getAllFraudulentTransactionsByCC("1234123412341235"));
 
 	}
 

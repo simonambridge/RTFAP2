@@ -11,7 +11,9 @@ public interface SearchService {
 
 	public double getTimerAvg();
 
-	List<Transaction> getTransactionsByTagAndDate(String ccNo, Set<String> search, DateTime from, DateTime to);
-	List<Transaction> getAllLatestTransactionsByCC(String ccNo);               // SA
-	List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from); // SA
+	//List<Transaction> getTransactionsByTagAndDate(String ccNo, Set<String> search, DateTime from, DateTime to);
+	//List<Transaction> getAllLatestTransactionsByCC(String ccNo);               // SA
+	//List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from); // SA
+	List<Transaction> getAllFraudulentTransactionsByCC(String ccNo); // SA
+	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod); // SA
 }

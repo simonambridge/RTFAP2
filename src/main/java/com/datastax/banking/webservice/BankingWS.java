@@ -31,55 +31,77 @@ public class BankingWS {
 	//Service Layer.
 	private SearchService service = new SearchServiceImpl();
 	
-	@GET
-	@Path("/gettransactions/{creditcardno}/{from}/{to}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMovements(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
-			@PathParam("to") String toDate) {
+//	@GET
+//	@Path("/gettransactions/{creditcardno}/{from}/{to}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response getMovements(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
+//			@PathParam("to") String toDate) {
 		
-		DateTime from = DateTime.now();
-		DateTime to = DateTime.now();
-		try {
-			from = new DateTime(inputDateFormat.parse(fromDate));
-			to = new DateTime(inputDateFormat.parse(toDate));
-		} catch (ParseException e) {
-			String error = "Caught exception parsing dates " + fromDate + "-" + toDate;
+//		DateTime from = DateTime.now();
+//		DateTime to = DateTime.now();
+//		try {
+//			from = new DateTime(inputDateFormat.parse(fromDate));
+//			to = new DateTime(inputDateFormat.parse(toDate));
+//		} catch (ParseException e) {
+//			String error = "Caught exception parsing dates " + fromDate + "-" + toDate;
 			
-			logger.error(error);
-			return Response.status(Status.BAD_REQUEST).entity(error).build();
-		}
+//			logger.error(error);
+//			return Response.status(Status.BAD_REQUEST).entity(error).build();
+//		}
 				
-		List<Transaction> result = service.getTransactionsByTagAndDate(ccNo, null, from, to);
+//		List<Transaction> result = service.getTransactionsByTagAndDate(ccNo, null, from, to);
 		
+//		return Response.status(Status.OK).entity(result).build();
+//	}
+
+//	@GET
+//	@Path("/getalltransactions/{creditcardno}")    // SA
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response getAllLatestTransactions(@PathParam("creditcardno") String ccNo) {
+//		List<Transaction> result = service.getAllLatestTransactionsByCC(ccNo);
+
+//		return Response.status(Status.OK).entity(result).build();
+//	}
+
+//	@GET
+//	@Path("/getallsuccessfultransactions/{creditcardno}/{from}")    // SA
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response getAllRtfapTransactions(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate) {
+//		DateTime from = DateTime.now();
+
+//		try {
+//			from = new DateTime(inputDateFormat.parse(fromDate));
+//		} catch (ParseException e) {
+//			String error = "Caught exception parsing dates " + fromDate;
+
+//			logger.error(error);
+//			return Response.status(Status.BAD_REQUEST).entity(error).build();
+//		}
+//
+//      //logger.info(ccNo + " " + from);
+//		List<Transaction> result = service.getAllRtfapTransactionsByCC(ccNo, from);
+//
+//		return Response.status(Status.OK).entity(result).build();
+//	}
+
+	@GET
+	@Path("/getallfraudulenttransactions/{creditcardno}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllFraudulentTransactions(@PathParam("creditcardno") String ccNo) {
+
+		logger.info("WebService: " + ccNo);
+		List<Transaction> result = service.getAllFraudulentTransactionsByCC(ccNo);
+
 		return Response.status(Status.OK).entity(result).build();
 	}
 
 	@GET
-	@Path("/getalltransactions/{creditcardno}")    // SA
+	@Path("/getallfraudulenttransactionsinlastperiod/{period}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllLatestTransactions(@PathParam("creditcardno") String ccNo) {
-		List<Transaction> result = service.getAllLatestTransactionsByCC(ccNo);
+	public Response getAllFraudulentTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
 
-		return Response.status(Status.OK).entity(result).build();
-	}
-
-	@GET
-	@Path("/getallsuccessfultransactions/{creditcardno}/{from}")    // SA
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllRtfapTransactions(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate) {
-		DateTime from = DateTime.now();
-
-		try {
-			from = new DateTime(inputDateFormat.parse(fromDate));
-		} catch (ParseException e) {
-			String error = "Caught exception parsing dates " + fromDate;
-
-			logger.error(error);
-			return Response.status(Status.BAD_REQUEST).entity(error).build();
-		}
-        //logger.info(ccNo + " " + from);
-		List<Transaction> result = service.getAllRtfapTransactionsByCC(ccNo, from);
-		//List<Transaction> result = service.getAllRtfapTransactionsByCC("1234123412341235", DateTime.now().withDayOfMonth(8));
+		logger.info("WebService: " + lastPeriod);
+		List<Transaction> result = service.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
 	}

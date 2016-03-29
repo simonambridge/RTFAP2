@@ -27,42 +27,68 @@ public class SearchServiceImpl implements SearchService {
 		return timerSum/timerCount.get();
 	}
 
-	@Override
-	public List<Transaction> getTransactionsByTagAndDate(String ccNo, Set<String> search, DateTime from, DateTime to) {
+//	@Override
+//	public List<Transaction> getTransactionsByTagAndDate(String ccNo, Set<String> search, DateTime from, DateTime to) {
 		
-		Timer timer = new Timer();
-		List<Transaction> transactions;
+//		Timer timer = new Timer();
+//		List<Transaction> transactions;
 
-		//If the to and from dates are within the 3 months we can use the latest transactions table as it should be faster.		
-		if (from.isAfter(DateTime.now().minusMonths(3))){
-			transactions = dao.getTransactionsForCCNoTagsAndDate(ccNo, search, from, to);
-		}else{
-			transactions = dao.getLatestTransactionsForCCNoTagsAndDate(ccNo, search, from, to);
-		}
+//		//If the to and from dates are within the 3 months we can use the latest transactions table as it should be faster.
+//		if (from.isAfter(DateTime.now().minusMonths(3))){
+//			transactions = dao.getTransactionsForCCNoTagsAndDate(ccNo, search, from, to);
+//		}else{
+//			transactions = dao.getLatestTransactionsForCCNoTagsAndDate(ccNo, search, from, to);
+//		}
 			
+//		timer.end();
+//		timerSum += timer.getTimeTakenMillis();
+//		timerCount.incrementAndGet();
+//		return transactions;
+//	}
+
+
+//	@Override
+//	public List<Transaction> getAllLatestTransactionsByCC(String ccNo) {           // SA
+
+//		Timer timer = new Timer();
+//		List<Transaction> transactions;
+//		transactions = dao.getAllLatestTransactionsByCC(ccNo);
+//		timer.end();
+//		timerSum += timer.getTimeTakenMillis();
+//		timerCount.incrementAndGet();
+//		return transactions;
+//	}
+
+//	@Override
+//	public List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from) {           // SA
+
+//		Timer timer = new Timer();
+//		List<Transaction> transactions;
+//		transactions = dao.getAllRtfapTransactionsByCC(ccNo, from);
+//		timer.end();
+//		timerSum += timer.getTimeTakenMillis();
+//		timerCount.incrementAndGet();
+//		return transactions;
+//	}
+
+	@Override
+	public List<Transaction> getAllFraudulentTransactionsByCC(String ccNo) {           // SA
+
+		Timer timer = new Timer();
+		List<Transaction> transactions;
+		transactions = dao.getAllFraudulentTransactionsByCC(ccNo);
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
 		return transactions;
 	}
+
 	@Override
-	public List<Transaction> getAllLatestTransactionsByCC(String ccNo) {           // SA
+	public List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod) {           // SA
 
 		Timer timer = new Timer();
 		List<Transaction> transactions;
-		transactions = dao.getAllLatestTransactionsByCC(ccNo);
-		timer.end();
-		timerSum += timer.getTimeTakenMillis();
-		timerCount.incrementAndGet();
-		return transactions;
-	}
-
-	@Override
-	public List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from) {           // SA
-
-		Timer timer = new Timer();
-		List<Transaction> transactions;
-		transactions = dao.getAllRtfapTransactionsByCC(ccNo, from);
+		transactions = dao.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
