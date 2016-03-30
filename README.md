@@ -240,25 +240,23 @@ Cary to update here
 
 ##Stress yaml
 
-THIS IS TBD.
-To help show how DSE will perform in terms of latency and throughput we can use the Cassandra-stress tool to write and read from the system.
+Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-You will find the stress.yaml file here -
-https://gist.github.com/PatrickCallaghan/1e16c3eb38fada08a2c0
+The stress YAML files are uploaded to this repostory.
 
 You can read more about stress testing a data model here
 http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
 http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
 
-Examples of running the stress tool are (please change node0 to whatever your contact point may be)
+An examples of running the stress tool is below:
 
 For inserts
 ```
-cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0
+cassandra-stress user profile=./txn_by_cc_stress.yaml n=1000000 ops\(insert=1\) -node 10.0.0.4
 ```
 For reads
 ```
-cassandra-stress user profile=Bank-IoT-Stress.yaml  ops\(getall=1\) cl=LOCAL_ONE n=100000 -rate threads=4 -node node0
+caroline to update.
 ```
 
 ##Code Sample
