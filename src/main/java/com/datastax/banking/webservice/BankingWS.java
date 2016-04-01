@@ -83,6 +83,15 @@ public class BankingWS {
 //
 //		return Response.status(Status.OK).entity(result).build();
 //	}
+    @GET
+	@Path("/getalltransactions/")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllTransactions() {
+	List<Transaction> result = service.getAllTransactions();
+
+	return Response.status(Status.OK).entity(result).build();
+}
+
 
 	@GET
 	@Path("/getallfraudulenttransactions/{creditcardno}")    // SA

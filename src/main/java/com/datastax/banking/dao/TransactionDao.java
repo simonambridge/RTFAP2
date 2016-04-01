@@ -6,16 +6,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.datastax.banking.model.Transaction;
 import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 /**
@@ -28,14 +25,12 @@ public class TransactionDao {
 	private static Logger logger = LoggerFactory.getLogger(TransactionDao.class);
 	private Session session;
 
-	//private static String keyspaceName = "datastax_banking_iot";
     private static String rtfapkeyspaceName = "rtfap";                     // SA
 
-	//private static String transactionTable = keyspaceName + ".transactions";
-	//private static String latestTransactionTable = keyspaceName + ".latest_transactions";
     private static String rtfapTransactionTable = rtfapkeyspaceName + ".transactions";   // SA
 
-
+	// cql queries - the individual parameters are passed as bind variables to the prepared statement
+	//
 	//private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable
 	//		+ " where cc_no = ? and year = ?";
 	//private static final String GET_TRANSACTIONS_BY_CCNO = "select * from " + transactionTable
@@ -46,9 +41,11 @@ public class TransactionDao {
 	//private static final String GET_ALL_LATEST_TRANSACTIONS_BY_CCNO = "select * from " + latestTransactionTable     // SA
 	//		+ " where cc_no = ?";
 
-    private static final String GET_ALL_RTFAP_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
-            + " where cc_no = ? and txn_time >= ?";
 
+	private static final String GET_ALL_TRANSACTIONS = "select * from " + rtfapTransactionTable + ";";     // SA
+
+	// Solr queries - the entire where clause is passed as a parameter to the prepared statement
+	//
 	private static final String GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -56,14 +53,11 @@ public class TransactionDao {
 			+ " where solr_query = ?";
 
 
-	//private PreparedStatement getTransactionById;
-	//private PreparedStatement getTransactionByCCno;
-	//private PreparedStatement getLatestTransactionByCCno;
-
 	//private PreparedStatement getAllLatestTransactionsByCCno;       // SA
     //private PreparedStatement getAllRtfapTransactionsByCCno;       // SA
-	private PreparedStatement getAllFraudulentTransactionsByCCno;       // SA
-	private PreparedStatement getAllFraudulentTransactionsInLastPeriod;       // SA
+	private PreparedStatement getAllTransactions;                       // SA - CQL query
+	private PreparedStatement getAllFraudulentTransactionsByCCno;       // SA - Solr query
+	private PreparedStatement getAllFraudulentTransactionsInLastPeriod; // SA - Solr query
 
 	private AtomicLong count = new AtomicLong(0);
 
@@ -81,6 +75,7 @@ public class TransactionDao {
 
 			//this.getAllLatestTransactionsByCCno = session.prepare(GET_ALL_LATEST_TRANSACTIONS_BY_CCNO);    // SA
             //this.getAllRtfapTransactionsByCCno = session.prepare(GET_ALL_RTFAP_TRANSACTIONS_BY_CCNO);    // SA
+			this.getAllTransactions = session.prepare(GET_ALL_TRANSACTIONS);    // SA
 			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllFraudulentTransactionsInLastPeriod = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_IN_LAST_PERIOD);    // SA
 
@@ -94,37 +89,6 @@ public class TransactionDao {
 		}
 	}
 
-
-
-	//public Transaction getTransaction(String transactionId) {
-
-	//	ResultSetFuture rs = this.session.executeAsync(this.getTransactionById.bind(transactionId));
-
-	//	Row row = rs.getUninterruptibly().one();
-	//	if (row == null) {
-	//		throw new RuntimeException("Error - no transaction for id:" + transactionId);
-	//	}
-
-	//	return rowToTransaction(row);
-	//}
-
-//	private Transaction rowToTransaction(Row row) {
-
-//		Transaction t = new Transaction();
-
-//        t.setAmount(row.getDouble("amount"));
-//        t.setCreditCardNo(row.getString("cc_no"));
-//        t.setMerchant(row.getString("merchant"));
-//        t.setLocation(row.getString("location"));
-//        t.setTransactionId(row.getString("transaction_id"));
-//        t.setTransactionTime(row.getDate("transaction_time"));
-//        t.setUserId(row.getString("user_id"));
-//        t.setNotes(row.getString("notes"));
-//        t.setStatus(row.getString("status"));
-//        t.setTags(row.getSet("tags", String.class));
-
-//        return t;
-//	}
 
     private Transaction rowToRtfapTransaction(Row row) {
 
@@ -162,9 +126,16 @@ public class TransactionDao {
 //		return processResultSet(resultSet);
 //	}
 
+	public List<Transaction> getAllTransactions() {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
+		ResultSet resultSet = this.session.execute(getAllTransactions.bind());
+		return processRtfapResultSet(resultSet);
+	}
+
 	public List<Transaction> getAllFraudulentTransactionsByCC(String ccNo) {                    // SA
         // execute the prepared statement using the supplied bind variable(s)
-		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of ccNo
+		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"cc_no: " + ccNo + "\", \"fq\":[\"tags:Fraudulent\"]}";
 		ResultSet resultSet = this.session.execute(getAllFraudulentTransactionsByCCno.bind(solrBindString));
 		return processRtfapResultSet(resultSet);
@@ -178,52 +149,6 @@ public class TransactionDao {
 		return processRtfapResultSet(resultSet);
 	}
 
-
-
-
-
-
-
-
-//	private List<Transaction> processResultSet(ResultSet resultSet, Set<String> tags) {
-//		List<Row> rows = resultSet.all();
-//		List<Transaction> transactions = new ArrayList<Transaction>();
-
-//		for (Row row : rows) {
-
-//			Transaction transaction = rowToTransaction(row);
-			
-//			if (tags !=null && tags.size() !=0){
-								
-//				Iterator<String> iter = tags.iterator();
-				
-//				//Check to see if any of the search tags are in the tags of the transaction.
-//				while (iter.hasNext()) {
-//					String tag = iter.next();
-					
-//					if (transaction.getTags().contains(tag)) {
-//						transactions.add(transaction);
-//						break;
-//					}
-//				}
-//			}else{
-//				transactions.add(transaction);
-//			}
-//		}
-//		return transactions;
-//	}
-
-//	private List<Transaction> processResultSet(ResultSet resultSet) {   // SA
-//		List<Row> rows = resultSet.all();
-//		List<Transaction> transactions = new ArrayList<Transaction>();
-
-//		for (Row row : rows) {
-
-//			Transaction transaction = rowToTransaction(row);
-//			transactions.add(transaction);
-//		}
-//		return transactions;
-//	}
 
     private List<Transaction> processRtfapResultSet(ResultSet resultSet) {   // SA
         List<Row> rows = resultSet.all();
