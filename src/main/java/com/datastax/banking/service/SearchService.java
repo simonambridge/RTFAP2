@@ -11,11 +11,12 @@ public interface SearchService {
 
 	public double getTimerAvg();
 
-	//List<Transaction> getTransactionsByTagAndDate(String ccNo, Set<String> search, DateTime from, DateTime to);
-	//List<Transaction> getAllLatestTransactionsByCC(String ccNo);               // SA
-	//List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from); // SA
 
-	List<Transaction> getAllTransactions(); // SA - CQL only
-	List<Transaction> getAllTransactionsByCCno(String ccNo); // SA - Solr query
-	List<Transaction> getAllTransactionsInLastPeriod(String lastPeriod); // SA - Solr query
+	//	List<Transaction> getAllTransactionsByCCnoAndDates(String ccNo, DateTime from, DateTime to); // SA - CQL only
+	List<Transaction> getAllTransactions();                            // SA - CQL only
+	List<Transaction> getDailyTransactionsByMerchant(String merchant, int day); // SA - CQL only
+	List<Transaction> getAllRejectedTransactions();                                // SA - Solr query
+	List<Transaction> getFacetedTransactionsByMerchant();                          // SA - Solr query
+	List<Transaction> getAllFraudulentTransactionsByCCno(String ccNo);             // SA - Solr query
+	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod); // SA - Solr query
 }

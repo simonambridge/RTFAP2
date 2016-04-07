@@ -32,11 +32,11 @@ public class BankingWS {
 	private SearchService service = new SearchServiceImpl();
 	
 //	@GET
-//	@Path("/gettransactions/{creditcardno}/{from}/{to}")
+//	@Path("/getalltransactionsbyccnoanddates/{creditcardno}/{from}/{to}")
 //	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getMovements(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
+//	public Response getAllTransactionsByCCnoAndDates(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
 //			@PathParam("to") String toDate) {
-		
+//
 //		DateTime from = DateTime.now();
 //		DateTime to = DateTime.now();
 //		try {
@@ -44,62 +44,64 @@ public class BankingWS {
 //			to = new DateTime(inputDateFormat.parse(toDate));
 //		} catch (ParseException e) {
 //			String error = "Caught exception parsing dates " + fromDate + "-" + toDate;
-			
-//			logger.error(error);
-//			return Response.status(Status.BAD_REQUEST).entity(error).build();
-//		}
-				
-//		List<Transaction> result = service.getTransactionsByTagAndDate(ccNo, null, from, to);
-		
-//		return Response.status(Status.OK).entity(result).build();
-//	}
-
-//	@GET
-//	@Path("/getalltransactions/{creditcardno}")    // SA
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getAllLatestTransactions(@PathParam("creditcardno") String ccNo) {
-//		List<Transaction> result = service.getAllLatestTransactionsByCC(ccNo);
-
-//		return Response.status(Status.OK).entity(result).build();
-//	}
-
-//	@GET
-//	@Path("/getallsuccessfultransactions/{creditcardno}/{from}")    // SA
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response getAllRtfapTransactions(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate) {
-//		DateTime from = DateTime.now();
-
-//		try {
-//			from = new DateTime(inputDateFormat.parse(fromDate));
-//		} catch (ParseException e) {
-//			String error = "Caught exception parsing dates " + fromDate;
-
+//
 //			logger.error(error);
 //			return Response.status(Status.BAD_REQUEST).entity(error).build();
 //		}
 //
-//      //logger.info(ccNo + " " + from);
-//		List<Transaction> result = service.getAllRtfapTransactionsByCC(ccNo, from);
+//		List<Transaction> result = service.getAllTransactionsByCCnoAndDates(ccNo, null, from, to);
 //
 //		return Response.status(Status.OK).entity(result).build();
 //	}
+
     @GET
 	@Path("/getalltransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactions() {
-	List<Transaction> result = service.getAllTransactions();
+	   List<Transaction> result = service.getAllTransactions();
 
-	return Response.status(Status.OK).entity(result).build();
-}
+	   return Response.status(Status.OK).entity(result).build();
+    }
+
+	@GET
+  	@Path("/getdailytransactionsbymerchant/{merchant}/{day}")
+  	@Produces(MediaType.APPLICATION_JSON)
+  	public Response getDailyTransactionsByMerchant(@PathParam("merchant") String merchant, @PathParam("day") int day) {
+		logger.info("WebService: " + merchant + "," + day);
+
+  		List<Transaction> result = service.getDailyTransactionsByMerchant(merchant, day);
+
+  		return Response.status(Status.OK).entity(result).build();
+  	}
+
 
 
 	@GET
-	@Path("/getallfraudulenttransactions/{creditcardno}")    // SA
+	@Path("/getallrejectedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
+	public Response getAllRejectedTransactions() {
+		List<Transaction> result = service.getAllRejectedTransactions();
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
+	@Path("/getfacetedtransactionsbymerchant/")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFacetedTransactionsByMerchant() {
+
+		List<Transaction> result = service.getFacetedTransactionsByMerchant();
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
+	@Path("/getallfraudulenttransactionsbyccno/{creditcardno}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllFraudulentTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
 
 		logger.info("WebService: " + ccNo);
-		List<Transaction> result = service.getAllTransactionsByCCno(ccNo);
+		List<Transaction> result = service.getAllFraudulentTransactionsByCCno(ccNo);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
@@ -107,10 +109,10 @@ public class BankingWS {
 	@GET
 	@Path("/getallfraudulenttransactionsinlastperiod/{period}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
+	public Response getAllFraudulentTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
 
 		logger.info("WebService: " + lastPeriod);
-		List<Transaction> result = service.getAllTransactionsInLastPeriod(lastPeriod);
+		List<Transaction> result = service.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
