@@ -16,6 +16,6 @@ public interface SearchService {
 	//List<Transaction> getAllRtfapTransactionsByCC(String ccNo, DateTime from); // SA
 
 	List<Transaction> getAllTransactions(); // SA - CQL only
-	List<Transaction> getAllFraudulentTransactionsByCC(String ccNo); // SA - Solr query
-	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod); // SA - Solr query
+	List<Transaction> getAllTransactionsByCCno(String ccNo); // SA - Solr query
+	List<Transaction> getAllTransactionsInLastPeriod(String lastPeriod); // SA - Solr query
 }

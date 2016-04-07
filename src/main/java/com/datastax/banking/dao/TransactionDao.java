@@ -46,18 +46,18 @@ public class TransactionDao {
 
 	// Solr queries - the entire where clause is passed as a parameter to the prepared statement
 	//
-	private static final String GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
+	private static final String GET_ALL_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
-	private static final String GET_ALL_FRAUDULENT_TRANSACTIONS_IN_LAST_PERIOD = "select * from " + rtfapTransactionTable     // SA
+	private static final String GET_ALL_TRANSACTIONS_IN_LAST_PERIOD = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
 
 	//private PreparedStatement getAllLatestTransactionsByCCno;       // SA
     //private PreparedStatement getAllRtfapTransactionsByCCno;       // SA
 	private PreparedStatement getAllTransactions;                       // SA - CQL query
-	private PreparedStatement getAllFraudulentTransactionsByCCno;       // SA - Solr query
-	private PreparedStatement getAllFraudulentTransactionsInLastPeriod; // SA - Solr query
+	private PreparedStatement getAllTransactionsByCCno;       // SA - Solr query
+	private PreparedStatement getAllTransactionsInLastPeriod; // SA - Solr query
 
 	private AtomicLong count = new AtomicLong(0);
 
@@ -76,11 +76,11 @@ public class TransactionDao {
 			//this.getAllLatestTransactionsByCCno = session.prepare(GET_ALL_LATEST_TRANSACTIONS_BY_CCNO);    // SA
             //this.getAllRtfapTransactionsByCCno = session.prepare(GET_ALL_RTFAP_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllTransactions = session.prepare(GET_ALL_TRANSACTIONS);    // SA
-			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
-			this.getAllFraudulentTransactionsInLastPeriod = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_IN_LAST_PERIOD);    // SA
+			this.getAllTransactionsByCCno = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO);    // SA
+			this.getAllTransactionsInLastPeriod = session.prepare(GET_ALL_TRANSACTIONS_IN_LAST_PERIOD);    // SA
 
-			logger.info("Query String=" + GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);
-			//logger.info("Query String=" + this.getAllFraudulentTransactionsByCCno);
+			logger.info("Query String=" + GET_ALL_TRANSACTIONS_BY_CCNO);
+			//logger.info("Query String=" + this.getAllTransactionsByCCno);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,19 +133,19 @@ public class TransactionDao {
 		return processRtfapResultSet(resultSet);
 	}
 
-	public List<Transaction> getAllFraudulentTransactionsByCC(String ccNo) {                    // SA
+	public List<Transaction> getAllTransactionsByCCno(String ccNo) {                    // SA
         // execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"cc_no: " + ccNo + "\", \"fq\":[\"tags:Fraudulent\"]}";
-		ResultSet resultSet = this.session.execute(getAllFraudulentTransactionsByCCno.bind(solrBindString));
+		ResultSet resultSet = this.session.execute(getAllTransactionsByCCno.bind(solrBindString));
 		return processRtfapResultSet(resultSet);
 	}
 
-	public List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod) {                    // SA
+	public List<Transaction> getAllTransactionsInLastPeriod(String lastPeriod) {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of ccNo
 		String solrBindString = "{\"q\":\"*:*\", \"fq\":[\"txn_time:[NOW-1" + lastPeriod + " TO *]\", \"tags:Fraudulent\"]}";
-		ResultSet resultSet = this.session.execute(getAllFraudulentTransactionsInLastPeriod.bind(solrBindString));
+		ResultSet resultSet = this.session.execute(getAllTransactionsInLastPeriod.bind(solrBindString));
 		return processRtfapResultSet(resultSet);
 	}
 

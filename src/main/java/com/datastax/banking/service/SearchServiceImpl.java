@@ -84,11 +84,11 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Transaction> getAllFraudulentTransactionsByCC(String ccNo) {           // SA
+	public List<Transaction> getAllTransactionsByCCno(String ccNo) {           // SA
 
 		Timer timer = new Timer();
 		List<Transaction> transactions;
-		transactions = dao.getAllFraudulentTransactionsByCC(ccNo);
+		transactions = dao.getAllTransactionsByCCno(ccNo);
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
@@ -96,11 +96,11 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod) {           // SA
+	public List<Transaction> getAllTransactionsInLastPeriod(String lastPeriod) {           // SA
 
 		Timer timer = new Timer();
 		List<Transaction> transactions;
-		transactions = dao.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
+		transactions = dao.getAllTransactionsInLastPeriod(lastPeriod);
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();

@@ -96,10 +96,10 @@ public class BankingWS {
 	@GET
 	@Path("/getallfraudulenttransactions/{creditcardno}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllFraudulentTransactions(@PathParam("creditcardno") String ccNo) {
+	public Response getAllTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
 
 		logger.info("WebService: " + ccNo);
-		List<Transaction> result = service.getAllFraudulentTransactionsByCC(ccNo);
+		List<Transaction> result = service.getAllTransactionsByCCno(ccNo);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
@@ -107,10 +107,10 @@ public class BankingWS {
 	@GET
 	@Path("/getallfraudulenttransactionsinlastperiod/{period}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllFraudulentTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
+	public Response getAllTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
 
 		logger.info("WebService: " + lastPeriod);
-		List<Transaction> result = service.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
+		List<Transaction> result = service.getAllTransactionsInLastPeriod(lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
