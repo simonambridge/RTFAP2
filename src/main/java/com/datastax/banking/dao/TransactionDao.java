@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.datastax.banking.model.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,7 +111,7 @@ public class TransactionDao {
 		// execute the prepared statement using the supplied bind variable(s)
 		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
 		ResultSet resultSet = this.session.execute(getAllTransactions.bind());
-		return processRtfapResultSet(resultSet);
+		return processTransactionResultSet(resultSet);
 	}
 
 	public List<Transaction> getDailyTransactionsByMerchant(String merchant, int day) {                    // SA
@@ -118,21 +119,21 @@ public class TransactionDao {
 		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
 		ResultSet resultSet = this.session.execute(getDailyTransactionsByMerchant.bind(merchant, day));
 //		ResultSet resultSet = this.session.execute(getDailyTransactionsByMerchant.bind("GAP", 20160309));
-		return processRtfapResultSet(resultSet);
+		return processTransactionResultSet(resultSet);
 	}
 
-	public List<Transaction> getYearlyTransactionsByccNo(String ccNo, int year) {                    // SA
+	public List<Aggregate> getYearlyTransactionsByccNo(String ccNo, int year) {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
 		ResultSet resultSet = this.session.execute(getYearlyTransactionsByccNo.bind(ccNo, year));
-		return processRtfapResultSet(resultSet);
+		return processAggregateResultSet(resultSet);
 	}
 	public List<Transaction> getAllRejectedTransactions() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"status:Rejected\"}";
 		ResultSet resultSet = this.session.execute(getAllRejectedTransactions.bind(solrBindString));
-		return processRtfapResultSet(resultSet);
+		return processTransactionResultSet(resultSet);
 	}
 	public String getFacetedTransactionsByMerchant() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
@@ -147,7 +148,7 @@ public class TransactionDao {
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"cc_no: " + ccNo + "\", \"fq\":[\"tags:Fraudulent\"]}";
 		ResultSet resultSet = this.session.execute(getAllFraudulentTransactionsByCCno.bind(solrBindString));
-		return processRtfapResultSet(resultSet);
+		return processTransactionResultSet(resultSet);
 	}
 
 	public List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod) {                    // SA
@@ -155,20 +156,32 @@ public class TransactionDao {
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of ccNo
 		String solrBindString = "{\"q\":\"*:*\", \"fq\":[\"txn_time:[NOW-1" + lastPeriod + " TO *]\", \"tags:Fraudulent\"]}";
 		ResultSet resultSet = this.session.execute(getAllFraudulentTransactionsInLastPeriod.bind(solrBindString));
-		return processRtfapResultSet(resultSet);
+		return processTransactionResultSet(resultSet);
 	}
 
 
-    private List<Transaction> processRtfapResultSet(ResultSet resultSet) {   // SA
+    private List<Transaction> processTransactionResultSet(ResultSet resultSet) {   // SA
         List<Row> rows = resultSet.all();
         List<Transaction> transactions = new ArrayList<Transaction>();
 
         for (Row row : rows) {
 
-            Transaction transaction = rowToRtfapTransaction(row);
+            Transaction transaction = rowToTransaction(row);
             transactions.add(transaction);
         }
         return transactions;
+	}
+
+	private List<Aggregate> processAggregateResultSet(ResultSet resultSet) {   // SA
+		List<Row> rows = resultSet.all();
+		List<Aggregate> aggregates = new ArrayList<Aggregate>();
+
+		for (Row row : rows) {
+
+			Aggregate aggregate = rowToAggregate(row);
+			aggregates.add(aggregate);
+		}
+		return aggregates;
 	}
 
 	private String processFacetResultSet(ResultSet rs) {   // SA
@@ -178,7 +191,7 @@ public class TransactionDao {
 		return result;
 	}
 
-	private Transaction rowToRtfapTransaction(Row row) {
+	private Transaction rowToTransaction(Row row) {
 
 		Transaction t = new Transaction();
 
@@ -193,6 +206,13 @@ public class TransactionDao {
 		t.setNotes(row.getString("notes"));
 		t.setStatus(row.getString("status"));
 		t.setTags(row.getSet("tags", String.class));
+
+		return t;
+	}
+	private Aggregate rowToAggregate(Row row) {
+
+		Aggregate t = new Aggregate();
+
 
 		return t;
 	}

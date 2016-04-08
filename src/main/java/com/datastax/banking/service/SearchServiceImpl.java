@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.datastax.banking.model.Aggregate;
 import org.joda.time.DateTime;
 
 import com.datastax.banking.dao.TransactionDao;
@@ -72,15 +73,15 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Transaction> getYearlyTransactionsByccNo(String ccNo, int year) {           // SA
+	public List<Aggregate> getYearlyTransactionsByccNo(String ccNo, int year) {           // SA
 
 		Timer timer = new Timer();
-		List<Transaction> transactions;
-		transactions = dao.getYearlyTransactionsByccNo(ccNo, year);
+		List<Aggregate> aggregates;
+		aggregates = dao.getYearlyTransactionsByccNo(ccNo, year);
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
-		return transactions;
+		return aggregates;
 	}
 
 	@Override

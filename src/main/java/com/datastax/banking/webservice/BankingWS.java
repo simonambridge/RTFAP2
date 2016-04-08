@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.datastax.banking.model.Aggregate;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +81,7 @@ public class BankingWS {
 	public Response getYearlyTransactionsByccNo(@PathParam("ccNo") String ccNo, @PathParam("year") int year) {
 		logger.info("WebService: " + ccNo + "," + year);
 
-		List<Transaction> result = service.getYearlyTransactionsByccNo(ccNo, year);
+		List<Aggregate> result = service.getYearlyTransactionsByccNo(ccNo, year);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
