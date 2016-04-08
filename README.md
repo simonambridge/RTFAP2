@@ -206,12 +206,14 @@ The queries demonstrate the use of both straightforward CQL and CQL-Solr.
 
 ### Retrieve data for all transactions in the TRANSACTIONS table:
 http://104.42.110.110:8080/datastax-banking-iot/rest/getalltransactions 
+```
 select * from transactions;
-
+```
 ### Retrieve data for all transactions in the TRANSACTIONS table where status="Rejected"
 http://104.42.110.110:8080/datastax-banking-iot/rest/getallrejectedtransactions 
+```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
-
+```
 ### Retrieve faceted data for all transactions in the TRANSACTIONS table by merchant
 http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymerchant 
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
