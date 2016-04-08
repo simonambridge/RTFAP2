@@ -10,7 +10,7 @@ public class Aggregate {
     private double max_amount;
     private double min_amount;
     private double total_amount;
-    private int total_count;
+    private double total_count;
 
     public Aggregate() {
         super();
@@ -56,11 +56,11 @@ public class Aggregate {
         this.total_amount = total_amount;
     }
 
-    public int getTotal_count() {
+    public double getTotal_count() {
         return total_count;
     }
 
-    public void setTotal_count(int total_count) {
+    public void setTotal_count(double total_count) {
         this.total_count = total_count;
     }
 }

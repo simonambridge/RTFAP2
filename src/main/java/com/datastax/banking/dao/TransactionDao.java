@@ -218,8 +218,8 @@ public class TransactionDao {
 		a.setMin_amount(row.getDouble("min_amount"));
 		a.setMax_amount(row.getDouble("max_amount"));
 		a.setTotal_amount(row.getDouble("total_amount"));
-		a.setTotal_count(row.getInt("total_count"));
-		
+		a.setTotal_count(row.getDouble("total_count"));
+
 		return a;
 	}
 }
