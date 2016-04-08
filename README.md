@@ -196,6 +196,49 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 ```
 (just like above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.)
 
+## Querying Data Using A ReST Web Interface
+
+To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
+
+These sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
+
+The queries demonstrate the use of both straightforward CQL and CQL-Solr.
+
+### Retrieve data for all transactions in the TRANSACTIONS table:
+http://104.42.110.110:8080/datastax-banking-iot/rest/getalltransactions 
+select * from transactions;
+
+### Retrieve data for all transactions in the TRANSACTIONS table where status="Rejected"
+http://104.42.110.110:8080/datastax-banking-iot/rest/getallrejectedtransactions 
+SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
+
+### Retrieve faceted data for all transactions in the TRANSACTIONS table by merchant
+http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymerchant 
+SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
+
+### Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent"
+http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsbyccno/123412*
+SELECT * FROM transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
+
+### Retrieve data for all transactions in the last year in the TRANSACTIONS table tagged as "Fraudulent"
+http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/YEAR
+SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MONTH TO *]", "tags:Fraudulent"]}';
+
+### Retrieve data for all transactions in the last month in the TRANSACTIONS table tagged as "Fraudulent"
+http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/MONTH
+SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MONTH TO *]", "tags:Fraudulent"]}';
+
+### Retrieve data for all transactions in the last day in the TRANSACTIONS table tagged as "Fraudulent"
+http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/DAY
+SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}';
+
+### Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
+http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
+select * from dailytxns_bymerchant where merchant='GAP' and day= 20160309;
+
+### Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235" 
+http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
+select * from yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
 
 ## Analyzing data using DSE Spark Analytics
 
