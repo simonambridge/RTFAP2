@@ -31,6 +31,7 @@ public class TransactionDao {
 
     private static String rtfapTransactionTable = rtfapkeyspaceName + ".transactions";   // SA
 	private static String merchantDailyRollupTable = rtfapkeyspaceName + ".dailytxns_bymerchant";   // SA
+	private static String ccNoYearlyRollupTable = rtfapkeyspaceName + ".yearlyaggregates_bycc";   // SA
 
 
 	// cql queries - the individual parameters are passed as bind variables to the prepared statement
@@ -41,6 +42,8 @@ public class TransactionDao {
 	private static final String GET_ALL_TRANSACTIONS = "select * from " + rtfapTransactionTable + ";";     // SA
 	private static final String GET_DAILY_TRANSACTIONS_BY_MERCHANT = "select * from " + merchantDailyRollupTable
 			+ " where merchant = ? and day = ?";
+	private static final String GET_YEARLY_TRANSACTIONS_BY_CCNO = "select * from " + ccNoYearlyRollupTable
+			+ " where cc_No = ? and year = ?";
 
 
 	// Solr queries - the entire where clause is passed as a parameter to the prepared statement
@@ -61,6 +64,7 @@ public class TransactionDao {
 	//private PreparedStatement getAllTransactionsByCCnoAndDates;       // SA
 	private PreparedStatement getAllTransactions;                       // SA - CQL query
 	private PreparedStatement getDailyTransactionsByMerchant;           // SA - CQL query
+	private PreparedStatement getYearlyTransactionsByccNo;              // SA - CQL query
 
 	private PreparedStatement getAllRejectedTransactions;               // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByMerchant;         // SA - Solr query
@@ -81,6 +85,7 @@ public class TransactionDao {
 //			this.getAllTransactionsByCCnoAndDates = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO_AND_DATES);
 			this.getAllTransactions = session.prepare(GET_ALL_TRANSACTIONS);    // SA
 			this.getDailyTransactionsByMerchant = session.prepare(GET_DAILY_TRANSACTIONS_BY_MERCHANT);    // SA
+			this.getYearlyTransactionsByccNo = session.prepare(GET_YEARLY_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
 			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
@@ -112,9 +117,16 @@ public class TransactionDao {
 		// execute the prepared statement using the supplied bind variable(s)
 		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
 		ResultSet resultSet = this.session.execute(getDailyTransactionsByMerchant.bind(merchant, day));
+//		ResultSet resultSet = this.session.execute(getDailyTransactionsByMerchant.bind("GAP", 20160309));
 		return processRtfapResultSet(resultSet);
 	}
 
+	public List<Transaction> getYearlyTransactionsByccNo(String ccNo, int year) {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For cql, specify individual bind variable(s)(or nothing if one isn't required)
+		ResultSet resultSet = this.session.execute(getYearlyTransactionsByccNo.bind(ccNo, year));
+		return processRtfapResultSet(resultSet);
+	}
 	public List<Transaction> getAllRejectedTransactions() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
@@ -122,7 +134,7 @@ public class TransactionDao {
 		ResultSet resultSet = this.session.execute(getAllRejectedTransactions.bind(solrBindString));
 		return processRtfapResultSet(resultSet);
 	}
-	public List<Transaction> getFacetedTransactionsByMerchant() {                    // SA
+	public String getFacetedTransactionsByMerchant() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"*:*\", \"facet\":{\"field\":\"merchant\"}}";
@@ -159,13 +171,11 @@ public class TransactionDao {
         return transactions;
 	}
 
-	private List<Transaction> processFacetResultSet(ResultSet rs) {   // SA
+	private String processFacetResultSet(ResultSet rs) {   // SA
 		Row row = rs.one();
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		String result = row.toString();
-
+		String result = row.getString(0);
 		logger.info("Facet: " + result);
-		return transactions;
+		return result;
 	}
 
 	private Transaction rowToRtfapTransaction(Row row) {

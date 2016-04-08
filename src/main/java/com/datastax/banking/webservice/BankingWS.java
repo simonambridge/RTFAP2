@@ -74,6 +74,17 @@ public class BankingWS {
   		return Response.status(Status.OK).entity(result).build();
   	}
 
+	@GET
+	@Path("/getyearlytransactionsbyccno/{merchant}/{year}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDailyTransactionsByccNo(@PathParam("merchant") String ccNo, @PathParam("day") int year) {
+		logger.info("WebService: " + ccNo + "," + year);
+
+		List<Transaction> result = service.getDailyTransactionsByMerchant(ccNo, year);
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
 
 
 	@GET
@@ -90,7 +101,7 @@ public class BankingWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacetedTransactionsByMerchant() {
 
-		List<Transaction> result = service.getFacetedTransactionsByMerchant();
+		String result = service.getFacetedTransactionsByMerchant();
 
 		return Response.status(Status.OK).entity(result).build();
 	}

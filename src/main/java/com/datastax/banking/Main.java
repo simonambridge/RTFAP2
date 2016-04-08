@@ -28,7 +28,7 @@ public class Main {
 		SearchService service=new SearchServiceImpl();
 		//logger.info(service.getAllrTFAPTransactionsByCC("1234123412341235", DateTime.now().withDayOfMonth(8)).toString());
 		//logger.info(service.getAllFraudulentTransactionsByCC("1234123412341235"));
-
+        logger.info(service.getDailyTransactionsByMerchant("GAP",20160309).toString());
 	}
 
 	private void sleep(int i) {

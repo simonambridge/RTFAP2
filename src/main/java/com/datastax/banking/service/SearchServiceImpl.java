@@ -72,6 +72,18 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	public List<Transaction> getYearlyTransactionsByccNo(String ccNo, int year) {           // SA
+
+		Timer timer = new Timer();
+		List<Transaction> transactions;
+		transactions = dao.getYearlyTransactionsByccNo(ccNo, year);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
+	}
+
+	@Override
 	public List<Transaction> getAllRejectedTransactions() {           // SA
 
 		Timer timer = new Timer();
@@ -84,11 +96,10 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Transaction> getFacetedTransactionsByMerchant() {           // SA
+	public String getFacetedTransactionsByMerchant() {           // SA
 
 		Timer timer = new Timer();
-		List<Transaction> transactions;
-		transactions = dao.getFacetedTransactionsByMerchant();
+		String transactions = dao.getFacetedTransactionsByMerchant();
 		timer.end();
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
