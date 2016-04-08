@@ -211,9 +211,15 @@ public class TransactionDao {
 	}
 	private Aggregate rowToAggregate(Row row) {
 
-		Aggregate t = new Aggregate();
+		Aggregate a = new Aggregate();
 
-
-		return t;
+		a.setCreditCardNo(row.getString("cc_no"));
+		a.setYear(row.getInt("year"));
+		a.setMin_amount(row.getDouble("min_amount"));
+		a.setMax_amount(row.getDouble("max_amount"));
+		a.setTotal_amount(row.getDouble("total_amount"));
+		a.setTotal_count(row.getInt("total_count"));
+		
+		return a;
 	}
 }
