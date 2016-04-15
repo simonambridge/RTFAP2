@@ -295,21 +295,27 @@ Cary to update here
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-The stress YAML files are uploaded to this repostory.
+The stress YAML files are uploaded to this [directory](https://github.com/kunalak/RTFAP/tree/master/stress%20yamls).
 
 You can read more about stress testing a data model here
 http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
 http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
 
-An examples of running the stress tool is below:
+An example of running the stress tool is below using [txn_by_cc_stress.yaml](https://github.com/kunalak/RTFAP/blob/master/stress%20yamls/txn_by_cc_stress.yaml):
 
 For inserts
 ```
-cassandra-stress user profile=./txn_by_cc_stress.yaml n=1000000 ops\(insert=1\) -node 10.0.0.4
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) -node 10.0.0.4
 ```
+
+
+
 For reads
 ```
-caroline to update.
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node 10.0.0.4
+
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 10.0.0.4
+
 ```
 
 ##Code Sample
