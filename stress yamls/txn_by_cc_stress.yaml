@@ -82,10 +82,10 @@ insert:
 # A list of queries you wish to run against the schema
 #
 queries:
-   likelyquery0: 
+   dailytrans: 
     cql: SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ?
     fields: samerow
-   likelyquery1: 
+   singletrans: 
     cql: SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ? AND txn_time = ?
     fields: samerow
 
