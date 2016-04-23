@@ -11,7 +11,7 @@ table: txn_by_cc
 columnspec:
   - name: cc_no
     size: fixed(16)
-    population: gaussian(1111111111111111..9999999999999999)
+    population: gaussian(1..10000)
 
   - name: txn_year
     size: fixed(4)
