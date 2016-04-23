@@ -11,58 +11,58 @@ table: txn_by_cc
 columnspec:
   - name: cc_no
     size: fixed(16)
-    population: fixed(10000)
- 
+    population: gaussian(1111111111111111..9999999999999999)
+
   - name: txn_year
     size: fixed(4)
-    population: gaussian(2010..2015)
+    population: gaussian(2010..2016)
  
   - name: txn_month
     size: fixed(2)
     population: gaussian(1..12)
- 
+
   - name: txn_day
     size: fixed(2)
     population: gaussian(1..28)
- 
+
   - name: txn_time
     size: fixed(18)
     population: gaussian(1..20)
- 
+
   - name: amount
     size: exp(3..10000)
     population: gaussian(1..99999)
- 
+
   - name: cc_provider
     size: uniform(4..16)
-    population: fixed(5)
- 
+    population: uniform(1..4)
+
   - name: location
-    size: gaussian(4..100)
+    size: gaussian(4..40)
     population: uniform(3..100)
- 
+
   - name: merchant
     size: uniform(4..100)
     population: gaussian(3..100)
- 
+
   - name: notes
-    size: gaussian(0..10000)
+    size: gaussian(0..100)
     population: gaussian(0..1000)
- 
+
   - name: status
     size: uniform(4..20)
     population: uniform(2..20)
- 
+
   - name: tags
-    size: gaussian(0..100)
-    population: gaussian(0..1000)
- 
+    size: gaussian(0..50)
+    population: gaussian(0..100)
+
   - name: txn_id
-    size: uniform(4..10000)
-    population: gaussian(1..1000)
- 
-  - name: user_id
     size: uniform(4..100)
+    population: gaussian(1..1000)
+
+  - name: user_id
+    size: uniform(4..50)
     population: gaussian(2..1000)
  
  
