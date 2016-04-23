@@ -31,6 +31,7 @@ For the packathon - the cluster info is below:
 - Opscenter=> http://104.42.108.173:8888/opscenter/index.html
 - Spark Master (currently running on) => http://104.42.105.51:7080/
 - Jupyter notebook with RTFAP Test queries=> http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+- Visual Dashboard => http://104.42.109.110:8983/banana/#/dashboard
 
 ##DataModel
 
@@ -317,6 +318,12 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 10.0.0.4
 
 ```
+
+##Visual Dashboard
+
+[Dashboard](http://104.42.109.110:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
+
+The default dashboard is available in this repo under [Banana](https://github.com/kunalak/RTFAP/tree/master/banana)
 
 ##Code Sample
 
