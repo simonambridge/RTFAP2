@@ -224,14 +224,14 @@ The queries demonstrate the use of both straightforward CQL and CQL-Solr. This c
 ### - List all the card transactions across all cards and vendors
 List all the card transactions across all cards and vendors in the TRANSACTIONS table:
 
-http://104.42.110.110:8080/datastax-banking-iot/rest/getalltransactions 
+http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactions 
 ```
 SELECT * FROM transactions;
 ```
 ### - List all rejected transactions
 Retrieve all transactions in the TRANSACTIONS table where status="Rejected"
 
-http://104.42.110.110:8080/datastax-banking-iot/rest/getallrejectedtransactions 
+http://104.42.109.110:8080/datastax-banking-iot/rest/getallrejectedtransactions 
 ```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
 ```
