@@ -207,19 +207,15 @@ To start the web service use the command:
 
 ```
 $ mvn jetty:run
-
 ```
 To bind to a specific interface other than localhost use:
 
 ```
 $ mvn jetty:run -DcontactPoints=<server IP address>
-
 ```
 For example - to run on 10.0.0.4 and persist the web service after logging out use:
-
 ```
 $ nohup mvn jetty:run -DcontactPoints=10.0.0.4 &
-
 ```
 The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
 - CQL queries bind the individual parameters passed from the web interface
@@ -227,6 +223,7 @@ The queries demonstrate the use of both straightforward CQL and CQL-Solr. This c
 
 ### - List all the card transactions across all cards and vendors
 List all the card transactions across all cards and vendors in the TRANSACTIONS table:
+
 http://104.42.110.110:8080/datastax-banking-iot/rest/getalltransactions 
 ```
 SELECT * FROM transactions;
