@@ -54,7 +54,7 @@ columnspec:
     population: uniform(2..20)
 
   - name: tags
-    size: gaussian(0..50)
+    size: gaussian(0..20)
     population: gaussian(0..100)
 
   - name: txn_id
