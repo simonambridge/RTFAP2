@@ -203,49 +203,82 @@ To use the web service, use the following url’s. These will return a json repr
 
 These sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
 
-The queries demonstrate the use of both straightforward CQL and CQL-Solr.
+To start the web service use the command:
 
-### - Retrieve data for all transactions in the TRANSACTIONS table:
+```
+$ mvn jetty:run
+
+```
+To bind to a specific interface other than localhost use:
+
+```
+$ mvn jetty:run -DcontactPoints=<server IP address>
+
+```
+For example - to run on 10.0.0.4 and persist the web service after logging out use:
+
+```
+$ nohup mvn jetty:run -DcontactPoints=10.0.0.4 &
+
+```
+The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
+- CQL queries bind the individual parameters passed from the web interface
+- CQL-SOLR queries must bind the complete where clause as a single variable
+
+### - List all the card transactions across all cards and vendors
+List all the card transactions across all cards and vendors in the TRANSACTIONS table:
 http://104.42.110.110:8080/datastax-banking-iot/rest/getalltransactions 
 ```
 SELECT * FROM transactions;
 ```
-### - Retrieve data for all transactions in the TRANSACTIONS table where status="Rejected"
+### - List all rejected transactions
+Retrieve all transactions in the TRANSACTIONS table where status="Rejected"
 http://104.42.110.110:8080/datastax-banking-iot/rest/getallrejectedtransactions 
 ```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
 ```
-### - Retrieve faceted data for all transactions in the TRANSACTIONS table by merchant
+### - List all transactions faceted by merchant
+Retrieve all transactions in the TRANSACTIONS table, faceted by merchant
 http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymerchant 
 ```
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 ```
-### - Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent"
+### - List all transactions for a specific card
+Retrieve all transactions in the TRANSACTIONS table for a specified card number (optional wild card)
+http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactionsbyccno/123412*
+```
+SELECT * FROM transactions where solr_query='{"q":"cc_no:123412*"}';
+```
+### - List all fraudulent transactions for a specific card
+Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
 http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsbyccno/123412*
 ```
 SELECT * FROM transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
 ```
-### - Retrieve data for all transactions in the last year in the TRANSACTIONS table tagged as "Fraudulent"
+### - List all fraudulent transactions for a specified period-to-date
+Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last year
 http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/YEAR
 ```
-SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MONTH TO *]", "tags:Fraudulent"]}';
+SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
 ```
-### - Retrieve data for all transactions in the last month in the TRANSACTIONS table tagged as "Fraudulent"
+Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last month
 http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/MONTH
 ```
 SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MONTH TO *]", "tags:Fraudulent"]}';
 ```
-### - Retrieve data for all transactions in the last day in the TRANSACTIONS table tagged as "Fraudulent"
+Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last day
 http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/DAY
 ```
 SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}';
 ```
-### - Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
+### - List all transactions for a merchant on a specified day
+Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
 ```
 SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
 ```
-### - Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235" 
+### - Aggregated purchase history for a specific card and year
+Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235" 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
 ```
 SELECT * FROM yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
