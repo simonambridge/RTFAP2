@@ -336,6 +336,8 @@ Running a cassandra-stress test with the appropriate YAML profile for the table 
 
 The stress YAML files are uploaded to this [directory](https://github.com/kunalak/RTFAP/tree/master/stress%20yamls).
 
+The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
+
 You can read more about stress testing a data model here
 http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
 http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
@@ -344,9 +346,52 @@ An example of running the stress tool is below using [txn_by_cc_stress.yaml](htt
 
 For inserts
 ```
-cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) -node 10.0.0.4
-```
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate auto -node 10.0.0.5
 
+Results:
+op rate                   : 1846 [insert:1846]
+partition rate            : 1846 [insert:1846]
+row rate                  : 1846 [insert:1846]
+latency mean              : 2.1 [insert:2.1]
+latency median            : 1.4 [insert:1.4]
+latency 95th percentile   : 3.8 [insert:3.8]
+latency 99th percentile   : 11.0 [insert:11.0]
+latency 99.9th percentile : 28.0 [insert:28.0]
+latency max               : 1753.2 [insert:1753.2]
+Total partitions          : 100000 [insert:100000]
+Total errors              : 0 [insert:0]
+total gc count            : 0
+total gc mb               : 0
+total gc time (s)         : 0
+avg gc time(ms)           : NaN
+stdev gc time(ms)         : 0
+Total operation time      : 00:00:54
+```
+    
+Increasing the number of threads increases the op rate as expected:
+
+```
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=8 -node 10.0.0.4,10.0.0.5,10.0.0.7
+
+Results:
+op rate                   : 2639 [insert:2639]
+partition rate            : 2639 [insert:2639]
+row rate                  : 2639 [insert:2639]
+latency mean              : 3.0 [insert:3.0]
+latency median            : 1.7 [insert:1.7]
+latency 95th percentile   : 7.0 [insert:7.0]
+latency 99th percentile   : 11.3 [insert:11.3]
+latency 99.9th percentile : 26.6 [insert:26.6]
+latency max               : 722.7 [insert:722.7]
+Total partitions          : 100000 [insert:100000]
+Total errors              : 0 [insert:0]
+total gc count            : 0
+total gc mb               : 0
+total gc time (s)         : 0
+avg gc time(ms)           : NaN
+stdev gc time(ms)         : 0
+Total operation time      : 00:00:37
+```
 
 
 For reads
