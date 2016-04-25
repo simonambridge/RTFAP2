@@ -49,6 +49,9 @@ public class TransactionDao {
 
 	// Solr queries - the entire where clause is passed as a parameter to the prepared statement
 	//
+	private static final String GET_ALL_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
+			+ " where solr_query = ?";
+
 	private static final String GET_ALL_REJECTED_TRANSACTIONS = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -67,6 +70,7 @@ public class TransactionDao {
 	private PreparedStatement getDailyTransactionsByMerchant;           // SA - CQL query
 	private PreparedStatement getYearlyTransactionsByccNo;              // SA - CQL query
 
+	private PreparedStatement getAllTransactionsByCCno;                 // SA - Solr query
 	private PreparedStatement getAllRejectedTransactions;               // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByMerchant;         // SA - Solr query
 	private PreparedStatement getAllFraudulentTransactionsByCCno;       // SA - Solr query
@@ -82,11 +86,12 @@ public class TransactionDao {
         // generate a prepared statement based on the contents of string e.g. GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO
 		try {
 
-
 //			this.getAllTransactionsByCCnoAndDates = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO_AND_DATES);
 			this.getAllTransactions = session.prepare(GET_ALL_TRANSACTIONS);    // SA
 			this.getDailyTransactionsByMerchant = session.prepare(GET_DAILY_TRANSACTIONS_BY_MERCHANT);    // SA
 			this.getYearlyTransactionsByccNo = session.prepare(GET_YEARLY_TRANSACTIONS_BY_CCNO);    // SA
+
+			this.getAllTransactionsByCCno = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
 			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
@@ -106,6 +111,8 @@ public class TransactionDao {
 //		ResultSet resultSet = this.session.execute(getAllTransactionsByCCno.bind(ccNo));
 //		return processResultSet(resultSet);
 //	}
+
+	// CQL queries
 
 	public List<Transaction> getAllTransactions() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
@@ -128,6 +135,17 @@ public class TransactionDao {
 		ResultSet resultSet = this.session.execute(getYearlyTransactionsByccNo.bind(ccNo, year));
 		return processAggregateResultSet(resultSet);
 	}
+
+    // CQL-SOLR queries
+
+	public List<Transaction> getAllTransactionsByCCno(String ccNo) {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
+		String solrBindString = "{\"q\":\"cc_no: " + ccNo + "\"}";
+		ResultSet resultSet = this.session.execute(getAllTransactionsByCCno.bind(solrBindString));
+		return processTransactionResultSet(resultSet);
+	}
+
 	public List<Transaction> getAllRejectedTransactions() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo

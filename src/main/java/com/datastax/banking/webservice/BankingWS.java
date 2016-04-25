@@ -86,8 +86,6 @@ public class BankingWS {
 		return Response.status(Status.OK).entity(result).build();
 	}
 
-
-
 	@GET
 	@Path("/getallrejectedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
@@ -103,6 +101,17 @@ public class BankingWS {
 	public Response getFacetedTransactionsByMerchant() {
 
 		String result = service.getFacetedTransactionsByMerchant();
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
+	@Path("/getalltransactionsbyccno/{creditcardno}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
+
+		logger.info("WebService: " + ccNo);
+		List<Transaction> result = service.getAllTransactionsByCCno(ccNo);
 
 		return Response.status(Status.OK).entity(result).build();
 	}

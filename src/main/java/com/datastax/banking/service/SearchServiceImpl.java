@@ -108,6 +108,18 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	public List<Transaction> getAllTransactionsByCCno(String ccNo) {           // SA
+
+		Timer timer = new Timer();
+		List<Transaction> transactions;
+		transactions = dao.getAllTransactionsByCCno(ccNo);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
+	}
+
+	@Override
 	public List<Transaction> getAllFraudulentTransactionsByCCno(String ccNo) {           // SA
 
 		Timer timer = new Timer();
