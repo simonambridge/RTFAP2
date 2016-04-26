@@ -1,7 +1,6 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
 A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
-They also need reports generated for all merchants every morning encompassing all transaction data over the last day/week for each merchant.
 
 The client wants a REST API to return:  
 - the ratio of transaction success based on the first 6 digits of their credit card no.     
@@ -35,9 +34,9 @@ For the packathon - the cluster info is below:
 
 ##DataModel
 
-We will need to multiple tables for fulfill the above query patterns and workloads. (De-normalization is a good thing with NoSQL databases!)
+We will need multiple tables to fulfill the above query patterns and workloads (de-normalization is a good thing with NoSQL databases!).
 
-We will use single DC for testing purposes. For production deployment, we recommend an Active-Active HA setup across geographical regions with RF=2 or 3.
+We will use a single DC for testing purposes. For production deployment, we recommend an Active-Active HA setup across geographical regions with RF=3.
 ```
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
@@ -167,7 +166,7 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 ##Searching Data in DSE
 
-The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on.
+The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a Solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on.
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
@@ -175,7 +174,7 @@ dsetool create_core rtfap.transactions generateResources=true reindex=true
 
 To check that DSE Search is up and running sucessfully go to http://{servername}:8983/solr/
 
-Now we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through rest.
+Now we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
 
