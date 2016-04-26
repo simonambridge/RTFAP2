@@ -233,12 +233,33 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getallrejectedtransactions
 ```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
 ```
+### - List all declined transactions
+Retrieve all transactions in the TRANSACTIONS table where status="Declined"
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getalldeclinedtransactions 
+```
+SELECT * FROM transactions where solr_query='{"q":"status: Declined"}';
+```
 ### - List all transactions faceted by merchant
 Retrieve all transactions in the TRANSACTIONS table, faceted by merchant
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymerchant 
 ```
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
+```
+### - List all transaction success ratio (faceted by status) in the last period e.g. MINUTE
+Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified period
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbystatusinlastperiod/MINUTE
+```
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1" + lastPeriod + " TO *]","facet":{"field":"status"}}';
+```
+### - List all transaction success ratio (faceted by status) for a specified card in the last period e.g. MINUTE
+Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified card number and period
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbyccnoandstatusinlastperiod/123412*/YEAR
+```
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"cc_no:123412*",  "fq":"txn_time:[NOW-1MINUTE TO *]","facet":{"field":"status"}}';
 ```
 ### - List all transactions for a specific card
 Retrieve all transactions in the TRANSACTIONS table for a specified card number (optional wild card)
