@@ -87,10 +87,10 @@ public class BankingWS {
 	}
 
 	@GET
-	@Path("/getallrejectedtransactions/")    // SA
+	@Path("/getalldeclinedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllRejectedTransactions() {
-		List<Transaction> result = service.getAllRejectedTransactions();
+	public Response getAllDeclinedTransactions() {
+		List<Transaction> result = service.getAllDeclinedTransactions();
 
 		return Response.status(Status.OK).entity(result).build();
 	}

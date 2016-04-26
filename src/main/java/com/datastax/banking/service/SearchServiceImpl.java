@@ -85,6 +85,18 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	public List<Transaction> getAllDeclinedTransactions() {           // SA
+
+		Timer timer = new Timer();
+		List<Transaction> transactions;
+		transactions = dao.getAllDeclinedTransactions();
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
+	}
+
+	@Override
 	public List<Transaction> getAllRejectedTransactions() {           // SA
 
 		Timer timer = new Timer();
