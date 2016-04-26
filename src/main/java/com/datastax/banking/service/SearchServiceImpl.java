@@ -120,6 +120,17 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	public String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod) {           // SA
+
+		Timer timer = new Timer();
+		String transactions = dao.getFacetedTransactionsByStatusInLastPeriod(lastPeriod);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
+	}
+
+	@Override
 	public List<Transaction> getAllTransactionsByCCno(String ccNo) {           // SA
 
 		Timer timer = new Timer();

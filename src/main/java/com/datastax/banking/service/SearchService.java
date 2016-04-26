@@ -20,6 +20,7 @@ public interface SearchService {
 	List<Transaction> getAllDeclinedTransactions();                                // SA - Solr query
 	List<Transaction> getAllRejectedTransactions();                                // SA - Solr query
 	String getFacetedTransactionsByMerchant();                                     // SA - Solr query
+	String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod);          // SA - Solr query
 	List<Transaction> getAllTransactionsByCCno(String ccNo);                       // SA - Solr query
 	List<Transaction> getAllFraudulentTransactionsByCCno(String ccNo);             // SA - Solr query
 	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod); // SA - Solr query

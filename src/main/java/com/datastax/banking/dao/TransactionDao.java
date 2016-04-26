@@ -61,6 +61,9 @@ public class TransactionDao {
 	private static final String GET_FACETED_TRANSACTIONS_BY_MERCHANT = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
+	private static final String GET_FACETED_TRANSACTIONS_BY_STATUS_IN_LAST_PERIOD = "select * from " + rtfapTransactionTable     // SA
+			+ " where solr_query = ?";
+
 	private static final String GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -73,12 +76,13 @@ public class TransactionDao {
 	private PreparedStatement getDailyTransactionsByMerchant;           // SA - CQL query
 	private PreparedStatement getYearlyTransactionsByccNo;              // SA - CQL query
 
-	private PreparedStatement getAllTransactionsByCCno;                 // SA - Solr query
-	private PreparedStatement getAllRejectedTransactions;               // SA - Solr query
-	private PreparedStatement getAllDeclinedTransactions;               // SA - Solr query
-	private PreparedStatement getFacetedTransactionsByMerchant;         // SA - Solr query
-	private PreparedStatement getAllFraudulentTransactionsByCCno;       // SA - Solr query
-	private PreparedStatement getAllFraudulentTransactionsInLastPeriod; // SA - Solr query
+	private PreparedStatement getAllTransactionsByCCno;                           // SA - Solr query
+	private PreparedStatement getAllRejectedTransactions;                         // SA - Solr query
+	private PreparedStatement getAllDeclinedTransactions;                         // SA - Solr query
+	private PreparedStatement getFacetedTransactionsByMerchant;                   // SA - Solr query
+	private PreparedStatement getFacetedTransactionsByStatusInLastPeriod;         // SA - Solr query
+	private PreparedStatement getAllFraudulentTransactionsByCCno;                 // SA - Solr query
+	private PreparedStatement getAllFraudulentTransactionsInLastPeriod;           // SA - Solr query
 
 	private AtomicLong count = new AtomicLong(0);
 
@@ -99,6 +103,7 @@ public class TransactionDao {
 			this.getAllDeclinedTransactions = session.prepare(GET_ALL_DECLINED_TRANSACTIONS);    // SA
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
+			this.getFacetedTransactionsByStatusInLastPeriod = session.prepare(GET_FACETED_TRANSACTIONS_BY_STATUS_IN_LAST_PERIOD);    // SA
 			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllFraudulentTransactionsInLastPeriod = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_IN_LAST_PERIOD);    // SA
 
@@ -171,6 +176,14 @@ public class TransactionDao {
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"*:*\", \"facet\":{\"field\":\"merchant\"}}";
 		ResultSet resultSet = this.session.execute(getFacetedTransactionsByMerchant.bind(solrBindString));
+		return processFacetResultSet(resultSet);
+	}
+
+	public String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod) {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
+		String solrBindString = "{\"q\":\"*:*\", \"fq\":\"txn_time:[NOW-1" + lastPeriod + " TO *]\",\"facet\":{\"field\":\"status\"}}";
+		ResultSet resultSet = this.session.execute(getFacetedTransactionsByStatusInLastPeriod.bind(solrBindString));
 		return processFacetResultSet(resultSet);
 	}
 

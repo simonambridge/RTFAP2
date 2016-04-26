@@ -106,6 +106,16 @@ public class BankingWS {
 	}
 
 	@GET
+	@Path("/getfacetedtransactionsbystatusinlastperiod/{period}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFacetedTransactionsByStatusInLastPeriod(@PathParam("period") String lastPeriod) {
+
+		String result = service.getFacetedTransactionsByStatusInLastPeriod(lastPeriod);
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
 	@Path("/getalltransactionsbyccno/{creditcardno}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
