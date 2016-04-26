@@ -198,6 +198,7 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 
 ## Querying Data Using A ReST Web Interface
 
+A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
 
 The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
@@ -211,13 +212,14 @@ To bind to a specific interface other than localhost use:
 ```
 $ mvn jetty:run -DcontactPoints=<server IP address>
 ```
-For example - to run on 10.0.0.4 and persist the web service after logging out use:
+For example - to run on a server with an IP of 10.0.0.4 and persist the web service after logging out use:
 ```
 $ nohup mvn jetty:run -DcontactPoints=10.0.0.4 &
 ```
+
 The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
 - CQL queries bind the individual parameters passed from the web interface
-- CQL-SOLR queries must bind the complete where clause as a single variable
+- CQL-SOLR queries must bind the complete "where" clause as a single bind variable
 
 ### - List all the card transactions across all cards and vendors
 List all the card transactions across all cards and vendors in the TRANSACTIONS table:
