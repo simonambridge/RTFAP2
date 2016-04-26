@@ -28,21 +28,24 @@ object RollUpReportsByCC {
       )""")
 
     //hourlyaggregates_bycc
-    val rollup4= sqlContext.sql("select cc_no, int(concat(year,month,day,hour)) as hour, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month,day,hour))")
+    //val rollup4= sqlContext.sql("select cc_no, int(concat(year,month,day,hour)) as hour, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month,day,hour))")
+    val rollup4= sqlContext.sql("select cc_no, int(concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day), if(length(hour)=1, concat('0',hour), hour))) as hour, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount from temp_transactions group by cc_no, concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day), if(length(hour)=1, concat('0',hour), hour))")
     rollup4.write.format("org.apache.spark.sql.cassandra")
       .mode(SaveMode.Overwrite)
       .options(Map("keyspace" -> "rtfap", "table" -> "hourlyaggregates_bycc"))
       .save()
 
     // dailyaggregations_bycc
-    val rollup3= sqlContext.sql("select cc_no, int(concat(year,month,day)) as day, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month,day))")
+    //val rollup3= sqlContext.sql("select cc_no, int(concat(year,month,day)) as day, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month,day))")
+    val rollup3= sqlContext.sql("select cc_no, int(concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day))) as day, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount from temp_transactions group by cc_no, concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day))")
     rollup3.write.format("org.apache.spark.sql.cassandra")
       .mode(SaveMode.Overwrite)
       .options(Map("keyspace" -> "rtfap", "table" -> "dailyaggregates_bycc"))
       .save()
 
     // monthlyaggregations_bycc
-    val rollup5= sqlContext.sql("select cc_no, int(concat(year,month)) as month, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month))")
+    //val rollup5= sqlContext.sql("select cc_no, int(concat(year,month)) as month, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount, count(*) as total_count from temp_transactions group by cc_no, int(concat(year,month))")
+    val rollup5= sqlContext.sql("select cc_no, int(concat(year, if(length(month)=1, concat('0',month), month))) as month, sum(amount) as total_amount, min(amount) as min_amount, max(amount) as max_amount from temp_transactions group by cc_no, concat(year, if(length(month)=1, concat('0',month), month))")
     rollup5.write.format("org.apache.spark.sql.cassandra")
       .mode(SaveMode.Overwrite)
       .options(Map("keyspace" -> "rtfap", "table" -> "monthlyaggregates_bycc"))
