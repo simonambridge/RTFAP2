@@ -131,6 +131,17 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
+	public String getFacetedTransactionsByCCnoAndStatusInLastPeriod(String ccNo, String lastPeriod) {           // SA
+
+		Timer timer = new Timer();
+		String transactions = dao.getFacetedTransactionsByCCnoAndStatusInLastPeriod(ccNo, lastPeriod);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
+	}
+
+	@Override
 	public List<Transaction> getAllTransactionsByCCno(String ccNo) {           // SA
 
 		Timer timer = new Timer();

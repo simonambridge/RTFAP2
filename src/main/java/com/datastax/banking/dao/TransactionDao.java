@@ -64,6 +64,9 @@ public class TransactionDao {
 	private static final String GET_FACETED_TRANSACTIONS_BY_STATUS_IN_LAST_PERIOD = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
+	private static final String GET_FACETED_TRANSACTIONS_BY_CCNO_AND_STATUS_IN_LAST_PERIOD = "select * from " + rtfapTransactionTable     // SA
+			+ " where solr_query = ?";
+
 	private static final String GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -81,6 +84,7 @@ public class TransactionDao {
 	private PreparedStatement getAllDeclinedTransactions;                         // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByMerchant;                   // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByStatusInLastPeriod;         // SA - Solr query
+	private PreparedStatement getFacetedTransactionsByCCnoAndStatusInLastPeriod;  // SA - Solr query
 	private PreparedStatement getAllFraudulentTransactionsByCCno;                 // SA - Solr query
 	private PreparedStatement getAllFraudulentTransactionsInLastPeriod;           // SA - Solr query
 
@@ -104,6 +108,7 @@ public class TransactionDao {
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
 			this.getFacetedTransactionsByStatusInLastPeriod = session.prepare(GET_FACETED_TRANSACTIONS_BY_STATUS_IN_LAST_PERIOD);    // SA
+			this.getFacetedTransactionsByCCnoAndStatusInLastPeriod = session.prepare(GET_FACETED_TRANSACTIONS_BY_CCNO_AND_STATUS_IN_LAST_PERIOD);    // SA
 			this.getAllFraudulentTransactionsByCCno = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllFraudulentTransactionsInLastPeriod = session.prepare(GET_ALL_FRAUDULENT_TRANSACTIONS_IN_LAST_PERIOD);    // SA
 
@@ -184,6 +189,14 @@ public class TransactionDao {
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
 		String solrBindString = "{\"q\":\"*:*\", \"fq\":\"txn_time:[NOW-1" + lastPeriod + " TO *]\",\"facet\":{\"field\":\"status\"}}";
 		ResultSet resultSet = this.session.execute(getFacetedTransactionsByStatusInLastPeriod.bind(solrBindString));
+		return processFacetResultSet(resultSet);
+	}
+
+	public String getFacetedTransactionsByCCnoAndStatusInLastPeriod(String ccNo, String lastPeriod) {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
+		String solrBindString = "{\"q\":\"cc_no: " + ccNo + "\", \"fq\":\"txn_time:[NOW-1" + lastPeriod + " TO *]\",\"facet\":{\"field\":\"status\"}}";
+		ResultSet resultSet = this.session.execute(getFacetedTransactionsByCCnoAndStatusInLastPeriod.bind(solrBindString));
 		return processFacetResultSet(resultSet);
 	}
 

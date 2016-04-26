@@ -87,6 +87,15 @@ public class BankingWS {
 	}
 
 	@GET
+	@Path("/getallrejectedtransactions/")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllRejectedTransactions() {
+		List<Transaction> result = service.getAllRejectedTransactions();
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
 	@Path("/getalldeclinedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllDeclinedTransactions() {
@@ -111,6 +120,16 @@ public class BankingWS {
 	public Response getFacetedTransactionsByStatusInLastPeriod(@PathParam("period") String lastPeriod) {
 
 		String result = service.getFacetedTransactionsByStatusInLastPeriod(lastPeriod);
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	@GET
+	@Path("/getfacetedtransactionsbyccnoandstatusinlastperiod/{creditcardno}/{period}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFacetedTransactionsByStatusInLastPeriod(@PathParam("creditcardno") String ccNo, @PathParam("period") String lastPeriod) {
+
+		String result = service.getFacetedTransactionsByCCnoAndStatusInLastPeriod(ccNo, lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
 	}

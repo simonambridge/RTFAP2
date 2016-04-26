@@ -15,13 +15,15 @@ public interface SearchService {
 
 	//	List<Transaction> getAllTransactionsByCCnoAndDates(String ccNo, DateTime from, DateTime to); // SA - CQL only
 	List<Transaction> getAllTransactions();                            // SA - CQL only
-	List<Transaction> getDailyTransactionsByMerchant(String merchant, int day);    // SA - CQL only
-	List<Aggregate> getYearlyTransactionsByccNo(String ccNo, int year);            // SA - CQL only
-	List<Transaction> getAllDeclinedTransactions();                                // SA - Solr query
-	List<Transaction> getAllRejectedTransactions();                                // SA - Solr query
-	String getFacetedTransactionsByMerchant();                                     // SA - Solr query
-	String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod);          // SA - Solr query
-	List<Transaction> getAllTransactionsByCCno(String ccNo);                       // SA - Solr query
-	List<Transaction> getAllFraudulentTransactionsByCCno(String ccNo);             // SA - Solr query
-	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod); // SA - Solr query
+	List<Transaction> getDailyTransactionsByMerchant(String merchant, int day);                   // SA - CQL only
+	List<Aggregate> getYearlyTransactionsByccNo(String ccNo, int year);                           // SA - CQL only
+
+	List<Transaction> getAllDeclinedTransactions();                                               // SA - Solr query
+	List<Transaction> getAllRejectedTransactions();                                               // SA - Solr query
+	String getFacetedTransactionsByMerchant();                                                    // SA - Solr query
+	String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod);                         // SA - Solr query
+	String getFacetedTransactionsByCCnoAndStatusInLastPeriod(String ccNo, String lastPeriod);     // SA - Solr query
+	List<Transaction> getAllTransactionsByCCno(String ccNo);                                      // SA - Solr query
+	List<Transaction> getAllFraudulentTransactionsByCCno(String ccNo);                            // SA - Solr query
+	List<Transaction> getAllFraudulentTransactionsInLastPeriod(String lastPeriod);                // SA - Solr query
 }
