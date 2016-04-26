@@ -55,6 +55,7 @@ public class BankingWS {
 //		return Response.status(Status.OK).entity(result).build();
 //	}
 
+	// CQL Queries
     @GET
 	@Path("/getalltransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
@@ -82,6 +83,18 @@ public class BankingWS {
 		logger.info("WebService: " + ccNo + "," + year);
 
 		List<Aggregate> result = service.getYearlyTransactionsByccNo(ccNo, year);
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+	// CQL-Solr Queries
+	@GET
+	@Path("/getalltransactionsbyamount/{amount}")    // SA
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllTransactionsByAmount(@PathParam("amount") String amount) {
+
+		logger.info("WebService: " + amount);
+		List<Transaction> result = service.getAllTransactionsByAmount(amount);
 
 		return Response.status(Status.OK).entity(result).build();
 	}

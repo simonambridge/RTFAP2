@@ -47,7 +47,7 @@ public class SearchServiceImpl implements SearchService {
 //		return transactions;
 //	}
 
-
+    // CQL Queries
 	@Override
 	public List<Transaction> getAllTransactions() {           // SA
 
@@ -82,6 +82,19 @@ public class SearchServiceImpl implements SearchService {
 		timerSum += timer.getTimeTakenMillis();
 		timerCount.incrementAndGet();
 		return aggregates;
+	}
+
+	// CQL-Solr Queries
+	@Override
+	public List<Transaction> getAllTransactionsByAmount(String amount) {           // SA
+
+		Timer timer = new Timer();
+		List<Transaction> transactions;
+		transactions = dao.getAllTransactionsByAmount(amount);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return transactions;
 	}
 
 	@Override

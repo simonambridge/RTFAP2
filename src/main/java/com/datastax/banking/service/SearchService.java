@@ -14,10 +14,11 @@ public interface SearchService {
 
 
 	//	List<Transaction> getAllTransactionsByCCnoAndDates(String ccNo, DateTime from, DateTime to); // SA - CQL only
-	List<Transaction> getAllTransactions();                            // SA - CQL only
+	List<Transaction> getAllTransactions();                                                       // SA - CQL only
 	List<Transaction> getDailyTransactionsByMerchant(String merchant, int day);                   // SA - CQL only
 	List<Aggregate> getYearlyTransactionsByccNo(String ccNo, int year);                           // SA - CQL only
 
+	List<Transaction> getAllTransactionsByAmount(String amount);                                  // SA - Solr query
 	List<Transaction> getAllDeclinedTransactions();                                               // SA - Solr query
 	List<Transaction> getAllRejectedTransactions();                                               // SA - Solr query
 	String getFacetedTransactionsByMerchant();                                                    // SA - Solr query

@@ -52,6 +52,9 @@ public class TransactionDao {
 	private static final String GET_ALL_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
+	private static final String GET_ALL_TRANSACTIONS_BY_AMOUNT = "select * from " + rtfapTransactionTable     // SA
+			+ " where solr_query = ?";
+
 	private static final String GET_ALL_DECLINED_TRANSACTIONS = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -80,6 +83,7 @@ public class TransactionDao {
 	private PreparedStatement getYearlyTransactionsByccNo;              // SA - CQL query
 
 	private PreparedStatement getAllTransactionsByCCno;                           // SA - Solr query
+	private PreparedStatement getAllTransactionsByAmount;                         // SA - Solr query
 	private PreparedStatement getAllRejectedTransactions;                         // SA - Solr query
 	private PreparedStatement getAllDeclinedTransactions;                         // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByMerchant;                   // SA - Solr query
@@ -104,6 +108,7 @@ public class TransactionDao {
 			this.getYearlyTransactionsByccNo = session.prepare(GET_YEARLY_TRANSACTIONS_BY_CCNO);    // SA
 
 			this.getAllTransactionsByCCno = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO);    // SA
+			this.getAllTransactionsByAmount = session.prepare(GET_ALL_TRANSACTIONS_BY_AMOUNT);    // SA
 			this.getAllDeclinedTransactions = session.prepare(GET_ALL_DECLINED_TRANSACTIONS);    // SA
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
@@ -152,6 +157,14 @@ public class TransactionDao {
 	}
 
     // CQL-SOLR queries
+
+	public List<Transaction> getAllTransactionsByAmount(String amount) {                    // SA
+		// execute the prepared statement using the supplied bind variable(s)
+		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
+		String solrBindString = "{\"q\":\"*:*\", \"fq\":\"amount:[" + amount + " TO *]\"}}";
+		ResultSet resultSet = this.session.execute(getAllTransactionsByAmount.bind(solrBindString));
+		return processTransactionResultSet(resultSet);
+	}
 
 	public List<Transaction> getAllTransactionsByCCno(String ccNo) {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
