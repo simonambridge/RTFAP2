@@ -228,6 +228,27 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactions
 ```
 SELECT * FROM transactions;
 ```
+### - List all transactions for a merchant on a specified day
+Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
+```
+SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
+```
+### - Aggregated purchase history for a specific card and year
+Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
+```
+SELECT * FROM yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
+```
+### - List all transactions over a specified amount
+Retrieve data for all transactions in the TRANSACTIONS table where the amount is greater than a specified value
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactionsbyamount/1000
+```
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}}'
+```
 ### - List all rejected transactions
 Retrieve all transactions in the TRANSACTIONS table where status="Rejected"
 
@@ -295,20 +316,6 @@ Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudule
 http://104.42.109.110:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/DAY
 ```
 SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}';
-```
-### - List all transactions for a merchant on a specified day
-Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
-
-http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
-```
-SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
-```
-### - Aggregated purchase history for a specific card and year
-Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
-
-http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
-```
-SELECT * FROM yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
 ```
 
 ## Analyzing data using DSE Spark Analytics
