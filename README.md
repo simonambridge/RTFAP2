@@ -234,14 +234,14 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactions
 SELECT * FROM transactions;
 ```
 ### - List all transactions for a merchant on a specified day
-Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
+Retrieve data for all transactions for the specified day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
 ```
 SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
 ```
 ### - Aggregated purchase history for a specific card and year
-Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
+Retrieve data for all transactions for the specified year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
 ```
