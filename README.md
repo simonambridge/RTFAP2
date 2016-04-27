@@ -277,7 +277,7 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymer
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 ```
 ### - List all transaction success ratio (faceted by status) in the last period e.g. MINUTE
-Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified period
+Retrieve all transactions in the TRANSACTIONS table, faceted by status, over the last year/month/minute
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbystatusinlastperiod/MINUTE
 ```
