@@ -45,18 +45,18 @@ public class TransactionDao {
 	//private static final String GET_ALL_TRANSACTIONS_BY_CCNO_AND_DATES = "select * from " + rtfaptransactionTable
 	//		+ " where cc_no = ? and year = ? and transaction_time >= ? and transaction_time < ?";
 
-	private static final String GET_ALL_TRANSACTIONS = "select * from " + rtfapTransactionTable + ";";     // SA
+	private static final String GET_ALL_TRANSACTIONS = "select * from " + rtfapTransactionTable + " limit 100;";     // SA
 
 	private static final String GET_DAILY_TRANSACTIONS_BY_MERCHANT = "select * from " + merchantDailyRollupTable // SA
-			+ " where merchant = ? and day = ?";
+			+ " where merchant = ? and day = ? limit 100";
 
 	private static final String GET_YEARLY_TRANSACTIONS_BY_CCNO = "select * from " + ccNoYearlyRollupTable  // SA
-			+ " where cc_No = ? and year = ?";
+			+ " where cc_No = ? and year = ? limit 100";
 
 	private static final String GET_TRANSACTIONS_APPROVALS_BY_DATE = "select approved_rate_hr, approved_txn_hr," // SA
 	        + " approved_rate_min, approved_txn_min"
 	        + " from " + txnCountTable
-			+ " where year= ? and month= ? and day= ? and hour= ? and minute= ?";
+			+ " where year= ? and month= ? and day= ? and hour= ? and minute= ? limit 100";
 
 
 	///////////////////////
