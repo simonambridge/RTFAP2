@@ -5,6 +5,8 @@ A large bank wants to monitor its customer creditcard transactions to detect and
 The client wants a REST API to return:  
 - the ratio of transaction success based on the first 6 digits of their credit card no.     
 - the ratio of confirmed transactions against fraudulent transactions in the last minute.
+- moving ratio of approved transactions per minute, per hour
+- count of approved transactions per minute, per hour
 - the moving average of the transaction amount over the last hour compared with the transaction amount per minute. (60 min moving average, Streaming query).
 - Identify all transactions tagged as fraudlent in the last minute/day/month/year.
 - Identify all transactions tagged as fraudulent for a specific card.
