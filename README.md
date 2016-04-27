@@ -446,6 +446,8 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ##Visual Dashboard
 
+![alt dashboard](https://github.com/kunalak/RTFAP/blob/master/banana/Dashboard.png)
+
 [Dashboard](http://104.42.109.110:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
 
 The default dashboard is available in this repo under [Banana](https://github.com/kunalak/RTFAP/tree/master/banana). You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
