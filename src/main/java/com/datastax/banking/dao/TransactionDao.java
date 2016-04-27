@@ -65,7 +65,7 @@ public class TransactionDao {
 	// The entire where clause is passed as a parameter to the prepared statement
 	//
 	private static final String GET_ALL_TRANSACTIONS_BY_AMOUNT = "select * from " + rtfapTransactionTable     // SA
-			+ " where solr_query = ? limit 2147483647";
+			+ " where solr_query = ? limit 100";
 
 	private static final String GET_ALL_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
