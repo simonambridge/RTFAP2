@@ -269,13 +269,6 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getallrejectedtransactions
 ```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
 ```
-### - List all declined transactions
-Retrieve all transactions in the TRANSACTIONS table where status="Declined"
-
-http://104.42.109.110:8080/datastax-banking-iot/rest/getalldeclinedtransactions 
-```
-SELECT * FROM transactions where solr_query='{"q":"status: Declined"}';
-```
 ### - List all transactions faceted by merchant
 Retrieve all transactions in the TRANSACTIONS table, faceted by merchant
 
