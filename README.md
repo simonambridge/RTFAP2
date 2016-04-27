@@ -247,6 +247,14 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno
 ```
 SELECT * FROM yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
 ```
+### - Rolling transaction success ratio and count, by minute and hour
+Retrieve a rolling ratio of successful transactions and transaction count over the previous minute and hour
+
+http://104.42.109.110:8080/datastax-banking-iot/rest/getTransactionsApprovalByDate/201603270521
+```
+select approved_rate_hr, approved_txn_hr, approved_rate_min, approved_txn_min from txn_count_min where year=2016 and month=3 and day=27 and hour=5 and minute=22;
+```
+
 ### - List all transactions over a specified amount
 Retrieve data for all transactions in the TRANSACTIONS table where the amount is greater than a specified value
 
