@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.datastax.banking.model.Aggregate;
+import com.datastax.banking.model.Approval;
 import org.joda.time.DateTime;
 
 import com.datastax.banking.dao.TransactionDao;
@@ -47,7 +48,9 @@ public class SearchServiceImpl implements SearchService {
 //		return transactions;
 //	}
 
+	///////////////////////
     // CQL Queries
+	///////////////////////
 	@Override
 	public List<Transaction> getAllTransactions() {           // SA
 
@@ -84,7 +87,21 @@ public class SearchServiceImpl implements SearchService {
 		return aggregates;
 	}
 
+	@Override
+	public List<Approval> getTransactionsApprovalByDate(String date) {           // SA
+
+		Timer timer = new Timer();
+		List<Approval> approvals;
+		approvals = dao.getTransactionsApprovalByDate(date);
+		timer.end();
+		timerSum += timer.getTimeTakenMillis();
+		timerCount.incrementAndGet();
+		return approvals;
+	}
+
+	///////////////////////
 	// CQL-Solr Queries
+	///////////////////////
 	@Override
 	public List<Transaction> getAllTransactionsByAmount(String amount) {           // SA
 

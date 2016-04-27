@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.datastax.banking.model.Aggregate;
+import com.datastax.banking.model.Approval;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,12 +56,17 @@ public class BankingWS {
 //		return Response.status(Status.OK).entity(result).build();
 //	}
 
+	///////////////////////
 	// CQL Queries
+	///////////////////////
     @GET
 	@Path("/getalltransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactions() {
-	   List<Transaction> result = service.getAllTransactions();
+
+		logger.info("WebService: getalltransactions - <no params>");
+
+		List<Transaction> result = service.getAllTransactions();
 
 	   return Response.status(Status.OK).entity(result).build();
     }
@@ -69,7 +75,8 @@ public class BankingWS {
   	@Path("/getdailytransactionsbymerchant/{merchant}/{day}")
   	@Produces(MediaType.APPLICATION_JSON)
   	public Response getDailyTransactionsByMerchant(@PathParam("merchant") String merchant, @PathParam("day") int day) {
-		logger.info("WebService: " + merchant + "," + day);
+
+		logger.info("WebService: getdailytransactionsbymerchant - " + merchant + "," + day);
 
   		List<Transaction> result = service.getDailyTransactionsByMerchant(merchant, day);
 
@@ -80,20 +87,43 @@ public class BankingWS {
 	@Path("/getyearlytransactionsbyccno/{ccNo}/{year}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getYearlyTransactionsByccNo(@PathParam("ccNo") String ccNo, @PathParam("year") int year) {
-		logger.info("WebService: " + ccNo + "," + year);
+
+		logger.info("WebService: getyearlytransactionsbyccno - " + ccNo + "," + year);
 
 		List<Aggregate> result = service.getYearlyTransactionsByccNo(ccNo, year);
 
 		return Response.status(Status.OK).entity(result).build();
 	}
 
+	@GET
+	@Path("/getTransactionsApprovalByDate/{date}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTransactionsApprovalByDate(@PathParam("date") String date) {
+
+		if (date.length() < 12) {
+			String error = "Caught exception parsing date: not enough characters - " + date;
+            logger.error(error);
+  			return Response.status(Status.BAD_REQUEST).entity(error).build();
+  		}
+
+		logger.info("WebService: getTransactionsApprovalByDate - " + date );
+
+		List<Approval> result = service.getTransactionsApprovalByDate(date);
+
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+
+	///////////////////////
 	// CQL-Solr Queries
+	//////////////////////
 	@GET
 	@Path("/getalltransactionsbyamount/{amount}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactionsByAmount(@PathParam("amount") String amount) {
 
-		logger.info("WebService: " + amount);
+		logger.info("WebService: getalltransactionsbyamount - " + amount);
+
 		List<Transaction> result = service.getAllTransactionsByAmount(amount);
 
 		return Response.status(Status.OK).entity(result).build();
@@ -103,6 +133,9 @@ public class BankingWS {
 	@Path("/getallrejectedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllRejectedTransactions() {
+
+		logger.info("WebService: getallrejectedtransactions - <no params>");
+
 		List<Transaction> result = service.getAllRejectedTransactions();
 
 		return Response.status(Status.OK).entity(result).build();
@@ -112,6 +145,9 @@ public class BankingWS {
 	@Path("/getalldeclinedtransactions/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllDeclinedTransactions() {
+
+		logger.info("WebService: getalldeclinedtransactions - <no params>");
+
 		List<Transaction> result = service.getAllDeclinedTransactions();
 
 		return Response.status(Status.OK).entity(result).build();
@@ -121,6 +157,8 @@ public class BankingWS {
 	@Path("/getfacetedtransactionsbymerchant/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacetedTransactionsByMerchant() {
+
+		logger.info("WebService: getallfacetedtransactionsbymerchant - <no params>");
 
 		String result = service.getFacetedTransactionsByMerchant();
 
@@ -132,6 +170,8 @@ public class BankingWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacetedTransactionsByStatusInLastPeriod(@PathParam("period") String lastPeriod) {
 
+		logger.info("WebService: getallfacetedtransactionsbystatusinlastperiod - " + lastPeriod);
+
 		String result = service.getFacetedTransactionsByStatusInLastPeriod(lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
@@ -141,6 +181,8 @@ public class BankingWS {
 	@Path("/getfacetedtransactionsbyccnoandstatusinlastperiod/{creditcardno}/{period}")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacetedTransactionsByStatusInLastPeriod(@PathParam("creditcardno") String ccNo, @PathParam("period") String lastPeriod) {
+
+		logger.info("WebService: getfacetedtransactionsbyccnoandstatusinlastperiod - " + ccNo + "," + lastPeriod);
 
 		String result = service.getFacetedTransactionsByCCnoAndStatusInLastPeriod(ccNo, lastPeriod);
 
@@ -152,7 +194,8 @@ public class BankingWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
 
-		logger.info("WebService: " + ccNo);
+		logger.info("WebService: getalltransactionsbyccno - " + ccNo);
+
 		List<Transaction> result = service.getAllTransactionsByCCno(ccNo);
 
 		return Response.status(Status.OK).entity(result).build();
@@ -163,7 +206,8 @@ public class BankingWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllFraudulentTransactionsByCCno(@PathParam("creditcardno") String ccNo) {
 
-		logger.info("WebService: " + ccNo);
+		logger.info("WebService: getallfraudulenttransactionsbyccno - " + ccNo);
+
 		List<Transaction> result = service.getAllFraudulentTransactionsByCCno(ccNo);
 
 		return Response.status(Status.OK).entity(result).build();
@@ -174,7 +218,8 @@ public class BankingWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllFraudulentTransactionsInLastPeriod(@PathParam("period") String lastPeriod) {
 
-		logger.info("WebService: " + lastPeriod);
+		logger.info("WebService: getallfraudulenttransactionsinlastperiod - " + lastPeriod);
+
 		List<Transaction> result = service.getAllFraudulentTransactionsInLastPeriod(lastPeriod);
 
 		return Response.status(Status.OK).entity(result).build();
