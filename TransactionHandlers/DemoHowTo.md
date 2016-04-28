@@ -81,7 +81,7 @@ If you would like to access Cassandra Table using SparkSQL you will need to star
   
 ###To build the demo
 
-  * Create the Cassandra Keyspaces and Tables using the `CreateTables.cql` script
+  * Create the Cassandra Keyspaces and Tables using the [CreateTables.cql](CreateTables.cql) script
   * Navigate to the root directory of the project where you downloaded
   * Build the Producer with this command:
   

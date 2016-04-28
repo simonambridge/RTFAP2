@@ -15,9 +15,6 @@
  * limitations under the License.
  */
 
-/**
-  * Created by carybourgeois on 3/17/16.
-  */
 import java.sql.Timestamp
 import java.util.Properties
 import java.util.UUID._

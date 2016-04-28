@@ -1,7 +1,7 @@
 //
 // In order to run these demo's it is assumed that the Keyspace and tables below exist
 //
-// PLEASE NOTE: The Keyspace creatin command will need to reflec the Topology of your
+// PLEASE NOTE: The Keyspace creation command will need to reflect the Topology of your
 //              environment. As presented it will only work in a single node test deployment.
 
 CREATE KEYSPACE rtfap

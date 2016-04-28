@@ -39,7 +39,7 @@ object TransactionConsumer extends App {
   val kafkaHost = systemConfig.getString("TransactionConsumer.kafkaHost")
   val kafkaDataTopic = systemConfig.getString("TransactionConsumer.kafkaDataTopic")
 
-  // this does not work in this example at this point as these vaialble appear to be out of scope for the
+  // this does not work in this example at this point as these variables appear to be out of scope for the
   // map portion of the forEachRDD
   //
   val pctTransactionToDecline = systemConfig.getString("TransactionConsumer.pctTransactionToDecline")
@@ -89,6 +89,9 @@ object TransactionConsumer extends App {
    */
   kafkaStream.window(Seconds(1), Seconds(1))
     .foreachRDD {
+      /*
+       * This section down to the .toDF call is where the records from Kafka are consumed and parsed
+       */
       (message: RDD[(String, String)], batchTime: Time) => {
         val df = message.map {
           case (k, v) => v.split(";")
@@ -129,6 +132,9 @@ object TransactionConsumer extends App {
           Transaction(cc_no, cc_provider, year, month, day, hour, min, txn_time, txn_id, merchant, location, country, amount, status, date_text)
         }).toDF("cc_no", "cc_provider", "year", "month", "day", "hour", "min","txn_time", "txn_id", "merchant", "location", "country", "amount", "status", "date_text")
 
+        /*
+         * The coolness of the spark connector. Super simple to write out the records to DSE/Cassandra
+         */
         df
           .write
           .format("org.apache.spark.sql.cassandra")
@@ -147,6 +153,10 @@ object TransactionConsumer extends App {
    */
   kafkaStream.window(Minutes(1), Seconds(60))
     .foreachRDD {
+      /*
+       * Here we take the records and parse just the last value to be able to count them.
+       * NOTE: we reapply the score here which is hugely inefficinet and need to be worked out in a btter way.
+       */
       (message: RDD[(String, String)], batchTime: Time) => {
         val df = message.map {
           case (k, v) => v.split(";")
@@ -157,6 +167,11 @@ object TransactionConsumer extends App {
           TransCount(status)
         }).toDF("status")
 
+
+        /*
+         * The next several section set up all the data arithmetic so we can query correctly query the
+         * aggregate table and write back to it.
+         */
         val timeInMillis = System.currentTimeMillis()
 
         val currCal = new GregorianCalendar()
@@ -178,10 +193,16 @@ object TransactionConsumer extends App {
         val prevHour = prevCal.get(Calendar.HOUR)
         val prevMin = prevCal.get(Calendar.MINUTE)
 
+        /*
+         * In this section we we count the records in the resulting Dataframe
+         */
         val totalTxnMin = df.count()
         val approvedTxnMin = df.filter("status = 'APPROVED'").count()
         val pctApprovedMin = if (totalTxnMin > 0) ((approvedTxnMin/totalTxnMin.toDouble)*100.0) else 0.0
 
+        /*
+         * Read from the aggregate table to get the value from the previous minute.
+         */
         val dfPrev = sqlContext
           .read
           .format("org.apache.spark.sql.cassandra")
@@ -198,9 +219,15 @@ object TransactionConsumer extends App {
         val pctApprovedHr = if (totalTxnHr > 0) ((approvedTxnHr/totalTxnHr.toDouble)*100.0) else 0.0
 
 
+        /*
+         * Make a new DataFrame with tour results
+         */
         val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
           .toDF("year", "month", "day", "hour", "minute", "approved_rate_min", "ttl_txn_min", "approved_txn_min", "approved_rate_hr", "ttl_txn_hr", "approved_txn_hr")
 
+        /*
+         * show and write the results out to the aggregate table.
+         */
         dfCount.show()
         dfCount
           .write

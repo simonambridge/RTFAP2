@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-/**
-  * Created by carybourgeois on 4/22/16.
-  */
-
 import scala.collection.immutable.TreeMap
 import scala.util.Random
 
