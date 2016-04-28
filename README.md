@@ -4,7 +4,7 @@ A large bank wants to monitor its customer creditcard transactions to detect and
 
 The client wants a REST API to return:  
 
-- Identify all transactions tagged as fraudlent in the last minute/day/month/year.
+- Identify all transactions tagged as fraudulent in the last minute/day/month/year.
 - Identify all transactions tagged as fraudulent for a specific card.
 - Report of transactions for a merchant on a specific day.
 - Roll-up report of transactions by card and year.
