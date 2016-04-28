@@ -4,7 +4,7 @@ A large bank wants to monitor its customer creditcard transactions to detect and
 
 The client wants a REST API to return:  
 
-- Identify all transactions tagged as fraudlent in the last minute/day/month/year.
+- Identify all transactions tagged as fraudulent in the last minute/day/month/year.
 - Identify all transactions tagged as fraudulent for a specific card.
 - Report of transactions for a merchant on a specific day.
 - Roll-up report of transactions by card and year.
@@ -234,14 +234,14 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getalltransactions
 SELECT * FROM transactions;
 ```
 ### - List all transactions for a merchant on a specified day
-Retrieve data for all transactions for the speficied day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
+Retrieve data for all transactions for the specified day in the DAILYTXNS_BYMERCHANT rollup table where the merchant = "GAP" 
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309 
 ```
 SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
 ```
 ### - Aggregated purchase history for a specific card and year
-Retrieve data for all transactions for the speficied year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
+Retrieve data for all transactions for the specified year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016
 ```
@@ -269,13 +269,6 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getallrejectedtransactions
 ```
 SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
 ```
-### - List all declined transactions
-Retrieve all transactions in the TRANSACTIONS table where status="Declined"
-
-http://104.42.109.110:8080/datastax-banking-iot/rest/getalldeclinedtransactions 
-```
-SELECT * FROM transactions where solr_query='{"q":"status: Declined"}';
-```
 ### - List all transactions faceted by merchant
 Retrieve all transactions in the TRANSACTIONS table, faceted by merchant
 
@@ -284,7 +277,7 @@ http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbymer
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 ```
 ### - List all transaction success ratio (faceted by status) in the last period e.g. MINUTE
-Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified period
+Retrieve all transactions in the TRANSACTIONS table, faceted by status, over the last year/month/minute
 
 http://104.42.109.110:8080/datastax-banking-iot/rest/getfacetedtransactionsbystatusinlastperiod/MINUTE
 ```
@@ -445,6 +438,8 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 ```
 
 ##Visual Dashboard
+
+![alt dashboard](https://github.com/kunalak/RTFAP/blob/master/banana/TransactionDashboard.png)
 
 [Dashboard](http://104.42.109.110:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
 

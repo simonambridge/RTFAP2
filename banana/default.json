@@ -29,8 +29,8 @@
       ],
       "list": {
         "0": {
-          "from": "2016-04-23T00:30:05.000Z",
-          "to": "2016-04-23T02:05:57.000Z",
+          "from": "2016-04-27T03:30:05.000Z",
+          "to": "2016-04-27T06:05:57.000Z",
           "field": "txn_time",
           "type": "time",
           "mandate": "must",
@@ -85,8 +85,8 @@
           "spyable": true,
           "title": "Time Window",
           "time": {
-            "from": "04/23/2016 02:30:05",
-            "to": "04/23/2016 04:05:57"
+            "from": "04/26/2016 23:30:05",
+            "to": "04/27/2016 02:05:57"
           }
         },
         {
@@ -116,7 +116,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&wt=json&rows=0\n",
+            "query": "q=*%3A*&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&wt=json&rows=0\n",
             "basic_query": "",
             "custom": ""
           },
@@ -156,7 +156,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&stats=true&stats.facet=status&stats.field=amount&facet.missing=true&f.status.facet.sort=count",
+            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&stats=true&stats.facet=status&stats.field=amount&facet.missing=true&f.status.facet.sort=count",
             "custom": ""
           },
           "mode": "sum",
@@ -253,7 +253,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&stats=true&stats.facet=merchant&stats.field=amount&facet.missing=true&f.merchant.facet.sort=count",
+            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&stats=true&stats.facet=merchant&stats.field=amount&facet.missing=true&f.merchant.facet.sort=count",
             "custom": ""
           },
           "mode": "sum",
@@ -350,7 +350,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&stats=true&stats.facet=cc_provider&stats.field=amount&facet.missing=true&f.cc_provider.facet.sort=count",
+            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&stats=true&stats.facet=cc_provider&stats.field=amount&facet.missing=true&f.cc_provider.facet.sort=count",
             "custom": ""
           },
           "mode": "sum",
@@ -458,7 +458,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&rows=0&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&facet=true&facet.range=txn_time&facet.range.start=2016-04-23T00:30:05.000Z&facet.range.end=2016-04-23T02:05:57.000Z&facet.range.gap=%2B1MINUTE\n",
+            "query": "q=*%3A*&wt=json&rows=0&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&facet=true&facet.range=txn_time&facet.range.start=2016-04-27T03:30:05.000Z&facet.range.end=2016-04-27T06:05:57.000Z&facet.range.gap=%2B1MINUTE\n",
             "custom": ""
           },
           "max_rows": 100000,
@@ -525,7 +525,7 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&rows=100000&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&fl=txn_time amount&group=true&group.field=status&group.limit=100000\n",
+            "query": "q=*%3A*&wt=json&rows=100000&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&fl=txn_time amount&group=true&group.field=status&group.limit=100000\n",
             "custom": ""
           },
           "max_rows": 100000,
@@ -555,7 +555,7 @@
           "spyable": true,
           "zoomlinks": true,
           "bars": true,
-          "stack": true,
+          "stack": false,
           "points": false,
           "lines": false,
           "lines_smooth": false,
@@ -567,7 +567,7 @@
           "options": true,
           "show_queries": true,
           "tooltip": {
-            "value_type": "cumulative",
+            "value_type": "individual",
             "query_as_alias": false
           },
           "title": "Amount by Status"
@@ -592,8 +592,8 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&rows=100000&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&fl=txn_time amount&group=true&group.field=merchant&group.limit=100000\n",
-            "custom": "&fq=status:DECLINED"
+            "query": "q=*%3A*&wt=json&rows=100000&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&fl=txn_time amount&group=true&group.field=merchant&group.limit=100000\n",
+            "custom": "&fq=-status:approved"
           },
           "max_rows": 100000,
           "value_field": "amount",
@@ -658,8 +658,8 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&rows=0&facet=true&facet.field=location&facet.limit=100",
-            "custom": "&fq=status:DECLINED"
+            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&rows=0&facet=true&facet.field=location&facet.limit=100",
+            "custom": "&fq=-status:Approved"
           },
           "mode": "count",
           "field": "location",
@@ -688,11 +688,11 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&rows=0&facet=true&facet.field=location&facet.limit=100",
-            "custom": "&fq=status:DECLINED"
+            "query": "q=*%3A*&wt=json&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&rows=0&facet=true&facet.field=country&facet.limit=100",
+            "custom": "&fq=-status:Approved"
           },
           "mode": "count",
-          "field": "location",
+          "field": "country",
           "stats_field": "",
           "decimal_points": 0,
           "map": "world",
@@ -707,81 +707,6 @@
           "index_limit": 0,
           "show_queries": true,
           "title": "World Num of Declined Trans"
-        }
-      ]
-    },
-    {
-      "title": "Heatmaps",
-      "height": "50px",
-      "editable": true,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [
-        {
-          "span": 4,
-          "editable": true,
-          "type": "tagcloud",
-          "loadingEditor": false,
-          "queries": {
-            "mode": "all",
-            "ids": [
-              0
-            ],
-            "query": "q=*%3A*&wt=json&rows=0&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&facet=true&facet.field=status&facet.limit=10",
-            "custom": ""
-          },
-          "field": "status",
-          "size": 10,
-          "alignment": "vertical and horizontal",
-          "fontScale": 1,
-          "ignoreStopWords": false,
-          "spyable": true,
-          "show_queries": true,
-          "title": "Status"
-        },
-        {
-          "span": 4,
-          "editable": true,
-          "type": "tagcloud",
-          "loadingEditor": false,
-          "queries": {
-            "mode": "all",
-            "ids": [
-              0
-            ],
-            "query": "q=*%3A*&wt=json&rows=0&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&facet=true&facet.field=merchant&facet.limit=10",
-            "custom": ""
-          },
-          "field": "merchant",
-          "size": 10,
-          "alignment": "vertical and horizontal",
-          "fontScale": 1,
-          "ignoreStopWords": false,
-          "spyable": true,
-          "show_queries": true,
-          "title": "Merchants"
-        },
-        {
-          "span": 4,
-          "editable": true,
-          "type": "tagcloud",
-          "loadingEditor": false,
-          "queries": {
-            "mode": "all",
-            "ids": [
-              0
-            ],
-            "query": "q=*%3A*&wt=json&rows=0&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&facet=true&facet.field=cc_provider&facet.limit=10",
-            "custom": ""
-          },
-          "field": "cc_provider",
-          "size": 10,
-          "alignment": "vertical and horizontal",
-          "fontScale": 1,
-          "ignoreStopWords": false,
-          "spyable": true,
-          "show_queries": true,
-          "title": "Provider"
         }
       ]
     },
@@ -803,8 +728,8 @@
             "ids": [
               0
             ],
-            "query": "q=*%3A*&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]&wt=json&rows=500",
-            "basic_query": "q=*%3A*&fq=txn_time:[2016-04-23T00:30:05.000Z%20TO%202016-04-23T02:05:57.000Z]",
+            "query": "q=*%3A*&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]&wt=json&rows=500",
+            "basic_query": "q=*%3A*&fq=txn_time:[2016-04-27T03:30:05.000Z%20TO%202016-04-27T06:05:57.000Z]",
             "custom": ""
           },
           "size": 100,
@@ -838,6 +763,7 @@
             "amount",
             "cc_no",
             "cc_provider",
+            "country",
             "day",
             "hour",
             "location",
