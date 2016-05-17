@@ -1,7 +1,7 @@
-#Datastax Frad Prevention Demo
-##How to Technically run the Demo
+#Datastax Fraud Prevention Demo
+##Demo tech set up
 
-In order to run this demo, It is assumed that you have the following installed and available on your local system. (Please note, this demo is built using the 4.8.x branch of Datastax Enterprise as 5.0 was not GA. IN the future you should use Datastax Enterprise 5.x as Spark Direct Streams (Kafka in this demo) support is much improved in this version.)
+In order to run this demo, it is assumed that you have the following installed and available on your local system. (Please note, this demo is built using the 4.8.x branch of Datastax Enterprise as 5.0 was not GA. In the future you should use Datastax Enterprise 5.x as Spark Direct Streams (Kafka in this demo) support is much improved in this version.)
 
   1. Datastax Enterprise 4.8.x
   2. Apache Kafka 0.9.0.1, I used the Scala 2.10 build
