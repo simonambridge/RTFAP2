@@ -71,13 +71,7 @@ If you would like to access Cassandra Table using SparkSQL you will need to star
   
 ##Getting and running the demo
 
-###In order to run this demo you will need to download the source from GitHub.
-
-  * Navigate to the directory where you would like to save the code.
-  * Execute the following command:
-  
-  
-       `git clone https://github.com/CaryBourgeois/DatastaxFraudPreventionDemo.git`
+###In order to run this demo navigate to the TransactionHandlers directory
   
 ###To build the demo
 
