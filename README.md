@@ -17,7 +17,7 @@ The client wants a REST API to return:
 Performance SLAs:
 - The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
 
-![alt text] (https://raw.githubusercontent.com/kunalak/RTFAP/master/img.png)
+![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
 
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
@@ -27,15 +27,14 @@ https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/sr
 and the Spark (Analytics) functionality using:
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 
-For the packathon - the cluster info is below:
+Repo info is below:
 
-- public ip's of 3 node cluster=> 104.42.107.223, 104.42.105.51, 104.42.109.110
-- SSH to any one of the 3 nodes => e.g. ssh datastax@104.42.109.110; pwd=<<on internal hipchat room, scroll a bit>>
-(private ip= 10.0.0.4 and other 2 DSE nodes will have 10.0.0.5 and 10.0.0.7; 10.0.0.6 is the opscenter node)
-- Opscenter=> http://104.42.108.173:8888/opscenter/index.html
-- Spark Master (currently running on) => http://104.42.105.51:7080/
-- Jupyter notebook with RTFAP Test queries=> http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
-- Visual Dashboard => http://104.42.109.110:8983/banana/#/dashboard
+- Set up and install DataStax Enterprise
+- Note down the IP's of the node(s)
+- Opscenter => http://[DSE node]:8888/opscenter/index.html
+- Spark Master => http://[DSE node]:7080/
+- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
 
 ##DataModel
 
@@ -335,6 +334,8 @@ This provides huge value in terms of significantly reduced ETL complexity (no da
 A Spark batch job that runs daily rolling up all the transactions in the last day by merchant and calculating the total_amount, avg_amount and total_count.
 (Daily Roll-Up Reports of last-Week and last-Day transactions for each merchant.)
 
+Roll up batch analytics code can be found under the directory 'RollUpReports'
+
 ```
 sqlContext.sql("""CREATE TEMPORARY TABLE temp_transactions
      USING org.apache.spark.sql.cassandra
@@ -361,8 +362,8 @@ rollup1.write.format("org.apache.spark.sql.cassandra")
 Jupyter notebook: http://104.42.109.110:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 ###Streaming Analytics
-Cary to update here
 
+Streaming analytics code can be found under the directory 'TransactionHandlers'
 
 
 ##Stress yaml
@@ -444,9 +445,3 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 [Dashboard](http://104.42.109.110:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
 
 The default dashboard is available in this repo under [Banana](https://github.com/kunalak/RTFAP/tree/master/banana). You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
-
-##Code Sample
-
-A full code example with inserts and queries can be found here - https://github.com/kunalak/rtfap
-
-Please follow the instructions to download and populate your cluster with example data. This example also shows how to provide access to the data through a JSON rest web service.
