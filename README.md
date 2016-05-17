@@ -216,7 +216,13 @@ A ReSTful web interface provides an API for calling programs to query the data i
 To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
 
 The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
-The web service adopts a framework that separates the web, service and data access layers into individual, easily maintainable components. 
+The web service adopts a framework that separates the web, service and data access layers into individual, easily maintainable components.
+
+To compile the code:
+
+```
+$ mvn clean compile
+```
 
 To start the web service use the command:
 ```
