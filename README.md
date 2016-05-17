@@ -35,8 +35,12 @@ https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/sr
 - Spark (Analytics):
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 [https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
+- (Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thirft Server. If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
+  * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
+  More details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html
 
-Repo info is below:
+
+Install information:
 
 - Set up and install DataStax Enterprise with Spark and Solr enabled
 - Note down the IP's of the node(s)
