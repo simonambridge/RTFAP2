@@ -45,6 +45,13 @@ We will use a single DC for testing purposes. For production deployment, we reco
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
 
+To create this keyspace and the tables described below, run the create schema script:
+```
+$ cqlsh
+cqlsh> source 'creates_and_inserts.cql'
+```
+This creates the following tables:
+
 Table for: Transactions by txn_time buckets; We will create a Solr index on this tables to fulfill a bunch of search needs as well.
 ```
 create table if not exists rtfap.transactions(
@@ -161,11 +168,11 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 
 Queries to look up all transactions for given cc_no. (Transactions table is primarily writes-oriented and for searches)
 ```
-SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' limit 5
+SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;
 ```
-Queries to roll-up transactions for each merchant by day (dailytxns_bymerchant table itself will be populated using scheduled Spark Jobs)
+Queries to roll-up tables, for example transactions for each merchant by day (dailytxns_bymerchant table hasen't been populated yet - it will be populated using scheduled Spark batch analytics jobs)
 ```
-SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317
+SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
 
 ##Searching Data in DSE
