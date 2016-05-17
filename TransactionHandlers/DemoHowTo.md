@@ -15,19 +15,30 @@ Use the steps below to setup up a local instance of Kafka for this example. This
 
 Kafka can be located at this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
-You will want to download and install the binary version for Scala 2.10.
+You will want to download and install the binary version for Scala 2.10 - you can use wget to download to the server:
+
+```
+$ wget http://apache.mirror.anlx.net/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz
+```
 
 ###2. Install Apache Kafka
 
 Once downloaded you will need to extract the file. It will create a folder/directory. Move this to a location of your choice.
 
+```
+$ gunzip kafka_2.10-0.9.0.1.tgz
+$ tar xvf kafka_2.10-0.9.0.1.tar
+$ rm kafka_2.10-0.9.0.1.tar
+$ mv kafka_2.10-0.9.0.1 /usr/share
+```
+
 ###3. Start ZooKeeper and Kafka
 
-Start local copy of zookeeper
+Start local copy of zookeeper (in its own terminal or use nohup)
 
   * `<kafka home dir>bin/zookeeper-server-start.sh config/zookeeper.properties`
 
-Start local copy of Kafka
+Start local copy of Kafka (in its own terminal or use nohup)
 
   * `<kafka home dir>bin/kafka-server-start.sh config/server.properties`
 
@@ -51,31 +62,21 @@ Show all of the messages in a topic from the beginning
 
   * `<kafka home dir>bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning`
   
-#Getting Started with Local DSE/Cassandra
 
-If you intend to use a cassandra cluster for this demo you will need to have started that cluster with Spark enabled. Please see the documentation here: [https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
-
-###1. Download and install Datastax Enterprise v4.8.x
-
-  * `https://academy.datastax.com/downloads/welcome`
-
-###2. Starting DSE tarball install on the local OSX or Linux machine
-
-  * `dse cassandra -k -s -Dcassandra.logdir=~/Datastax/data/cassandra/log`
-  
-###3. (Optional) Starting the ODBC driver in DSE tarball install on Local OSX or Linux
- 
-If you would like to access Cassandra Table using SparkSQL you will need to start the SparkSQL Thirft Server. Since we are doing this on a laptop want to limit the resources the thrift server consumes.
-
-  * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
-  
 ##Getting and running the demo
 
 ###In order to run this demo navigate to the TransactionHandlers directory
   
 ###To build the demo
 
-  * Create the Cassandra Keyspaces and Tables using the [CreateTables.cql](CreateTables.cql) script
+  * You should have already created the Cassandra keyspaces and tables using the main creates_and_inserts.cql script
+  * You should have already created the streaming tables using the [CreateTables.cql](CreateTables.cql) script 
+  * Install sbt (as root or use sudo):
+  `echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list`
+  `apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823`
+  `apt-get update`
+  `apt-get install sbt`
+
   * Build the Producer with this command:
   
     `sbt producer/package`
@@ -92,9 +93,13 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   
     `sbt producer/run`
     
+  * Identify the location of the SparkMaster node:
+  ```
+  $ dsetool sparkmaster
   
+  ```
   * From the root directory of the project start the consumer app
   
-    `dse spark-submit --master spark://127.0.0.1:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class com.datastax.demo.fraudprevention.TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
+    `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
     
   
