@@ -166,24 +166,26 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 
 ##Sample queries
 
-Queries to look up all transactions for given cc_no. (Transactions table is primarily writes-oriented and for searches)
+Queries to look up all transactions for given cc_no. (the Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches):
 ```
 SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;
 ```
-Queries to roll-up tables, for example transactions for each merchant by day (dailytxns_bymerchant table hasen't been populated yet - it will be populated using scheduled Spark batch analytics jobs)
+Queries to roll-up tables, for example transactions for each merchant by day (the Dailytxns_bymerchant table hasen't been populated yet - it gets populated using the scheduled Spark batch analytics jobs):
 ```
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
 
 ##Searching Data in DSE
 
-The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a Solr core. We will also use the dsetool to create the core based on our table for testing purposes. In a production environment we would only index the columns that we would want to query on.
+The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on.
+
+By default, when you automatically generate resources, existing data is not re-indexed so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option:
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
 ```
 
-To check that DSE Search is up and running sucessfully go to http://{servername}:8983/solr/
+To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
 
 Now we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
@@ -191,8 +193,8 @@ Below are the CQL Solr queries addressing some of the client requirements (&more
 
 Get counts (&records) of transactions faceted by merchant or cc_provider.
 ```
-SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}'
-SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"cc_provider"}}'
+SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
+SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"cc_provider"}}';
 ```
 
 Get transactions by first 6 digits of cc_no (and perhaps filter query it further by the status!).
@@ -202,10 +204,11 @@ SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no: 123412*",  "fq":
 
 Get all the transactions tagged as Fraudulent in the last day and last minute.
 ```
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}'
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}'
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
+
 ```
-(just like above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.)
+As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
 
 ## Querying Data Using A ReST Web Interface
 
