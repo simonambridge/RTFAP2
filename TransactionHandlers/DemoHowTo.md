@@ -63,11 +63,9 @@ Show all of the messages in a topic from the beginning
   * `<kafka home dir>bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning`
   
 
-##Getting and running the demo
+## Build the demo
 
 ###In order to run this demo navigate to the TransactionHandlers directory
-  
-###To build the demo
 
   * You should have already created the Cassandra keyspaces and tables using the main creates_and_inserts.cql script
   * You should have already created the streaming tables using the [CreateTables.cql](CreateTables.cql) script 
