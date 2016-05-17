@@ -370,7 +370,7 @@ Streaming analytics code can be found under the directory 'TransactionHandlers'
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-The stress YAML files are uploaded to this [directory](https://github.com/kunalak/RTFAP/tree/master/stress%20yamls).
+The stress YAML files are uploaded to this [directory](https://github.com/simonambridge/RTFAP/tree/master/stress%20yamls).
 
 The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
 
