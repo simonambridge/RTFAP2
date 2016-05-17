@@ -1,4 +1,5 @@
-#Datastax Frad Prevention Demo
+#Datastax Fraud Prevention Demo - Streaming Analytics
+
 ##Creating and Consuming Transactions
 
 In this project (Idea IntelliJ) there are two different pieces
