@@ -363,7 +363,7 @@ Jupyter notebook: http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 ###Streaming Analytics
 
-Streaming analytics code can be found under the directory 'TransactionHandlers' here: [directory](https://github.com/simonambridge/RTFAP/TransactionHandlers)
+Streaming analytics code can be found under the directory 'TransactionHandlers' [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
 
 
 ##Stress yaml
