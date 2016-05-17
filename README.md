@@ -398,11 +398,15 @@ rollup1.write.format("org.apache.spark.sql.cassandra")
 .save()
 ```
 
-Jupyter notebook: http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
+###Jupyter Notebook
+
+The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 ###Streaming Analytics
 
-Streaming analytics code can be found under the directory 'TransactionHandlers' [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
+Streaming analytics code can be found under the directory 'TransactionHandlers'
+
+Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
 
 
 ##Stress yaml
