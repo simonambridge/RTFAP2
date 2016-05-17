@@ -27,7 +27,6 @@ public interface SearchService {
 	// CQL-Solr Queries
 	///////////////////////
 	List<Transaction> getAllTransactionsByAmount(String amount);                                  // SA - Solr query
-	List<Transaction> getAllDeclinedTransactions();                                               // SA - Solr query
 	List<Transaction> getAllRejectedTransactions();                                               // SA - Solr query
 	String getFacetedTransactionsByMerchant();                                                    // SA - Solr query
 	String getFacetedTransactionsByStatusInLastPeriod(String lastPeriod);                         // SA - Solr query

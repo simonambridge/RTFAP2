@@ -142,18 +142,6 @@ public class BankingWS {
 	}
 
 	@GET
-	@Path("/getalldeclinedtransactions/")    // SA
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllDeclinedTransactions() {
-
-		logger.info("WebService: getalldeclinedtransactions - <no params>");
-
-		List<Transaction> result = service.getAllDeclinedTransactions();
-
-		return Response.status(Status.OK).entity(result).build();
-	}
-
-	@GET
 	@Path("/getfacetedtransactionsbymerchant/")    // SA
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getFacetedTransactionsByMerchant() {

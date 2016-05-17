@@ -30,7 +30,6 @@ public class TransactionDao {
 	private Session session;
 
     private static String rtfapkeyspaceName = "rtfap";                     // SA
-
     private static String rtfapTransactionTable = rtfapkeyspaceName + ".transactions";   // SA
 	private static String merchantDailyRollupTable = rtfapkeyspaceName + ".dailytxns_bymerchant";   // SA
 	private static String ccNoYearlyRollupTable = rtfapkeyspaceName + ".yearlyaggregates_bycc";   // SA
@@ -70,9 +69,6 @@ public class TransactionDao {
 	private static final String GET_ALL_TRANSACTIONS_BY_CCNO = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
-	private static final String GET_ALL_DECLINED_TRANSACTIONS = "select * from " + rtfapTransactionTable     // SA
-			+ " where solr_query = ?";
-
 	private static final String GET_ALL_REJECTED_TRANSACTIONS = "select * from " + rtfapTransactionTable     // SA
 			+ " where solr_query = ?";
 
@@ -101,7 +97,6 @@ public class TransactionDao {
 	private PreparedStatement getAllTransactionsByCCno;                           // SA - Solr query
 	private PreparedStatement getAllTransactionsByAmount;                         // SA - Solr query
 	private PreparedStatement getAllRejectedTransactions;                         // SA - Solr query
-	private PreparedStatement getAllDeclinedTransactions;                         // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByMerchant;                   // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByStatusInLastPeriod;         // SA - Solr query
 	private PreparedStatement getFacetedTransactionsByCCnoAndStatusInLastPeriod;  // SA - Solr query
@@ -126,7 +121,6 @@ public class TransactionDao {
 
 			this.getAllTransactionsByCCno = session.prepare(GET_ALL_TRANSACTIONS_BY_CCNO);    // SA
 			this.getAllTransactionsByAmount = session.prepare(GET_ALL_TRANSACTIONS_BY_AMOUNT);    // SA
-			this.getAllDeclinedTransactions = session.prepare(GET_ALL_DECLINED_TRANSACTIONS);    // SA
 			this.getAllRejectedTransactions = session.prepare(GET_ALL_REJECTED_TRANSACTIONS);    // SA
 			this.getFacetedTransactionsByMerchant = session.prepare(GET_FACETED_TRANSACTIONS_BY_MERCHANT);    // SA
 			this.getFacetedTransactionsByStatusInLastPeriod = session.prepare(GET_FACETED_TRANSACTIONS_BY_STATUS_IN_LAST_PERIOD);    // SA
@@ -219,14 +213,6 @@ public class TransactionDao {
 		return processTransactionResultSet(resultSet);
 	}
 
-	public List<Transaction> getAllDeclinedTransactions() {                    // SA
-		// execute the prepared statement using the supplied bind variable(s)
-		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
-		String solrBindString = "{\"q\":\"status:Declined\"}";
-		logger.info(">> getAllDeclinedTransactions: - <no params>");
-		ResultSet resultSet = this.session.execute(getAllDeclinedTransactions.bind(solrBindString));
-		return processTransactionResultSet(resultSet);
-	}
 	public List<Transaction> getAllRejectedTransactions() {                    // SA
 		// execute the prepared statement using the supplied bind variable(s)
 		// For Solr queries provide the entire WHERE clause as the bind string, not just the value of e.g. ccNo
