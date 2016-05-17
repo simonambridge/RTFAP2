@@ -9,7 +9,7 @@ In order to run this demo, it is assumed that you have the following installed a
   4. sbt
 
 ##Getting Started with Kafka
-Use the steps below to setup up a local instance of Kafka for this example. THis is based off of apache-kafka_2.10-0.9.0.1.
+Use the steps below to setup up a local instance of Kafka for this example. This is based on apache-kafka_2.10-0.9.0.1.
 
 ###1. Locate and download Apache Kafka
 
