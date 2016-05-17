@@ -36,7 +36,7 @@ http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sp
 
 Repo info is below:
 
-- Set up and install DataStax Enterprise
+- Set up and install DataStax Enterprise with Spark and Solr enabled
 - Note down the IP's of the node(s)
 - Opscenter => http://[DSE node]:8888/opscenter/index.html
 - Spark Master => http://[DSE node]:7080/
