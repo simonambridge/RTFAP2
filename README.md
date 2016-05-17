@@ -175,6 +175,15 @@ Queries to roll-up tables, for example transactions for each merchant by day (th
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
 
+We also need some tables for the streaming and analytics. Run the create schema script for the transaction generator - this includes a duplicate definition of the transaction table - you can ignore the error message:
+
+```
+cqlsh> source 'TransactionHandlers/CreateTables.cql'
+TransactionHandlers/CreateTables.cql:13:AlreadyExists: Keyspace 'rtfap' already exists
+TransactionHandlers/CreateTables.cql:38:AlreadyExists: Table 'rtfap.transactions' already exists
+```
+
+
 ##Searching Data in DSE
 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on.
@@ -218,7 +227,12 @@ To use the web service, use the following url’s. These will return a json repr
 The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
 The web service adopts a framework that separates the web, service and data access layers into individual, easily maintainable components.
 
-To compile the code:
+You'll need to install Maven to compile the code. As the root account use apt-get to install it:
+```
+$ apt-get install maven
+```
+
+Compile the code:
 
 ```
 $ mvn clean compile
@@ -228,14 +242,16 @@ To start the web service use the command:
 ```
 $ mvn jetty:run
 ```
-To bind to a specific interface other than localhost use:
+To bind to a specific interface or port other than localhost and the default of 8080 use:
 ```
-$ mvn jetty:run -DcontactPoints=<server IP address>
+$ mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
 ```
-For example - to run on a server with an IP of 10.0.0.4 and persist the web service after logging out use:
+For example - to run on a server with an IP of 10.0.0.4 and run the service on port 7001, and persist the web service after logging out use:
 ```
-$ nohup mvn jetty:run -DcontactPoints=10.0.0.4 &
+$ nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
 ```
+
+At this point you will be able to run the solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
 - CQL queries bind the individual parameters passed from the web interface
