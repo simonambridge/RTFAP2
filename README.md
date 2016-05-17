@@ -1,5 +1,6 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
+##Use Case
 A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by merchant, credit card provider, amounts values. This is subject to change.
 
 The client wants a REST API to return:  
@@ -14,7 +15,7 @@ The client wants a REST API to return:
 - A moving ratio of approved transactions per minute, per hour.
 - A count of approved transactions per minute, per hour.
 
-Performance SLAs:
+##Performance SLAs:
 - The client wants assurance that his data model can handle 1,000 transactions a sec with stable latencies. The client currently handles accounts for over 15000 merchants and hoping to grow to 50,000 in a year.
 
 ![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
