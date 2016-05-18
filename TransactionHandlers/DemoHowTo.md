@@ -69,7 +69,7 @@ Show all of the messages in a topic from the beginning
 
   * You should have already created the Cassandra keyspaces and tables using the main creates_and_inserts.cql script
   * You should have already created the streaming tables using the [CreateTables.cql](CreateTables.cql) script 
-  * Install sbt (as root or use sudo):
+  * If you havent yet installed sbt (as root or use sudo):
   ```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
