@@ -66,20 +66,20 @@ cqlsh> source 'creates_and_inserts.cql'
 ```
 This creates the following tables:
 
-Table Transactions - main transactions table
+- Table Transactions - main transactions table
 We will create a Solr index on this tables to fulfill a bunch of flexible search needs as well.
 
-Table hourlyaggregates_bycc - hourly roll-up of transactions by credit card
+- Table hourlyaggregates_bycc - hourly roll-up of transactions by credit card
 
-Table dailyaggregates_bycc - daily roll-up of transactions by credit card
+- Table dailyaggregates_bycc - daily roll-up of transactions by credit card
 
-Table monthlyaggregates_bycc - monthly roll-up of transactions by credit card
+- Table monthlyaggregates_bycc - monthly roll-up of transactions by credit card
 
-Table yearlyaggregates_bycc - yearly roll-up of transactions by credit card
+- Table yearlyaggregates_bycc - yearly roll-up of transactions by credit card
 
-Table dailytxns_bymerchant - daily roll-up of transactions by merchant
+- Table dailytxns_bymerchant - daily roll-up of transactions by merchant
 
-Table txn_count_min - track transactions in a rolling window for analytics
+- Table txn_count_min - track transactions in a rolling window for analytics
 
 ##Sample inserts
 
