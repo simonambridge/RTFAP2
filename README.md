@@ -45,11 +45,15 @@ Install information
 - Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scala 2.10
 - Note down the IP's of the node(s)
 
-Your URL's will be;
-- Opscenter => http://[DSE node]:8888/opscenter/index.html
-- Spark Master => http://[DSE node]:7080/
-- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
-- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
+Your URL's will be: 
+- Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
+- Spark Master => http://[DSE_NODE_IP]:7080/
+- Solr admin page => http://[DSE_NODE_IP]:8983/solr/
+- Java ReST interface => e.g. http://[DSE_NODE_IP]:7001/datastax-banking-iot/rest/getalltransactions
+- Jupyter notebook with RTFAP Test queries=> http:/[DSE_NODE_IP]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+- Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
+
+(where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
 ##DataModel
 
@@ -164,7 +168,7 @@ To start the web service use the command:
 ```
 $ mvn jetty:run
 ```
-To bind to a specific interface or port other than localhost and the default of 8080 use:
+To bind to a specific interface or port (other than localhost and the default of 8080) use:
 ```
 $ mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
 ```
