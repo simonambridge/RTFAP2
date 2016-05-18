@@ -284,7 +284,6 @@ This provides huge value in terms of significantly reduced ETL complexity (no da
 ###Batch Analytics
 
 A Spark batch job that runs daily rolling up all the transactions in the last day by merchant and calculating the total_amount, avg_amount and total_count.
-(Daily Roll-Up Reports of last-Week and last-Day transactions for each merchant.)
 
 Roll up batch analytics code can be found under the directory 'RollUpReports'
 
