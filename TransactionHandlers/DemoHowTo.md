@@ -140,3 +140,14 @@ cqlsh> select count(*) from rtfap.transactions;
 -------
   1188
 ```
+
+Periodically you will also see the consumer process generate output similar to the following:
+```
++----+-----+---+----+------+-----------------+-----------+----------------+-----------------+----------+---------------+
+|year|month|day|hour|minute|approved_rate_min|ttl_txn_min|approved_txn_min| approved_rate_hr|ttl_txn_hr|approved_txn_hr|
++----+-----+---+----+------+-----------------+-----------+----------------+-----------------+----------+---------------+
+|2016|    4| 18|   0|    54|93.55742296918767|        357|             334|94.32558139534883|      1075|           1014|
++----+-----+---+----+------+-----------------+-----------+----------------+-----------------+----------+---------------+
+```
+This is real-time analysis of the approved vs. rejected transactions rate and percentage.
+
