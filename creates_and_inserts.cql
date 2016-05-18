@@ -76,6 +76,27 @@ CREATE TABLE if not exists rtfap.yearlyaggregates_bycc(
     PRIMARY KEY ((cc_no, year))
 );
 
+CREATE TABLE if not exists rtfap.dailytxns_bymerchant(
+	cc_no text,
+	cc_provider text,
+	day int,
+	txn_time timestamp,
+ 	txn_id text,
+ 	user_id text,
+	location text,
+	items map<text, double>,
+	merchant text,
+	amount double,
+	status text,
+	notes text,
+	tags set<text>,
+	total_amount double STATIC,
+	max_amount double STATIC,
+	min_amount double STATIC,
+	total_count bigint STATIC,
+	PRIMARY KEY ((merchant, day), txn_time, txn_id)
+) WITH CLUSTERING ORDER BY (txn_time desc);
+
 CREATE TABLE rtfap.txn_count_min (
 	year int,
 	month int,
