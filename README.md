@@ -40,15 +40,16 @@ http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sp
 
 
 
-Install information:
+Install information
 
-- Set up and install DataStax Enterprise with Spark and Solr enabled
+- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scal 2.10
 - Note down the IP's of the node(s)
-- Your URL's will be;
--- Opscenter => http://[DSE node]:8888/opscenter/index.html
--- Spark Master => http://[DSE node]:7080/
--- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
--- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
+
+Your URL's will be;
+- Opscenter => http://[DSE node]:8888/opscenter/index.html
+- Spark Master => http://[DSE node]:7080/
+- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
 
 ##DataModel
 
