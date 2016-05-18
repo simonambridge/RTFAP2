@@ -92,7 +92,20 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   * From the root directory of the project start the producer app:
   
     `sbt producer/run`
-    
+
+After some initial output you will see transactions being created and posted to Kafka:
+```
+926 Transactions created.
+928 Transactions created.
+931 Transactions created.
+932 Transactions created.
+935 Transactions created.
+937 Transactions created.
+940 Transactions created.
+```
+ 
+ You can leave this process running as you wish.
+ 
   * Identify the location of the SparkMaster node:
   ```
   $ dsetool sparkmaster
@@ -102,4 +115,28 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   
     `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
     
-  
+  After some initial output you will see records being consumed from Kafka by Spark:
+```
+4 rows processed.
+6 rows processed.
+4 rows processed.
+6 rows processed.
+8 rows processed.
+9 rows processed.
+5 rows processed.
+4 rows processed.
+6 rows processed.
+4 rows processed.
+4 rows processed.
+```
+You can leave this running as you wish.
+
+At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
+
+```
+cqlsh> select count(*) from rtfap.transactions;
+
+ count
+-------
+  1188
+```
