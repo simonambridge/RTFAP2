@@ -22,7 +22,7 @@ The client wants a REST API to return:
 - A count of approved transactions per minute, per hour.
 
 ##Performance SLAs:
-- The client wants an assurance that his data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
+- The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 ![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
 
