@@ -11,6 +11,7 @@ apt-get install sbt
 ```
 
 In order to run this demo navigate to the RollUpReports directory
+
 NB ensure that you've run the streaming transaction producer/consumer before you run the roll ups so that there is data in the Transaction table to be rolled up).
 
 * Build the rollup jobs with this command:
