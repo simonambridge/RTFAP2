@@ -270,15 +270,6 @@ DSE provides integration with Spark out of the box. This allows for analysis of 
 
 This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture" .
 
-###Batch Analytics
-
-Two Spark batch jobs have been included. 
-* `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
-* `run_rollupbycc.sh` populates the hourly/daily/monthly/yearly aggregate tables by credit card, calculating the total_amount, avg_amount and total_count.
-
-The roll up batch analytics code and submit scripts can be found under the directory [directory](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
-
-
 ###Jupyter Notebook
 
 The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
@@ -288,6 +279,35 @@ The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Te
 Streaming analytics code can be found under the directory 'TransactionHandlers'
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
+
+###Batch Analytics
+
+Two Spark batch jobs have been included. 
+* `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
+* `run_rollupbycc.sh` populates the hourly/daily/monthly/yearly aggregate tables by credit card, calculating the total_amount, avg_amount and total_count.
+
+The roll up batch analytics code and submit scripts can be found [here](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
+
+* If you havent yet installed sbt (as root or use sudo):
+  ```
+echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+apt-get update
+apt-get install sbt
+```
+
+In order to run this demo navigate to the RollUpReports directory (ensure that you've run the streaming transaction producer/consumer before you run the roll ups so that there is data in the Transaction table to be rolled up).
+
+  * Build the rollup jobs with this command:
+  
+    `sbt package`
+
+  * Submit the transactions by merchant roll up:
+  `./run_rollupbymerchant.sh`
+
+  * Submit the aggregates by credit card rollup:
+  `./run_rollupbycc.sh`
+
 
 
 ##Stress yaml
