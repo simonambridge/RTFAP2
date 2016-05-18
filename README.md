@@ -314,7 +314,7 @@ Follow the installation and set up instructions [here:](https://github.com/simon
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-The stress YAML files are uploaded to this [directory](https://github.com/simonambridge/RTFAP/tree/master/stress%20yamls).
+The stress YAML files are uploaded to this [directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
 
 The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
 
@@ -322,7 +322,7 @@ You can read more about stress testing a data model here
 http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
 http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
 
-An example of running the stress tool is below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress%20yamls/txn_by_cc_stress.yaml):
+An example of running the stress tool is below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
 For inserts
 ```
