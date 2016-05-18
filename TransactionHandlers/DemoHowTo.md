@@ -89,7 +89,7 @@ apt-get install sbt
 
 This assumes you already have Kafka and DSE up and running and configured as in the steps above.
 
-  * From the root directory of the project start the producer app 
+  * From the root directory of the project start the producer app:
   
     `sbt producer/run`
     
@@ -98,7 +98,7 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   $ dsetool sparkmaster
   
   ```
-  * From the root directory of the project start the consumer app
+  * From the root directory of the project start the consumer app:
   
     `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
     
