@@ -53,7 +53,8 @@ Install information:
 
 We will need multiple tables to fulfill the above query patterns and workloads (de-normalization is a good thing with NoSQL databases!).
 
-We will use a single DC for testing purposes. For production deployment, we recommend an Active-Active HA setup across geographical regions with RF=3.
+For testing purposes we will use a single DC with one node and RF=1. 
+For production deployment, we recommend a multi-datacenter Active-Active HA setup across geographical regions with RF=3.
 ```
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
@@ -65,105 +66,20 @@ cqlsh> source 'creates_and_inserts.cql'
 ```
 This creates the following tables:
 
-Table for: Transactions by txn_time buckets; We will create a Solr index on this tables to fulfill a bunch of search needs as well.
-```
-create table if not exists rtfap.transactions(
-	cc_no text,
-	cc_provider text,
-	year int,
-	month int,
-	day int,
-	hour int,
-	min int,
-	txn_time timestamp,
- 	txn_id text,
- 	user_id text,
-	location text,
-	items map<text, double>,
-	merchant text,
-	amount double,
-	status text,
-	notes text,
-	tags set<text>,
-	PRIMARY KEY ((cc_no, year, month,day), txn_time)
-) WITH CLUSTERING ORDER BY (txn_time desc);
-```
+Table Transactions - main transactions table
+We will create a Solr index on this tables to fulfill a bunch of flexible search needs as well.
 
-Table for: Roll-up of Daily transactions by merchant
-```
-create table if not exists rtfap.dailytxns_bymerchant(
-	cc_no text,
-	cc_provider text,
-	day int,
-	txn_time timestamp,
- 	txn_id text,
- 	user_id text,
-	location text,
-	items map<text, double>,
-	merchant text,
-	amount double,
-	status text,
-	notes text,
-	tags set<text>,
-	total_amount double STATIC,
-	max_amount double STATIC,
-	min_amount double STATIC,
-	total_count bigint STATIC,
-	PRIMARY KEY ((merchant, day), txn_time, txn_id)
-) WITH CLUSTERING ORDER BY (txn_time desc);
-```
+Table hourlyaggregates_bycc - hourly roll-up of transactions by credit card
 
-Table for: hourlyaggregates_bycc
-```
-create table if not exists rtfap.hourlyaggregates_bycc(
-    cc_no text,
-    hour int,
-    total_amount double,
-    max_amount double,
-    min_amount double,
-    total_count bigint,
-    PRIMARY KEY ((cc_no, hour))
-);
-```
+Table dailyaggregates_bycc - daily roll-up of transactions by credit card
 
-Table for: dailyaggregates_bycc
-```
-create table if not exists rtfap.dailyaggregates_bycc(
-    cc_no text,
-    day int,
-    total_amount double,
-    max_amount double,
-    min_amount double,
-    total_count bigint,
-    PRIMARY KEY ((cc_no, day))
-);
-```
+Table monthlyaggregates_bycc - monthly roll-up of transactions by credit card
 
-Table for: monthlyaggregates_bycc
-```
-create table if not exists rtfap.monthlyaggregates_bycc(
-    cc_no text,
-    month int,
-    total_amount double,
-    max_amount double,
-    min_amount double,
-    total_count bigint,
-    PRIMARY KEY ((cc_no, month))
-);
-```
+Table yearlyaggregates_bycc - yearly roll-up of transactions by credit card
 
-Table for: yearlyaggregates_bycc
-```
-create table if not exists rtfap.yearlyaggregates_bycc(
-    cc_no text,
-    year int,
-    total_amount double,
-    max_amount double,
-    min_amount double,
-    total_count bigint,
-    PRIMARY KEY ((cc_no, year))
-);
-```
+Table dailytxns_bymerchant - daily roll-up of transactions by merchant
+
+Table txn_count_min - track transactions in a rolling window for analytics
 
 ##Sample inserts
 
