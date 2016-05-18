@@ -11,7 +11,7 @@ AND replication = {
 
 // create tables
 
-CREATE TABLE rtfap.transactions (
+CREATE TABLE if not exists rtfap.transactions (
 	cc_no text,
 	year int,
 	month int,
@@ -97,7 +97,7 @@ CREATE TABLE if not exists rtfap.dailytxns_bymerchant(
 	PRIMARY KEY ((merchant, day), txn_time, txn_id)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 
-CREATE TABLE rtfap.txn_count_min (
+CREATE TABLE if not exists rtfap.txn_count_min (
 	year int,
 	month int,
 	day int,
