@@ -29,7 +29,7 @@ The client wants a REST API to return:
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
-We will need to start DSE in Analytics mode to allow us to use the integrated Spark feature, and Search mode to allow us to use the search functionalities that we need on top on Cassandra. 
+We will need to start DSE in Analytics and Search mode - Analytics to allow us to use the integrated Spark feature, and Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
 - Solr (Search):
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
 - Spark (Analytics):
