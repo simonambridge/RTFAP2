@@ -272,6 +272,11 @@ This tight integration between Cassandra and Spark offers huge value in terms of
 
 ###Streaming Analytics
 
+The streaming analytics element of this application is made up of two parts:
+
+* The transaction producer is a Scala app that generates random transactions and then places those transactions on a Kafka queue. 
+* The transaction consumer, also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table.
+
 Streaming analytics code can be found under the directory 'TransactionHandlers'
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
