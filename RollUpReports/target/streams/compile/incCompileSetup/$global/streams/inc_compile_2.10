@@ -4,7 +4,7 @@ output mode:
 0 -> single
 output directories:
 1 items
-output dir -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes
+output dir -> /root/RTFAP/RollUpReports/target/scala-2.10/classes
 compile options:
 0 items
 javac options:
@@ -20,24 +20,24 @@ name hashing:
 0 -> true
 products:
 5 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class
 binary dependencies:
 11 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /root/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /root/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
 direct source dependencies:
 0 items
 direct external dependencies:
@@ -56,140 +56,141 @@ inheritance external dependencies:
 0 items
 class names:
 5 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC$
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant$
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant$$anonfun$main$1
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC$
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant$
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant$$anonfun$main$1
 used names:
 85 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> ->
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> <init>
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> AnyRef
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Array
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> HiveContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Map
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Predef
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SQLContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SaveMode
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SparkConf
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SparkContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> String
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Unit
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> any2ArrowAssoc
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> apache
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> apply
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> conf
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> format
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> getOrCreate
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> hive
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> mode
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> options
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> org
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> println
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup3
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup4
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup5
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup6
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> save
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sc
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> scala
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> setAppName
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> spark
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sql
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sqlContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> write
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> ->
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> <init>
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> AnyRef
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Array
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> HiveContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Long
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Map
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Predef
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SQLContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SaveMode
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SparkConf
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SparkContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> String
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> System
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> TypeTag
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Unit
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> any2ArrowAssoc
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> apache
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> apply
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> conf
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> currentTimeMillis
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> format
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> getOrCreate
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> hive
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> java
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> lang
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> materializeTypeTag
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> mode
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> options
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> org
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> package
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> println
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> reflect
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> register
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> rollup1
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> rollup2
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> runtime
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> save
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sc
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> scala
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> setAppName
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> spark
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sql
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sqlContext
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> udf
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> universe
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> write
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> ->
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> <init>
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> AnyRef
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Array
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> HiveContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Map
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Predef
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> RollUpReportsByCC
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SQLContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SaveMode
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SparkConf
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> SparkContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> String
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> Unit
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> any2ArrowAssoc
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> apache
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> apply
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> conf
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> format
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> getOrCreate
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> hive
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> mode
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> options
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> org
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> println
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup3
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup4
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup5
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> rollup6
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> save
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sc
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> scala
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> setAppName
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> spark
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sql
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> sqlContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> write
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> ->
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> <init>
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> AnyRef
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Array
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> HiveContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Long
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Map
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Predef
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> RollUpReportsByMerchant
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SQLContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SaveMode
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SparkConf
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> SparkContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> String
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> System
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> TypeTag
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> Unit
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> any2ArrowAssoc
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> apache
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> apply
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> conf
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> currentTimeMillis
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> format
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> getOrCreate
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> hive
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> java
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> lang
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> materializeTypeTag
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> mode
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> options
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> org
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> package
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> println
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> reflect
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> register
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> rollup1
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> rollup2
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> runtime
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> save
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sc
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> scala
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> setAppName
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> spark
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sql
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> sqlContext
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> udf
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> universe
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> write
 product stamps:
 5 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class -> lastModified(1461640971000)
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class -> lastModified(1461640971000)
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class -> lastModified(1458928664000)
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class -> lastModified(1458928664000)
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class -> lastModified(1458928664000)
+/root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class -> lastModified(1463593364000)
+/root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class -> lastModified(1463593364000)
+/root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class -> lastModified(1463593364000)
+/root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class -> lastModified(1463593364000)
+/root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class -> lastModified(1463593364000)
 source stamps:
 2 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> hash(f4b548b2360b4a4848c3225be55ca3b3236f5952)
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> hash(08482de5f2e88b6bf710cae2f3e4226ba1ac07e0)
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> hash(f4b548b2360b4a4848c3225be55ca3b3236f5952)
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> hash(08482de5f2e88b6bf710cae2f3e4226ba1ac07e0)
 binary stamps:
 6 items
-/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar -> lastModified(1438711540000)
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar -> lastModified(1436399609000)
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar -> lastModified(1436399549000)
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar -> lastModified(1436399751000)
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar -> lastModified(1425002069000)
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar -> lastModified(1425002084000)
+/root/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar -> lastModified(1436399609000)
+/root/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar -> lastModified(1436399549000)
+/root/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar -> lastModified(1436399751000)
+/root/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar -> lastModified(1425002069000)
+/root/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar -> lastModified(1425002084000)
+/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar -> lastModified(1463561838000)
 class names:
 6 items
-/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/rt.jar -> java.lang.Object
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar -> org.apache.spark.SparkConf
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar -> org.apache.spark.sql.hive.HiveContext$
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar -> org.apache.spark.sql.SaveMode
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar -> scala.Predef$
-/Users/Kkusoorkar-MBP15/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar -> scala.reflect.runtime.package$
+/root/.ivy2/cache/org.apache.spark/spark-core_2.10/jars/spark-core_2.10-1.4.1.jar -> org.apache.spark.SparkContext$
+/root/.ivy2/cache/org.apache.spark/spark-hive_2.10/jars/spark-hive_2.10-1.4.1.jar -> org.apache.spark.sql.hive.HiveContext
+/root/.ivy2/cache/org.apache.spark/spark-sql_2.10/jars/spark-sql_2.10-1.4.1.jar -> org.apache.spark.sql.SQLContext$
+/root/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.5.jar -> scala.Long
+/root/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.10.5.jar -> scala.reflect.runtime.package$
+/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar -> java.lang.Object
 internal apis:
 2 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> 
-rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHC7vplCAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAFXNyACB4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaFsO9SJ2OFfPAgACSQAEaGFzaEwABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cDTwtux0AAZub3RpZnlzcQB+AAxncPdldAAEd2FpdHNxAH4ADCvEux10AA0kYXNJbnN0YW5jZU9mc3EAfgAMpNzok3QABmVxdWFsc3NxAH4ADOabWS50AAxhc0luc3RhbmNlT2ZzcQB+AAy4/R8TdAAMc3luY2hyb25pemVkc3EAfgAM26HNAnQADSRpc0luc3RhbmNlT2ZzcQB+AAx4oWD6dAAEbWFpbnNxAH4ADPqCoIJ0AAlub3RpZnlBbGxzcQB+AAwWmBDOdAAMaXNJbnN0YW5jZU9mc3EAfgAMSNjp/HQAAj09c3EAfgAM30HZs3QABWNsb25lc3EAfgAM1sYjtXQACHRvU3RyaW5nc3EAfgAMu0+fYHQAAiE9c3EAfgAMyxEZYnQACGdldENsYXNzc3EAfgAMVRNziXQAEVJvbGxVcFJlcG9ydHNCeUNDc3EAfgAMdLDxlXQAAm5lc3EAfgAMwtmy9nQAAmVxc3EAfgAMKKgaKHQAAiMjc3EAfgAMghd0jHQACGZpbmFsaXplc3EAfgAM4nT96XQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzxxETIWmc3CQCAAFCAAVmbGFnc3hwAHEAfgAtdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsUAIuk5eXQD8CAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAXNyABN4c2J0aS5hcGkuRW1wdHlUeXBlvP2eRkk7iSQCAAB4cgAUeHNidGkuYXBpLlNpbXBsZVR5cGVyeGKIISO/QAIAAHhyAA54c2J0aS5hcGkuVHlwZT9q2SEWSarKAgAAeHBwc3EAfgBYAXNyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBBTAAJaW5oZXJpdGVkcQB+AEFMAAdwYXJlbnRzcQB+AEF4cQB+AF9zcQB+AFgBdXEAfgA8AAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgBCcQB+AEt1cQB+AEwAAAAAc3EAfgBOAHEAfgAddXEAfgBQAAAAAHNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4ADUwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+AF50AARVbml0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgBec3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAACc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4ADXhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AAVzY2FsYXNyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgB6dXIAGltMeHNidGkuYXBpLlBhcmFtZXRlckxpc3Q79dM6HfKzcO4CAAB4cAAAAAFzcgAXeHNidGkuYXBpLlBhcmFtZXRlckxpc3TWxbwcZEl04wIAAloACmlzSW1wbGljaXRbAApwYXJhbWV0ZXJzdAAcW0x4c2J0aS9hcGkvTWV0aG9kUGFyYW1ldGVyO3hwAHVyABxbTHhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXI7z7jFXaXdtW0CAAB4cAAAAAFzcgAZeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlch9FrhfTSbDqAgAEWgAKaGFzRGVmYXVsdEwACG1vZGlmaWVydAAdTHhzYnRpL2FwaS9QYXJhbWV0ZXJNb2RpZmllcjtMAARuYW1lcQB+AA1MAAN0cGVxAH4AZ3hwAH5yABt4c2J0aS5hcGkuUGFyYW1ldGVyTW9kaWZpZXIAAAAAAAAAABIAAHhxAH4AU3QABVBsYWludAAEYXJnc3NyABd4c2J0aS5hcGkuUGFyYW1ldGVyaXplZBZs7mkDybt/AgACTAAIYmFzZVR5cGVxAH4AblsADXR5cGVBcmd1bWVudHN0ABFbTHhzYnRpL2FwaS9UeXBlO3hxAH4AXnNxAH4AbXQABUFycmF5cQB+AHN1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAXNxAH4AbXQABlN0cmluZ3NxAH4AcXNxAH4AdHVxAH4AdwAAAANzcQB+AHl0AARqYXZhc3EAfgB5dAAEbGFuZ3EAfgB+cHNxAH4AWAF1cQB+ADwAAAAAcHNxAH4AWAF1cQB+AJIAAAACc3EAfgBtdAAGT2JqZWN0cQB+AJZzcQB+AG10AANBbnlxAH4Ac3BwdXIAFFtMeHNidGkuYXBpLlBhY2thZ2U7WxMZN3CnJ6ECAAB4cAAAAABzcgAVeHNidGkuYXBpLkNvbXBpbGF0aW9u7frgw2rooEICAAJKAAlzdGFydFRpbWVbAAdvdXRwdXRzdAAaW0x4c2J0aS9hcGkvT3V0cHV0U2V0dGluZzt4cAAAAVRQlzkVdXIAGltMeHNidGkuYXBpLk91dHB1dFNldHRpbmc7f2rC86eHpUICAAB4cAAAAAFzcgAXeHNidGkuYXBpLk91dHB1dFNldHRpbmd62ZpHdPsdewIAAkwAD291dHB1dERpcmVjdG9yeXEAfgANTAAPc291cmNlRGlyZWN0b3J5cQB+AA14cHQATC9Vc2Vycy9La3Vzb29ya2FyLU1CUDE1L0lkZWFQcm9qZWN0cy9Sb2xsVXBSZXBvcnRzL3RhcmdldC9zY2FsYS0yLjEwL2NsYXNzZXN0AAEvdXIAAltCrPMX+AYIVOACAAB4cAAAABT0tUiyNgtKSEjDIlvlXKOzI29ZUg==
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> 
-rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHBbfd7pAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAFXNyACB4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaFsO9SJ2OFfPAgACSQAEaGFzaEwABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cATJkGp0AAZub3RpZnlzcQB+AAwbKU+tdAAEd2FpdHNxAH4ADB/Rt150AA0kYXNJbnN0YW5jZU9mc3EAfgAMDgYL63QABmVxdWFsc3NxAH4ADLIsGap0AAxhc0luc3RhbmNlT2ZzcQB+AAysIk3LdAAMc3luY2hyb25pemVkc3EAfgAMUOMvWHQADSRpc0luc3RhbmNlT2ZzcQB+AAyeC02ZdAAEbWFpbnNxAH4ADAX6N1p0AAlub3RpZnlBbGxzcQB+AAx2qtdjdAAMaXNJbnN0YW5jZU9mc3EAfgAMn8EvB3QAF1JvbGxVcFJlcG9ydHNCeU1lcmNoYW50c3EAfgAMFnUwg3QAAj09c3EAfgAMHKVW6XQABWNsb25lc3EAfgAMtfd70nQACHRvU3RyaW5nc3EAfgAM0gb/nnQAAiE9c3EAfgAMZwVZWnQACGdldENsYXNzc3EAfgAMifPsJHQAAm5lc3EAfgAM1KIQEnQAAmVxc3EAfgAMppHWUnQAAiMjc3EAfgAMToeDPHQACGZpbmFsaXplc3EAfgAMJoQItHQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzxxETIWmc3CQCAAFCAAVmbGFnc3hwAHEAfgAjdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsUAIuk5eXQD8CAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAHBzcgAgeHNidGkuU2FmZUxhenkkJGFub25mdW4kc3RyaWN0JDEAAAAAAAAAAAIAAUwAB3ZhbHVlJDFxAH4AWXhwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AWABwc3EAfgBdc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AEFMAAlpbmhlcml0ZWRxAH4AQUwAB3BhcmVudHNxAH4AQXhxAH4AYXNxAH4AWABwc3EAfgBddXEAfgA8AAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgBCcQB+AEt1cQB+AEwAAAAAc3EAfgBOAHEAfgAddXEAfgBQAAAAAHNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4ADUwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+AGB0AARVbml0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgBgc3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAACc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4ADXhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AAVzY2FsYXNyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgB+dXIAGltMeHNidGkuYXBpLlBhcmFtZXRlckxpc3Q79dM6HfKzcO4CAAB4cAAAAAFzcgAXeHNidGkuYXBpLlBhcmFtZXRlckxpc3TWxbwcZEl04wIAAloACmlzSW1wbGljaXRbAApwYXJhbWV0ZXJzdAAcW0x4c2J0aS9hcGkvTWV0aG9kUGFyYW1ldGVyO3hwAHVyABxbTHhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXI7z7jFXaXdtW0CAAB4cAAAAAFzcgAZeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlch9FrhfTSbDqAgAEWgAKaGFzRGVmYXVsdEwACG1vZGlmaWVydAAdTHhzYnRpL2FwaS9QYXJhbWV0ZXJNb2RpZmllcjtMAARuYW1lcQB+AA1MAAN0cGVxAH4Aa3hwAH5yABt4c2J0aS5hcGkuUGFyYW1ldGVyTW9kaWZpZXIAAAAAAAAAABIAAHhxAH4AU3QABVBsYWludAAEYXJnc3NyABd4c2J0aS5hcGkuUGFyYW1ldGVyaXplZBZs7mkDybt/AgACTAAIYmFzZVR5cGVxAH4AclsADXR5cGVBcmd1bWVudHN0ABFbTHhzYnRpL2FwaS9UeXBlO3hxAH4AYHNxAH4AcXQABUFycmF5cQB+AHd1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAXNxAH4AcXQABlN0cmluZ3NxAH4AdXNxAH4AeHVxAH4AewAAAANzcQB+AH10AARqYXZhc3EAfgB9dAAEbGFuZ3EAfgCCc3EAfgBYAHBzcQB+AF11cQB+ADwAAAAAc3EAfgBYAHBzcQB+AF11cQB+AJYAAAACc3EAfgBxdAAGT2JqZWN0cQB+AJpzcQB+AHF0AANBbnlxAH4Ad3VyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAAAc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFTruy2TXVyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4ADUwAD3NvdXJjZURpcmVjdG9yeXEAfgANeHB0AEwvVXNlcnMvS2t1c29vcmthci1NQlAxNS9JZGVhUHJvamVjdHMvUm9sbFVwUmVwb3J0cy90YXJnZXQvc2NhbGEtMi4xMC9jbGFzc2VzdAABL3VyAAJbQqzzF/gGCFTgAgAAeHAAAAAUCEgt5fLoi2v3EMri8+Qia6GsB+A=
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHC7vplCAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAFXNyACB4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaFsO9SJ2OFfPAgACSQAEaGFzaEwABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cDTwtux0AAZub3RpZnlzcQB+AAxncPdldAAEd2FpdHNxAH4ADCvEux10AA0kYXNJbnN0YW5jZU9mc3EAfgAMpNzok3QABmVxdWFsc3NxAH4ADOabWS50AAxhc0luc3RhbmNlT2ZzcQB+AAy4/R8TdAAMc3luY2hyb25pemVkc3EAfgAM26HNAnQADSRpc0luc3RhbmNlT2ZzcQB+AAx4oWD6dAAEbWFpbnNxAH4ADPqCoIJ0AAlub3RpZnlBbGxzcQB+AAwWmBDOdAAMaXNJbnN0YW5jZU9mc3EAfgAMSNjp/HQAAj09c3EAfgAM30HZs3QABWNsb25lc3EAfgAM1sYjtXQACHRvU3RyaW5nc3EAfgAMu0+fYHQAAiE9c3EAfgAMyxEZYnQACGdldENsYXNzc3EAfgAMVRNziXQAEVJvbGxVcFJlcG9ydHNCeUNDc3EAfgAMdLDxlXQAAm5lc3EAfgAMwtmy9nQAAmVxc3EAfgAMKKgaKHQAAiMjc3EAfgAMghd0jHQACGZpbmFsaXplc3EAfgAM4nT96XQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzxxETIWmc3CQCAAFCAAVmbGFnc3hwAHEAfgAtdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsUAIuk5eXQD8CAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAHBzcgAgeHNidGkuU2FmZUxhenkkJGFub25mdW4kc3RyaWN0JDEAAAAAAAAAAAIAAUwAB3ZhbHVlJDFxAH4AWXhwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AWABwc3EAfgBdc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AEFMAAlpbmhlcml0ZWRxAH4AQUwAB3BhcmVudHNxAH4AQXhxAH4AYXNxAH4AWABwc3EAfgBddXEAfgA8AAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgBCcQB+AEt1cQB+AEwAAAAAc3EAfgBOAHEAfgAddXEAfgBQAAAAAHNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4ADUwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+AGB0AARVbml0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgBgc3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAACc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4ADXhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AAVzY2FsYXNyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgB+dXIAGltMeHNidGkuYXBpLlBhcmFtZXRlckxpc3Q79dM6HfKzcO4CAAB4cAAAAAFzcgAXeHNidGkuYXBpLlBhcmFtZXRlckxpc3TWxbwcZEl04wIAAloACmlzSW1wbGljaXRbAApwYXJhbWV0ZXJzdAAcW0x4c2J0aS9hcGkvTWV0aG9kUGFyYW1ldGVyO3hwAHVyABxbTHhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXI7z7jFXaXdtW0CAAB4cAAAAAFzcgAZeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlch9FrhfTSbDqAgAEWgAKaGFzRGVmYXVsdEwACG1vZGlmaWVydAAdTHhzYnRpL2FwaS9QYXJhbWV0ZXJNb2RpZmllcjtMAARuYW1lcQB+AA1MAAN0cGVxAH4Aa3hwAH5yABt4c2J0aS5hcGkuUGFyYW1ldGVyTW9kaWZpZXIAAAAAAAAAABIAAHhxAH4AU3QABVBsYWludAAEYXJnc3NyABd4c2J0aS5hcGkuUGFyYW1ldGVyaXplZBZs7mkDybt/AgACTAAIYmFzZVR5cGVxAH4AclsADXR5cGVBcmd1bWVudHN0ABFbTHhzYnRpL2FwaS9UeXBlO3hxAH4AYHNxAH4AcXQABUFycmF5cQB+AHd1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAXNxAH4AcXQABlN0cmluZ3NxAH4AdXNxAH4AeHVxAH4AewAAAANzcQB+AH10AARqYXZhc3EAfgB9dAAEbGFuZ3EAfgCCc3EAfgBYAHBzcQB+AF11cQB+ADwAAAAAc3EAfgBYAHBzcQB+AF11cQB+AJYAAAACc3EAfgBxdAAGT2JqZWN0cQB+AJpzcQB+AHF0AANBbnlxAH4Ad3VyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAAAc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFUxPYbO3VyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4ADUwAD3NvdXJjZURpcmVjdG9yeXEAfgANeHB0ADMvcm9vdC9SVEZBUC9Sb2xsVXBSZXBvcnRzL3RhcmdldC9zY2FsYS0yLjEwL2NsYXNzZXN0AAEvdXIAAltCrPMX+AYIVOACAAB4cAAAABT0tUiyNgtKSEjDIlvlXKOzI29ZUg==
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHBbfd7pAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAFXNyACB4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaFsO9SJ2OFfPAgACSQAEaGFzaEwABG5hbWV0ABJMamF2YS9sYW5nL1N0cmluZzt4cATJkGp0AAZub3RpZnlzcQB+AAwbKU+tdAAEd2FpdHNxAH4ADB/Rt150AA0kYXNJbnN0YW5jZU9mc3EAfgAMDgYL63QABmVxdWFsc3NxAH4ADLIsGap0AAxhc0luc3RhbmNlT2ZzcQB+AAysIk3LdAAMc3luY2hyb25pemVkc3EAfgAMUOMvWHQADSRpc0luc3RhbmNlT2ZzcQB+AAyeC02ZdAAEbWFpbnNxAH4ADAX6N1p0AAlub3RpZnlBbGxzcQB+AAx2qtdjdAAMaXNJbnN0YW5jZU9mc3EAfgAMn8EvB3QAF1JvbGxVcFJlcG9ydHNCeU1lcmNoYW50c3EAfgAMFnUwg3QAAj09c3EAfgAMHKVW6XQABWNsb25lc3EAfgAMtfd70nQACHRvU3RyaW5nc3EAfgAM0gb/nnQAAiE9c3EAfgAMZwVZWnQACGdldENsYXNzc3EAfgAMifPsJHQAAm5lc3EAfgAM1KIQEnQAAmVxc3EAfgAMppHWUnQAAiMjc3EAfgAMToeDPHQACGZpbmFsaXplc3EAfgAMJoQItHQACGhhc2hDb2Rlc3IAE3hzYnRpLmFwaS5Tb3VyY2VBUEm5Xqf5KSM4pAIAAlsAC2RlZmluaXRpb25zdAAXW0x4c2J0aS9hcGkvRGVmaW5pdGlvbjtbAAhwYWNrYWdlc3QAFFtMeHNidGkvYXBpL1BhY2thZ2U7eHB1cgAXW0x4c2J0aS5hcGkuRGVmaW5pdGlvbjuIyVzntONeDgIAAHhwAAAAAXNyABN4c2J0aS5hcGkuQ2xhc3NMaWtlgzQcod+wl2wCAARMAA5kZWZpbml0aW9uVHlwZXQAGkx4c2J0aS9hcGkvRGVmaW5pdGlvblR5cGU7WwAQc2F2ZWRBbm5vdGF0aW9uc3QAE1tMamF2YS9sYW5nL1N0cmluZztMAAhzZWxmVHlwZXQAEEx4c2J0aS9hcGkvTGF6eTtMAAlzdHJ1Y3R1cmVxAH4AQXhyACF4c2J0aS5hcGkuUGFyYW1ldGVyaXplZERlZmluaXRpb275EW6x1VA84gIAAVsADnR5cGVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvVHlwZVBhcmFtZXRlcjt4cgAUeHNidGkuYXBpLkRlZmluaXRpb26HKhvocULjRgIABEwABmFjY2Vzc3QAEkx4c2J0aS9hcGkvQWNjZXNzO1sAC2Fubm90YXRpb25zdAAXW0x4c2J0aS9hcGkvQW5ub3RhdGlvbjtMAAltb2RpZmllcnN0ABVMeHNidGkvYXBpL01vZGlmaWVycztMAARuYW1lcQB+AA14cHNyABB4c2J0aS5hcGkuUHVibGljulg9rmwtYEICAAB4cgAQeHNidGkuYXBpLkFjY2Vzc91imvgdYzFIAgAAeHB1cgAXW0x4c2J0aS5hcGkuQW5ub3RhdGlvbjvrl+sZEPaNSAIAAHhwAAAAAHNyABN4c2J0aS5hcGkuTW9kaWZpZXJzxxETIWmc3CQCAAFCAAVmbGFnc3hwAHEAfgAjdXIAGltMeHNidGkuYXBpLlR5cGVQYXJhbWV0ZXI72W0mDyid8rYCAAB4cAAAAAB+cgAYeHNidGkuYXBpLkRlZmluaXRpb25UeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAGTW9kdWxldXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAAHNyABN4c2J0aS5TYWZlTGF6eSRJbXBsUAIuk5eXQD8CAANaAAhiaXRtYXAkMEwAAl90dAASTGphdmEvbGFuZy9PYmplY3Q7TAAEZXZhbHQAEUxzY2FsYS9GdW5jdGlvbjA7eHIAFnhzYnRpLmFwaS5BYnN0cmFjdExhennTd7UBX7vnoAIAAHhwAHBzcgAgeHNidGkuU2FmZUxhenkkJGFub25mdW4kc3RyaWN0JDEAAAAAAAAAAAIAAUwAB3ZhbHVlJDFxAH4AWXhwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AWABwc3EAfgBdc3IAE3hzYnRpLmFwaS5TdHJ1Y3R1cmWpqvmAk2/YAAIAA0wACGRlY2xhcmVkcQB+AEFMAAlpbmhlcml0ZWRxAH4AQUwAB3BhcmVudHNxAH4AQXhxAH4AYXNxAH4AWABwc3EAfgBddXEAfgA8AAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgBCcQB+AEt1cQB+AEwAAAAAc3EAfgBOAHEAfgAddXEAfgBQAAAAAHNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4ADUwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+AGB0AARVbml0c3IAE3hzYnRpLmFwaS5TaW5nbGV0b278p1/4z1bkRgIAAUwABHBhdGh0ABBMeHNidGkvYXBpL1BhdGg7eHEAfgBgc3IADnhzYnRpLmFwaS5QYXRomz1cCM6lJ4QCAAFbAApjb21wb25lbnRzdAAaW0x4c2J0aS9hcGkvUGF0aENvbXBvbmVudDt4cHVyABpbTHhzYnRpLmFwaS5QYXRoQ29tcG9uZW50O0PaCXQtZxZ0AgAAeHAAAAACc3IADHhzYnRpLmFwaS5JZJgybIs3U8RAAgABTAACaWRxAH4ADXhyABd4c2J0aS5hcGkuUGF0aENvbXBvbmVudF+aIlsuhp+8AgAAeHB0AAVzY2FsYXNyAA54c2J0aS5hcGkuVGhpc9sJ7abMWkBcAgAAeHEAfgB+dXIAGltMeHNidGkuYXBpLlBhcmFtZXRlckxpc3Q79dM6HfKzcO4CAAB4cAAAAAFzcgAXeHNidGkuYXBpLlBhcmFtZXRlckxpc3TWxbwcZEl04wIAAloACmlzSW1wbGljaXRbAApwYXJhbWV0ZXJzdAAcW0x4c2J0aS9hcGkvTWV0aG9kUGFyYW1ldGVyO3hwAHVyABxbTHhzYnRpLmFwaS5NZXRob2RQYXJhbWV0ZXI7z7jFXaXdtW0CAAB4cAAAAAFzcgAZeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlch9FrhfTSbDqAgAEWgAKaGFzRGVmYXVsdEwACG1vZGlmaWVydAAdTHhzYnRpL2FwaS9QYXJhbWV0ZXJNb2RpZmllcjtMAARuYW1lcQB+AA1MAAN0cGVxAH4Aa3hwAH5yABt4c2J0aS5hcGkuUGFyYW1ldGVyTW9kaWZpZXIAAAAAAAAAABIAAHhxAH4AU3QABVBsYWludAAEYXJnc3NyABd4c2J0aS5hcGkuUGFyYW1ldGVyaXplZBZs7mkDybt/AgACTAAIYmFzZVR5cGVxAH4AclsADXR5cGVBcmd1bWVudHN0ABFbTHhzYnRpL2FwaS9UeXBlO3hxAH4AYHNxAH4AcXQABUFycmF5cQB+AHd1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAXNxAH4AcXQABlN0cmluZ3NxAH4AdXNxAH4AeHVxAH4AewAAAANzcQB+AH10AARqYXZhc3EAfgB9dAAEbGFuZ3EAfgCCc3EAfgBYAHBzcQB+AF11cQB+ADwAAAAAc3EAfgBYAHBzcQB+AF11cQB+AJYAAAACc3EAfgBxdAAGT2JqZWN0cQB+AJpzcQB+AHF0AANBbnlxAH4Ad3VyABRbTHhzYnRpLmFwaS5QYWNrYWdlO1sTGTdwpyehAgAAeHAAAAAAc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFUxPYbO3VyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4ADUwAD3NvdXJjZURpcmVjdG9yeXEAfgANeHB0ADMvcm9vdC9SVEZBUC9Sb2xsVXBSZXBvcnRzL3RhcmdldC9zY2FsYS0yLjEwL2NsYXNzZXN0AAEvdXIAAltCrPMX+AYIVOACAAB4cAAAABQISC3l8uiLa/cQyuLz5CJroawH4A==
 external apis:
 0 items
 source infos:
 2 items
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> 
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByCC.scala -> 
 AAAAAAAAAAA=
-/Users/Kkusoorkar-MBP15/IdeaProjects/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> 
+/root/RTFAP/RollUpReports/src/main/scala/RollUpReportsByMerchant.scala -> 
 AAAAAAAAAAA=
 compilations:
-2 items
+3 items
 0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABU67stk11cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATC9Vc2Vycy9La3Vzb29ya2FyLU1CUDE1L0lkZWFQcm9qZWN0cy9Sb2xsVXBSZXBvcnRzL3RhcmdldC9zY2FsYS0yLjEwL2NsYXNzZXN0AAEv
 1 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVFCXORV1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQATC9Vc2Vycy9La3Vzb29ya2FyLU1CUDE1L0lkZWFQcm9qZWN0cy9Sb2xsVXBSZXBvcnRzL3RhcmdldC9zY2FsYS0yLjEwL2NsYXNzZXN0AAEv
+2 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABVMT2Gzt1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAMy9yb290L1JURkFQL1JvbGxVcFJlcG9ydHMvdGFyZ2V0L3NjYWxhLTIuMTAvY2xhc3Nlc3QAAS8=
