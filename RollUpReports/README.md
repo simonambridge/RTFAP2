@@ -22,7 +22,7 @@ NB ensure that you've run the streaming transaction producer/consumer before you
 
 `./run_rollupbymerchant.sh`
 
-This will run the command:
+  This will run the command:
 ```
 dse spark-submit --class RollUpReportsByMerchant ./target/scala-2.10/rollupreports_2.10-1.0.jar
 Beginning RollUp Reporting By Merchant...
@@ -33,7 +33,7 @@ Completed RollUps By Merchant...
 
 `./run_rollupbycc.sh`
 
-This will run the command:
+  This will run the command:
 ```
 dse spark-submit --class RollUpReportsByCC ./target/scala-2.10/rollupreports_2.10-1.0.jar
 Beginning RollUp Reporting By CC...
