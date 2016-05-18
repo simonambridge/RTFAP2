@@ -1,0 +1,101 @@
+### DML ### THIS IS UNDER CONSTRUCTION!!!
+ 
+# Keyspace Name
+keyspace: rtfap
+
+# Table name
+table: dailytxns_bymerchant
+ 
+### Column Distribution Specifications ###
+ 
+columnspec:
+  - name: merchant
+    size: gaussian(3..100)
+    population: uniform(1..1000)
+ 
+  - name: day
+    size: fixed(10)
+    population: fixed(1000)
+ 
+  - name: txn_time
+    size: fixed(10)
+    population: fixed(1000)
+ 
+  - name: txn_id
+    size: uniform(1..10000)
+    population: uniform(1..9999)
+ 
+  - name: amount
+    size: gaussian(1..100)
+    population: gaussian(1..100)
+ 
+  - name: cc_no
+    size: fixed(16)
+    population: fixed(1000)
+ 
+  - name: cc_provider
+    size: uniform(4..15)
+    population: fixed(5)
+ 
+  - name: location
+    size: gaussian(4..100)
+    population: gaussian(4..100)
+ 
+  - name: max_amount
+    size: gaussian(3..1000)
+    population: gaussian(3..1000)
+ 
+  - name: min_amount
+    size: gaussian(1..1000)
+    population: gaussian(3..1000)
+ 
+  - name: notes
+    size: gaussian(1..1000)
+    population: gaussian(1..1000)
+ 
+  - name: status
+    size: uniform(4..16)
+    population: gaussian(4..16)
+ 
+  - name: tags
+    size: gaussian(2..100)
+    population: gaussian(2..100)
+ 
+  - name: total_amount
+    size: gaussian(3..1000)
+    population: gaussian(3..1000)
+ 
+  - name: total_count
+    size: gaussian(3..10000)
+    population: gaussian(3..1000)
+ 
+  - name: user_id
+    size: gaussian(3..100)
+    population: gaussian(3..100) 
+
+
+   
+### Batch Ratio Distribution Specifications ###
+ 
+insert:
+  partitions: fixed(1)            # Our partition key is the domain so only insert one per batch
+ 
+  select:  fixed(1)/1000        # We have 1000 posts per domain so 1/1000 will allow 1 post per batch  
+ 
+  batchtype: UNLOGGED             # Unlogged batches
+ 
+ 
+#
+# A list of queries you wish to run against the schema
+#
+queries:
+   likelyquery0: 
+    cql: SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant = ? AND day = ?
+    fields: samerow
+   likelyquery1: 
+    cql: SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant = ? AND day = ? AND txn_time = ?
+    fields: samerow
+   likelyquery2: 
+    cql: SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant = ? AND day = ? AND txn_time = ? AND txn_id = ?
+    fields: samerow
+

@@ -1,0 +1,91 @@
+### DML ### THIS IS UNDER CONSTRUCTION!!!
+ 
+# Keyspace Name
+keyspace: rtfap
+ 
+# Table name
+table: txn_by_cc
+ 
+### Column Distribution Specifications ###
+ 
+columnspec:
+  - name: cc_no
+    size: fixed(16)
+    population: gaussian(1..9)
+
+  - name: txn_year
+    size: fixed(4)
+    population: gaussian(2010..2016)
+ 
+  - name: txn_month
+    size: fixed(2)
+    population: gaussian(1..12)
+
+  - name: txn_day
+    size: fixed(2)
+    population: gaussian(1..28)
+
+  - name: txn_time
+    size: fixed(18)
+    population: gaussian(1..20)
+
+  - name: amount
+    size: exp(3..10000)
+    population: gaussian(1..99999)
+
+  - name: cc_provider
+    size: uniform(4..16)
+    population: uniform(1..4)
+
+  - name: location
+    size: gaussian(4..40)
+    population: uniform(3..100)
+
+  - name: merchant
+    size: uniform(4..100)
+    population: gaussian(3..100)
+
+  - name: notes
+    size: gaussian(0..100)
+    population: gaussian(0..1000)
+
+  - name: status
+    size: uniform(4..20)
+    population: uniform(2..20)
+
+  - name: tags
+    size: gaussian(0..20)
+    population: gaussian(0..100)
+
+  - name: txn_id
+    size: uniform(4..100)
+    population: gaussian(1..1000)
+
+  - name: user_id
+    size: uniform(4..50)
+    population: gaussian(2..1000)
+ 
+ 
+
+   
+### Batch Ratio Distribution Specifications ###
+ 
+insert:
+  partitions: fixed(1)            # Our partition key is the domain so only insert one per batch
+ 
+  select:  fixed(1)/1000        # We have 1000 posts per domain so 1/1000 will allow 1 post per batch  
+ 
+  batchtype: UNLOGGED             # Unlogged batches
+ 
+ 
+#
+# A list of queries you wish to run against the schema
+#
+queries:
+   dailytrans: 
+    cql: SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ?
+    fields: samerow
+   singletrans: 
+    cql: SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ? AND txn_time = ?
+    fields: samerow
+

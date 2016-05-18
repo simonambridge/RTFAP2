@@ -1,0 +1,37 @@
+[0m[[0minfo[0m] [0mPackaging /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/producer_2.10-0.1.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	Merchant$$anonfun$nextMerchant$2.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Merchant$$anonfun$nextMerchant$2.class[0m
+[0m[[0mdebug[0m] [0m	produceTransactions$kafka$.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/produceTransactions$kafka$.class[0m
+[0m[[0mdebug[0m] [0m	produceTransactions$$anonfun$receive$1$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/produceTransactions$$anonfun$receive$1$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	Merchant.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Merchant.class[0m
+[0m[[0mdebug[0m] [0m	TransactionProducer.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/TransactionProducer.class[0m
+[0m[[0mdebug[0m] [0m	produceTransactions$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/produceTransactions$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	Location$$anonfun$nextLocation$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Location$$anonfun$nextLocation$1.class[0m
+[0m[[0mdebug[0m] [0m	log4j.properties[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/log4j.properties[0m
+[0m[[0mdebug[0m] [0m	Merchant$$anonfun$nextMerchant$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Merchant$$anonfun$nextMerchant$1.class[0m
+[0m[[0mdebug[0m] [0m	TransactionProducer$.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/TransactionProducer$.class[0m
+[0m[[0mdebug[0m] [0m	TransactionProducer$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/TransactionProducer$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	produceTransactions.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/produceTransactions.class[0m
+[0m[[0mdebug[0m] [0m	application.conf[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/application.conf[0m
+[0m[[0mdebug[0m] [0m	TransactionProducer$delayedInit$body.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/TransactionProducer$delayedInit$body.class[0m
+[0m[[0mdebug[0m] [0m	produceTransactions$$anonfun$receive$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/produceTransactions$$anonfun$receive$1.class[0m
+[0m[[0mdebug[0m] [0m	Location$$anonfun$nextLocation$2.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Location$$anonfun$nextLocation$2.class[0m
+[0m[[0mdebug[0m] [0m	Location.class[0m
+[0m[[0mdebug[0m] [0m	  /root/RTFAP/TransactionHandlers/producer/target/scala-2.10/classes/Location.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m
