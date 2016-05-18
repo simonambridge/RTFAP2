@@ -266,38 +266,18 @@ SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-
 
 ## Analyzing data using DSE Spark Analytics
 
-DSE provides integration with Spark out of the box. This allows for ETL'ing and analyses of data in-place on the same cluster where the data is ingested with workload isolation. The data ingested in a Cassandra only (oltp) ring is automatically replicated to the logical ring of nodes hosting Spark Workers as well.
+DSE provides integration with Spark out of the box. This allows for analysis of data in-place on the same cluster where the data is ingested with workload isolation and without the need to ETL the data. The data ingested in a Cassandra only (OLTP) data center is automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.
 
-This provides huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus increasing time to insight from your data through a "cohesive lambda architecture" sans its complexities.
+This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture" .
 
 ###Batch Analytics
 
-A Spark batch job that runs daily rolling up all the transactions in the last day by merchant and calculating the total_amount, avg_amount and total_count.
+Two Spark batch jobs have been included. 
+* `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
+* `run_rollupbycc.sh` populates the hourly/daily/monthly/yearly aggregate tables by credit card, calculating the total_amount, avg_amount and total_count.
 
-Roll up batch analytics code can be found under the directory 'RollUpReports'
+The roll up batch analytics code and submit scripts can be found under the directory [directory](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
 
-```
-sqlContext.sql("""CREATE TEMPORARY TABLE temp_transactions
-     USING org.apache.spark.sql.cassandra
-     OPTIONS (
-       table "transactions",
-       keyspace "rtfap",
-       cluster "Test Cluster",
-       pushdown "true"
-     )""")
-
-val rollup1= sqlContext.sql("select txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags, int(translate(string(date(txn_time)),'-','')) as day from temp_transactions")    
-
-rollup1 show
-rollup1 printSchema
-
-import org.apache.spark.sql.SaveMode
-
-rollup1.write.format("org.apache.spark.sql.cassandra")
-.mode(SaveMode.Overwrite)
-.options(Map("keyspace" -> "rtfap", "table" -> "dailytxns_bymerchant"))
-.save()
-```
 
 ###Jupyter Notebook
 
