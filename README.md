@@ -95,7 +95,7 @@ The table has a primary key and clustering columns so a typical query would look
 ```
 SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;
 ```
-The roll-up tables can also be queried - for example transactions for each merchant by day (the Dailytxns_bymerchant table hasen't been populated yet.
+The roll-up tables can also be queried - for example transactions for each merchant by day use the dailytxns_bymerchant table.
 The roll-up tables get populated using the Spark batch and streaming analytics jobs so they wont yet have any data in them.
 ```
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
