@@ -44,10 +44,11 @@ Install information:
 
 - Set up and install DataStax Enterprise with Spark and Solr enabled
 - Note down the IP's of the node(s)
-- Opscenter => http://[DSE node]:8888/opscenter/index.html
-- Spark Master => http://[DSE node]:7080/
-- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
-- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
+- Your URL's will be;
+-- Opscenter => http://[DSE node]:8888/opscenter/index.html
+-- Spark Master => http://[DSE node]:7080/
+-- Jupyter notebook with RTFAP Test queries=> http:/[DSE Node]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
+-- Visual Dashboard => http://[DSE Node]:8983/banana/#/dashboard
 
 ##DataModel
 
@@ -135,6 +136,7 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 
 ```
 As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
+We will use queries like this to build the ReST interface.
 
 ## Querying Data Using A ReST Web Interface
 
