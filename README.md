@@ -290,7 +290,7 @@ Two Spark batch jobs have been included.
 The roll up batch analytics code and submit scripts can be found [here](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
 
 * If you havent yet installed sbt (as root or use sudo):
-  ```
+```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 apt-get update
