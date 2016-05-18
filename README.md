@@ -270,10 +270,6 @@ DSE provides integration with Spark out of the box. This allows for analysis of 
 
 This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture" .
 
-###Jupyter Notebook
-
-The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
-
 ###Streaming Analytics
 
 Streaming analytics code can be found under the directory 'TransactionHandlers'
@@ -308,6 +304,10 @@ In order to run this demo navigate to the RollUpReports directory (ensure that y
   * Submit the aggregates by credit card rollup:
   `./run_rollupbycc.sh`
 
+
+###Jupyter Notebook
+
+The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 
 ##Stress yaml
