@@ -105,7 +105,9 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 ##Searching Data in DSE
 
-The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on.
+The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. 
+
+To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 By default, when you automatically generate resources, existing data is not re-indexed so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option:
 
@@ -277,7 +279,7 @@ The streaming analytics element of this application is made up of two parts:
 * The transaction producer is a Scala app that generates random transactions and then places those transactions on a Kafka queue. 
 * The transaction consumer, also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table.
 
-Streaming analytics code can be found under the directory 'TransactionHandlers'
+Streaming analytics code can be found under the directory 'TransactionHandlers' (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
 
@@ -287,7 +289,7 @@ Two Spark batch jobs have been included.
 * `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
 * `run_rollupbycc.sh` populates the hourly/daily/monthly/yearly aggregate tables by credit card, calculating the total_amount, avg_amount and total_count.
 
-The roll up batch analytics code and submit scripts can be found under the directory 'RollUpReports'
+The roll up batch analytics code and submit scripts can be found under the directory 'RollUpReports' (pre-requisite: run the streaming analytics to populate the Transaction table with transaction data).
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
 
