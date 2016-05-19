@@ -120,14 +120,16 @@ service dse restart
 
 In the browser go to `http://[DSE_Host_IP]:8983/banana`
 
-New -> Time-series Dashboard
+In menu in the top right of the browser page select New -> Time-series Dashboard
 
-Solr Server => `/solr/`
-Collection => `rtfap.transactions`
-Time Field => `txn_time` (this is the only one you should need to change)
+Enter/check the data and press create:
+* Solr Server => `/solr/`
+* Collection => `rtfap.transactions`
+* Time Field => `txn_time` (this is the only one you should need to change)
 
+See Section 10 [here](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.jgeib56h5) for somne hints on adding fields to the dashboard.
 
-You can use the default supplied dashboard.
+However - you can use the default supplied dashboard!!!
 ```
 cd /usr/share/dse/solr/web/banana/src/app/dashboards
 cp default.json default.json.original
@@ -136,10 +138,13 @@ cp /<RTFAP repo location>/banana/default.json .
 
 Back in the browser hit refresh (or navigate to `http://[DSE_Node_IP]:8983/banana/#/dashboard).
 
-You will see the nice RTFAP dashboard!
-If you have generated data you will be able to select a data range to view.
+You will see the nice RTFAP dashboard shown on the main repo:
 
-Remember - there is a TTL on the transactions table so the data will gradually age out after 24 hours :)
+![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
+
+If you have already generated data you will be able to select a data range to view.
+
+Remember - there is a TTL on the transactions table, so the data will gradually age out after 24 hours :)
 
 
 
