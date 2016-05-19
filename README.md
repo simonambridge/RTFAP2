@@ -169,7 +169,7 @@ You'll need to install Maven to compile the code. As the root account use apt-ge
 apt-get install maven
 ```
 
-Compile the code:
+Navigate to the repo main directory RTFAP and compile the code:
 
 ```
 mvn clean compile
@@ -179,7 +179,7 @@ To start the web service use the command:
 ```
 mvn jetty:run
 ```
-To bind to a specific interface or port (other than localhost and the default of 8080) use:
+To bind to a specific interface or port (other than localhost and the port default of 8080) use:
 ```
 mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
 ```
@@ -191,7 +191,7 @@ nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
 At this point you will be able to run the solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
-- CQL queries bind the individual parameters passed from the web interface
+- CQL queries bind the individual parameters passed from the web interface to individual variables in the where clause
 - CQL-SOLR queries must bind the complete "where" clause as a single bind variable
 
 You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP/tree/master/Solr_Queries.md).
