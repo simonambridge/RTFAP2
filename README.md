@@ -302,7 +302,7 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
 
-The [Dashboard](http://[DSE Host]:8983/banana/#/dashboard) above was created using Banana. 
+The dashboard above was created using Banana. 
 Follow this [guide](https://github.com/simonambridge/RTFAP/tree/master/banana/Banana_Setup.md) to set it up.
 
 The default dashboard is available in this repo under [Banana](https://github.com/simonambridge/RTFAP/tree/master/banana). 
