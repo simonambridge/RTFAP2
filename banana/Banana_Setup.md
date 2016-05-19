@@ -63,14 +63,14 @@ Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from th
 ###Create banana.dashboards Core
 
 ```
-curl --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8' "http://172.31.36.22:8983/solr/resource/banana.dashboards/solrconfig.xml"
+curl --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/solrconfig.xml"
 SUCCESS
 
-curl --data-binary @schema.xml -H 'Content-type:text/xml; charset=utf-8' "http://172.31.36.22:8983/solr/resource/banana.dashboards/schema.xml"
+curl --data-binary @schema.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/schema.xml"
 SUCCESS
 ```
 
 (if you change schema.xml, you will need to reload it: 
 e.g. 'curl -X POST -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards"')
 
-Core banana.dashboards should now appear in SolrAdmin UI
+Core banana.dashboards should now appear in SolrAdmin UI. You should find it at: `http://[DSE_Host_IP]:8983/banana/#/dashboard`
