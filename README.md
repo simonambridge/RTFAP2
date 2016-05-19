@@ -40,7 +40,7 @@ http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sp
 
 
 
-Install information
+##Install information
 
 - Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scala 2.10
 - Note down the IP's of the node(s)
@@ -67,7 +67,7 @@ create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy
 
 To create this keyspace and the tables described below, run the create schema script:
 ```
-$ cqlsh
+cqlsh <node name or IP>
 cqlsh> source 'creates_and_inserts.cql'
 ```
 This creates the following tables:
@@ -145,7 +145,7 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
 
-## Querying Data Using A ReST Web Interface
+##Querying Data Using A ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
@@ -155,26 +155,26 @@ The web service adopts a framework that separates the web, service and data acce
 
 You'll need to install Maven to compile the code. As the root account use apt-get to install it:
 ```
-$ apt-get install maven
+apt-get install maven
 ```
 
 Compile the code:
 
 ```
-$ mvn clean compile
+mvn clean compile
 ```
 
 To start the web service use the command:
 ```
-$ mvn jetty:run
+mvn jetty:run
 ```
 To bind to a specific interface or port (other than localhost and the default of 8080) use:
 ```
-$ mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
+mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
 ```
 For example - to run on a server with an IP of 10.0.0.4 and run the service on port 7001, and persist the web service after logging out use:
 ```
-$ nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
+nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
 ```
 
 At this point you will be able to run the solr queries shown below.
@@ -307,17 +307,24 @@ The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Te
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-The stress YAML files are uploaded to this [directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
+You can read more about using stress yamls to stress test a data model  [here](http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema) and [here](http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html).
+
+The stress YAML files are in the [stress_yamls directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
+
+The stress tool will inject synthetic data so we will use a different table specifically for the stress testing.
+
+To create the dummy table `txn_by_cc' navigate to the `stress_yamls` directory and run the create table script:
+
+```
+cqlsh <node name or IP>
+cqlsh> source 'create_txn_by_cc_stress.cql'
+```
 
 The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
 
-You can read more about stress testing a data model here
-http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
-http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
+An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
-An example of running the stress tool is below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
-
-For inserts
+###For inserts
 ```
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate auto -node 10.0.0.5
 
@@ -367,7 +374,7 @@ Total operation time      : 00:00:37
 ```
 
 
-For reads
+###For reads
 ```
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node 10.0.0.4
 
