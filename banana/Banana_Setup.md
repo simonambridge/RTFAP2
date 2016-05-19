@@ -5,7 +5,7 @@ Lucidworks Banana is a quick and easy way to visualize your Solr time series dat
 This guide will walk you through how to get Banana running with DataStax Enterprise. 
 
 ##Download Banana
-Clone the Banana repo under `/usr/share/dse/solr/web`
+Clone the Banana repo to `/usr/share/dse/solr/web`
 ```
 cd  /usr/share/dse/solr/web
 
@@ -48,3 +48,15 @@ Your `config.js` will look like this:
 ```
 
 ###Generate Banana Solr Index
+
+Replace the default banana solrconfig..xml with the one generated when the RTFAP solr core was created.
+```
+cd /usr/share/dse/solr/web/banana/resources/banana-int-solr-4.5/banana-int/conf
+cp solrconfig.xml solrconfig.xml.original
+```
+
+Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from the web page at: 
+
+`http://[DSE_Host_IP]:8983/solr/#/rtfap.transactions/files?file=solrconfig.xml`
+
+
