@@ -106,7 +106,7 @@ apt-get install sbt
 
 This assumes you already have Kafka and DSE up and running and configured as in the steps above.
 
-  * From the root directory of the project start the producer app:
+  * From the root directory of the project (`~/RTFAP/TransacrtionHandlers`) start the producer app:
   
     `sbt producer/run`
 
