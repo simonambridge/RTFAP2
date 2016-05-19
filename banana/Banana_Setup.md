@@ -96,18 +96,50 @@ curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:898
 
 Core banana.dashboards should now appear in SolrAdmin UI in the drop-down list of available cores.
 
-###Update tomcat conf
+###Update Tomcat conf
 
 `cd /usr/share/dse/tomcat/conf`
 
+Edit server.xml.
 Add the following inside the `<Host>` tag:
 
-`<Context docBase="../../banana/src" path="/banana" />`
+`<Context docBase="/usr/share/dse/solr/web/banana/src" path="/banana" />`
+
+Delete the Tomcat work directory:
+
+```
+rm /usr/share/dse/tomcat/work
+```
+
+Restart DSE:
+```
+service dse restart
+```
+
+###Customise Dashboard
+
+In the browser go to `http://[DSE_Host_IP]:8983/banana`
+
+New -> Time-series Dashboard
+
+Solr Server => `/solr/`
+Collection => `rtfap.transactions`
+Time Field => `txn_time` (this is the only one you should need to change)
+
+
+You can use the default supplied dashboard.
+```
+cd /usr/share/dse/solr/web/banana/src/app/dashboards
+cp default.json default.json.original
+cp /<RTFAP repo location>/banana/default.json .
+```
+
+Back in the browser hit refresh (or navigate to `http://[DSE_Node_IP]:8983/banana/#/dashboard).
+
+You will see the nice RTFAP dashboard!
+If you have generated data you will be able to select a data range to view.
+
+Remember - there is a TTL on the transactions table so the data will gradually age out after 24 hours :)
 
 
 
-server.xml
-You should find it at: 
-
-
-`http://[DSE_Host_IP]:8983/banana/#/dashboard`
