@@ -59,4 +59,14 @@ Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from th
 
 `http://[DSE_Host_IP]:8983/solr/#/rtfap.transactions/files?file=solrconfig.xml`
 
+###Create banana.dashboards Core
 
+$ curl --data-binary @solrconfig.xml -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/resource/banana.dashboards/solrconfig.xml”
+
+$ curl --data-binary @schema.xml -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/resource/banana.dashboards/schema.xml”
+
+$ curl -X POST -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/admin/cores?action=CREATE&name=banana.dashboards”
+
+(if you change schema.xml, you will need to reload it: curl -X POST -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards")
+
+Core banana.dashboards should now appear in SolrAdmin UI
