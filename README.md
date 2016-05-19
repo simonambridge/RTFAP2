@@ -1,7 +1,7 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
 Contributors:
-- Kunal Kusoorkar - Roll-up analytics & Jupyter notebook
+- Kunal Kusoorkar - Roll-up analytics and draft data model
 - Cary Bourgeois  - Transaction generator and streaming analytics
 - Caroline George - Banana dashboard and stress.yaml
 - Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan)
