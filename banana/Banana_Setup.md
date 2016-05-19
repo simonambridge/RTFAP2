@@ -136,7 +136,7 @@ cp default.json default.json.original
 cp /<RTFAP repo location>/banana/default.json .
 ```
 
-Back in the browser hit refresh (or navigate to `http://[DSE_Node_IP]:8983/banana/#/dashboard).
+Back in the browser hit refresh (or navigate to `http://[DSE_Node_IP]:8983/banana).
 
 You will see the nice RTFAP dashboard shown on the main repo:
 
