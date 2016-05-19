@@ -50,7 +50,7 @@ Your `config.js` will look like this:
 
 ###Generate Banana Solr Index
 
-Replace the default banana solrconfig..xml with the one generated when the RTFAP solr core was created.
+Replace the default banana solrconfig.xml with the one generated when the RTFAP solr core was created using dsetool.
 ```
 cd /usr/share/dse/solr/web/banana/resources/banana-int-solr-4.5/banana-int/conf
 cp solrconfig.xml solrconfig.xml.original
