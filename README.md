@@ -240,7 +240,7 @@ The YAML tries to mirror real data, for example: month is a value between 1 and 
 
 An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
-###For inserts
+For inserts
 ```
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate auto -node 10.0.0.5
 
@@ -290,7 +290,7 @@ Total operation time      : 00:00:37
 ```
 
 
-###For reads
+For reads
 ```
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node 10.0.0.4
 
