@@ -127,7 +127,7 @@ Enter/check the data and press create:
 * Collection => `rtfap.transactions`
 * Time Field => `txn_time` (this is the only one you should need to change)
 
-See Section 10 [here](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.jgeib56h5) for somne hints on adding fields to the dashboard.
+See Section 10 on Caroline's page [here](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.jgeib56h5) for some hints on adding fields to a dashboard.
 
 However - you can use the default supplied dashboard!!!
 ```
