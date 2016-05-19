@@ -1,6 +1,6 @@
 #Visualizing Cassandra-Solr Data with Banana
 
-Lucidworks Banana is a quick and easy way to visualize your Solr time series data.
+[Lucidworks Banana](https://github.com/lucidworks/banana) is a quick and easy way to visualize your Solr time series data.
 
 This guide will walk you through how to get Banana running with DataStax Enterprise. 
 
