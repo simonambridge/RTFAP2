@@ -21,21 +21,30 @@ The client wants a REST API to return:
 - A moving ratio of approved transactions per minute, per hour.
 - A count of approved transactions per minute, per hour.
 
+They also want a graphic visialisation - a dashboard - of the data.
+
 ##Performance SLAs:
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 ![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
 
 ##Setup
-DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
+DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
+Using this search functionality allows the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput, and reduced reader latency. 
+More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
-We will need to start DSE in Analytics and Search mode - Analytics to allow us to use the integrated Spark feature, and Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
-- Solr (Search):
+We will need to start DSE in Analytics and Search mode
+- Analytics to allow us to use the integrated Spark feature, and 
+- Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
+
+###Solr (Search):
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
-- Spark (Analytics):
+
+###Spark (Analytics):
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 [https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
-- (Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
+
+(Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
   * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
 
 
@@ -292,11 +301,17 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ```
 
-##Visual Dashboard
+##Visual Dashboard - Lucidworks Banana
+
+The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It uses Kibana's powerful dashboard configuration capabilities, ports key panels to work with Solr, and provides significant additional capabilities, including new panels that leverage D3.js.
+
+Banana allows you to create rich and flexible UIs, enabling users to rapidly develop end-to-end applications that leverage the power of Apache Solr.
+
+The dashboard below was created using Banana.
 
 ![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
 
-The dashboard above was created using Banana. 
+ 
 Follow this [guide](https://github.com/simonambridge/RTFAP/tree/master/banana/Banana_Setup.md) to set it up.
 
 
