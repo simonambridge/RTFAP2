@@ -1,5 +1,9 @@
 #Sample ReST Queries
 
+The supplied Java-based Solr ReST interface provides a number of representative queries against the transaction table and roll-up/aggregate data.
+
+Use the following URL's (substituting the external address of your server and the port number you used to start jetty) to run the queries shown. The results will be returned in JSON format suitable for consumption by an external system.
+
 ### - List all the card transactions across all cards and vendors
 List all the card transactions across all cards and vendors in the TRANSACTIONS table:
 
