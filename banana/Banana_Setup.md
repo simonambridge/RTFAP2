@@ -5,9 +5,15 @@ Lucidworks Banana is a quick and easy way to visualize your Solr time series dat
 This guide will walk you through how to get Banana running with DataStax Enterprise. 
 
 ##Download Banana
+Clone the Banana repo under `/usr/share/dse/solr/web`
+```
 cd  /usr/share/dse/solr/web
+
 git clone https://github.com/lucidworks/banana
+
 ls /usr/share/dse/solr/web
+banana  demos  solr
+```
 
 ##Configure Banana
 
