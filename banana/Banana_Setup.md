@@ -64,13 +64,50 @@ Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from th
 
 ```
 curl --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/solrconfig.xml"
+
 SUCCESS
 
 curl --data-binary @schema.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/schema.xml"
+
 SUCCESS
 ```
 
-(if you change schema.xml, you will need to reload it: 
-e.g. 'curl -X POST -H ‘Content-type:text/xml; charset=utf-8’ “http://localhost:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards"')
+```
+curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://localhost:8983/solr/admin/cores?action=CREATE&name=banana.dashboards"
 
-Core banana.dashboards should now appear in SolrAdmin UI. You should find it at: `http://[DSE_Host_IP]:8983/banana/#/dashboard`
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<lst name="responseHeader"><int name="status">0</int><int name="QTime">25462</int></lst>
+</response>
+```
+
+(if you change schema.xml, you will need to reload it: 
+e.g. 
+
+```
+curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<lst name="responseHeader"><int name="status">400</int><int name="QTime">9</int></lst><lst name="error"><str name="msg">Core banana.dashboards does not exist, please use the CREATE action instead if you meant to create it.</str><int name="code">400</int></lst><str name="params">name=banana.dashboards&amp;action=RELOAD</str>
+</response>
+```
+
+
+Core banana.dashboards should now appear in SolrAdmin UI in the drop-down list of available cores.
+
+###Update tomcat conf
+
+`cd /usr/share/dse/tomcat/conf`
+
+Add the following inside the `<Host>` tag:
+
+`<Context docBase="../../banana/src" path="/banana" />`
+
+
+
+server.xml
+You should find it at: 
+
+
+`http://[DSE_Host_IP]:8983/banana/#/dashboard`
