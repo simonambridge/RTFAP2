@@ -1,4 +1,4 @@
-#Sample ReST Queries
+#Sample Solr ReST Queries
 
 The supplied Java-based Solr ReST interface provides a number of representative queries against the transaction table and roll-up/aggregate data.
 
@@ -54,14 +54,14 @@ http://[server_IP:jetty_port]/datastax-banking-iot/rest/getfacetedtransactionsby
 ```
 SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 ```
-### - List all transaction success ratio (faceted by status) in the last period e.g. MINUTE
+### - List all transaction success ratio (faceted by status) in the last period e.g. minute
 Retrieve all transactions in the TRANSACTIONS table, faceted by status, over the last year/month/minute
 
 http://[server_IP:jetty_port]/datastax-banking-iot/rest/getfacetedtransactionsbystatusinlastperiod/MINUTE
 ```
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1" + lastPeriod + " TO *]","facet":{"field":"status"}}';
 ```
-### - List all transaction success ratio (faceted by status) for a specified card in the last period e.g. MINUTE
+### - List all transaction success ratio (faceted by status) for a specified card in the last period e.g. year
 Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified card number and period
 
 http://[server_IP:jetty_port]/datastax-banking-iot/rest/getfacetedtransactionsbyccnoandstatusinlastperiod/123412*/YEAR
