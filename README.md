@@ -50,7 +50,6 @@ Your URL's will be:
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
 - Java ReST interface => e.g. http://[DSE_NODE_IP]:7001/datastax-banking-iot/rest/getalltransactions
-- Jupyter notebook with RTFAP Test queries=> http:/[DSE_NODE_IP]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
@@ -212,11 +211,6 @@ Two Spark batch jobs have been included.
 The roll up batch analytics code and submit scripts can be found under the directory 'RollUpReports' (pre-requisite: run the streaming analytics to populate the Transaction table with transaction data).
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
-
-
-###Jupyter Notebook
-
-The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
 
 
 ##Stress yaml
