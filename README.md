@@ -305,5 +305,4 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 The dashboard above was created using Banana. 
 Follow this [guide](https://github.com/simonambridge/RTFAP/tree/master/banana/Banana_Setup.md) to set it up.
 
-The default dashboard is available in this repo under [Banana](https://github.com/simonambridge/RTFAP/tree/master/banana). 
-You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
+
