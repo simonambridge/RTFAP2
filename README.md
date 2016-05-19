@@ -302,6 +302,8 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
 
-[Dashboard](http://[DSE Host]:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
+The [Dashboard](http://[DSE Host]:8983/banana/#/dashboard) above was created using Banana. 
+Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
 
-The default dashboard is available in this repo under [Banana](https://github.com/simonambridge/RTFAP/tree/master/banana). You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
+The default dashboard is available in this repo under [Banana](https://github.com/simonambridge/RTFAP/tree/master/banana). 
+You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
