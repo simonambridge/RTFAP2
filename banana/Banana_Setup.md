@@ -118,7 +118,7 @@ As root (or sudo) restart the DSE services:
 service dse restart
 ```
 
-###Customise Dashboard
+###Create A Custom Dashboard
 
 In the browser go to `http://[DSE_Host_IP]:8983/banana`
 
@@ -131,7 +131,9 @@ Enter/check the data and press create:
 
 See Section 10 on Caroline's page [here](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.jgeib56h5) for some hints on adding fields to a dashboard.
 
-However - you can use the default supplied dashboard!!!
+###...Or Use The One We Made Earlier
+
+You can use the default supplied dashboard!!!
 ```
 cd /usr/share/dse/solr/web/banana/src/app/dashboards
 cp default.json default.json.original
