@@ -17,7 +17,7 @@ banana  demos  solr
 
 ##Configure Banana
 
-###config.js
+###Update `config.js`
 
 `cd  /usr/share/dse/solr/web/banana/src`
 
@@ -94,7 +94,7 @@ curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:898
 ```
 
 
-Core banana.dashboards should now appear in SolrAdmin UI in the drop-down list of available cores.
+A Solr core called `banana.dashboards` should now appear in the Solr Admin UI in the drop-down list of available cores.
 
 ###Update Tomcat conf
 
@@ -111,7 +111,9 @@ Delete the Tomcat work directory:
 rm /usr/share/dse/tomcat/work
 ```
 
-Restart DSE:
+###Restart DSE
+
+As root (or sudo) restart the DSE services:
 ```
 service dse restart
 ```
