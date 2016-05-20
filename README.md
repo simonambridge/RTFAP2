@@ -105,7 +105,7 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 
 ##Sample queries
 
-We can now run CQL queries to look up all transactions for given cc_no. 
+We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
 The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.
 The table has a primary key and clustering columns so a typical query would look like this:
 ```
