@@ -159,7 +159,7 @@ We will use queries like this to build the ReST interface.
 ##Querying Data Using A ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
-To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
+To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
 The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
 
