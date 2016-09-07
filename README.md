@@ -1,10 +1,11 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
 Contributors:
+- Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan), documentation
 - Kunal Kusoorkar - Roll-up analytics and draft data model
 - Cary Bourgeois  - Transaction generator and streaming analytics
 - Caroline George - Banana dashboard and stress.yaml
-- Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan)
+
 
 ##Use Case
 A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
