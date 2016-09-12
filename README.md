@@ -38,6 +38,46 @@ We will need to start DSE in Analytics and Search mode
 - Analytics to allow us to use the integrated Spark feature, and 
 - Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
 
+We want to use Seaprch (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
+
+1. Stop the service.
+<pre>
+#  service dse stop
+Stopping DSE daemon : dse                                  [  OK  ]
+</pre>
+
+2. Enable Solr and Spark by changing the flag from "0" to "1" in:
+<pre>
+# vi /etc/default/dse
+</pre>
+e.g.:
+<pre>
+# Start the node in DSE Search mode
+SOLR_ENABLED=1
+
+# Start the node in Spark mode
+SPARK_ENABLED=1
+</pre>
+
+3. Delete the old (Cassandra-only) datacentre databases:
+<pre>
+# rm -rf /var/lib/cassandra/data/*
+# rm -rf /var/lib/cassandra/saved_caches/*
+# rm -rf /var/lib/cassandra/commitlog/*
+# rm -rf /var/lib/cassandra/hints/*
+</pre>
+
+4. Remove the old system.log:
+<pre>
+# rm /var/log/cassandra/system.log 
+rm: remove regular file `/var/log/cassandra/system.log'? y
+</pre>
+
+5. Restart DSE
+<pre>
+sudo service dse start
+</pre>
+<br>
 ###Solr (Search):
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
 
