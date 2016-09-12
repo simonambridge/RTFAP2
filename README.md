@@ -54,7 +54,6 @@ e.g.:
 <pre>
 # Start the node in DSE Search mode
 SOLR_ENABLED=1
-
 # Start the node in Spark mode
 SPARK_ENABLED=1
 </pre>
