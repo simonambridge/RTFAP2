@@ -77,6 +77,7 @@ rm: remove regular file `/var/log/cassandra/system.log'? y
 $ sudo service dse start
 </pre>
 <br>
+
 ###Solr (Search):
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
 
