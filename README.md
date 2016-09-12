@@ -106,6 +106,8 @@ Your URL's will be:
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
+Finally, clone this repo to a directory on the machine where you installed DSE.
+
 ##DataModel
 
 We will need multiple tables to fulfill the above query patterns and workloads (de-normalization is a good thing with NoSQL databases!).
