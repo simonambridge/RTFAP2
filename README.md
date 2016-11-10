@@ -1,10 +1,11 @@
 # RTFAP - Real-time Fraud Analysis Platform
 
 Contributors:
-- Kunal Kusoorkar - Roll-up analytics & Jupyter notebook
+- Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan), documentation
+- Kunal Kusoorkar - Roll-up analytics and draft data model
 - Cary Bourgeois  - Transaction generator and streaming analytics
 - Caroline George - Banana dashboard and stress.yaml
-- Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan)
+
 
 ##Use Case
 A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
@@ -21,28 +22,79 @@ The client wants a REST API to return:
 - A moving ratio of approved transactions per minute, per hour.
 - A count of approved transactions per minute, per hour.
 
+They also want a graphic visualisation - a dashboard - of the data.
+
 ##Performance SLAs:
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 ![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
 
 ##Setup
-DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. Using this search functionality will allow the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput and reduced reader latency. More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
+DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
+Using this search functionality allows the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput, and reduced reader latency. 
+More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
-We will need to start DSE in Analytics and Search mode - Analytics to allow us to use the integrated Spark feature, and Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
-- Solr (Search):
+We will need to start DSE in Analytics and Search mode
+- Analytics to allow us to use the integrated Spark feature, and 
+- Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
+
+We want to use Seaprch (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
+
+1. Stop the service.
+<pre>
+$ sudo service dse stop
+Stopping DSE daemon : dse                                  [  OK  ]
+</pre>
+
+2. Enable Solr and Spark by changing the flag from "0" to "1" in:
+<pre>
+$ sudo vi /etc/default/dse
+</pre>
+e.g.:
+<pre>
+# Start the node in DSE Search mode
+SOLR_ENABLED=1
+# Start the node in Spark mode
+SPARK_ENABLED=1
+</pre>
+
+3. Delete the old (Cassandra-only) datacentre databases:
+<pre>
+$ sudo rm -rf /var/lib/cassandra/data/*
+$ sudo rm -rf /var/lib/cassandra/saved_caches/*
+$ sudo rm -rf /var/lib/cassandra/commitlog/*
+$ sudo rm -rf /var/lib/cassandra/hints/*
+</pre>
+
+4. Remove the old system.log:
+<pre>
+$ sudo rm /var/log/cassandra/system.log 
+rm: remove regular file `/var/log/cassandra/system.log'? y
+</pre>
+
+5. Restart DSE
+<pre>
+$ sudo service dse start
+</pre>
+<br>
+
+###Solr (Search):
 https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
-- Spark (Analytics):
+
+###Spark (Analytics):
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 [https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
-- (Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
+
+(Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
   * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
 
 
 
-Install information
+##Install information
 
-- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scala 2.10
+- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scala 2.10, using the packaged install method:
+ - Ubuntu/Debian - https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/install/installDEBdse.html
+ - Red Hat/Fedora/CentOS/Oracle Linux - https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/install/installRHELdse.html
 - Note down the IP's of the node(s)
 
 Your URL's will be: 
@@ -50,10 +102,11 @@ Your URL's will be:
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
 - Java ReST interface => e.g. http://[DSE_NODE_IP]:7001/datastax-banking-iot/rest/getalltransactions
-- Jupyter notebook with RTFAP Test queries=> http:/[DSE_NODE_IP]:8084/notebooks/RTFAP%20Test%20Queries.ipynb#
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
+
+Finally, clone this repo to a directory on the machine where you installed DSE.
 
 ##DataModel
 
@@ -67,7 +120,7 @@ create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy
 
 To create this keyspace and the tables described below, run the create schema script:
 ```
-$ cqlsh
+cqlsh <node name or IP>
 cqlsh> source 'creates_and_inserts.cql'
 ```
 This creates the following tables:
@@ -95,7 +148,7 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 
 ##Sample queries
 
-We can now run CQL queries to look up all transactions for given cc_no. 
+We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
 The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.
 The table has a primary key and clustering columns so a typical query would look like this:
 ```
@@ -145,130 +198,46 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
 
-## Querying Data Using A ReST Web Interface
+##Querying Data Using A ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
-To use the web service, use the following url’s. These will return a json representation of the data using the ReST service.
+To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
 The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
+
 The web service adopts a framework that separates the web, service and data access layers into individual, easily maintainable components.
 
 You'll need to install Maven to compile the code. As the root account use apt-get to install it:
 ```
-$ apt-get install maven
+apt-get install maven
 ```
 
-Compile the code:
+Navigate to the repo main directory RTFAP and compile the code:
 
 ```
-$ mvn clean compile
+mvn clean compile
 ```
 
 To start the web service use the command:
 ```
-$ mvn jetty:run
+mvn jetty:run
 ```
-To bind to a specific interface or port (other than localhost and the default of 8080) use:
+To bind to a specific interface or port (other than localhost and the port default of 8080) use:
 ```
-$ mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
+mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
 ```
 For example - to run on a server with an IP of 10.0.0.4 and run the service on port 7001, and persist the web service after logging out use:
 ```
-$ nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
+nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
 ```
 
 At this point you will be able to run the solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
-- CQL queries bind the individual parameters passed from the web interface
+- CQL queries bind the individual parameters passed from the web interface to individual variables in the where clause
 - CQL-SOLR queries must bind the complete "where" clause as a single bind variable
 
-###Sample ReST Queries
-- List all the card transactions across all cards and vendors in the TRANSACTIONS table:
-
-http://[DSE Host]:8080/datastax-banking-iot/rest/getalltransactions 
-```
-SELECT * FROM transactions;
-```
-- List all transactions on a specified day in the DAILYTXNS_BYMERCHANT rollup table where the merchant='GAP' 
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getdailytransactionsbymerchant/GAP/20160309`
-```
-SELECT * FROM dailytxns_bymerchant where merchant='GAP' and day= 20160309;
-```
-- Aggregated purchase history for a specific card and year in the YEARLYAGGREGATES_BYCC rollup table where the card number = "1234123412341235"
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getyearlytransactionsbyccno/1234123412341235/2016`
-```
-SELECT * FROM yearlyaggregates_bycc where cc_no='1234123412341235' and year=2016;
-```
-- Rolling ratio and count of successful transactions , by minute and hour
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getTransactionsApprovalByDate/201603270521`
-```
-select approved_rate_hr, approved_txn_hr, approved_rate_min, approved_txn_min from txn_count_min where year=2016 and month=3 and day=27 and hour=5 and minute=22;
-```
-
-- List all transactions in the TRANSACTIONS table where the amount is greater than a specified value
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getalltransactionsbyamount/1000`
-```
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}}'
-```
-- List all transactions in the TRANSACTIONS table where status="Rejected"
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getallrejectedtransactions` 
-```
-SELECT * FROM transactions where solr_query='{"q":"status: Rejected"}';
-```
-- List all transactions in the TRANSACTIONS table, faceted by merchant
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getfacetedtransactionsbymerchant` 
-```
-SELECT * FROM transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
-```
-- List all transaction success ratio in the TRANSACTIONS table, faceted by status, in the last period e.g. YEAR, MONTH, MINUTE
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getfacetedtransactionsbystatusinlastperiod/MINUTE`
-```
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1" + lastPeriod + " TO *]","facet":{"field":"status"}}';
-```
-- List all transaction success ratio in the TRANSACTIONS table, faceted by status, for a specified card in the last period e.g. YEAR, MONTH, MINUTE
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getfacetedtransactionsbyccnoandstatusinlastperiod/123412*/YEAR`
-```
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"cc_no:123412*",  "fq":"txn_time:[NOW-1MINUTE TO *]","facet":{"field":"status"}}';
-```
-- List all transactions in the TRANSACTIONS table for a specified card number (optional wild card)
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getalltransactionsbyccno/123412*`
-```
-SELECT * FROM transactions where solr_query='{"q":"cc_no:123412*"}';
-```
-- List all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getallfraudulenttransactionsbyccno/123412*`
-```
-SELECT * FROM transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
-```
-- List all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last year
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/YEAR`
-```
-SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
-```
-- Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" in the last period e.g. YEAR, MONTH, MINUTE
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/MONTH`
-```
-SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MONTH TO *]", "tags:Fraudulent"]}';
-```
-- Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last day
-
-`http://[DSE Host]:8080/datastax-banking-iot/rest/getallfraudulenttransactionsinlastperiod/DAY`
-```
-SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1DAY TO *]", "tags:Fraudulent"]}';
-```
+You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP/tree/master/Solr_Queries.md).
 
 ## Analyzing data using DSE Spark Analytics
 
@@ -298,24 +267,26 @@ The roll up batch analytics code and submit scripts can be found under the direc
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
 
 
-###Jupyter Notebook
-
-The Jupyter notebook can be found at http://[DSE Host]:8084/notebooks/RTFAP%20Test%20Queries.ipynb
-
-
 ##Stress yaml
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
-The stress YAML files are uploaded to this [directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
+You can read more about using stress yamls to stress test a data model  [here](http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema) and [here](http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html).
+
+The stress YAML files are in the [stress_yamls directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
+
+The stress tool will inject synthetic data so we will use a different table specifically for the stress testing.
+
+To create the dummy table `txn_by_cc` navigate to the `stress_yamls` directory and run the create table script:
+
+```
+cqlsh <node name or IP>
+cqlsh> source 'create_txn_by_cc_stress.cql'
+```
 
 The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
 
-You can read more about stress testing a data model here
-http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema
-http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html
-
-An example of running the stress tool is below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
+An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
 For inserts
 ```
@@ -375,10 +346,17 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ```
 
-##Visual Dashboard
+##Visual Dashboard - Lucidworks Banana
+
+The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It uses Kibana's powerful dashboard configuration capabilities, ports key panels to work with Solr, and provides significant additional capabilities, including new panels that leverage D3.js.
+
+Banana allows you to create rich and flexible UIs, enabling users to rapidly develop end-to-end applications that leverage the power of Apache Solr.
+
+The dashboard below was created using Banana.
 
 ![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
 
-[Dashboard](http://[DSE Host]:8983/banana/#/dashboard) was done using Banana. Follow this [guide](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.nqzr0may3) to set it up.
+ 
+Follow this [guide](https://github.com/simonambridge/RTFAP/tree/master/banana/Banana_Setup.md) to set it up.
 
-The default dashboard is available in this repo under [Banana](https://github.com/simonambridge/RTFAP/tree/master/banana). You will need to replace default.json under "/usr/share/dse/banana/src/app/dashboards"
+
