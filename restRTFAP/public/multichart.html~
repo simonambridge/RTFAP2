@@ -1,0 +1,325 @@
+<html>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<head>
+<title>D3.js Dashboard Introduction</title>
+<script src="d3.v3.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery-ui.min.js"></script>
+<script>
+
+function getMaxObjectValue(this_array, element) {
+  var values = [];
+
+  for (var i = 0; i < this_array.length; i++) {
+       values.push(Math.ceil(parseFloat(this_array[i][""+element])));
+  }
+  values.sort(function(a,b){return a-b});
+  return values[values.length-1];
+}
+
+function getMinObjectValue(this_array, element) {
+  var values = [];
+  for (var i = 0; i < this_array.length; i++) {
+       values.push(Math.floor(parseFloat(this_array[i][""+element])));
+  }
+  values.sort(function(a,b){return a-b});
+  return values[0];
+}
+
+
+function getDate(d) {
+    return new Date(d.time);
+}
+
+//======================================================================================================
+
+function buildLineChart(data, title, element, width, height, xaxislabel, yaxislabel) {
+    
+    var this_array = data.slice(0);
+    this_array.splice(0,1);
+
+    // define graph size parameters
+    var margin = {top: 30, right: 20, bottom: 120, left: 60}, width = width - margin.left - margin.right, height = height - margin.top - margin.bottom;
+    //color scale for multiple lines
+    var colorscale = d3.scale.category10();
+    var minDate = getDate(this_array[0]),
+
+    maxDate = getDate(this_array[this_array.length-1]),
+    minObjectValue = getMinObjectValue(this_array, element),
+    maxObjectValue = getMaxObjectValue(this_array, element);
+
+    //create the graph object
+    var vis= d3.select("#this_arrays").append("svg")
+        .data(this_array)
+        .attr("class", "this_arrays-container")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var y = d3.scale.linear().domain([ minObjectValue - (.1 * minObjectValue) , maxObjectValue + (.1 * maxObjectValue) ]).range([height, 0]),
+    x = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(5);
+    
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom").ticks(10)
+        .tickFormat(d3.time.format("%Y-%m-%d-%H-%M-%S"));
+
+    vis.append("text")
+        .attr("style", "font-family: Helvetica, Arial; font-size: 18px; font-weight: bold;")
+        .attr("dx", function(d) { return 10; })
+        .attr("dy", function(d) { return -10; })
+        .text(''+title);
+
+    //append the axes
+    vis.append("g")
+        .attr("class", "axis")
+        .call(yAxis);
+    
+    vis.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");
+
+    //add the axes labels
+    vis.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "end")
+        .attr("x", -120)
+        .attr("y", height + 34)
+        .text(xaxislabel);
+
+    vis.append("text")
+        .attr("class", "axis-label")
+        .attr("text-anchor", "end")
+        .attr("y", 6)
+        .attr("dy", "-3.4em")
+        .attr("transform", "rotate(-90)")
+        .text(yaxislabel);
+
+  var line = d3.svg.line()
+        .x(function(d) { return x(new Date(d.time)); })
+        .y(function(d) { return y(d.value); })
+        
+  vis.append("svg:path")
+        .attr("d", line(this_array))
+        .style("stroke", function() { 
+            return "#000000";
+         })
+        .style("fill", "none")
+        .style("stroke-width", "2.5");
+    
+        var dataCirclesGroup = vis.append('svg:g');
+        
+        var circles = dataCirclesGroup.selectAll('.data-point')
+            .data(this_array);
+        circles
+            .enter()
+            .append('svg:circle')
+            .attr('class', 'dot')
+            .attr('fill', function() { return "red"; })
+            .attr('cx', function(d) { return x(new Date(d.time)); })
+            .attr('cy', function(d) { return y(d.value); })
+            .attr('r', function() { return 3; })
+            .on("mouseover", function(d) {
+                  d3.select(this)
+                    .attr("r", 8)
+                    .attr("class", "dot-selected")
+                    .transition()
+                          .duration(750);
+            })
+            .on("mouseout", function(d) {
+                  d3.select(this)
+                    .attr("r", 3)
+                    .attr("class", "dot")
+                    .transition()
+                          .duration(750);
+            });
+}
+
+// ===============================================================================================
+
+function getData(url,callback) {
+    
+  d3.json(url, function (jsonData) {
+ 
+    //console.log(jsonData);
+    var parseUTC = d3.time.format("%Y-%m-%dT%X.%LZ");
+ 
+    // Convert JSON String into Array
+    var data = []; // This will be the resulting array built from the json response
+
+    jsonRecCount=0;
+    for(var key in jsonData) {
+      var entry = jsonData[key]; // This will be the column values
+      //entry.sensorname = key; // e.g. if you wanted to generate an index value for keyspace_name
+      data.push(entry);
+      jsonRecCount++;
+      //console.log(entry);
+    };
+
+  console.log("In getData: length of json array = " + jsonRecCount); 
+  callback(data); 
+  });
+}
+
+function getSensorData () {
+  var dataRecCount = 0;
+  //var data = getSensorData();
+
+  data=getData('http://localhost:3000/sensordata', function(data) {
+  // this anonymous function will run when the
+  // callback is called
+    console.log("callback called!");
+    dataRecCount = data.length;
+    console.log("In getSensorData: length of data array = " + dataRecCount); 
+
+    // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
+    for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
+      // parse UTC.time
+      data[i].time = new Date(data[i].time);
+      //console.log("data["+i+"].time = " + data[i].time);
+    }
+
+    // sort the data by date ascending
+    data.sort( 
+      function(a, b) {
+        return new Date(a.time) - new Date(b.time);
+      }
+    );
+
+    // loaded data summary
+    var minDate = data[0].time; 
+    var maxDate = data[data.length-1].time;
+
+    console.log("minDate =" + minDate);
+    console.log("maxDate =" + maxDate);
+
+    minObjectValue = getMinObjectValue(data, 'value');
+    maxObjectValue = getMaxObjectValue(data, 'value');
+
+    console.log("min value =" + minObjectValue);
+    console.log("max value =" + maxObjectValue);
+
+    buildLineChart(data, "Sensor Data", ['value'], 500, 300, "Date", "Sensor Reading");
+ 
+  });
+}
+
+function getSensor2Data () {
+  var dataRecCount = 0;
+  //var data = getSensorData();
+
+  data=getData('http://localhost:3000/sensordata', function(data) {
+  // this anonymous function will run when the
+  // callback is called
+    console.log("callback called!");
+    dataRecCount = data.length;
+    console.log("In getSensorData: length of data array = " + dataRecCount); 
+
+    // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
+    for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
+      // parse UTC.time
+      data[i].time = new Date(data[i].time);
+      //console.log("data["+i+"].time = " + data[i].time);
+    }
+
+    // sort the data by date ascending
+    data.sort( 
+      function(a, b) {
+        return new Date(a.time) - new Date(b.time);
+      }
+    );
+
+    // loaded data summary
+    var minDate = data[0].time; 
+    var maxDate = data[data.length-1].time;
+
+    console.log("minDate =" + minDate);
+    console.log("maxDate =" + maxDate);
+
+    minObjectValue = getMinObjectValue(data, 'value');
+    maxObjectValue = getMaxObjectValue(data, 'value');
+
+    console.log("min value =" + minObjectValue);
+    console.log("max value =" + maxObjectValue);
+
+    buildLineChart(data, "Sensor 2 Data", ['value'], 500, 300, "Date", "Sensor Reading");
+ 
+  });
+}
+
+
+$(document).ready(function() {
+  
+  console.log("Yay!");
+  getSensorData();
+  getSensor2Data();
+
+
+//  buildLineChart(data1, "Sensor Data", ['value'], 500, 300, "Date", "Sensor Reading");
+
+//    buildLineChart(data, "Daily Active Users", ['DAU'], 500, 300, "Date", "Users");
+//    buildLineChart(data, "Average Session Length", ['average_session_length'], 500, 300, "Date", "Session Length (minutes)");
+//    buildLineChart(data, "Average Sessions per User", ['average_sessions_per_user'], 500, 300, "Date", "Sessions per User");
+});
+</script>
+
+<style>
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+body { 
+    background: #FFFFFF; 
+    background-repeat:repeat-x;
+    text-align: center;
+    font: 10px sans-serif;
+}
+.dot {
+  stroke-width: 1.5px;
+}
+.dot-selected {
+  fill: #B0C4DE;
+  stroke: #B0C4DE;
+  stroke-width: 1.5px;
+}
+.this_arrays-container {
+    width: auto;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+    <h1>A D3.js Dashboard</h1>
+
+    <div id="this_arrays">
+    </div>
+
+</body>
+
+</html>

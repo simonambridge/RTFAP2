@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <title>D3 Test</title>
+//<script src="http://d3js.org/d3.v2.js"></script>
+<script src="d3.js"></script>
+  <style type="text/css">
+    div.bar {
+        display: inline-block;
+        width: 20px;
+        height: 75px;/* Gets overriden by D3-assigned height below */
+        margin-right: 2px;
+        background-color: teal;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+    var dataset = [];    //Initialize empty array
+    for (var i = 0; i < 25; i++) {   //Loop 25 times
+      var newNumber = Math.round(Math.random() * 30);  //New random number (0-30)
+      dataset.push(newNumber); //Add new number to array
+    }
+
+    d3.select("body").selectAll("div")
+.   data(dataset)
+     .enter()
+     .append("div")
+     .attr("class", "bar")
+     .style("height", function(d) {
+        var barHeight = d * 5;
+        return barHeight + "px";
+      });
+
+
+//var myJson = "{\"type\": \"FeatureCollection\",\"crs\": { \"type\": \"name\", \"properties\": { \"name\": \"urn:ogc:def:crs:EPSG::26913\" } },\"features\": [{ \"type\": \"Feature\", \"properties\": { \"API\": \"12508888\", \"API_Label\": \"05-125-08888\", \"Operator\": \"OMIMEX PETROLEUM INC\", \"Well_Title\": \"8-9-5-45 FERGUSON\", \"Facil_Id\": 0, \"Facil_Type\": \"WELL\", \"Facil_Stat\": \"PR\", \"Operat_Num\": 66190, \"Well_Num\": \"8-9-5-45\", \"Well_Name\": \"FERGUSON\", \"Field_Code\": 1970, \"Dist_N_S\": 1980, \"Dir_N_S\": \"N\", \"Dist_E_W\": 600, \"Dir_E_W\": \"E\", \"Qtr_Qtr\": \"SENE\", \"Section\": \"9\", \"Township\": \"5N\", \"Range\": \"45W\", \"Meridian\": \"6\", \"Latitude\": 40.419416, \"Longitude\": -102.379999, \"Ground_Ele\": 0, \"Utm_X\": 722281, \"Utm_Y\": 4477606, \"Loc_Qual\": \"PLANNED Footage\", \"Field_Name\": \"BALLYNEAL\", \"Api_Seq\": \"08888\", \"API_County\": \"125\", \"Loc_ID\": 304702, \"Loc_Name\": \"FERGUSON-65N45W 9SENE\", \"Spud_Date\": \"2004\/09\/07\", \"Citing_Typ\": \"ACTUAL\", \"Max_MD\": 2727, \"Max_TVD\": 2727 }, \"geometry\": { \"type\": \"Point\", \"coordinates\": [ 722281.0, 4477606.0 ] } }]}";
+ //   console.log("Checking...");
+ //   console.log(myJson);
+ //   console.log(JSON.parse(myJson));
+ //   console.log("Done checking.");
+   
+  </script>
+  <form>
+   <!   <input type="button" value="Open CQL Window"  onclick="getRecords(); return false;"/> 
+    <input type="button" value="ReST: Compaction History" onclick="window.open('http://localhost:3000/compaction')">
+    <input type="button" value="ReST: Sensor Data" onclick="window.open('http://localhost:3000/sensordata')">
+    <input type="button" value="Simple Chart: Sensor Data" onclick="window.open('http://localhost:3000/simplechart.html')">
+    <input type="button" value="Multi Chart: Window" onclick="window.open('http://localhost:3000/multichart.html')">
+   <input type="button" value="Open Another Window" onclick="window.open('http://localhost:3000/hello.html')">
+  </form>
+ </body>
+ </html>     
+
