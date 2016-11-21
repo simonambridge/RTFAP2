@@ -27,40 +27,23 @@ app.use('/users', users);
 // ReST queries
 
 app.get('/transactions', function(req, res) {
+// 1. List all the card transactions across all cards and vendors
 // e.g. http://localhost:3000/transaction
+// SELECT * FROM rtfap.transactions;
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
   var queryString = 'SELECT * FROM transactions';
+  console.log("Query = " + queryString);
+
   client.execute(queryString, function(err, result) 
   {
     if (err) throw err;
-    //for (var item in result.rows) {
-    //  console.log(result.rows[item]);
-    //}
-    res.setHeader('Content-Type', 'application/json');
-    jsonString=JSON.stringify(result.rows);
-    console.log('JSON = ',jsonString);
-    res.send(JSON.stringify(result.rows));
-  });
-});
 
-app.get('/dailytransactionsbymerchant', function(req, res) {
-// e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//    }
 
-  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-
-  console.log("Merchant = " + req.query.merchant);
-  console.log("Day = " + req.query.day);
-
-  const params = [req.query.merchant, req.query.date];
-  const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=? and day= ?';
-
-  client.execute(queryString, params, { prepare: true }, function(err, result) 
-  {
-    if (err) throw err;
-    for (var item in result.rows) {
-      console.log(result.rows[item]);
-    }
     res.setHeader('Content-Type', 'application/json');
     jsonString=JSON.stringify(result.rows);
     console.log('JSON = ',jsonString);
@@ -69,20 +52,52 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
 });
 
 app.get('/transactionsover', function(req, res) {
+// 2. List all transactions over a specified amount
 // e.g. http://localhost:3000/transactionsover?amount=500
 // SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}}'
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+  params = 0;
+  if (req.query.amount !== undefined) params = [req.query.amount];
+  console.log("Amount = " + params);
 
-  console.log("Amount = " + req.query.amount);
+  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + params + ' TO *]"\}\'';
+  console.log("Query = " + queryString);
 
-  const params = [req.query.amount];
-  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + req.query.amount + ' TO *]"\}\'';
-
-  client.execute(queryString, params, { prepare: true }, function(err, result) 
+  client.execute(queryString, { prepare: true }, function(err, result) 
   {
     if (err) throw err;
-    
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//    }
+    res.setHeader('Content-Type', 'application/json');
+    jsonString=JSON.stringify(result.rows);
+    console.log('JSON = ',jsonString);
+    res.send(JSON.stringify(result.rows));
+  });
+});
+
+
+app.get('/dailytransactionsbymerchant', function(req, res) {
+// 10. List all transactions for a merchant on a specified day
+// e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309
+// SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant='GAP' AND day=20160309;
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  console.log("Merchant = " + req.query.merchant);
+  console.log("Day = " + req.query.day);
+
+  const params = [req.query.merchant, req.query.date];
+  const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=' + req.query.merchant + ' and day= ' + req.query.day;
+
+  client.execute(queryString, { prepare: true }, function(err, result) 
+  {
+//    if (err) throw err;
+    if (err) console.log(err);
+
     for (var item in result.rows) {
       console.log(result.rows[item]);
     }
@@ -92,7 +107,6 @@ app.get('/transactionsover', function(req, res) {
     res.send(JSON.stringify(result.rows));
   });
 });
-
 
 app.get('/sensordata', function(req, res) {
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'sparksensordata'});

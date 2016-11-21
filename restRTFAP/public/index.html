@@ -17,13 +17,25 @@
 <body>
   <h1>Real-Time Fraud Analysis and Prevention</h1>
   <h2>Using Kafka, Spark and Cassandra</h2>
+  <a href="http://localhost:3000/transactions">ReST: transactions</a>
+  <br>
+  <a href="http://localhost:3000/transactionsover?amount=500">ReST: transactionsover - params [amount] e.g. http://localhost:3000/transactionsover?amount=500</a>
+  <br>
+  <! a href="http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309">
+  <! ReST: dailytransactionsbymerchant - params [merchant, date] e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309</a>
+  <p>
   <form>
-   <!   <input type="button" value="Open CQL Window"  onclick="getRecords(); return false;"/> 
     <input type="button" value="ReST: transactions" onclick="window.open('http://localhost:3000/transactions')">
-    <input type="button" value="ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant')">
+    <BR>
+    <input type="button" value="ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover?amount=500')">
+    <BR>
+    <! input type="button" value="ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant')">
+    <BR>
     <input type="button" value="Simple Chart: Sensor Data" onclick="window.open('http://localhost:3000/simplechart.html')">
+    <BR>
     <input type="button" value="Multi Chart: Window" onclick="window.open('http://localhost:3000/multichart.html')">
-   <input type="button" value="Open Another Window" onclick="window.open('http://localhost:3000/hello.html')">
+    <BR>
+    <input type="button" value="Open Another Window" onclick="window.open('http://localhost:3000/hello.html')">
   </form>
  </body>
  </html>     
