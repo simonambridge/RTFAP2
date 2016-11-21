@@ -205,39 +205,15 @@ We will use queries like this to build the ReST interface.
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
-The sample queries are served by a web service written in Java. The code for this web service is provided in the repo.
+The sample queries are served by a web service written in node js. The code for this web service is provided in the repo.
 
-The web service adopts a framework that separates the web, service and data access layers into individual, easily maintainable components.
+Navigate to the restDSE directory:
 
-You'll need to install Maven to compile the code. As the root account use apt-get to install it:
-```
-apt-get install maven
-```
+>>> notes - install and start express
 
-Navigate to the repo main directory RTFAP and compile the code:
+At this point you will be able to run some of the solr queries shown below.
 
-```
-mvn clean compile
-```
-
-To start the web service use the command:
-```
-mvn jetty:run
-```
-To bind to a specific interface or port (other than localhost and the port default of 8080) use:
-```
-mvn jetty:run -DcontactPoints=<server IP address> -Djetty.port=<port number>
-```
-For example - to run on a server with an IP of 10.0.0.4 and run the service on port 7001, and persist the web service after logging out use:
-```
-nohup mvn jetty:run -DcontactPoints=10.0.0.4 -Djetty.port=7001 &
-```
-
-At this point you will be able to run the solr queries shown below.
-
-The queries demonstrate the use of both straightforward CQL and CQL-Solr. This can be seen in TransactionsDao.java:
-- CQL queries bind the individual parameters passed from the web interface to individual variables in the where clause
-- CQL-SOLR queries must bind the complete "where" clause as a single bind variable
+The queries demonstrate the use of both straightforward CQL and CQL-Solr but the roll-up tables have not been populated yet so these will return no data.
 
 You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP/tree/master/Solr_Queries.md).
 
