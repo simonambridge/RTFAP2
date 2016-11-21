@@ -29,7 +29,7 @@ They also want a graphic visualisation - a dashboard - of the data.
 ##Performance SLAs:
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
-![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP/master/img.png)
+![alt text] (https://raw.githubusercontent.com/simonambridge/RTFAP2/master/img.png)
 
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
@@ -87,7 +87,7 @@ https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/sr
 http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
 [https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
 
-(Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
+>(Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
   * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
 
 
@@ -157,7 +157,7 @@ The table has a primary key and clustering columns so a typical query would look
 SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;
 ```
 The roll-up tables can also be queried - for example transactions for each merchant by day use the dailytxns_bymerchant table.
-The roll-up tables get populated using the Spark batch and streaming analytics jobs so they wont yet have any data in them.
+>The roll-up tables will be empty at this point - they get populated using the Spark batch and streaming analytics jobs that we run later.
 ```
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
@@ -193,9 +193,11 @@ SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no: 123412*",  "fq":
 
 Get all the transactions tagged as Fraudulent in the last day and last minute.
 ```
-SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
-
+```
+When we start generating some live data we'll be able to analyse up-to-date information e.g.
+```
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
 ```
 As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
@@ -215,7 +217,7 @@ At this point you will be able to run some of the solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL and CQL-Solr but the roll-up tables have not been populated yet so these will return no data.
 
-You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP/tree/master/Solr_Queries.md).
+You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md).
 
 ## Analyzing data using DSE Spark Analytics
 
@@ -232,7 +234,7 @@ The streaming analytics element of this application is made up of two parts:
 
 Streaming analytics code can be found under the directory 'TransactionHandlers' (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
-Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/TransactionHandlers)
+Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
 
 ###Batch Analytics
 
@@ -242,7 +244,7 @@ Two Spark batch jobs have been included.
 
 The roll up batch analytics code and submit scripts can be found under the directory 'RollUpReports' (pre-requisite: run the streaming analytics to populate the Transaction table with transaction data).
 
-Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP/tree/master/RollUpReports)
+Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
 
 
 ##Stress yaml
@@ -251,7 +253,7 @@ Running a cassandra-stress test with the appropriate YAML profile for the table 
 
 You can read more about using stress yamls to stress test a data model  [here](http://www.datastax.com/dev/blog/improved-cassandra-2-1-stress-tool-benchmark-any-schema) and [here](http://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsCStress_t.html).
 
-The stress YAML files are in the [stress_yamls directory](https://github.com/simonambridge/RTFAP/tree/master/stress_yamls).
+The stress YAML files are in the [stress_yamls directory](https://github.com/simonambridge/RTFAP2/tree/master/stress_yamls).
 
 The stress tool will inject synthetic data so we will use a different table specifically for the stress testing.
 
@@ -264,7 +266,7 @@ cqlsh> source 'create_txn_by_cc_stress.cql'
 
 The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
 
-An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP/blob/master/stress_yamls/txn_by_cc_stress.yaml):
+An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
 For inserts
 ```
@@ -332,9 +334,9 @@ Banana allows you to create rich and flexible UIs, enabling users to rapidly dev
 
 The dashboard below was created using Banana.
 
-![alt dashboard](https://github.com/simonambridge/RTFAP/blob/master/banana/TransactionDashboard.png)
+![alt dashboard](https://github.com/simonambridge/RTFAP2/blob/master/banana/TransactionDashboard.png)
 
  
-Follow this [guide](https://github.com/simonambridge/RTFAP/tree/master/banana/Banana_Setup.md) to set it up.
+Follow this [guide](https://github.com/simonambridge/RTFAP2/tree/master/banana/Banana_Setup.md) to set it up.
 
 
