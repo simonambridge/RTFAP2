@@ -1,14 +1,14 @@
 val globalSettings = Seq(
   version := "0.1",
-  scalaVersion := "2.10.6"
+  scalaVersion := "2.10.5"
 )
 
-val akkaVersion = "2.3.12"
-val sparkVersion = "1.4.1"
-val sparkCassandraConnectorVersion = "1.4.0"
-val cassandraDriverVersion = "2.1.7.1"
-val kafkaVersion = "0.9.0.1"
-val scalaTestVersion = "2.2.4"
+val akkaVersion = "2.3.15"
+val sparkVersion = "1.6.2"
+val sparkCassandraConnectorVersion = "1.5.0"
+val cassandraDriverVersion = "3.1.0"
+val kafkaVersion = "0.10.1.0"
+val scalaTestVersion = "3.0.0"
 
 
 lazy val producer = (project in file("producer"))
@@ -37,6 +37,6 @@ lazy val consumerDeps = Seq(
   "org.apache.spark"  %% "spark-sql"             % sparkVersion % "provided",
   "org.apache.spark"  %% "spark-streaming"       % sparkVersion % "provided",
   "org.apache.spark"  %% "spark-streaming-kafka" % sparkVersion % "provided",
-  "com.databricks"    %% "spark-csv"             % "1.2.0"
+  "com.databricks"    %% "spark-csv"             % "1.5.0"
 )
     

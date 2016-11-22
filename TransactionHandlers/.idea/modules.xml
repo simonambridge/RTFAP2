@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/consumer.iml" filepath="$PROJECT_DIR$/.idea/modules/consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/consumer-build.iml" filepath="$PROJECT_DIR$/.idea/modules/consumer-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/producer.iml" filepath="$PROJECT_DIR$/.idea/modules/producer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/producer-build.iml" filepath="$PROJECT_DIR$/.idea/modules/producer-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/transactionhandlers.iml" filepath="$PROJECT_DIR$/.idea/modules/transactionhandlers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/transactionhandlers-build.iml" filepath="$PROJECT_DIR$/.idea/modules/transactionhandlers-build.iml" />
+    </modules>
+  </component>
+</project>

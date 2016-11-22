@@ -4,7 +4,7 @@
 		module="producer_2.10"
 		revision="0.1"
 		status="integration"
-		publication="20160518124608"
+		publication="20161122131609"
 	>
 		<description>
 		producer
@@ -32,14 +32,14 @@
 		<artifact name="producer_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 	</publications>
 	<dependencies>
-		<dependency org="org.scala-lang" name="scala-compiler" rev="2.10.6" conf="scala-tool->default,optional(default)"/>
-		<dependency org="org.scala-lang" name="scala-library" rev="2.10.6" conf="scala-tool->default,optional(default);compile->default(compile)"/>
-		<dependency org="com.typesafe.akka" name="akka-actor_2.10" rev="2.3.12" conf="compile->default(compile)"/>
-		<dependency org="org.apache.kafka" name="kafka_2.10" rev="0.9.0.1" conf="compile->default(compile)">
+		<dependency org="org.scala-lang" name="scala-compiler" rev="2.10.5" conf="scala-tool->default,optional(default)"/>
+		<dependency org="org.scala-lang" name="scala-library" rev="2.10.5" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="com.typesafe.akka" name="akka-actor_2.10" rev="2.3.15" conf="compile->default(compile)"/>
+		<dependency org="org.apache.kafka" name="kafka_2.10" rev="0.10.1.0" conf="compile->default(compile)">
 			<exclude org="javax.jms" module="jms" name="*" type="*" ext="*" conf="" matcher="exact"/>
 			<exclude org="com.sun.jdmk" module="jmxtools" name="*" type="*" ext="*" conf="" matcher="exact"/>
 			<exclude org="com.sun.jmx" module="jmxri" name="*" type="*" ext="*" conf="" matcher="exact"/>
 		</dependency>
-		<dependency org="com.datastax.cassandra" name="cassandra-driver-core" rev="2.1.7.1" conf="compile->default(compile)"/>
+		<dependency org="com.datastax.cassandra" name="cassandra-driver-core" rev="3.1.0" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

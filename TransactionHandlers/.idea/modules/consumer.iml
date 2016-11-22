@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="consumer" external.linked.project.path="$MODULE_DIR$/../../consumer" external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../consumer/target/scala-2.10/classes" />
     <output-test url="file://$MODULE_DIR$/../../consumer/target/scala-2.10/test-classes" />
     <exclude-output />
@@ -22,7 +22,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: aopalliance:aopalliance:1.0:jar" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="SBT: asm:asm:3.2:jar" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="SBT: asm:asm:3.1:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: com.101tec:zkclient:0.3:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: com.clearspring.analytics:stream:2.7.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.codahale.metrics:metrics-core:3.0.2:jar" level="project" />
@@ -77,7 +77,7 @@
     <orderEntry type="library" scope="PROVIDED" name="SBT: commons-io:commons-io:2.4:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: commons-lang:commons-lang:2.5:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: commons-logging:commons-logging:1.1.1:jar" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="SBT: commons-net:commons-net:3.1:jar" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="SBT: commons-net:commons-net:2.2:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: io.dropwizard.metrics:metrics-core:3.1.0:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: io.dropwizard.metrics:metrics-graphite:3.1.0:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: io.dropwizard.metrics:metrics-json:3.1.0:jar" level="project" />
@@ -137,9 +137,9 @@
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.apache.spark:spark-unsafe_2.10:1.4.1:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.apache.zookeeper:zookeeper:3.4.5:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-core-asl:1.9.11:jar" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-jaxrs:1.8.8:jar" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-jaxrs:1.8.3:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-mapper-asl:1.9.11:jar" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-xc:1.8.8:jar" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jackson:jackson-xc:1.8.3:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.codehaus.jettison:jettison:1.1:jar" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="SBT: org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016:jar" level="project" />
     <orderEntry type="library" name="SBT: org.joda:joda-convert:1.2:jar" level="project" />
