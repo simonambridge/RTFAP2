@@ -165,6 +165,7 @@ After some initial output you will see transactions being created and posted to 
  You can leave this process running as you wish.
  
   * Identify the location of the SparkMaster node:
+  
   For DSE versions < 4.x:
   ```
   $ dsetool sparkmaster
@@ -176,7 +177,7 @@ After some initial output you will see transactions being created and posted to 
   ```
   * From the root directory of the project start the consumer app:
   
-    `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
+    `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
     
   After some initial output you will see records being consumed from Kafka by Spark:
 ```
