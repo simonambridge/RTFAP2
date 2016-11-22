@@ -77,7 +77,7 @@ $ nohup bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1&
 
 ###4. Prepare a message topic for use.
 
-Create the topic we will use for the demo
+4.a. Create the topic we will use for the demo
 
   * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
 
@@ -88,7 +88,7 @@ $ bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1
 Created topic "NewTransactions".
 ```
 
-Validate the topics were created. 
+4.b. Validate the topics were created. 
 
   * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --list`
 
@@ -165,9 +165,14 @@ After some initial output you will see transactions being created and posted to 
  You can leave this process running as you wish.
  
   * Identify the location of the SparkMaster node:
+  For DSE versions < 4.x:
   ```
   $ dsetool sparkmaster
   
+  ```
+  For DSE 5.0.0 and above:
+  ```
+  dse client-tool spark master-address
   ```
   * From the root directory of the project start the consumer app:
   
