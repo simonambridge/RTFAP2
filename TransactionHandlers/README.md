@@ -19,22 +19,22 @@ The second part of the Spark job counts the number of records processed each min
 
 ##Demo tech set up
 
-In order to run this demo, it is assumed that you have the following installed and available on your local system. (Please note, this demo is built using the 4.8.x branch of Datastax Enterprise as 5.0 was not GA. In the future you should use Datastax Enterprise 5.x as Spark Direct Streams (Kafka in this demo) support is much improved in this version.)
+In order to run this demo, it is assumed that you have the following installed and available on your local system. Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise as Spark Direct Streams (Kafka in this demo) support is much improved in this version.
 
-  1. Datastax Enterprise 4.8.x
-  2. Apache Kafka 0.9.0.1, I used the Scala 2.10 build
+  1. Datastax Enterprise 5.0.3
+  2. Apache Kafka 0.10.1.0, I used the Scala 2.10 build
   3. git
   4. sbt
+  5. An internet connection
 
 ##Getting Started with Kafka
-Use the steps below to setup up a local instance of Kafka for this example. This is based on apache-kafka_2.10-0.9.0.1.
+Use the steps below to setup up a local instance of Kafka for this example. This is based on apache-kafka_2.10-0.10.1.0.
 
 ###1. Locate and download Apache Kafka
 
 Kafka can be located at this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
 You will want to download and install the binary version for Scala 2.10 - you can use wget to download to the server:
-
 ```
 $ wget http://apache.mirror.anlx.net/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz
 ```
@@ -44,32 +44,61 @@ $ wget http://apache.mirror.anlx.net/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz
 Once downloaded you will need to extract the file. It will create a folder/directory. Move this to a location of your choice.
 
 ```
-$ gunzip kafka_2.10-0.9.0.1.tgz
-$ tar xvf kafka_2.10-0.9.0.1.tar
-$ rm kafka_2.10-0.9.0.1.tar
-$ mv kafka_2.10-0.9.0.1 /usr/share
+$ gunzip kafka_2.10-0.10.1.0.tgz
+$ tar xvf kafka_2.10-0.10.1.0.tar
+$ rm kafka_2.10-0.10.1.0.tar
+```
+Move the kafka directory tree to your preferred location, e.g.:
+```
+$ sudo mv kafka_2.10-0.10.1.0 /usr/share
 ```
 
 ###3. Start ZooKeeper and Kafka
 
-Start local copy of zookeeper (in its own terminal or use nohup)
+3.a. Start local copy of zookeeper (in its own terminal or use nohup)
 
   * `<kafka home dir>bin/zookeeper-server-start.sh config/zookeeper.properties`
 
-Start local copy of Kafka (in its own terminal or use nohup)
+For example:
+```
+$ cd kafka_2.10-0.10.1.0
+$ nohup bin/zookeeper-server-start.sh config/zookeeper.properties &
+```
+
+3.b. Start local copy of Kafka (in its own terminal or use nohup)
 
   * `<kafka home dir>bin/kafka-server-start.sh config/server.properties`
 
+For example:
+```
+$ cd kafka_2.10-0.10.1.0
+$ nohup bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1&
+```
+
 ###4. Prepare a message topic for use.
 
-Create the topic we will use for the demo
+4.a. Create the topic we will use for the demo
 
   * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
 
-Validate the topics were created. 
+For example:
+```
+$ cd kafka_2.10-0.10.1.0
+$ bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions
+Created topic "NewTransactions".
+```
+
+4.b. Validate the topics were created. 
 
   * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --list`
-  
+
+For example:
+```
+$ cd kafka_2.10-0.10.1.0
+$ bin/kafka-topics.sh --zookeeper localhost:2181 --list
+NewTransactions
+```
+
 ##A Couple of other useful Kafka commands
 
 Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work)
@@ -97,10 +126,22 @@ apt-get install sbt
   * Build the Producer with this command:
   
     `sbt producer/package`
+    
+    Make sure the build is successful:
+    ```
+    [info] Done packaging.
+    [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
+    ```
       
   * Build the Consumer with this command:
   
     `sbt consumer/package`
+    
+    Make sure the build is successful:
+    ```
+    [info] Done packaging.
+    [success] Total time: 32 s, completed Nov 21, 2016 10:10:32 PM
+    ```
   
 ###Run the demo
 
@@ -124,9 +165,14 @@ After some initial output you will see transactions being created and posted to 
  You can leave this process running as you wish.
  
   * Identify the location of the SparkMaster node:
+  For DSE versions < 4.x:
   ```
   $ dsetool sparkmaster
   
+  ```
+  For DSE 5.0.0 and above:
+  ```
+  dse client-tool spark master-address
   ```
   * From the root directory of the project start the consumer app:
   
