@@ -32,7 +32,7 @@ app.get('/transactions', function(req, res) {
 // SELECT * FROM rtfap.transactions;
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  var queryString = 'SELECT * FROM transactions';
+  const queryString = 'SELECT * FROM transactions';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result) 
@@ -57,11 +57,13 @@ app.get('/transactionsover', function(req, res) {
 // SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}}'
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  params = 0;
-  if (req.query.amount !== undefined) params = [req.query.amount];
-  console.log("Amount = " + params);
 
-  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + params + ' TO *]"\}\'';
+  var amount = 0;
+  if (req.query.amount !== undefined) amount = [req.query.amount];
+ 
+  console.log("Amount = " + amount);
+
+  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + amount + ' TO *]"\}\'';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result) 
@@ -72,6 +74,7 @@ app.get('/transactionsover', function(req, res) {
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //    }
+
     res.setHeader('Content-Type', 'application/json');
     jsonString=JSON.stringify(result.rows);
     console.log('JSON = ',jsonString);
@@ -81,29 +84,40 @@ app.get('/transactionsover', function(req, res) {
 
 
 app.get('/dailytransactionsbymerchant', function(req, res) {
+// 10. List all transactions for a merchant on a specified day
 // e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309
+// SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant='GAP' AND day=20160309;
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  var merchant = "Undefined"
+  var day = "Undefined"
 
   console.log("Merchant = " + req.query.merchant);
   console.log("Day = " + req.query.day);
 
-  const params = [req.query.merchant, req.query.date];
-  const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=' + req.query.merchant + ' and day= ' + req.query.day;
+  if (req.query.merchant !== undefined && req.query.day !== undefined) {
 
-  client.execute(queryString, { prepare: true }, function(err, result) 
-  {
+    const params = [req.query.merchant, req.query.date];
+    const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=\'' + req.query.merchant + '\' and day= \'' + req.query.day + '\'';
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
 //    if (err) throw err;
-    if (err) console.log(err);
+      if (err) console.log(err);
 
-    for (var item in result.rows) {
-      console.log(result.rows[item]);
-    }
-    res.setHeader('Content-Type', 'application/json');
-    jsonString=JSON.stringify(result.rows);
-    console.log('JSON = ',jsonString);
-    res.send(JSON.stringify(result.rows));
-  });
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  }
 });
 
 app.get('/sensordata', function(req, res) {

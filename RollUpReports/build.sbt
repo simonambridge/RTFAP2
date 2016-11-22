@@ -2,10 +2,10 @@ name := "RollUpReports"
 
 version := "1.0"
 
-scalaVersion := "2.10.5"
+scalaVersion := "2.10.6"
 
-val Spark = "1.4.1"
-val SparkCassandra = "1.4.2"
+val Spark = "1.6.2"
+val SparkCassandra = "1.5.0"
 
 
 libraryDependencies ++= Seq(

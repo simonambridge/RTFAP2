@@ -1,13 +1,13 @@
-[0m[[0minfo[0m] [0mPackaging /root/RTFAP/RollUpReports/target/scala-2.10/rollupreports_2.10-1.0.jar ...[0m
+[0m[[0minfo[0m] [0mPackaging /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/rollupreports_2.10-1.0.jar ...[0m
 [0m[[0mdebug[0m] [0mInput file mappings:[0m
-[0m[[0mdebug[0m] [0m	RollUpReportsByMerchant.class[0m
-[0m[[0mdebug[0m] [0m	  /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class[0m
-[0m[[0mdebug[0m] [0m	RollUpReportsByCC$.class[0m
-[0m[[0mdebug[0m] [0m	  /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class[0m
 [0m[[0mdebug[0m] [0m	RollUpReportsByMerchant$.class[0m
-[0m[[0mdebug[0m] [0m	  /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class[0m
+[0m[[0mdebug[0m] [0m	  /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$.class[0m
 [0m[[0mdebug[0m] [0m	RollUpReportsByCC.class[0m
-[0m[[0mdebug[0m] [0m	  /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class[0m
+[0m[[0mdebug[0m] [0m	  /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC.class[0m
 [0m[[0mdebug[0m] [0m	RollUpReportsByMerchant$$anonfun$main$1.class[0m
-[0m[[0mdebug[0m] [0m	  /root/RTFAP/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class[0m
+[0m[[0mdebug[0m] [0m	  /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant$$anonfun$main$1.class[0m
+[0m[[0mdebug[0m] [0m	RollUpReportsByCC$.class[0m
+[0m[[0mdebug[0m] [0m	  /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/classes/RollUpReportsByCC$.class[0m
+[0m[[0mdebug[0m] [0m	RollUpReportsByMerchant.class[0m
+[0m[[0mdebug[0m] [0m	  /u02/dev/dse_dev/RTFAP/RTFAP2/RollUpReports/target/scala-2.10/classes/RollUpReportsByMerchant.class[0m
 [0m[[0minfo[0m] [0mDone packaging.[0m

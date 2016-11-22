@@ -27,7 +27,7 @@
   <form>
     <input type="button" value="ReST: transactions" onclick="window.open('http://localhost:3000/transactions')">
     <BR>
-    <input type="button" value="ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover')">
+    <input type="button" value="ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover?amount=500')">
     <BR>
     <! input type="button" value="ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant')">
     <BR>
