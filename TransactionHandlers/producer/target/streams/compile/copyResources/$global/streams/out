@@ -1,3 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/u02/dev/dse_dev/RTFAP/RTFAP2/TransactionHandlers/producer/src/main/resources/application.conf,/u02/dev/dse_dev/RTFAP/RTFAP2/TransactionHandlers/producer/target/scala-2.10/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/u02/dev/dse_dev/RTFAP/RTFAP2/TransactionHandlers/producer/src/main/resources/log4j.properties,/u02/dev/dse_dev/RTFAP/RTFAP2/TransactionHandlers/producer/target/scala-2.10/classes/log4j.properties)[0m
