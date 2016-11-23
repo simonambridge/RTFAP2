@@ -28,11 +28,11 @@ app.use('/users', users);
 
 app.get('/transactions', function(req, res) {
 // 1. List all the card transactions across all cards and vendors
-// e.g. http://localhost:3000/transaction
+// e.g. http://[server_IP:Express_port]/transactions
 // SELECT * FROM rtfap.transactions;
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  const queryString = 'SELECT * FROM transactions';
+  const queryString = 'SELECT * FROM rtfap.transactions';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result) 
@@ -53,7 +53,7 @@ app.get('/transactions', function(req, res) {
 
 app.get('/transactionsover', function(req, res) {
 // 2. List all transactions over a specified amount
-// e.g. http://localhost:3000/transactionsover?amount=500
+// e.g. http://[server_IP:Express_port]/transactionsover?amount=2500
 // SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}}'
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
@@ -82,24 +82,71 @@ app.get('/transactionsover', function(req, res) {
   });
 });
 
+app.get('/rejectedtransactions', function(req, res) {
+// 3. Retrieve all transactions in the TRANSACTIONS table where status="Rejected"
+// e.g. http://[server_IP:Express_port]/rejectedtransactions
+// SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"status: Rejected"}';
 
-app.get('/dailytransactionsbymerchant', function(req, res) {
-// 10. List all transactions for a merchant on a specified day
-// e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309
-// SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant='GAP' AND day=20160309;
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
+  console.log("Query = " + queryString);
+
+  client.execute(queryString, function(err, result) 
+  {
+    if (err) throw err;
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//    }
+
+    res.setHeader('Content-Type', 'application/json');
+    jsonString=JSON.stringify(result.rows);
+    console.log('JSON = ',jsonString);
+    res.send(JSON.stringify(result.rows));
+  });
+});
+
+
+app.get('/transactionsfacetedbymerchant', function(req, res) {
+// 4. Retrieve all transactions in the TRANSACTIONS table, faceted by merchant
+// e.g. http://[server_IP:Express_port]/transactionsfacetedbymerchant
+// SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
+  console.log("Query = " + queryString);
+
+  client.execute(queryString, function(err, result) 
+  {
+    if (err) throw err;
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//    }
+
+    res.setHeader('Content-Type', 'application/json');
+    jsonString=JSON.stringify(result.rows);
+    console.log('JSON = ',jsonString);
+    res.send(JSON.stringify(result.rows));
+  });
+});
+
+app.get('/transactionsbystatusinlast', function(req, res) {
+// 5. Retrieve all transactions in the TRANSACTIONS table, faceted by status, over the last year/month/minute
+// e.g. http://[server_IP:Express_port]/transactionsbystatusinlast?period=MINUTE
+// SELECT * FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1DAY TO *]","facet":{"field":"status"}}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 
-  var merchant = "Undefined"
-  var day = "Undefined"
+  var period = "Undefined"
 
-  console.log("Merchant = " + req.query.merchant);
-  console.log("Day = " + req.query.day);
+  console.log("period = " + req.query.period);
 
-  if (req.query.merchant !== undefined && req.query.day !== undefined) {
+  if (req.query.period !== undefined) {
 
-    const params = [req.query.merchant, req.query.date];
-    const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=\'' + req.query.merchant + '\' and day= \'' + req.query.day + '\'';
+    const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query = \'\{"q":"*:*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
     console.log("Query = " + queryString);
 
     client.execute(queryString, { prepare: true }, function(err, result) 
@@ -117,6 +164,207 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
       console.log('JSON = ',jsonString);
       res.send(JSON.stringify(result.rows));
     });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
+  }
+});
+
+app.get('/transactionsbycardandstatusinlast', function(req, res) {
+// 6. Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified card number and period
+// e.g. http://[server_IP:jetty_port]/transactionsbycardandstatusinlast?card=123*&period=YEAR
+// SELECT * FROM rtfap.transactions WHERE solr_query = '{"q":"cc_no:123*",  "fq":"txn_time:[NOW-1YEAR TO *]","facet":{"field":"status"}}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  console.log("card   = " + req.query.card);
+  console.log("period = " + req.query.period);
+
+  if (req.query.card !== undefined && req.query.period !== undefined) {
+
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'{"q":"cc_no:' + req.query.card + '*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
+  }
+});
+
+app.get('/transactionsbycard', function(req, res) {
+// 7. Retrieve all transactions in the TRANSACTIONS table for a specified card number (optional wild card)
+// e.g. http://[server_IP:Express_port]/transactionsbycard?card=123*
+// SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123*"}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  console.log("card   = " + req.query.card);
+
+  if (req.query.card !== undefined) {
+
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '"}\';';
+
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
+  }
+});
+
+app.get('/fraudulenttransactionsbycard', function(req, res) {
+// 8. Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
+// e.g. http://[server_IP:Express_port]/fraudulenttransactionsbycard?card=123*
+// SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  console.log("card   = " + req.query.card);
+
+  if (req.query.card !== undefined) {
+
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\';';
+
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
+  }
+});
+
+app.get('/fraudulenttransactionsbycard', function(req, res) {
+// 9. Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
+// e.g. http://[server_IP:Express_port]/fraudulenttransactionsbycard?card123*
+// SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  console.log("card   = " + req.query.card);
+
+  if (req.query.card !== undefined) {
+
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\';';
+
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
+  }
+});
+
+
+
+app.get('/dailytransactionsbymerchant', function(req, res) {
+// 10. List all transactions for a merchant on a specified day
+// e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20161123
+// SELECT * FROM rtfap.dailytxns_bymerchant WHERE merchant='Safeway' AND day=20161123;
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+  var merchant = "Undefined"
+  var day = "Undefined"
+
+  console.log("Merchant = " + req.query.merchant);
+  console.log("Day = " + req.query.day);
+
+  if (req.query.merchant !== undefined && req.query.day !== undefined) {
+
+    const params = [req.query.merchant, req.query.date];
+    const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=\'' + req.query.merchant + '\' and day=' + req.query.day;
+    console.log("Query = " + queryString);
+
+    client.execute(queryString, { prepare: true }, function(err, result) 
+    {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+      res.setHeader('Content-Type', 'application/json');
+      jsonString=JSON.stringify(result.rows);
+      console.log('JSON = ',jsonString);
+      res.send(JSON.stringify(result.rows));
+    });
+  } else {
+      res.setHeader('Content-Type', 'application/json');
+      jsonString="Missing Parameters";
+      console.log('JSON = ',jsonString);
+      res.send(jsonString);
   }
 });
 

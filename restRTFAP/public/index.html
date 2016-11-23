@@ -17,18 +17,57 @@
 <body>
   <h1>Real-Time Fraud Analysis and Prevention</h1>
   <h2>Using Kafka, Spark and Cassandra</h2>
-  <a href="http://localhost:3000/transactions">ReST: transactions</a>
   <br>
-  <a href="http://localhost:3000/transactionsover?amount=500">ReST: transactionsover - params [amount] e.g. http://localhost:3000/transactionsover?amount=500</a>
-  <br>
-  <a href="http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309">ReST: dailytransactionsbymerchant - params [merchant, date] e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20160309</a>
   <p>
+  <h2>CQL Queries</h2>
+  <a href="http://localhost:3000/transactions">1. ReST: transactions</a>
+  <br>
+  <h2>CQL/Solr Queries</h2>
+  <a href="http://localhost:3000/transactionsover?amount=500">2. ReST: transactionsover - e.g. http://localhost:3000/transactionsover?amount=500</a>
+  <br>
+  <a href="http://localhost:3000/rejectedtransactions">3. ReST: rejectedtransactions</a>
+  <br>
+  <a href="http://localhost:3000/facetedbymerchant">4. ReST: facetedbymerchant</a>
+  <br>
+  <a href="http://localhost:3000/transactionsbystatusinlast?period=DAY">5. ReST: transactionsbystatusinlast - e.g. http://localhost:3000/transactionsbystatusinlast?period=DAY
+  <br>
+  <a href="http://localhost:3000/transactionsbycardandstatusinlast?card=123*&period=YEAR">6. ReST: transactionsbycardandstatusinlast - e.g. http://localhost:3000/transactionsbycardandstatusinlast?card=123*?period=YEAR
+  <br>
+  <a href="http://localhost:3000/transactionsbycard?card=123*">7. ReST: transactionsbycard - e.g. http://localhost:3000/transactionsbycard?card=123*
+  <br>
+  <a href="http://localhost:3000/fraudulenttransactionsbycard?card=123*">8. ReST: fraudulenttransactionsbycard - e.g. http://localhost:3000/fraudulenttransactionsbycard/123*
+  <br>
+  <a href="http://localhost:3000/fraudulenttransactionsinlast?period=YEAR">9. ReST: fraudulenttransactionsinlast - e.g. http://localhost:3000/fraudulenttransactionsinlast?period=YEAR
+  <br>
+  <a href="http://localhost:3000/dailytransactionsbymerchant?merchant=Safeway&day=20161123">10. ReST: dailytransactionsbymerchant - e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20161123</a>
+  <br>
+  <br>
+  <br>
+  <p>
+
+  <h2>Open In New Windows</h2>
   <form>
-    <input type="button" value="ReST: transactions" onclick="window.open('http://localhost:3000/transactions')">
+    <h2>CQL Queries</h2>
+    <input type="button" value="1. ReST: transactions" onclick="window.open('http://localhost:3000/transactions')">
     <BR>
-    <input type="button" value="ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover?amount=500')">
+  <h2>CQL/Solr Queries</h2>
+    <input type="button" value="2. ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover?amount=500')">
     <BR>
-    <input type="button" value="ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant')">
+    <input type="button" value="3. ReST: rejectedtransactions" onclick="window.open('http://localhost:3000/rejectedtransactions')">
+    <BR>
+    <input type="button" value="4. ReST: facetedbymerchant" onclick="window.open('http://localhost:3000/facetedbymerchants')">
+    <BR>
+    <input type="button" value="5. ReST: transactionsbystatusinlast" onclick="window.open('http://localhost:3000/transactionsbystatusinlast?period=DAY')">
+    <BR>
+    <input type="button" value="6. ReST: transactionsbycardandstatusinlast" onclick="window.open('http://localhost:3000/transactionsbycardandstatusinlast?card=123*?period=YEAR')">
+    <BR>
+    <input type="button" value="7. ReST: transactionsbycard" onclick="window.open('http://localhost:3000/transactionsbycard?card=123*')">
+    <BR>
+    <input type="button" value="8. ReST: fraudulenttransactionsbycard" onclick="window.open('http://localhost:3000/fraudulenttransactionsbycard/123*')">
+    <BR>
+    <input type="button" value="9. ReST: fraudulenttransactionsinlast" onclick="window.open('http://localhost:3000/fraudulenttransactionsinlast?period=YEAR')">
+    <BR>
+    <input type="button" value="10. ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant?merchant=Safeway&day=20161123')">
     <BR>
     <input type="button" value="Simple Chart: Sensor Data" onclick="window.open('http://localhost:3000/simplechart.html')">
     <BR>
