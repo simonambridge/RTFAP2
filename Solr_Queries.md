@@ -10,7 +10,7 @@ The results will be returned in JSON format suitable for consumption by an exter
 
 ###1. List all the card transactions across all cards and vendors
 List all the card transactions across all cards and vendors in the TRANSACTIONS table:
-http://[server_IP:Express_port]/getalltransactions
+http://[server_IP:Express_port]/transactions
 ```
 SELECT * FROM rtfap.transactions;
 ```
@@ -19,14 +19,14 @@ SELECT * FROM rtfap.transactions;
 
 ###2. List all transactions over a specified amount
 Retrieve data for all transactions in the TRANSACTIONS table where the amount is greater than a specified value
-http://[server_IP:Express_port]/getalltransactionsbyamount/1000
+http://[server_IP:Express_port]/transactionsover/1000
 ```
 SELECT * FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"amount:[1000 TO *]"}';
 ```
 
 ###3. List all rejected transactions
 Retrieve all transactions in the TRANSACTIONS table where status="Rejected"
-http://[server_IP:Express_port]/getallrejectedtransactions
+http://[server_IP:Express_port]/rejectedtransactions
 ```
 SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"status: Rejected"}';
 ```
