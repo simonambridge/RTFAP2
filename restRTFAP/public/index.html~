@@ -23,7 +23,7 @@
   <a href="http://localhost:3000/transactions">1. ReST: transactions</a>
   <br>
   <h2>CQL/Solr Queries</h2>
-  <a href="http://localhost:3000/transactionsover?amount=500">2. ReST: transactionsover - e.g. http://localhost:3000/transactionsover?amount=500</a>
+  <a href="http://localhost:3000/transactionsover?amount=2500">2. ReST: transactionsover - e.g. http://localhost:3000/transactionsover?amount=2500</a>
   <br>
   <a href="http://localhost:3000/rejectedtransactions">3. ReST: rejectedtransactions</a>
   <br>

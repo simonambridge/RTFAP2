@@ -176,19 +176,18 @@ object TransactionConsumer extends App {
 
         val currCal = new GregorianCalendar()
         currCal.setTime(new Timestamp(timeInMillis))
-
         val year = currCal.get(Calendar.YEAR)
-        val month = currCal.get(Calendar.MONTH)
+        val month = currCal.get(Calendar.MONTH) + 1
         val day = currCal.get(Calendar.DAY_OF_MONTH)
-        val hour = currCal.get(Calendar.HOUR)
+        val hour = currCal.get(Calendar.HOUR_OF_DAY)
         val min = currCal.get(Calendar.MINUTE)
+
 
         val prevCal = new GregorianCalendar()
         prevCal.setTime(new Timestamp(timeInMillis))
         prevCal.add(Calendar.MINUTE, -1)
-
         val prevYear = prevCal.get(Calendar.YEAR)
-        val prevMonth = prevCal.get(Calendar.MONTH)
+        val prevMonth = prevCal.get(Calendar.MONTH) + 1
         val prevDay = prevCal.get(Calendar.DAY_OF_MONTH)
         val prevHour = prevCal.get(Calendar.HOUR)
         val prevMin = prevCal.get(Calendar.MINUTE)
@@ -213,16 +212,25 @@ object TransactionConsumer extends App {
           .filter(s"year = ${prevYear} and month = ${prevMonth} and day = ${prevDay} and hour = ${prevHour} and minute = ${prevMin}")
           .select("ttl_txn_hr", "approved_txn_hr")
 
-
         val totalTxnHr = totalTxnMin + (if (result.count() > 0) result.first.getInt(0) else 0)
         val approvedTxnHr = approvedTxnMin + (if (result.count() > 0) result.first.getInt(1) else 0)
         val pctApprovedHr = if (totalTxnHr > 0) ((approvedTxnHr/totalTxnHr.toDouble)*100.0) else 0.0
 
+        var monthString=month.toString()
+        if (month<10) { monthString="0"+monthString }
+        var dayString=day.toString()
+        if (day<10) { dayString="0"+dayString }
+        var hourString=hour.toString()
+        if (hour<10) { hourString="0"+hourString }
+        var minString=min.toString()
+        if (min<10) { minString="0"+minString }
+
+        val time = year+"/"+monthString+"/"+dayString+":"+hourString+":"+minString
 
         /*
          * Make a new DataFrame with tour results
          */
-        val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, year+"/"+month+"/"+day+"/"+hour+":"+min, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
+        val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, time, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
           .toDF("year", "month", "day", "hour", "minute", "time", "approved_rate_min", "ttl_txn_min", "approved_txn_min", "approved_rate_hr", "ttl_txn_hr", "approved_txn_hr")
 
         /*
