@@ -76,7 +76,7 @@ class produceTransactions(brokers: String, topic: String) extends Actor {
     val (items, amount) = createItems(r.nextInt(maxNumItemsminusOne) + 1)
 
     val status = s"${r.nextInt(100)}"
-    println("cc_no=",cc_no," txn_time=",txn_time)
+    println("txn_time=",txn_time);
 
     return s"${cc_no};${cc_provider};${txn_time.toString};${txn_id};${merchant};${location};${country};${items};${amount};${status}"
   }

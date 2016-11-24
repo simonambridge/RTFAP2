@@ -222,8 +222,8 @@ object TransactionConsumer extends App {
         /*
          * Make a new DataFrame with tour results
          */
-        val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, year+"/"+month+"/"+day+"/"+hour+":"+min, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
-          .toDF("year", "month", "day", "hour", "minute", "time", "approved_rate_min", "ttl_txn_min", "approved_txn_min", "approved_rate_hr", "ttl_txn_hr", "approved_txn_hr")
+        val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
+          .toDF("year", "month", "day", "hour", "minute", "approved_rate_min", "ttl_txn_min", "approved_txn_min", "approved_rate_hr", "ttl_txn_hr", "approved_txn_hr")
 
         /*
          * show and write the results out to the aggregate table.

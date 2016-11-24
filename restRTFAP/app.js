@@ -114,7 +114,7 @@ app.get('/transactionsfacetedbymerchant', function(req, res) {
 // SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\';';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result) 
@@ -368,6 +368,37 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
       res.send(jsonString);
   }
 });
+
+
+// Chart URLs
+app.get('/transactionsperhour', function(req, res) {
+// 5. Retrieve count of transactions in the TRANSACTIONS table in the last hour
+// e.g. http://[server_IP:Express_port]/transactionsper hour
+// SELECT count(*) FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+
+
+  const queryString = 'SELECT count(*) FROM rtfap.transactions WHERE solr_query = \'{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}\';';
+  console.log("Query = " + queryString);
+
+  client.execute(queryString, { prepare: true }, function(err, result) 
+  {
+//    if (err) throw err;
+      if (err) console.log(err);
+
+//    Display rows returned    
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+    res.setHeader('Content-Type', 'application/json');
+    jsonString=JSON.stringify(result.rows);
+    console.log('JSON = ',jsonString);
+    res.send(JSON.stringify(result.rows));
+  });
+});
+
 
 app.get('/sensordata', function(req, res) {
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'sparksensordata'});

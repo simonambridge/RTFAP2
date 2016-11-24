@@ -180,7 +180,7 @@ function getSensorData () {
   data=getData('http://localhost:3000/sensordata', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("callback called!");
+    console.log("getSensorData callback called!");
     dataRecCount = data.length;
     console.log("In getSensorData: length of data array = " + dataRecCount); 
 
@@ -223,9 +223,9 @@ function getSensor2Data () {
   data=getData('http://localhost:3000/sensordata', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("callback called!");
+    console.log("getSensor2Data callback called!");
     dataRecCount = data.length;
-    console.log("In getSensorData: length of data array = " + dataRecCount); 
+    console.log("In getSensorData2: length of data array = " + dataRecCount); 
 
     // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
     for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
@@ -259,13 +259,32 @@ function getSensor2Data () {
   });
 }
 
+function getTransactionsPerHour () {
+  var dataRecCount = 0;
+  //var data = getSensorData();
+
+  data=getData('http://localhost:3000/transactionsperhour', function(data) {
+  // this anonymous function will run when the
+  // callback is called
+    console.log("transactionsperhour callback called!");
+    dataRecCount = data.length;
+    console.log("In transactionsperhour: length of data array = " + dataRecCount); 
+
+    // loaded data summary
+    var count = data[0].count; 
+
+    console.log("count =" + count);
+ 
+  });
+}
+
 
 $(document).ready(function() {
   
   console.log("Yay!");
   getSensorData();
   getSensor2Data();
-
+  getTransactionsPerHour();
 
 //  buildLineChart(data1, "Sensor Data", ['value'], 500, 300, "Date", "Sensor Reading");
 

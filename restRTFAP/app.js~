@@ -114,7 +114,7 @@ app.get('/transactionsfacetedbymerchant', function(req, res) {
 // SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\';';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result) 
@@ -286,18 +286,19 @@ app.get('/fraudulenttransactionsbycard', function(req, res) {
   }
 });
 
-app.get('/fraudulenttransactionsbycard', function(req, res) {
-// 9. Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
-// e.g. http://[server_IP:Express_port]/fraudulenttransactionsbycard?card123*
-// SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
+app.get('/fraudulenttransactionsinlast', function(req, res) {
+// 9. Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last year
+// e.g.http://[server_IP:Express_port]/fraudulenttransactionsinlast?period=YEAR
+// SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
+
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 
-  console.log("card   = " + req.query.card);
+  console.log("period   = " + req.query.period);
 
-  if (req.query.card !== undefined) {
+  if (req.query.period !== undefined) {
 
-    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\';';
+    const queryString = 'SELECT * FROM transactions where solr_query = \'{"q":"*:*", "fq":["txn_time:[NOW-1' + req.query.period + ' TO *]", "tags:Fraudulent"]}\';';
 
     console.log("Query = " + queryString);
 

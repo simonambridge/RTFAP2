@@ -10,7 +10,7 @@ AND replication = {
 };
 
 // create tables
-DROP TABLE IF EXISTS  rtfap.transactions;
+
 CREATE TABLE if not exists rtfap.transactions (
 	cc_no text,
 	year int,
@@ -36,7 +36,6 @@ CREATE TABLE if not exists rtfap.transactions (
 ) WITH CLUSTERING ORDER BY ( txn_time DESC )
 AND default_time_to_live = 86400;
 
-DROP TABLE IF EXISTS  rtfap.hourlyaggregates_bycc;
 CREATE TABLE if not exists rtfap.hourlyaggregates_bycc(
     cc_no text,
 	hour int,
@@ -47,7 +46,6 @@ CREATE TABLE if not exists rtfap.hourlyaggregates_bycc(
     PRIMARY KEY ((cc_no, hour))
 );
 
-DROP TABLE IF EXISTS  rtfap.dailyaggregates_bycc;
 CREATE TABLE if not exists rtfap.dailyaggregates_bycc(
     cc_no text,
 	day int,
@@ -58,7 +56,6 @@ CREATE TABLE if not exists rtfap.dailyaggregates_bycc(
     PRIMARY KEY ((cc_no, day))
 );
 
-DROP TABLE IF EXISTS  rtfap.monthlyaggregates_bycc;
 CREATE TABLE if not exists rtfap.monthlyaggregates_bycc(
     cc_no text,
 	month int,
@@ -69,7 +66,6 @@ CREATE TABLE if not exists rtfap.monthlyaggregates_bycc(
     PRIMARY KEY ((cc_no, month))
 );
 
-DROP TABLE IF EXISTS  rtfap.yearlyaggregates_bycc;
 CREATE TABLE if not exists rtfap.yearlyaggregates_bycc(
     cc_no text,
 	year int,
@@ -80,7 +76,6 @@ CREATE TABLE if not exists rtfap.yearlyaggregates_bycc(
     PRIMARY KEY ((cc_no, year))
 );
 
-DROP TABLE IF EXISTS  rtfap.dailytxns_bymerchant;
 CREATE TABLE if not exists rtfap.dailytxns_bymerchant(
 	cc_no text,
 	cc_provider text,
@@ -102,7 +97,6 @@ CREATE TABLE if not exists rtfap.dailytxns_bymerchant(
 	PRIMARY KEY ((merchant, day), txn_time, txn_id)
 ) WITH CLUSTERING ORDER BY (txn_time desc);
 
-DROP TABLE IF EXISTS  rtfap.txn_count_min;
 CREATE TABLE if not exists rtfap.txn_count_min (
 	year int,
 	month int,
@@ -127,9 +121,3 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 11, 04, '2016-03-09 11:04:59', '1234123412341236', 750.0, 'MASTERCARD', {'shoes':300, 'belts':150, 'clothes':300}, 'San Jose', 'GAP', 'customer likes electronics', 'Approved', '092753', 'cary', {'HighValue'});
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 12, 30, '2016-03-09 12:30:00', '1234123412341237', 1500.0, 'AMEX', {'clothes':1500}, 'New York', 'Ann Taylor', 'frequent customer', 'Approved', '876302', 'caroline', {'HighValue'});
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 17, 21, 04, '2016-03-17 21:04:19', '1234123412341234', 200.0, 'VISA', {'tshirt':25, 'dressshirt':50, 'trousers':125}, 'San Francisco', 'Nordstrom', 'asked for discounts', 'Approved', '763629', 'kunalak', {'Fraudulent'});
-
-
-
-
-
-
