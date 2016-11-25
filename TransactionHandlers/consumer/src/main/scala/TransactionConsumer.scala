@@ -17,7 +17,8 @@
 
 import java.sql.Timestamp
 import java.util.{Calendar, GregorianCalendar}
-
+// added for time conversion in txn_count_min
+import org.apache.spark.sql.functions.unix_timestamp
 import com.typesafe.config.ConfigFactory
 import kafka.serializer.StringDecoder
 import org.apache.spark.rdd.RDD
@@ -181,16 +182,17 @@ object TransactionConsumer extends App {
         val day = currCal.get(Calendar.DAY_OF_MONTH)
         val hour = currCal.get(Calendar.HOUR_OF_DAY)
         val min = currCal.get(Calendar.MINUTE)
+        val sec = currCal.get(Calendar.SECOND)
 
 
         val prevCal = new GregorianCalendar()
         prevCal.setTime(new Timestamp(timeInMillis))
-        prevCal.add(Calendar.MINUTE, -1)
+        //prevCal.add(Calendar.MINUTE, -1)
         val prevYear = prevCal.get(Calendar.YEAR)
         val prevMonth = prevCal.get(Calendar.MONTH) + 1
         val prevDay = prevCal.get(Calendar.DAY_OF_MONTH)
         val prevHour = prevCal.get(Calendar.HOUR)
-        val prevMin = prevCal.get(Calendar.MINUTE)
+        val prevMin = prevCal.get(Calendar.MINUTE) -1
 
         /*
          * In this section we we count the records in the resulting Dataframe
@@ -208,9 +210,20 @@ object TransactionConsumer extends App {
           .options(Map("keyspace" -> dseKeyspace, "table" -> dseAggTable, "spark.cassandra.input.consistency.level" -> "LOCAL_QUORUM"))
           .load()
 
-        val result = dfPrev
-          .filter(s"year = ${prevYear} and month = ${prevMonth} and day = ${prevDay} and hour = ${prevHour} and minute = ${prevMin}")
-          .select("ttl_txn_hr", "approved_txn_hr")
+       dfPrev.registerTempTable("prevRecord");
+       var result = sqlContext.sql ("select ttl_txn_hr, approved_txn_hr " +
+           "from prevRecord " +
+           " where year = " + prevYear +
+           " and month = " + prevMonth +
+           " and day = " + prevDay +
+           " and hour = " + prevHour +
+           " and minute = " + prevMin
+       )
+
+
+//        val result = dfPrev
+//          .filter(s"year = ${prevYear} and month = ${prevMonth} and day = ${prevDay} and hour = ${prevHour} and minute = ${prevMin}")
+//          .select("ttl_txn_hr", "approved_txn_hr")
 
         val totalTxnHr = totalTxnMin + (if (result.count() > 0) result.first.getInt(0) else 0)
         val approvedTxnHr = approvedTxnMin + (if (result.count() > 0) result.first.getInt(1) else 0)
@@ -220,12 +233,15 @@ object TransactionConsumer extends App {
         if (month<10) { monthString="0"+monthString }
         var dayString=day.toString()
         if (day<10) { dayString="0"+dayString }
-        var hourString=hour.toString()
+        var hourString=hour.toString
         if (hour<10) { hourString="0"+hourString }
         var minString=min.toString()
         if (min<10) { minString="0"+minString }
+        var secString=sec.toString()
+        if (sec<10) { secString="0"+secString }
 
-        val time = year+"/"+monthString+"/"+dayString+":"+hourString+":"+minString
+        val time = year+"-"+monthString+"-"+dayString+"T"+hourString+":"+minString+":"+secString+"Z"
+//        val tsTime = unix_timestamp(time, "MM/dd/yyyy HH:mm:ss").cast("timestamp")
 
         /*
          * Make a new DataFrame with tour results
