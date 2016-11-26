@@ -229,6 +229,7 @@ object TransactionConsumer extends App {
         val approvedTxnHr = approvedTxnMin + (if (result.count() > 0) result.first.getInt(1) else 0)
         val pctApprovedHr = if (totalTxnHr > 0) ((approvedTxnHr/totalTxnHr.toDouble)*100.0) else 0.0
 
+        var yearString=year.toString()
         var monthString=month.toString()
         if (month<10) { monthString="0"+monthString }
         var dayString=day.toString()
@@ -240,7 +241,19 @@ object TransactionConsumer extends App {
         var secString=sec.toString()
         if (sec<10) { secString="0"+secString }
 
-        val time = year+"-"+monthString+"-"+dayString+"T"+hourString+":"+minString+":"+secString+"Z"
+        //        format.format(new java.util.Date())
+        //        val time = year+"-"+monthString+"-"+dayString+"T"+hourString+":"+minString+":"+secString+"Z"
+        val format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val tempString = yearString+"-"+monthString+"-"+dayString+" "+hourString+":"+minString+":"+secString
+        val timeString = format.parse(tempString)
+        println("Time="+timeString) // gives Time=Fri Nov 25 23:53:45 GMT 2016
+        // val time = timeString
+
+        val time = format.format(timeString);
+//        println("Time="+time)   // gives Time=2016-11-25 23:53:45
+
+
+//        old - original
 //        val tsTime = unix_timestamp(time, "MM/dd/yyyy HH:mm:ss").cast("timestamp")
 
         /*

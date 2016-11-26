@@ -1,0 +1,202 @@
+Skip to content
+
+
+Search…
+All gists
+GitHub
+New gist @simonambridge
+  Star 0
+  Fork 1
+  @d3noobd3noob/data-alt.csv
+Last active a year ago
+Embed
+<script src="https://gist.github.com/d3noob/6bd13f974d6516f3e491.js"></script>
+  Download ZIP
+ Code  Revisions 2  Forks 1
+Update graph data automatically
+Raw
+ readme.md
+This is a follow on from the update data graph used as an example in the book D3 Tips and Tricks.
+
+It demonstrates the loading of new data for the graph automatically after 5 seconds. It should be taken in context with the text of the book which can be downloaded for free from Leanpub.
+Raw
+ data-alt.csv
+
+Search this file…
+date	close
+10-May-12	99.55
+8-May-12	76.86
+6-May-12	67.62
+4-May-12	64.48
+2-May-12	60.98
+1-May-12	58.13
+30-Apr-12	53.98
+27-Apr-12	67.00
+26-Apr-12	89.70
+25-Apr-12	99.00
+24-Apr-12	90.28
+23-Apr-12	106.70
+20-Apr-12	94.98
+19-Apr-12	85.44
+18-Apr-12	73.34
+17-Apr-12	53.70
+16-Apr-12	50.13
+13-Apr-12	65.23
+12-Apr-12	62.77
+11-Apr-12	66.20
+10-Apr-12	68.44
+9-Apr-12	66.23
+5-Apr-12	63.68
+4-Apr-12	64.31
+3-Apr-12	69.32
+2-Apr-12	61.63
+Raw
+ data.csv
+
+Search this file…
+date	close
+1-May-12	58.13
+30-Apr-12	53.98
+27-Apr-12	67.00
+26-Apr-12	89.70
+25-Apr-12	99.00
+24-Apr-12	130.28
+23-Apr-12	166.70
+20-Apr-12	234.98
+19-Apr-12	345.44
+18-Apr-12	443.34
+17-Apr-12	543.70
+16-Apr-12	580.13
+13-Apr-12	605.23
+12-Apr-12	622.77
+11-Apr-12	626.20
+10-Apr-12	628.44
+9-Apr-12	636.23
+5-Apr-12	633.68
+4-Apr-12	624.31
+3-Apr-12	629.32
+2-Apr-12	618.63
+30-Mar-12	599.55
+29-Mar-12	609.86
+28-Mar-12	617.62
+27-Mar-12	614.48
+26-Mar-12	606.98
+Raw
+ index.html
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+body { font: 12px Arial;}
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+</style>
+<body>
+
+<!-- load the d3.js library -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
+// Parse the date / time
+var parseDate = d3.time.format("%d-%b-%y").parse;
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.close); });
+
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+// Get the data
+d3.csv("data.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.close = +d.close;
+    });
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.date; }));
+    y.domain([0, d3.max(data, function(d) { return d.close; })]);
+    // Add the valueline path.
+    svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data));
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+});
+var inter = setInterval(function() {
+                updateData();
+        }, 5000);
+// ** Update data section (Called from the onclick)
+function updateData() {
+    // Get the data again
+    d3.csv("data-alt.csv", function(error, data) {
+       	data.forEach(function(d) {
+	    	d.date = parseDate(d.date);
+	    	d.close = +d.close;
+	    });
+    	// Scale the range of the data again
+    	x.domain(d3.extent(data, function(d) { return d.date; }));
+	    y.domain([0, d3.max(data, function(d) { return d.close; })]);
+    // Select the section we want to apply our changes to
+    var svg = d3.select("body").transition();
+    // Make the changes
+        svg.select(".line")   // change the line
+            .duration(750)
+            .attr("d", valueline(data));
+        svg.select(".x.axis") // change the x axis
+            .duration(750)
+            .call(xAxis);
+        svg.select(".y.axis") // change the y axis
+            .duration(750)
+            .call(yAxis);
+    });
+}
+</script>
+</body>
+Raw
+ thumbnail.png
+thumbnail.png
+ @simonambridge
+
+
+Write  Preview
+
+Leave a comment
+Attach files by dragging & dropping,  Choose Files selecting them, or pasting from the clipboard.
+ Styling with Markdown is supported
+Comment
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
