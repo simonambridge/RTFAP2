@@ -89,9 +89,9 @@ https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/ana
 - Note down the IP's of the node(s)
 
 To setup your environment, you'll also need the following resources:
--Python 2.7
--Java 8
--For Red Hat, CentOS and Fedora, install EPEL (Extra Packages for Enterprise Linux).
+- Python 2.7
+- Java 8
+- For Red Hat, CentOS and Fedora, install EPEL (Extra Packages for Enterprise Linux).
 
 Your URL's will be: 
 - Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
