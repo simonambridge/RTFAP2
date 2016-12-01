@@ -378,9 +378,35 @@ app.get('/transactionsperhour', function(req, res) {
 // SELECT count(*) FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+//  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
+  console.log("Query = " + queryString);
 
+  client.execute(queryString, { prepare: true }, function(err, result)
+  {
+//    if (err) throw err;
+      if (err) console.log(err);
 
-  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-5HOUR TO *]","sort":"time asc"}\';';
+//    Display rows returned
+//    for (var item in result.rows) {
+//      console.log(result.rows[item]);
+//   }
+
+    res.setHeader('Content-Type', 'application/json');
+    jsonString=JSON.stringify(result.rows);
+    console.log('JSON = ',jsonString);
+    res.send(JSON.stringify(result.rows));
+  });
+});
+
+app.get('/approvedtransactionsperhour', function(req, res) {
+// 5. Retrieve count of transactions in the TRANSACTIONS table in the last hour
+// e.g. http://[server_IP:Express_port]/transactionsper hour
+// SELECT count(*) FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}';
+
+  var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
+//  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT approved_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
