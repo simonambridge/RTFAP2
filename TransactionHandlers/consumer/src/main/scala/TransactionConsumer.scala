@@ -178,7 +178,7 @@ object TransactionConsumer extends App {
         val currCal = new GregorianCalendar()
         currCal.setTime(new Timestamp(timeInMillis))
         val year = currCal.get(Calendar.YEAR)
-        val month = currCal.get(Calendar.MONTH) + 1
+        val month = currCal.get(Calendar.MONTH) + 1 // Gregorian months are 0-11
         val day = currCal.get(Calendar.DAY_OF_MONTH)
         val hour = currCal.get(Calendar.HOUR_OF_DAY)
         val min = currCal.get(Calendar.MINUTE)
@@ -187,16 +187,15 @@ object TransactionConsumer extends App {
 
         val prevCal = new GregorianCalendar()
         prevCal.setTime(new Timestamp(timeInMillis))
-        //prevCal.add(Calendar.MINUTE, -1)
         val prevYear = prevCal.get(Calendar.YEAR)
-        val prevMonth = prevCal.get(Calendar.MONTH) + 1
+        val prevMonth = prevCal.get(Calendar.MONTH) + 1 // Gregorian months are 0-11
         val prevDay = prevCal.get(Calendar.DAY_OF_MONTH)
-        val prevHour = prevCal.get(Calendar.HOUR)
+        val prevHour = prevCal.get(Calendar.HOUR_OF_DAY)
         val prevMin = prevCal.get(Calendar.MINUTE) -1
 
         /*
-         * In this section we we count the records in the resulting Dataframe
-         */
+         * Count the records in the resulting Dataframe
+        */
         val totalTxnMin = df.count()
         val approvedTxnMin = df.filter("status = 'APPROVED'").count()
         val pctApprovedMin = if (totalTxnMin > 0) ((approvedTxnMin/totalTxnMin.toDouble)*100.0) else 0.0
@@ -219,6 +218,8 @@ object TransactionConsumer extends App {
            " and hour = " + prevHour +
            " and minute = " + prevMin
        )
+       // debug:
+       // println("prevTime: Year="+prevYear+" Month="+prevMonth+" Hour="+prevHour+" Min="+prevMin)
 
 
 //        val result = dfPrev
@@ -226,8 +227,12 @@ object TransactionConsumer extends App {
 //          .select("ttl_txn_hr", "approved_txn_hr")
 
         val totalTxnHr = totalTxnMin + (if (result.count() > 0) result.first.getInt(0) else 0)
+        // debug:
+        // println("ttl_txn_hr="+(if (result.count() > 0) result.first.getInt(0) else 0))
         val approvedTxnHr = approvedTxnMin + (if (result.count() > 0) result.first.getInt(1) else 0)
         val pctApprovedHr = if (totalTxnHr > 0) ((approvedTxnHr/totalTxnHr.toDouble)*100.0) else 0.0
+
+        // Format a timestamp value
 
         var yearString=year.toString()
         var monthString=month.toString()

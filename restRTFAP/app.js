@@ -35,11 +35,11 @@ app.get('/transactions', function(req, res) {
   const queryString = 'SELECT * FROM rtfap.transactions';
   console.log("Query = " + queryString);
 
-  client.execute(queryString, function(err, result) 
+  client.execute(queryString, function(err, result)
   {
     if (err) throw err;
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //    }
@@ -60,17 +60,17 @@ app.get('/transactionsover', function(req, res) {
 
   var amount = 0;
   if (req.query.amount !== undefined) amount = [req.query.amount];
- 
+
   console.log("Amount = " + amount);
 
   const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + amount + ' TO *]"\}\'';
   console.log("Query = " + queryString);
 
-  client.execute(queryString, { prepare: true }, function(err, result) 
+  client.execute(queryString, { prepare: true }, function(err, result)
   {
     if (err) throw err;
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //    }
@@ -91,11 +91,11 @@ app.get('/rejectedtransactions', function(req, res) {
   const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
   console.log("Query = " + queryString);
 
-  client.execute(queryString, function(err, result) 
+  client.execute(queryString, function(err, result)
   {
     if (err) throw err;
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //    }
@@ -117,11 +117,11 @@ app.get('/transactionsfacetedbymerchant', function(req, res) {
   const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\';';
   console.log("Query = " + queryString);
 
-  client.execute(queryString, function(err, result) 
+  client.execute(queryString, function(err, result)
   {
     if (err) throw err;
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //    }
@@ -149,12 +149,12 @@ app.get('/transactionsbystatusinlast', function(req, res) {
     const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query = \'\{"q":"*:*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -187,12 +187,12 @@ app.get('/transactionsbycardandstatusinlast', function(req, res) {
     const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'{"q":"cc_no:' + req.query.card + '*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -225,12 +225,12 @@ app.get('/transactionsbycard', function(req, res) {
 
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -263,12 +263,12 @@ app.get('/fraudulenttransactionsbycard', function(req, res) {
 
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -302,12 +302,12 @@ app.get('/fraudulenttransactionsinlast', function(req, res) {
 
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -346,12 +346,12 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
     const queryString = 'SELECT * FROM dailytxns_bymerchant where merchant=\'' + req.query.merchant + '\' and day=' + req.query.day;
     console.log("Query = " + queryString);
 
-    client.execute(queryString, { prepare: true }, function(err, result) 
+    client.execute(queryString, { prepare: true }, function(err, result)
     {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -369,8 +369,9 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
   }
 });
 
-
+//////////////////////////
 // Chart URLs
+/////////////////////////
 app.get('/transactionsperhour', function(req, res) {
 // 5. Retrieve count of transactions in the TRANSACTIONS table in the last hour
 // e.g. http://[server_IP:Express_port]/transactionsper hour
@@ -379,15 +380,15 @@ app.get('/transactionsperhour', function(req, res) {
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 
 
-  const queryString = 'SELECT count(*) FROM rtfap.transactions WHERE solr_query = \'{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}\';';
+  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-5HOUR TO *]","sort":"time asc"}\';';
   console.log("Query = " + queryString);
 
-  client.execute(queryString, { prepare: true }, function(err, result) 
+  client.execute(queryString, { prepare: true }, function(err, result)
   {
 //    if (err) throw err;
       if (err) console.log(err);
 
-//    Display rows returned    
+//    Display rows returned
 //    for (var item in result.rows) {
 //      console.log(result.rows[item]);
 //   }
@@ -403,7 +404,7 @@ app.get('/transactionsperhour', function(req, res) {
 app.get('/sensordata', function(req, res) {
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'sparksensordata'});
   var queryString = 'select time, value from sparksensordata.sensordata';
-  client.execute(queryString, function(err, result) 
+  client.execute(queryString, function(err, result)
   {
     if (err) throw err;
     for (var item in result.rows) {

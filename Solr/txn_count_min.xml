@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema name="autoSolrSchema" version="1.5">
+	<types>
+		<fieldType class="org.apache.solr.schema.TrieIntField" name="TrieIntField"/>
+		<fieldType class="org.apache.solr.schema.TrieDoubleField" name="TrieDoubleField"/>
+		<fieldType class="org.apache.solr.schema.TrieDateField" name="TrieDateField"/>
+	</types>
+	<fields>
+		<field indexed="true" multiValued="false" name="ttl_txn_min" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="minute" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="year" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="ttl_txn_hr" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="approved_txn_hr" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="day" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="approved_rate_hr" stored="true" type="TrieDoubleField"/>
+		<field indexed="true" multiValued="false" name="time" stored="true" type="TrieDateField" docValues="true" />
+		<field indexed="true" multiValued="false" name="month" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="approved_rate_min" stored="true" type="TrieDoubleField"/>
+		<field indexed="true" multiValued="false" name="approved_txn_min" stored="true" type="TrieIntField"/>
+		<field indexed="true" multiValued="false" name="hour" stored="true" type="TrieIntField"/>
+	</fields>
+	<uniqueKey>(year,month,day,hour,minute)</uniqueKey>
+</schema>
