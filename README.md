@@ -1,12 +1,8 @@
-# >>>>> W O R K  I N  P R O G R E S S - come back later <<<<<
+# >>>>> W O R K  I N  P R O G R E S S - alpha release <<<<<
 
 # RTFAP - Real-time Fraud Analysis Platform
 
-Contributors:
-- Simon Ambridge  - Java-based Solr ReSTful interface (acknowledgements to Patrick Callaghan), documentation
-- Kunal Kusoorkar - Roll-up analytics and draft data model
-- Cary Bourgeois  - Transaction generator and streaming analytics
-- Caroline George - Banana dashboard and stress.yaml
+Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 
 
 ##Use Case
@@ -34,7 +30,6 @@ They also want a graphic visualisation - a dashboard - of the data.
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
 Using this search functionality allows the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput, and reduced reader latency. 
-More details about live indexing can be found here -  http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchConfIncrIndexThruPut.html
 
 We will need to start DSE in Analytics and Search mode
 - Analytics to allow us to use the integrated Spark feature, and 
@@ -81,29 +76,28 @@ $ sudo service dse start
 <br>
 
 ###Solr (Search):
-https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/srch/srchInstall.html
+https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/srch/searchOverview.html
 
 ###Spark (Analytics):
-http://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/spark/sparkTOC.html
-[https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html](https://docs.datastax.com/en/datastax_enterprise/4.6/datastax_enterprise/spark/sparkStart.html)
-
->(Optional) If you would like to access Cassandra Table using JDBC or ODBC with SparkSQL you will need to start the SparkSQL Thrift Server (more details are available here: http://docs.datastax.com/en/latest-dse/datastax_enterprise/spark/sparkSqlThriftServer.html). If you are are doing this on a laptop you may want to limit the resources the thrift server consumes.
-  * `dse start-spark-sql-thriftserver --conf spark.cores.max=2`
-
-
+https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/analyticsTOC.html
 
 ##Install information
 
-- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 4.8.x with Spark 1.4 and Scala 2.10, using the packaged install method:
- - Ubuntu/Debian - https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/install/installDEBdse.html
- - Red Hat/Fedora/CentOS/Oracle Linux - https://docs.datastax.com/en/datastax_enterprise/4.8/datastax_enterprise/install/installRHELdse.html
+- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 5.0.3.x with Spark 1.6.1 and Scala 2.10, using the packaged install method:
+ - Ubuntu/Debian - https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/install/installDEBdse.html
+ - Red Hat/Fedora/CentOS/Oracle Linux - https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/install/installRHELdse.html
 - Note down the IP's of the node(s)
+
+To setup your environment, you'll also need the following resources:
+-Python 2.7
+-Java 8
+-For Red Hat, CentOS and Fedora, install EPEL (Extra Packages for Enterprise Linux).
 
 Your URL's will be: 
 - Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
-- Java ReST interface => e.g. http://[DSE_NODE_IP]:7001/datastax-banking-iot/rest/getalltransactions
+- Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
@@ -112,10 +106,10 @@ Finally, clone this repo to a directory on the machine where you installed DSE.
 
 ##DataModel
 
-We will need multiple tables to fulfill the above query patterns and workloads (de-normalization is a good thing with NoSQL databases!).
+We will need multiple tables to fulfill the above query patterns and workloads. De-normalization is a good thing with NoSQL databases - it allows you to optimise your Cassandra schema specifically to enable extremely fast queries.
 
 For testing purposes we will use a single DC with one node and RF=1. 
-For production deployment, we recommend a multi-datacenter Active-Active HA setup across geographical regions with RF=3.
+For a production deployment we recommend a multi-datacenter Active-Active HA setup across geographical regions with RF=3.
 ```
 create keyspace if not exists rtfap WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' };
 ```
@@ -128,7 +122,7 @@ cqlsh> source 'creates_and_inserts.cql'
 This creates the following tables:
 
 - Table Transactions - main transactions table
-We will create a Solr index on this tables to fulfill a bunch of flexible search needs as well.
+We will create a Solr index on this tables to support a variety of ReST API queries.
 
 - Table hourlyaggregates_bycc - hourly roll-up of transactions by credit card
 
@@ -141,6 +135,7 @@ We will create a Solr index on this tables to fulfill a bunch of flexible search
 - Table dailytxns_bymerchant - daily roll-up of transactions by merchant
 
 - Table txn_count_min - track transactions in a rolling window for analytics
+We will create a Solr index on this table to enable flexible reporting and charting.
 
 The create script also creates some sample data for example:
 
@@ -151,7 +146,7 @@ insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, am
 ##Sample queries
 
 We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
-The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.
+The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches and we don't update the transactions once they have been written.
 The table has a primary key and clustering columns so a typical query would look like this:
 ```
 SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;
@@ -199,7 +194,7 @@ When we start generating some live data we'll be able to analyse up-to-date info
 ```
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
 ```
-As you can see from the above samples , full ad-hoc search on any transaction fields is possible including amounts, merchants etc.
+These samples demonstrate that full, ad-hoc search on any of the transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
 
 ##Querying Data Using A ReST Web Interface
@@ -207,7 +202,7 @@ We will use queries like this to build the ReST interface.
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
-The sample queries are served by a web service written in node js. The code for this web service is provided in the repo.
+The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
 
 Navigate to the restDSE directory:
 
@@ -229,8 +224,8 @@ This tight integration between Cassandra and Spark offers huge value in terms of
 
 The streaming analytics element of this application is made up of two parts:
 
-* The transaction producer is a Scala app that generates random transactions and then places those transactions on a Kafka queue. 
-* The transaction consumer, also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table.
+* The transaction producer is a Scala/Akka app that generates random transactions and then places those transactions on a Kafka queue. 
+* The transaction consumer, also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table. It also generates rolling summary lines into the txn_count_min table every minute.
 
 Streaming analytics code can be found under the directory 'TransactionHandlers' (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
