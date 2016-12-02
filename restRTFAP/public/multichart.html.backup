@@ -1,7 +1,7 @@
 <html>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <head>
-<title>D3.js Dyamic Multichart Dashboard</title>
+<title>D3.js Multichart Dashboard</title>
 <script src="d3.v3.js"></script>
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="jquery-ui.min.js"></script>
@@ -31,17 +31,14 @@ function getDate(d) {
 }
 
 //======================================================================================================
-// Total Transactions Per Hour
-function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxislabel) {
+
+function buildLineChart(data, title, element, width, height, xaxislabel, yaxislabel) {
 
     var this_array = data.slice(0);
     this_array.splice(0,1);
 
     // define graph size parameters
-    var margin = {top: 30, right: 20, bottom: 120, left: 80};
-    var width = width - margin.left - margin.right;
-    var height = height - margin.top - margin.bottom;
-
+    var margin = {top: 30, right: 20, bottom: 120, left: 60}, width = width - margin.left - margin.right, height = height - margin.top - margin.bottom;
     //color scale for multiple lines
     var colorscale = d3.scale.category10();
     var minDate = getDate(this_array[0]),
@@ -104,14 +101,14 @@ function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxis
     vis.append("text")
         .attr("class", "axis-label")
         .attr("text-anchor", "end")
-        .attr("y", -10)
+        .attr("y", 6)
         .attr("dy", "-3.4em")
         .attr("transform", "rotate(-90)")
         .text(yaxislabel);
 
   var line = d3.svg.line()
         .x(function(d) { return x(new Date(d.time)); })
-        .y(function(d) { return y(d.ttl_txn_min); })
+        .y(function(d) { return y(d.value); })
 
   vis.append("svg:path")
         .attr("d", line(this_array))
@@ -131,124 +128,7 @@ function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxis
             .attr('class', 'dot')
             .attr('fill', function() { return "red"; })
             .attr('cx', function(d) { return x(new Date(d.time)); })
-            .attr('cy', function(d) { return y(d.ttl_txn_min); })
-            .attr('r', function() { return 3; })
-            .on("mouseover", function(d) {
-                  d3.select(this)
-                    .attr("r", 8)
-                    .attr("class", "dot-selected")
-                    .transition()
-                          .duration(750);
-            })
-            .on("mouseout", function(d) {
-                  d3.select(this)
-                    .attr("r", 3)
-                    .attr("class", "dot")
-                    .transition()
-                          .duration(750);
-            });
-}
-
-// Total Transactions Per Hour
-function buildLineChart_2(data, title, element, width, height, xaxislabel, yaxislabel) {
-
-    var this_array = data.slice(0);
-    this_array.splice(0,1);
-
-    // define graph size parameters
-    var margin = {top: 30, right: 20, bottom: 120, left: 80};
-    var width = width - margin.left - margin.right;
-    var height = height - margin.top - margin.bottom;
-    //color scale for multiple lines
-    var colorscale = d3.scale.category10();
-    var minDate = getDate(this_array[0]),
-
-    maxDate = getDate(this_array[this_array.length-1]),
-    minObjectValue = getMinObjectValue(this_array, element),
-    maxObjectValue = getMaxObjectValue(this_array, element);
-
-    //create the graph object
-    var vis= d3.select("#this_arrays").append("svg")
-        .data(this_array)
-        .attr("class", "this_arrays-container")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var y = d3.scale.linear().domain([ minObjectValue - (.1 * minObjectValue) , maxObjectValue + (.1 * maxObjectValue) ]).range([height, 0])
-    var x = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(5);
-
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom").ticks(10)
-        .tickFormat(d3.time.format("%Y-%m-%d-%H-%M-%S"));
-
-    vis.append("text")
-        .attr("style", "font-family: Helvetica, Arial; font-size: 18px; font-weight: bold;")
-        .attr("dx", function(d) { return 10; })
-        .attr("dy", function(d) { return -10; })
-        .text(''+title);
-
-    //append the axes
-    vis.append("g")
-        .attr("class", "axis")
-        .call(yAxis);
-
-    vis.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-      .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", "rotate(-65)");
-
-    //add the axes labels
-    vis.append("text")
-        .attr("class", "axis-label")
-        .attr("text-anchor", "end")
-        .attr("x", -20)
-        .attr("y", height + 34)
-        .text(xaxislabel);
-
-    vis.append("text")
-        .attr("class", "axis-label")
-        .attr("text-anchor", "end")
-        .attr("y", -10)
-        .attr("dy", "-3.4em")
-        .attr("transform", "rotate(-90)")
-        .text(yaxislabel);
-
-  var line = d3.svg.line()
-        .x(function(d) { return x(new Date(d.time)); })
-        .y(function(d) { return y(d.approved_txn_min); })
-
-  vis.append("svg:path")
-        .attr("d", line(this_array))
-        .style("stroke", function() {
-            return "#000000";
-         })
-        .style("fill", "none")
-        .style("stroke-width", "2.5");
-
-        var dataCirclesGroup = vis.append('svg:g');
-
-        var circles = dataCirclesGroup.selectAll('.data-point')
-            .data(this_array);
-        circles
-            .enter()
-            .append('svg:circle')
-            .attr('class', 'dot')
-            .attr('fill', function() { return "red"; })
-            .attr('cx', function(d) { return x(new Date(d.time)); })
-            .attr('cy', function(d) { return y(d.approved_txn_min); })
+            .attr('cy', function(d) { return y(d.value); })
             .attr('r', function() { return 3; })
             .on("mouseover", function(d) {
                   d3.select(this)
@@ -292,22 +172,16 @@ function getData(url,callback) {
   });
 }
 
-
-function getTransactionsPerMinute () {
+function getSensorData () {
   var dataRecCount = 0;
   //var data = getSensorData();
 
-  data=getData('http://localhost:3000/transactionsperminute', function(data) {
+  data=getData('http://localhost:3000/sensordata', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("transactionsperminute callback called!");
-    if (typeof data == 'undefined') {
-      dataRecCount=0;
-    } else {
-      dataRecCount = data.length;
-    }
-    // loaded data summary
-    console.log("In getTransactionsPerMinute: length of data array = " + dataRecCount);
+    console.log("getSensorData callback called!");
+    dataRecCount = data.length;
+    console.log("In getSensorData: length of data array = " + dataRecCount);
 
     // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
     for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
@@ -316,6 +190,13 @@ function getTransactionsPerMinute () {
       //console.log("data["+i+"].time = " + data[i].time);
     }
 
+    // sort the data by date ascending
+    data.sort(
+      function(a, b) {
+        return new Date(a.time) - new Date(b.time);
+      }
+    );
+
     // loaded data summary
     var minDate = data[0].time;
     var maxDate = data[data.length-1].time;
@@ -323,32 +204,27 @@ function getTransactionsPerMinute () {
     console.log("minDate =" + minDate);
     console.log("maxDate =" + maxDate);
 
-    minObjectValue = getMinObjectValue(data, 'ttl_txn_min');
-    maxObjectValue = getMaxObjectValue(data, 'ttl_txn_min');
+    minObjectValue = getMinObjectValue(data, 'value');
+    maxObjectValue = getMaxObjectValue(data, 'value');
 
-    console.log("min ttl_txn_min =" + minObjectValue);
-    console.log("max ttl_txn_min =" + maxObjectValue);
+    console.log("min value =" + minObjectValue);
+    console.log("max value =" + maxObjectValue);
 
-    buildLineChart_1(data, "Card Transactions Processed Per Minute", ['ttl_txn_min'], 500, 300, "Time", "Txns Per Minute");
+    buildLineChart(data, "Sensor Data", ['value'], 500, 300, "Date", "Sensor Reading");
 
   });
 }
 
-function getApprovedTransactionsPerMinute () {
+function getSensor2Data () {
   var dataRecCount = 0;
   //var data = getSensorData();
 
-  data=getData('http://localhost:3000/approvedtransactionsperminute', function(data) {
+  data=getData('http://localhost:3000/sensordata', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("approvedtransactionsperminute callback called!");
-    if (typeof data == 'undefined') {
-      dataRecCount=0;
-    } else {
-      dataRecCount = data.length;
-    }
-    // loaded data summary
-    console.log("In getApprovedTransactionsPerMinute: length of data array = " + dataRecCount);
+    console.log("getSensor2Data callback called!");
+    dataRecCount = data.length;
+    console.log("In getSensorData2: length of data array = " + dataRecCount);
 
     // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
     for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
@@ -357,6 +233,13 @@ function getApprovedTransactionsPerMinute () {
       //console.log("data["+i+"].time = " + data[i].time);
     }
 
+    // sort the data by date ascending
+    data.sort(
+      function(a, b) {
+        return new Date(a.time) - new Date(b.time);
+      }
+    );
+
     // loaded data summary
     var minDate = data[0].time;
     var maxDate = data[data.length-1].time;
@@ -364,25 +247,52 @@ function getApprovedTransactionsPerMinute () {
     console.log("minDate =" + minDate);
     console.log("maxDate =" + maxDate);
 
-    minObjectValue = getMinObjectValue(data, 'approved_txn_min');
-    maxObjectValue = getMaxObjectValue(data, 'approved_txn_min');
+    minObjectValue = getMinObjectValue(data, 'value');
+    maxObjectValue = getMaxObjectValue(data, 'value');
 
-    console.log("min approved_txn_min =" + minObjectValue);
-    console.log("max approved_txn_min =" + maxObjectValue);
+    console.log("min value =" + minObjectValue);
+    console.log("max value =" + maxObjectValue);
 
-    buildLineChart_2(data, "Card Transactions Approved Per Minute", ['approved_txn_min'], 500, 300, "Time", "Approved Txns Per Minute");
+    buildLineChart(data, "Sensor 2 Data", ['value'], 500, 300, "Date", "Sensor Reading");
 
   });
 }
+
+function getTransactionsPerHour () {
+  var dataRecCount = 0;
+  var count = 0;
+  //var data = getSensorData();
+
+  data=getData('http://localhost:3000/transactionsperhour', function(data) {
+  // this anonymous function will run when the
+  // callback is called
+    console.log("transactionsperhour callback called!");
+    if (typeof data == 'undefined') {
+      dataRecCount=0;
+    } else {
+      dataRecCount = data.length;
+    }
+
+    // loaded data summary
+    console.log("In transactionsperhour: length of data array = " + dataRecCount);
+
+  });
+}
+
 
 $(document).ready(function() {
 
-  console.log("Running Txns Multichart");
-  getTransactionsPerMinute();
-  getApprovedTransactionsPerMinute();
+  console.log("Yay!");
+  getSensorData();
+  getSensor2Data();
+  getTransactionsPerHour();
 
+//  buildLineChart(data1, "Sensor Data", ['value'], 500, 300, "Date", "Sensor Reading");
+
+//    buildLineChart(data, "Daily Active Users", ['DAU'], 500, 300, "Date", "Users");
+//    buildLineChart(data, "Average Session Length", ['average_session_length'], 500, 300, "Date", "Session Length (minutes)");
+//    buildLineChart(data, "Average Sessions per User", ['average_sessions_per_user'], 500, 300, "Date", "Sessions per User");
 });
-
 </script>
 
 <style>
