@@ -38,9 +38,10 @@ function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxis
     this_array.splice(0,1);
 
     // define graph size parameters
-    var margin = {top: 30, right: 20, bottom: 120, left: 60};
+    var margin = {top: 30, right: 20, bottom: 120, left: 80};
     var width = width - margin.left - margin.right;
     var height = height - margin.top - margin.bottom;
+
     //color scale for multiple lines
     var colorscale = d3.scale.category10();
     var minDate = getDate(this_array[0]),
@@ -103,14 +104,14 @@ function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxis
     vis.append("text")
         .attr("class", "axis-label")
         .attr("text-anchor", "end")
-        .attr("y", 6)
+        .attr("y", -10)
         .attr("dy", "-3.4em")
         .attr("transform", "rotate(-90)")
         .text(yaxislabel);
 
   var line = d3.svg.line()
         .x(function(d) { return x(new Date(d.time)); })
-        .y(function(d) { return y(d.ttl_txn_hr); })
+        .y(function(d) { return y(d.ttl_txn_min); })
 
   vis.append("svg:path")
         .attr("d", line(this_array))
@@ -130,7 +131,7 @@ function buildLineChart_1(data, title, element, width, height, xaxislabel, yaxis
             .attr('class', 'dot')
             .attr('fill', function() { return "red"; })
             .attr('cx', function(d) { return x(new Date(d.time)); })
-            .attr('cy', function(d) { return y(d.ttl_txn_hr); })
+            .attr('cy', function(d) { return y(d.ttl_txn_min); })
             .attr('r', function() { return 3; })
             .on("mouseover", function(d) {
                   d3.select(this)
@@ -155,7 +156,7 @@ function buildLineChart_2(data, title, element, width, height, xaxislabel, yaxis
     this_array.splice(0,1);
 
     // define graph size parameters
-    var margin = {top: 30, right: 20, bottom: 120, left: 60};
+    var margin = {top: 30, right: 20, bottom: 120, left: 80};
     var width = width - margin.left - margin.right;
     var height = height - margin.top - margin.bottom;
     //color scale for multiple lines
@@ -220,14 +221,14 @@ function buildLineChart_2(data, title, element, width, height, xaxislabel, yaxis
     vis.append("text")
         .attr("class", "axis-label")
         .attr("text-anchor", "end")
-        .attr("y", 6)
+        .attr("y", -10)
         .attr("dy", "-3.4em")
         .attr("transform", "rotate(-90)")
         .text(yaxislabel);
 
   var line = d3.svg.line()
         .x(function(d) { return x(new Date(d.time)); })
-        .y(function(d) { return y(d.approved_txn_hr); })
+        .y(function(d) { return y(d.approved_txn_min); })
 
   vis.append("svg:path")
         .attr("d", line(this_array))
@@ -247,7 +248,7 @@ function buildLineChart_2(data, title, element, width, height, xaxislabel, yaxis
             .attr('class', 'dot')
             .attr('fill', function() { return "red"; })
             .attr('cx', function(d) { return x(new Date(d.time)); })
-            .attr('cy', function(d) { return y(d.approved_txn_hr); })
+            .attr('cy', function(d) { return y(d.approved_txn_min); })
             .attr('r', function() { return 3; })
             .on("mouseover", function(d) {
                   d3.select(this)
@@ -292,21 +293,21 @@ function getData(url,callback) {
 }
 
 
-function getTransactionsPerHour () {
+function getTransactionsPerMinute () {
   var dataRecCount = 0;
   //var data = getSensorData();
 
-  data=getData('http://localhost:3000/transactionsperhour', function(data) {
+  data=getData('http://localhost:3000/transactionsperminute', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("transactionsperhour callback called!");
+    console.log("transactionsperminute callback called!");
     if (typeof data == 'undefined') {
       dataRecCount=0;
     } else {
       dataRecCount = data.length;
     }
     // loaded data summary
-    console.log("In getTransactionsPerHour: length of data array = " + dataRecCount);
+    console.log("In getTransactionsPerMinute: length of data array = " + dataRecCount);
 
     // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
     for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
@@ -322,32 +323,32 @@ function getTransactionsPerHour () {
     console.log("minDate =" + minDate);
     console.log("maxDate =" + maxDate);
 
-    minObjectValue = getMinObjectValue(data, 'ttl_txn_hr');
-    maxObjectValue = getMaxObjectValue(data, 'ttl_txn_hr');
+    minObjectValue = getMinObjectValue(data, 'ttl_txn_min');
+    maxObjectValue = getMaxObjectValue(data, 'ttl_txn_min');
 
-    console.log("min ttl_txn_hr =" + minObjectValue);
-    console.log("max ttl_txn_hr =" + maxObjectValue);
+    console.log("min ttl_txn_min =" + minObjectValue);
+    console.log("max ttl_txn_min =" + maxObjectValue);
 
-    buildLineChart_1(data, "Card Transactions Processed Per Hour", ['ttl_txn_hr'], 500, 300, "Time", "Txns Per Hour");
+    buildLineChart_1(data, "Card Transactions Processed Per Minute", ['ttl_txn_min'], 500, 300, "Time", "Txns Per Minute");
 
   });
 }
 
-function getApprovedTransactionsPerHour () {
+function getApprovedTransactionsPerMinute () {
   var dataRecCount = 0;
   //var data = getSensorData();
 
-  data=getData('http://localhost:3000/approvedtransactionsperhour', function(data) {
+  data=getData('http://localhost:3000/approvedtransactionsperminute', function(data) {
   // this anonymous function will run when the
   // callback is called
-    console.log("approvedtransactionsperhour callback called!");
+    console.log("approvedtransactionsperminute callback called!");
     if (typeof data == 'undefined') {
       dataRecCount=0;
     } else {
       dataRecCount = data.length;
     }
     // loaded data summary
-    console.log("In getApprovedTransactionsPerHour: length of data array = " + dataRecCount);
+    console.log("In getApprovedTransactionsPerMinute: length of data array = " + dataRecCount);
 
     // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
     for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
@@ -363,13 +364,13 @@ function getApprovedTransactionsPerHour () {
     console.log("minDate =" + minDate);
     console.log("maxDate =" + maxDate);
 
-    minObjectValue = getMinObjectValue(data, 'approved_txn_hr');
-    maxObjectValue = getMaxObjectValue(data, 'approved_txn_hr');
+    minObjectValue = getMinObjectValue(data, 'approved_txn_min');
+    maxObjectValue = getMaxObjectValue(data, 'approved_txn_min');
 
-    console.log("min ttl_txn_hr =" + minObjectValue);
-    console.log("max ttl_txn_hr =" + maxObjectValue);
+    console.log("min approved_txn_min =" + minObjectValue);
+    console.log("max approved_txn_min =" + maxObjectValue);
 
-    buildLineChart_2(data, "Card Transactions Approved Per Hour", ['approved_txn_hr'], 500, 300, "Time", "Approved Txns Per Hour");
+    buildLineChart_2(data, "Card Transactions Approved Per Minute", ['approved_txn_min'], 500, 300, "Time", "Approved Txns Per Minute");
 
   });
 }
@@ -377,8 +378,8 @@ function getApprovedTransactionsPerHour () {
 $(document).ready(function() {
 
   console.log("Running Txns Multichart");
-  getTransactionsPerHour();
-  getApprovedTransactionsPerHour();
+  getTransactionsPerMinute();
+  getApprovedTransactionsPerMinute();
 
 });
 

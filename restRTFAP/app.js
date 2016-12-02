@@ -372,14 +372,14 @@ app.get('/dailytransactionsbymerchant', function(req, res) {
 //////////////////////////
 // Chart URLs
 /////////////////////////
-app.get('/transactionsperhour', function(req, res) {
+app.get('/transactionsperminute', function(req, res) {
 // 5. Retrieve count of transactions in the TRANSACTIONS table in the last hour
 // e.g. http://[server_IP:Express_port]/transactionsper hour
 // SELECT count(*) FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 //  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
-  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT ttl_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
@@ -399,14 +399,14 @@ app.get('/transactionsperhour', function(req, res) {
   });
 });
 
-app.get('/approvedtransactionsperhour', function(req, res) {
+app.get('/approvedtransactionsperminute', function(req, res) {
 // 5. Retrieve count of transactions in the TRANSACTIONS table in the last hour
 // e.g. http://[server_IP:Express_port]/transactionsper hour
 // SELECT count(*) FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1HOUR TO *]"}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 //  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
-  const queryString = 'SELECT approved_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT approved_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
