@@ -1,7 +1,7 @@
 <html>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <head>
-<title>D3.js Dyamic Multichart Dashboard</title>
+<title>Transaction Approval Rates - a D3.js Dyamic Multichart Dashboard</title>
 <script src="d3.v3.js"></script>
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="jquery-ui.min.js"></script>
@@ -301,36 +301,35 @@ function getTransactionsPerMinute () {
   // this anonymous function will run when the
   // callback is called
     console.log("transactionsperminute callback called!");
-    if (typeof data == 'undefined') {
+    if (typeof data == 'undefined' || data.length == 0) {
       dataRecCount=0;
+      document.writeln("No transaction data to display");
+      document.write("<BR>")
     } else {
       dataRecCount = data.length;
+      // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
+      for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
+        // parse UTC.time
+        data[i].time = new Date(data[i].time);
+        //console.log("data["+i+"].time = " + data[i].time);
+      }
+      // loaded data summary
+      var minDate = data[0].time;
+      var maxDate = data[data.length-1].time;
+
+      console.log("minDate =" + minDate);
+      console.log("maxDate =" + maxDate);
+
+      minObjectValue = getMinObjectValue(data, 'ttl_txn_min');
+      maxObjectValue = getMaxObjectValue(data, 'ttl_txn_min');
+
+      console.log("min ttl_txn_min =" + minObjectValue);
+      console.log("max ttl_txn_min =" + maxObjectValue);
+
+      buildLineChart_1(data, "Card Transactions Processed Per Minute", ['ttl_txn_min'], 500, 300, "Time", "Txns Per Minute");
     }
     // loaded data summary
     console.log("In getTransactionsPerMinute: length of data array = " + dataRecCount);
-
-    // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
-    for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
-      // parse UTC.time
-      data[i].time = new Date(data[i].time);
-      //console.log("data["+i+"].time = " + data[i].time);
-    }
-
-    // loaded data summary
-    var minDate = data[0].time;
-    var maxDate = data[data.length-1].time;
-
-    console.log("minDate =" + minDate);
-    console.log("maxDate =" + maxDate);
-
-    minObjectValue = getMinObjectValue(data, 'ttl_txn_min');
-    maxObjectValue = getMaxObjectValue(data, 'ttl_txn_min');
-
-    console.log("min ttl_txn_min =" + minObjectValue);
-    console.log("max ttl_txn_min =" + maxObjectValue);
-
-    buildLineChart_1(data, "Card Transactions Processed Per Minute", ['ttl_txn_min'], 500, 300, "Time", "Txns Per Minute");
-
   });
 }
 
@@ -342,36 +341,35 @@ function getApprovedTransactionsPerMinute () {
   // this anonymous function will run when the
   // callback is called
     console.log("approvedtransactionsperminute callback called!");
-    if (typeof data == 'undefined') {
+    if (typeof data == 'undefined' || data.length == 0) {
       dataRecCount=0;
+      document.write("No approved transaction data to display");
+      document.write("<BR>")
     } else {
       dataRecCount = data.length;
+      // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
+      for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
+        // parse UTC.time
+        data[i].time = new Date(data[i].time);
+        //console.log("data["+i+"].time = " + data[i].time);
+      }
+      // loaded data summary
+      var minDate = data[0].time;
+      var maxDate = data[data.length-1].time;
+
+      console.log("minDate =" + minDate);
+      console.log("maxDate =" + maxDate);
+
+      minObjectValue = getMinObjectValue(data, 'approved_txn_min');
+      maxObjectValue = getMaxObjectValue(data, 'approved_txn_min');
+
+      console.log("min approved_txn_min =" + minObjectValue);
+      console.log("max approved_txn_min =" + maxObjectValue);
+
+      buildLineChart_2(data, "Card Transactions Approved Per Minute", ['approved_txn_min'], 500, 300, "Time", "Approved Txns Per Minute");
     }
     // loaded data summary
     console.log("In getApprovedTransactionsPerMinute: length of data array = " + dataRecCount);
-
-    // parse UTC dates to convert e.g. 2016-10-21T08:56:59.921Z to Fri Oct 21 2016 08:56:59 GMT+0000
-    for (var i = 0; i < dataRecCount; i++) {                     //Loop through array
-      // parse UTC.time
-      data[i].time = new Date(data[i].time);
-      //console.log("data["+i+"].time = " + data[i].time);
-    }
-
-    // loaded data summary
-    var minDate = data[0].time;
-    var maxDate = data[data.length-1].time;
-
-    console.log("minDate =" + minDate);
-    console.log("maxDate =" + maxDate);
-
-    minObjectValue = getMinObjectValue(data, 'approved_txn_min');
-    maxObjectValue = getMaxObjectValue(data, 'approved_txn_min');
-
-    console.log("min approved_txn_min =" + minObjectValue);
-    console.log("max approved_txn_min =" + maxObjectValue);
-
-    buildLineChart_2(data, "Card Transactions Approved Per Minute", ['approved_txn_min'], 500, 300, "Time", "Approved Txns Per Minute");
-
   });
 }
 
@@ -425,7 +423,7 @@ body {
 
 <body>
 
-    <h1>A D3.js Dashboard</h1>
+    <h1>Card Transaction Approval Rate Dashboard</h1>
 
     <div id="this_arrays">
     </div>
