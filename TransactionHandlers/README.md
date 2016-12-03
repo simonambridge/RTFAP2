@@ -11,10 +11,10 @@ The transaction producer Is a Scala app that leverages the Akka framework (Light
 
 The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes  the messages put on the Kafka queue. It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application I could see a scoring model used to decide if a transaction should be accepted or rejected. You would also want to implement things like black-list lookups and that sort of thing. Finally, once evaluated, the records are then written to the Datastax/Cassandra table.
 
-The second part of the Spark job counts the number of records processed each minute and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. The results should look something like this.
+The second part of the Spark job counts the number of records processed each minute and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. The results can be displayed using the web service provided, for example:
 
 <p align="left">
-  <img src="TransCount.png" width="714" height="155" />
+  <img src="txnchart.png"/>
 </p>
 
 ##Demo tech set up
