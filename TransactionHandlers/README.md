@@ -257,7 +257,7 @@ After some initial output you will see records being consumed from Kafka by Spar
 ```
 You can leave this running as you wish.
 
-  * At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
+  *. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
 ```
 cqlsh> select count(*) from rtfap.transactions;
@@ -267,7 +267,7 @@ cqlsh> select count(*) from rtfap.transactions;
   13657
 ```
 
-  * Every 60 seconds you will also see the consumer process generate output similar to the following:
+  *. Every 60 seconds you will also see the consumer process generate output similar to the following:
 ```
 Time=Sat Dec 03 00:37:44 GMT 2016
 +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
