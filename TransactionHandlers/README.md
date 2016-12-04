@@ -164,7 +164,7 @@ apt-get update
 apt-get install sbt
 ```
 
-1. Build the Producer with this command:
+1.Build the Producer with this command:
   
     `sbt producer/package`
     
@@ -174,7 +174,7 @@ apt-get install sbt
     [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
     ```
       
-2. Build the Consumer with this command:
+2.Build the Consumer with this command:
   
     `sbt consumer/package`
     
@@ -215,9 +215,8 @@ After some initial output you will see card transactions being created and poste
 You can leave this process running as you wish.
 
 ###Start the Transaction Consumer
-
  
-  1. Identify the location of the SparkMaster node:
+1.Identify the location of the SparkMaster node:
   
   For DSE versions < 4.x:
   ```
@@ -229,9 +228,9 @@ You can leave this process running as you wish.
   dse client-tool spark master-address
   spark://127.0.0.1:7077
   ```
-  2. From the root directory of the project start the consumer app:
+2. From the root directory of the project start the consumer app:
   
-    `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
+    ```dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar```
     
   After some initial output you will see records being consumed from Kafka by Spark:
 ```
