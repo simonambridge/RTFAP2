@@ -38,9 +38,9 @@ Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - 
 
 Kafka can be downloaded from this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
-Download and install the binary version for Scala 2.10 - you can use wget to download to the server:
+Download and install the binary version for Scala 2.10 - you can use wget or curl to download to the server e.g:
 ```
-$ wget http://apache.mirror.anlx.net/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz
+curl --remote-name http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz
 ```
 
 ###2. Install Apache Kafka
@@ -196,6 +196,16 @@ From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start th
 
 After some initial output you will see card transactions being created and posted to Kafka:
 ```
+[info] Set current project to transactionhandlers (in build file:/u02/dev/dse_dev/RTFAP/RTFAP2/TransactionHandlers/)
+[info] Running TransactionProducer 
+kafkaHost 127.0.0.1:9092
+kafkaTopic NewTransactions
+maxNumTransPerWait 5
+waitMillis 500
+runDurationSeconds -1
+[DEBUG] [11/22/2016 13:39:37.061] [run-main-0] [EventStream(akka://TransactionProducer)] logger log1-Logging$DefaultLogger started
+[DEBUG] [11/22/2016 13:39:37.063] [run-main-0] [EventStream(akka://TransactionProducer)] Default Loggers started
+...
 19845 Transactions created.
 (cc_no=,6557000040986661, txn_time=,2016-12-03 00:37:57.407, items=,Item_3240->237.76, amount=,237.76)
 (cc_no=,9963000035510891, txn_time=,2016-12-03 00:37:57.407, items=,Item_70347->463.65,Item_92354->797.65,Item_29626->76.39, amount=,1337.70)
@@ -235,6 +245,11 @@ You can leave this process running as you wish.
   After some initial output you will see records being consumed from Kafka by Spark:
   
   ```
+  Ivy Default Cache set to: /home/dse/.ivy2/cache
+  The jars for the packages stored in: /home/dse/.ivy2/jars
+  :: loading settings :: url = jar:file:/usr/share/dse/spark/lib/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+  org.apache.spark#spark-streaming-kafka_2.10 added as a dependency
+  :: resolving dependencies :: org.apache.spark#spark-submit-parent;1.0
   6 rows processed...
   +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+----------------+--------+-------+-------+--------+---------+
   |           cc_no|cc_provider|year|month|day|hour|min|            txn_time|              txn_id|        merchant|location|country| amount|  status|date_text|
