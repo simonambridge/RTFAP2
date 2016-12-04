@@ -255,6 +255,7 @@ You can leave this process running as you wish.
 +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+---------------+--------+-------+-------+--------+---------+
 
 ```
+
   You can leave this running as you wish.
 
   3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
