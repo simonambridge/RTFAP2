@@ -250,6 +250,7 @@ You can leave this process running as you wish.
   :: loading settings :: url = jar:file:/usr/share/dse/spark/lib/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
   org.apache.spark#spark-streaming-kafka_2.10 added as a dependency
   :: resolving dependencies :: org.apache.spark#spark-submit-parent;1.0
+  ...
   6 rows processed...
   +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+----------------+--------+-------+-------+--------+---------+
   |           cc_no|cc_provider|year|month|day|hour|min|            txn_time|              txn_id|        merchant|location|country| amount|  status|date_text|
