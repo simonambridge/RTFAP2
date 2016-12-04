@@ -156,6 +156,7 @@ Display topic configuration details:
 ###In order to run this demo navigate to the project TransactionHandlers directory
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
+  * If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
   * If you havent yet installed sbt (as root or use sudo) do this now:
   ```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
@@ -192,7 +193,7 @@ This assumes you already have Kafka and DSE up and running and configured as in 
 
 From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
-    `sbt producer/run`
+    ```sbt producer/run```
 
 After some initial output you will see card transactions being created and posted to Kafka:
 ```
