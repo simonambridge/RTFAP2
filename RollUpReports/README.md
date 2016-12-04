@@ -19,12 +19,14 @@ The following components must be installed and available on your machine.
   3. An internet connection is required to download sbt dependencies
 
   * If you havent already installed sbt (as root or use sudo) do this now:
-  ```
+
+```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 apt-get update
 apt-get install sbt
 ```
+
 ## Build the demo
 
 ###In order to run this demo navigate to the project RollUpReports directory
@@ -54,7 +56,9 @@ sudo dse hadoop fs -chmod 777 /tmp/hive
 
 ###Run the transactions by merchant roll up: 
 
-```./run_rollupbymerchant.sh```
+```
+./run_rollupbymerchant.sh
+```
 
 This will run the command:
 ```
