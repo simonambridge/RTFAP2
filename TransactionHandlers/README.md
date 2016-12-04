@@ -232,7 +232,7 @@ You can leave this process running as you wish.
   
     ```dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar```
 
-After some initial output you will see records being consumed from Kafka by Spark:
+  After some initial output you will see records being consumed from Kafka by Spark:
   
 ```
 6 rows processed...
@@ -255,9 +255,9 @@ After some initial output you will see records being consumed from Kafka by Spar
 +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+---------------+--------+-------+-------+--------+---------+
 
 ```
-You can leave this running as you wish.
+  You can leave this running as you wish.
 
-   3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
+  3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
 ```
 cqlsh> select count(*) from rtfap.transactions;
@@ -267,7 +267,7 @@ cqlsh> select count(*) from rtfap.transactions;
   13657
 ```
 
-   4. Every 60 seconds you will also see the consumer process generate output similar to the following:
+  4. Every 60 seconds you will also see the consumer process generate output similar to the following:
 ```
 Time=Sat Dec 03 00:37:44 GMT 2016
 +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
@@ -277,7 +277,7 @@ Time=Sat Dec 03 00:37:44 GMT 2016
 +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
 
 ```
-This is real-time analysis of the approved vs. rejected transactions rate and percentage. These records are stored in the txn_count_min table, for example:
+  This is real-time analysis of the approved vs. rejected transactions rate and percentage. These records are stored in the txn_count_min table, for example:
 ```
 cqlsh:rtfap> SELECT * FROM rtfap.txn_count_min WHERE solr_query = '{"q":"*:*",  "fq":"time:[NOW-1HOUR TO *]","sort":"time asc"}';
 
@@ -306,5 +306,5 @@ cqlsh:rtfap> SELECT * FROM rtfap.txn_count_min WHERE solr_query = '{"q":"*:*",  
  2016 |    12 |   3 |    0 |      3 |         96.11033 |          96.02273 |            1359 |              338 |       null | 2016-12-03 00:03:44+0000 |       1414 |         352
 ```
 
-The txn_count_min table will be used to service the D3 chart displayed at the top of this page.
+  The txn_count_min table will be used to service the D3 chart displayed at the top of this page.
 
