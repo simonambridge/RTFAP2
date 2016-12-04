@@ -153,7 +153,7 @@ Display topic configuration details:
 
 ## Build the demo
 
-###In order to run this demo navigate to the TransactionHandlers directory
+###In order to run this demo navigate to the project TransactionHandlers directory
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * If you havent yet installed sbt (as root or use sudo) do this now:
@@ -184,11 +184,11 @@ apt-get install sbt
     [success] Total time: 32 s, completed Nov 21, 2016 10:10:32 PM
     ```
   
-###Run the demo
+##Run the demo
 
 This assumes you already have Kafka and DSE up and running and configured as in the steps above.
 
-Start the Transaction Producer
+###Start the Transaction Producer
 
   * From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
@@ -211,10 +211,13 @@ After some initial output you will see card transactions being created and poste
 (cc_no=,3472000068224395, txn_time=,2016-12-03 00:37:58.409, items=,Item_13700->54.50,Item_4441->177.90,Item_31018->607.78, amount=,840.18)
 (cc_no=,9470000056653610, txn_time=,2016-12-03 00:37:58.409, items=,Item_106->402.68,Item_19047->500.58,Item_33249->759.90, amount=,1663.16)
 ```
+
+You can leave this process running as you wish.
+
+###Start the Transaction Consumer
+
  
- You can leave this process running as you wish.
- 
-  * Identify the location of the SparkMaster node:
+  1. Identify the location of the SparkMaster node:
   
   For DSE versions < 4.x:
   ```
