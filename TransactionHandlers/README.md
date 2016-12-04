@@ -2,16 +2,18 @@
 
 ##Creating and Consuming Transactions
 
-In this project (Idea IntelliJ) there are two different pieces
+Based on an original creation by Cary Bourgeois). I'll use Cary's original description here as the overall functionality is unchanged.
+
+This project consists of two elements:
    
 * Transaction Producer
 * Transaction Consumer
 
-The transaction producer Is a Scala app that leverages the Akka framework (Lightly) to generate random transactions and then place those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population. This is here strictly to make pretty graphs.
+The transaction producer is a Scala application that leverages the Akka framework (lightly) to generate pseudo-random credit card transactions and then places those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population. This is here strictly to make pretty graphs.
 
-The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes  the messages put on the Kafka queue. It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application I could see a scoring model used to decide if a transaction should be accepted or rejected. You would also want to implement things like black-list lookups and that sort of thing. Finally, once evaluated, the records are then written to the Datastax/Cassandra table.
+The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes the messages put on the Kafka queue. It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application I could see a scoring model used to decide if a transaction should be accepted or rejected. You would also want to implement things like black-list lookups and that sort of thing. Finally, once evaluated, the records are then written to the Datastax/Cassandra table.
 
-The second part of the Spark job counts the number of records processed each minute and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. The results can be displayed using the web service provided, for example:
+The second part of the Spark consumer job counts the number of records processed each minute, and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. The results can be displayed using the Node.js web service provided, for example:
 
 <p align="left">
   <img src="txnchart.png"/>
@@ -19,7 +21,10 @@ The second part of the Spark job counts the number of records processed each min
 
 ##Demo tech set up
 
-In order to run this demo, it is assumed that you have the following installed and available on your local system. Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise as Spark Direct Streams (Kafka in this demo) support is much improved in this version.
+###Pre-requisites
+The following components must be installed and available on your machine.
+
+Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - Spark Direct Streams (Kafka in this demo) support is much improved in DSE 4.8+
 
   1. Datastax Enterprise 5.0.3
   2. Apache Kafka 0.10.1.0, I used the Scala 2.10 build
@@ -28,87 +33,112 @@ In order to run this demo, it is assumed that you have the following installed a
   5. An internet connection
 
 ##Getting Started with Kafka
-Use the steps below to setup up a local instance of Kafka for this example. This is based on apache-kafka_2.10-0.10.1.0.
 
-###1. Locate and download Apache Kafka
+###1. Download Apache Kafka
 
-Kafka can be located at this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
+Kafka can be downloaded from this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
-You will want to download and install the binary version for Scala 2.10 - you can use wget to download to the server:
+Download and install the binary version for Scala 2.10 - you can use wget to download to the server:
 ```
 $ wget http://apache.mirror.anlx.net/kafka/0.9.0.1/kafka_2.10-0.9.0.1.tgz
 ```
 
 ###2. Install Apache Kafka
 
-Once downloaded you will need to extract the file. It will create a folder/directory. Move this to a location of your choice.
+Once downloaded you will need to extract the file. It will create a folder/directory - you can then move this to a location of your choice.
 
 ```
 $ gunzip kafka_2.10-0.10.1.0.tgz
 $ tar xvf kafka_2.10-0.10.1.0.tar
 $ rm kafka_2.10-0.10.1.0.tar
 ```
+
 Move the kafka directory tree to your preferred location, e.g.:
+
+```
+KAFKA_HOME=/Software/Kafka/kafka_2.10-0.10.1.0 export KAFKA_HOME
+```
+
+For a more permanent installation you might want to move it to e.g. /usr/share:
+
 ```
 $ sudo mv kafka_2.10-0.10.1.0 /usr/share
 ```
 
+
 ###3. Start ZooKeeper and Kafka
 
-3.a. Start local copy of zookeeper (in its own terminal or use nohup)
+3.a. Start local copy of zookeeper (in its own terminal or use nohup):
 
-  * `<kafka home dir>bin/zookeeper-server-start.sh config/zookeeper.properties`
-
+```
+$ cd $KAFKA_HOME
+$ ./bin/zookeeper-server-start.sh config/zookeeper.properties`
+```
+ 
 For example:
 ```
-$ cd kafka_2.10-0.10.1.0
-$ nohup bin/zookeeper-server-start.sh config/zookeeper.properties &
+$ cd $KAFKA_HOME
+$ nohup ./bin/zookeeper-server-start.sh config/zookeeper.properties &
 ```
 
-3.b. Start local copy of Kafka (in its own terminal or use nohup)
+3.b. Start local copy of Kafka (in its own terminal or use nohup):
 
-  * `<kafka home dir>bin/kafka-server-start.sh config/server.properties`
-
-For example:
 ```
-$ cd kafka_2.10-0.10.1.0
-$ nohup bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1&
+$ cd $KAFKA_HOME
+$ ./bin/kafka-server-start.sh config/server.properties`
+```
+
+For example (using a different output file to Zookeeper):
+```
+$ cd $KAFKA_HOME
+$ nohup ./bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1 &
 ```
 
 ###4. Prepare a message topic for use.
 
 4.a. Create the topic we will use for the demo
 
-  * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
+  * `$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
 
 For example:
 ```
-$ cd kafka_2.10-0.10.1.0
-$ bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions
+$ cd $KAFKA_HOME
+$ ./bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions
 Created topic "NewTransactions".
 ```
 
-4.b. Validate the topics were created. 
+4.b. Validate the topic was created:
 
-  * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --list`
+  * `$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list`
 
 For example:
 ```
-$ cd kafka_2.10-0.10.1.0
-$ bin/kafka-topics.sh --zookeeper localhost:2181 --list
+$ cd $KAFKA_HOME
+$ ./bin/kafka-topics.sh --zookeeper localhost:2181 --list
 NewTransactions
 ```
 
-##A Couple of other useful Kafka commands
+##Some useful Kafka commands
 
-Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work)
+Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
-  * `<kafka home dir>bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions`
+  * `$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions`
   
-Show all of the messages in a topic from the beginning
+Show all of the messages in a topic from the beginning:
 
-  * `<kafka home dir>bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning`
+  * `$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning`
   
+Describe the NewTransactions Topic:
+
+  * `$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions`
+
+Set message retention for 1 hour:
+By default Kafka will retain messages in the queue for 7 days - to change retention to e.g. 
+  * `$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions`
+
+Display topic configuration details:
+$ ./bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
+
 
 ## Build the demo
 
