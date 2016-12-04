@@ -90,7 +90,7 @@ $ cd $KAFKA_HOME
 $ ./bin/kafka-server-start.sh config/server.properties`
 ```
 
-For example (using a different output file to Zookeeper):
+For example (using a different output file to the one created by the Zookeeper process):
 ```
 $ cd $KAFKA_HOME
 $ nohup ./bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1 &
@@ -164,7 +164,7 @@ apt-get update
 apt-get install sbt
 ```
 
-  * Build the Producer with this command:
+  1. Build the Producer with this command:
   
     `sbt producer/package`
     
@@ -174,7 +174,7 @@ apt-get install sbt
     [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
     ```
       
-  * Build the Consumer with this command:
+  2. Build the Consumer with this command:
   
     `sbt consumer/package`
     
@@ -229,7 +229,7 @@ You can leave this process running as you wish.
   dse client-tool spark master-address
   spark://127.0.0.1:7077
   ```
-  * From the root directory of the project start the consumer app:
+  2. From the root directory of the project start the consumer app:
   
     `dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar`
     
@@ -257,7 +257,7 @@ You can leave this process running as you wish.
 ```
 You can leave this running as you wish.
 
-At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
+  3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
 ```
 cqlsh> select count(*) from rtfap.transactions;
@@ -267,7 +267,7 @@ cqlsh> select count(*) from rtfap.transactions;
   13657
 ```
 
-Every 60 seconds you will also see the consumer process generate output similar to the following:
+  4. Every 60 seconds you will also see the consumer process generate output similar to the following:
 ```
 Time=Sat Dec 03 00:37:44 GMT 2016
 +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
@@ -306,4 +306,5 @@ cqlsh:rtfap> SELECT * FROM rtfap.txn_count_min WHERE solr_query = '{"q":"*:*",  
  2016 |    12 |   3 |    0 |      3 |         96.11033 |          96.02273 |            1359 |              338 |       null | 2016-12-03 00:03:44+0000 |       1414 |         352
 ```
 
+The txn_count_min table will be used to service the D3 chart displayed at the top of this page.
 
