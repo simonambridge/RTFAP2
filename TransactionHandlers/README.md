@@ -164,7 +164,7 @@ apt-get update
 apt-get install sbt
 ```
 
-  1. Build the Producer with this command:
+1. Build the Producer with this command:
   
     `sbt producer/package`
     
@@ -174,7 +174,7 @@ apt-get install sbt
     [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
     ```
       
-  2. Build the Consumer with this command:
+2. Build the Consumer with this command:
   
     `sbt consumer/package`
     
