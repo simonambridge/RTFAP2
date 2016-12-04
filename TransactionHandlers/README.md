@@ -2,14 +2,14 @@
 
 ##Creating and Consuming Transactions
 
-Based on an original creation by Cary Bourgeois). I'll use Cary's original description here as the overall functionality is unchanged.
+Based on an original creation by Cary Bourgeois. I'll use Cary's original description here as the overall functionality is unchanged.
 
 This project consists of two elements:
    
 * Transaction Producer
 * Transaction Consumer
 
-The transaction producer is a Scala application that leverages the Akka framework (lightly) to generate pseudo-random credit card transactions and then places those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population. This is here strictly to make pretty graphs.
+The transaction producer is a Scala application that leverages the Akka framework (lightly) to generate pseudo-random credit card transactions, and then place those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population. This is here strictly to make pretty graphs.
 
 The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes the messages put on the Kafka queue. It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application I could see a scoring model used to decide if a transaction should be accepted or rejected. You would also want to implement things like black-list lookups and that sort of thing. Finally, once evaluated, the records are then written to the Datastax/Cassandra table.
 
@@ -56,13 +56,15 @@ $ rm kafka_2.10-0.10.1.0.tar
 Move the kafka directory tree to your preferred location, e.g.:
 
 ```
-KAFKA_HOME=/Software/Kafka/kafka_2.10-0.10.1.0 export KAFKA_HOME
+$ mv kafka_2.10-0.10.1.0 /Sogtware/Kafka
+$ KAFKA_HOME=/Software/Kafka/kafka_2.10-0.10.1.0 export KAFKA_HOME
 ```
 
 For a more permanent installation you might want to move it to e.g. /usr/share:
 
 ```
 $ sudo mv kafka_2.10-0.10.1.0 /usr/share
+$ KAFKA_HOME=/usr/share/kafka_2.10-0.10.1.0 export KAFKA_HOME
 ```
 
 
@@ -118,7 +120,7 @@ $ ./bin/kafka-topics.sh --zookeeper localhost:2181 --list
 NewTransactions
 ```
 
-##Some useful Kafka commands
+##Some more useful Kafka commands
 
 Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
@@ -132,11 +134,13 @@ Describe the 'NewTransactions' Topic:
 
   * `$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
   Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
-	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
-`
-
+	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0`
+	
 Set message retention for 1 hour:
+
 By default Kafka will retain messages in the queue for 7 days - to change retention to e.g. 1 hour (360000 milliseconds) 
+
+> Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 
   * `$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
   Updated config for entity: topic 'NewTransactions'.`
@@ -151,8 +155,8 @@ Display topic configuration details:
 
 ###In order to run this demo navigate to the TransactionHandlers directory
 
-  * You should have already created the Cassandra keyspaces and tables using the main creates_and_inserts.cql script
-  * If you havent yet installed sbt (as root or use sudo):
+  * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
+  * If you havent yet installed sbt (as root or use sudo) do this now:
   ```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
@@ -184,11 +188,13 @@ apt-get install sbt
 
 This assumes you already have Kafka and DSE up and running and configured as in the steps above.
 
-  * From the root directory of the project (`~/RTFAP/TransacrtionHandlers`) start the producer app:
+Start the Transaction Producer
+
+  * From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
     `sbt producer/run`
 
-After some initial output you will see transactions being created and posted to Kafka:
+After some initial output you will see card transactions being created and posted to Kafka:
 ```
 19845 Transactions created.
 (cc_no=,6557000040986661, txn_time=,2016-12-03 00:37:57.407, items=,Item_3240->237.76, amount=,237.76)
@@ -204,7 +210,6 @@ After some initial output you will see transactions being created and posted to 
 19851 Transactions created.
 (cc_no=,3472000068224395, txn_time=,2016-12-03 00:37:58.409, items=,Item_13700->54.50,Item_4441->177.90,Item_31018->607.78, amount=,840.18)
 (cc_no=,9470000056653610, txn_time=,2016-12-03 00:37:58.409, items=,Item_106->402.68,Item_19047->500.58,Item_33249->759.90, amount=,1663.16)
-
 ```
  
  You can leave this process running as you wish.
@@ -214,11 +219,12 @@ After some initial output you will see transactions being created and posted to 
   For DSE versions < 4.x:
   ```
   $ dsetool sparkmaster
-  
+  spark://127.0.0.1:7077
   ```
   For DSE 5.0.0 and above:
   ```
   dse client-tool spark master-address
+  spark://127.0.0.1:7077
   ```
   * From the root directory of the project start the consumer app:
   
