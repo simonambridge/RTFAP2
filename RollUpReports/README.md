@@ -61,6 +61,7 @@ sudo dse hadoop fs -chmod 777 /tmp/hive
 ```
 
 This will run the command:
+
 ```
 dse spark-submit --class RollUpReportsByMerchant ./target/scala-2.10/rollupreports_2.10-1.0.jar
 Beginning RollUp Reporting By Merchant...
