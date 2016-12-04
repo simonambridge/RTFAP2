@@ -26,11 +26,18 @@ The following components must be installed and available on your machine.
 
 Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - Spark Direct Streams (Kafka in this demo) support is much improved in DSE 4.8+
 
-  1. Datastax Enterprise 5.0.3
+  1. Datastax Enterprise 5.0.3 installed and working in Search Analytics mode
   2. Apache Kafka 0.10.1.0, I used the Scala 2.10 build
-  3. git
-  4. sbt
-  5. An internet connection
+  3. sbt
+  4. An internet connection is required to download sbt dependencies
+
+  * If you havent already installed sbt (as root or use sudo) do this now:
+  ```
+echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+apt-get update
+apt-get install sbt
+```
 
 ##Getting Started with Kafka
 
@@ -157,13 +164,6 @@ Display topic configuration details:
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
-  * If you havent yet installed sbt (as root or use sudo) do this now:
-  ```
-echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-apt-get update
-apt-get install sbt
-```
 
 1. Build the Producer with this command:
   
