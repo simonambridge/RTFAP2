@@ -190,7 +190,7 @@ This assumes you already have Kafka and DSE up and running and configured as in 
 
 ###Start the Transaction Producer
 
-  * From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
+From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
     `sbt producer/run`
 
@@ -216,7 +216,7 @@ You can leave this process running as you wish.
 
 ###Start the Transaction Consumer
  
-1. Identify the location of the SparkMaster node:
+  1. Identify the location of the SparkMaster node:
   
   For DSE versions < 4.x:
   ```
@@ -228,7 +228,7 @@ You can leave this process running as you wish.
   dse client-tool spark master-address
   spark://127.0.0.1:7077
   ```
-2. From the root directory of the project start the consumer app:
+  2. From the root directory of the project start the consumer app:
   
     ```dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar```
 
