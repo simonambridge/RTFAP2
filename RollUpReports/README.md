@@ -70,7 +70,9 @@ Completed RollUps By Merchant...
 
 ###Run the aggregates by credit card rollup: 
 
-```./run_rollupbycc.sh```
+```
+./run_rollupbycc.sh
+```
 
 This will run the command:
 ```
@@ -79,4 +81,4 @@ Beginning RollUp Reporting By CC...
 Completed RollUps By CC...  
 ```
 
-WHen these jobs have completed you will be able to run the ReST queries that interrogate the rollup and aggregate tables.
+When these jobs have completed you will be able to run the ReST queries that interrogate the rollup and aggregate tables.
