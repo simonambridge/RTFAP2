@@ -2,6 +2,8 @@
 
 The supplied Express-based Solr ReST interface provides a number of representative queries against the transaction table and roll-up/aggregate data tables.
 
+||| describe the solr cores - creation/edit/deletion
+
 Use the following URL's (substituting the external address of your server and the port number you used when you started the Express Server) to run the queries shown. 
 
 The results will be returned in JSON format suitable for consumption by an external system.
