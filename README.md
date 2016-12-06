@@ -1,6 +1,4 @@
-# >>>>> W O R K  I N  P R O G R E S S - alpha release <<<<<
-
-# RTFAP - Real-time Fraud Analysis Platform
+# RTFAP2 - Real-time Fraud Analysis Platform
 
 Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 
@@ -122,7 +120,7 @@ cqlsh> source 'creates_and_inserts.cql'
 This creates the following tables:
 
 - Table Transactions - main transactions table
-We will create a Solr index on this tables to support a variety of ReST API queries.
+We will create a Solr index on transactions to support a variety of ReST API queries.
 
 - Table hourlyaggregates_bycc - hourly roll-up of transactions by credit card
 
@@ -135,7 +133,8 @@ We will create a Solr index on this tables to support a variety of ReST API quer
 - Table dailytxns_bymerchant - daily roll-up of transactions by merchant
 
 - Table txn_count_min - track transactions in a rolling window for analytics
-We will create a Solr index on this table to enable flexible reporting and charting.
+
+We will create a Solr index on txn_count_min to enable flexible reporting and charting.
 
 The create script also creates some sample data for example:
 
