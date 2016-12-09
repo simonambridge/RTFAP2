@@ -102,7 +102,7 @@ Your URL's will be:
 
 Finally, clone this repo to a directory on the machine where you installed DSE.
 
-##DataModel
+##Data Model
 
 We will need multiple tables to fulfill the above query patterns and workloads. De-normalization is a good thing with NoSQL databases - it allows you to optimise your Cassandra schema specifically to enable extremely fast queries.
 
@@ -160,24 +160,27 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data.
 
-###Create SOlr Cores
+###Create Solr Cores
 To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
 
-By default, when you automatically generate resources, existing data is not re-indexed so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
+By default, when you create a Solr core resources will not be generated and existing data is not re-indexed - the idea behind this is so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
 ```
-Navigate to the Solr directory to create the Solr cores.
+
+Navigate to the Solr directory to create the Solr cores for our transaction data.
+
 Run the script ```build_solr_indexes.sh``` to create the indexes. The script will run the following commands:
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
+
 dsetool create_core rtfap.txn_count_min generateResources=true reindex=true
 dsetool reload_core rtfap.txn_count_min schema=./txn_count_min.xml reindex=true
 ```
-Note that we're using a custom schema definition for the core that we're cresating on the txn_count_min table. The schema definition file txn_count_min.xml file contains the line:
+Note that we're using a custom schema definition for the core that we're cresating on the txn_count_min table. We do this with a custom xml schema definition file. The schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 <field indexed="true" multiValued="false" name="time" stored="true" type="TrieDateField" docValues="true" />
 ```
@@ -219,9 +222,11 @@ The sample queries are served by a web service written in Node.js. The code for 
 
 Navigate to the restDSE directory:
 
-> This Node.js application directory structure was created with express using the command ```$ express restDSE```
+> This Node.js application directory structure was created with express using the command ```$ express restDSE```.
+You will also need to install the Node Cassandra driver ```$ npm install cassandra-driver```
+You can find more detailed instructions for installing Node at https://github.com/simonambridge/chartDSE
 
-You can start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
+Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
 
 At this point you will be able to run some of the solr queries shown below.
 
