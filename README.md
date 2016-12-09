@@ -158,19 +158,33 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 ##Searching Data in DSE
 
-The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data. 
+The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data.
 
+###Create SOlr Cores
 To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
-By default, when you automatically generate resources, existing data is not re-indexed so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option:
+To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
+
+By default, when you automatically generate resources, existing data is not re-indexed so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
 ```
+Navigate to the Solr directory to create the Solr cores.
+Run the script ```build_solr_indexes.sh``` to create the indexes. The script will run the following commands:
+```
+dsetool create_core rtfap.transactions generateResources=true reindex=true
+dsetool create_core rtfap.txn_count_min generateResources=true reindex=true
+dsetool reload_core rtfap.txn_count_min schema=./txn_count_min.xml reindex=true
+```
+Note that we're using a custom schema definition for the core that we're cresating on the txn_count_min table. The schema definition file txn_count_min.xml file contains the line:
+```
+<field indexed="true" multiValued="false" name="time" stored="true" type="TrieDateField" docValues="true" />
+```
+We're using the docValues option on the time column to allow us to sort on the time field.
 
-To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
-
-Now we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
+###Using Solr with CQL
+Now that we have created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
 
@@ -205,7 +219,9 @@ The sample queries are served by a web service written in Node.js. The code for 
 
 Navigate to the restDSE directory:
 
->>> notes - install and start express
+> This Node.js application directory structure was created with express using the command ```$ express restDSE```
+
+You can start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
 
 At this point you will be able to run some of the solr queries shown below.
 
