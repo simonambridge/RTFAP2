@@ -35,50 +35,6 @@ We will need to start DSE in Analytics and Search mode
 
 We want to use Seaprch (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
 
-1. Stop the service.
-<pre>
-$ sudo service dse stop
-Stopping DSE daemon : dse                                  [  OK  ]
-</pre>
-
-2. Enable Solr and Spark by changing the flag from "0" to "1" in:
-<pre>
-$ sudo vi /etc/default/dse
-</pre>
-e.g.:
-<pre>
-# Start the node in DSE Search mode
-SOLR_ENABLED=1
-# Start the node in Spark mode
-SPARK_ENABLED=1
-</pre>
-
-3. Delete the old (Cassandra-only) datacentre databases:
-<pre>
-$ sudo rm -rf /var/lib/cassandra/data/*
-$ sudo rm -rf /var/lib/cassandra/saved_caches/*
-$ sudo rm -rf /var/lib/cassandra/commitlog/*
-$ sudo rm -rf /var/lib/cassandra/hints/*
-</pre>
-
-4. Remove the old system.log:
-<pre>
-$ sudo rm /var/log/cassandra/system.log 
-rm: remove regular file `/var/log/cassandra/system.log'? y
-</pre>
-
-5. Restart DSE
-<pre>
-$ sudo service dse start
-</pre>
-<br>
-
-###Solr (Search):
-https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/srch/searchOverview.html
-
-###Spark (Analytics):
-https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/analyticsTOC.html
-
 ##Install information
 
 - Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 5.0.3.x with Spark 1.6.1 and Scala 2.10, using the packaged install method:
@@ -100,7 +56,61 @@ Your URL's will be:
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
-Finally, clone this repo to a directory on the machine where you installed DSE.
+###Solr Documentation (Search):
+https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/srch/searchOverview.html
+
+###Spark Documentation (Analytics):
+https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/analyticsTOC.html
+
+##Run DSE in Search Analytics mode
+
+If you have already started the Cassandra service on this node, follow the instructions below to remove the default (Cassandra-only) database:
+
+1. Stop the service.
+<pre>
+$ sudo service dse stop
+Stopping DSE daemon : dse                                  [  OK  ]
+</pre>
+
+2. Enable Solr and Spark
+Change the flag from "0" to "1" for Solr and Spark in /etc/default/dse:
+<pre>
+$ sudo vi /etc/default/dse
+</pre>
+e.g.:
+<pre>
+# Start the node in DSE Search mode
+SOLR_ENABLED=1
+# Start the node in Spark mode
+SPARK_ENABLED=1
+</pre>
+
+3. Delete the default (Cassandra-only) datacentre databases:
+<pre>
+$ sudo rm -rf /var/lib/cassandra/data/*
+$ sudo rm -rf /var/lib/cassandra/saved_caches/*
+$ sudo rm -rf /var/lib/cassandra/commitlog/*
+$ sudo rm -rf /var/lib/cassandra/hints/*
+</pre>
+
+4. Remove the old system.log:
+<pre>
+$ sudo rm /var/log/cassandra/system.log 
+rm: remove regular file `/var/log/cassandra/system.log'? y
+</pre>
+
+5. Restart DSE
+<pre>
+$ sudo service dse start
+</pre>
+<br>
+
+##Clone the RTFAP2 repository
+
+Finally, clone this repo to a directory on the machine where you installed DSE:
+```
+$ git clone https://github.com/simonambridge/RTFAP2
+```
 
 ##Data Model
 
