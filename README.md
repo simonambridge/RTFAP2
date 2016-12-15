@@ -64,7 +64,9 @@ https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/ana
 
 ##Run DSE in Search Analytics mode
 
-If you have already started the Cassandra service on this node, follow the instructions below to remove the default (Cassandra-only) database:
+If you havent yet started DSE on this node you can skip to the section "Clone the RTFAP2 repository"
+
+If you **have** already started the DSE service on this node, follow the instructions below to remove the default (Cassandra-only) database:
 
 1. Stop the service.
 <pre>
