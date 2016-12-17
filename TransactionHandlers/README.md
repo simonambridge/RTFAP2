@@ -2,7 +2,7 @@
 
 ##Creating and Consuming Transactions
 
-Based on an original creation by Cary Bourgeois. I'll use Cary's original description here as the overall functionality is unchanged.
+Based on an original creation by Cary Bourgeois. I'll use Cary's original description here as the underlying functionality is unchanged.
 
 This project consists of two elements:
    
