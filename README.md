@@ -230,18 +230,21 @@ We will use queries like this to build the ReST interface.
 ##Querying Data Using A ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
+
+The code for this is in the restRTFAP directory provided in the repo.
+
 To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
 The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
 
-Navigate to the restRTFAP2 directory in the repo
+Navigate to the restRTFAP directory in the repo
 ```
-$ cd restRTFAP2
+$ cd restRTFAP
 ```
 
-> This Node.js application directory structure was created with express using the command ```$ express restRTFAP2```.
+> This Node.js application directory structure was created with express using the command ```$ express restRTFAP```.
 You will also need to install the Node Cassandra driver ```$ npm install cassandra-driver```
-You can find more detailed instructions for installing Node at https://github.com/simonambridge/chartDSE
+You can find more detailed instructions for installing Node using the example at https://github.com/simonambridge/chartDSE
 
 Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
 
