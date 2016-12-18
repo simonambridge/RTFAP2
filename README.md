@@ -234,9 +234,12 @@ To use the web service, use the example url’s supplied - these will return a j
 
 The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
 
-Navigate to the restDSE directory:
+Navigate to the restRTFAP2 directory in the repo
+```
+$ cd restRTFAP2
+```
 
-> This Node.js application directory structure was created with express using the command ```$ express restDSE```.
+> This Node.js application directory structure was created with express using the command ```$ express restRTFAP2```.
 You will also need to install the Node Cassandra driver ```$ npm install cassandra-driver```
 You can find more detailed instructions for installing Node at https://github.com/simonambridge/chartDSE
 
