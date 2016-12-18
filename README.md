@@ -192,7 +192,9 @@ dsetool create_core rtfap.transactions generateResources=true reindex=true
 dsetool create_core rtfap.txn_count_min generateResources=true reindex=true
 dsetool reload_core rtfap.txn_count_min schema=./txn_count_min.xml reindex=true
 ```
-Note that we're using a custom schema definition for the core that we're cresating on the txn_count_min table. We do this with a custom xml schema definition file. The schema definition file ```txn_count_min.xml``` file contains the line:
+Note that we're using a custom schema definition for the core that we're creating on the txn_count_min table. We do this using a custom xml schema definition file. 
+
+The schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 <field indexed="true" multiValued="false" name="time" stored="true" type="TrieDateField" docValues="true" />
 ```
