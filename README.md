@@ -1,10 +1,11 @@
 # RTFAP2 - Real-time Fraud Analysis Platform
 
 Based on the original RTFAP at https://github.com/simonambridge/RTFAP
+>Improvements include: Node.js/D3 ReST interface instead of Java, enhanced producer/consumer, real time charts etc
 
 
 ##Use Case
-A large bank wants to monitor its customer creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
+A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
 
 The client wants a REST API to return:  
 
