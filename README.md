@@ -34,7 +34,7 @@ We will need to start DSE in Analytics and Search mode
 - Analytics to allow us to use the integrated Spark feature, and 
 - Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
 
-We want to use Seaprch (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
+We want to use Search (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
 
 ##Install information
 
