@@ -24,9 +24,9 @@ They also want a graphic visualisation - a dashboard - of the data.
 ##Performance SLAs:
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
-
-![] (architecture-1.png)
-
+<p align="center">
+  <img src="architecture-1.png"/>
+</p>
 
 ##Setup
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
