@@ -364,7 +364,7 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ```
 
-<h2>isual Dashboard - Lucidworks Banana</h2>
+<h2>Visual Dashboard - Lucidworks Banana</h2>
 
 The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It uses Kibana's powerful dashboard configuration capabilities, ports key panels to work with Solr, and provides significant additional capabilities, including new panels that leverage D3.js.
 
