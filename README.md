@@ -28,7 +28,7 @@ They also want a graphic visualisation - a dashboard - of the data.
   <img src="architecture-1.png"/>
 </p>
 
-##Setup
+<h2>Setup</h2>
 DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
 Using this search functionality allows the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput, and reduced reader latency. 
 
