@@ -4,7 +4,7 @@ Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 >Improvements include: Node.js/D3 ReST interface instead of Java, enhanced producer/consumer, real time charts etc
 
 
-##Use Case
+<h2>Use Case</h2>
 A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
 
 The client wants a REST API to return:  
@@ -21,7 +21,7 @@ The client wants a REST API to return:
 
 They also want a graphic visualisation - a dashboard - of the data.
 
-##Performance SLAs:
+<h2>Performance SLAs:</h2>
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 <p align="center">
@@ -38,7 +38,7 @@ We will need to start DSE in Analytics and Search mode
 
 We want to use Search (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
 
-##Install information
+<h2>nstall information</h2>
 
 - Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 5.0.3.x with Spark 1.6.1 and Scala 2.10, using the packaged install method:
  - Ubuntu/Debian - https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/install/installDEBdse.html
@@ -59,13 +59,13 @@ Your URL's will be:
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
-###Solr Documentation (Search):
+<h3>Solr Documentation (Search):/h3>
 https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/srch/searchOverview.html
 
-###Spark Documentation (Analytics):
+<h3>Spark Documentation (Analytics):/h3>
 https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/analyticsTOC.html
 
-##Run DSE in Search Analytics mode
+<h2>Run DSE in Search Analytics mode</h2>
 
 If you havent yet started DSE on this node you can skip to the section "Clone the RTFAP2 repository"
 
@@ -110,14 +110,14 @@ $ sudo service dse start
 </pre>
 <br>
 
-##Clone the RTFAP2 repository
+<h2>Clone the RTFAP2 repository</h2>
 
 Finally, clone this repo to a directory on the machine where you installed DSE:
 ```
 $ git clone https://github.com/simonambridge/RTFAP2
 ```
 
-##Data Model
+<h2>Data Model</h2>
 
 We will need multiple tables to fulfill the above query patterns and workloads. De-normalization is a good thing with NoSQL databases - it allows you to optimise your Cassandra schema specifically to enable extremely fast queries.
 
@@ -157,7 +157,7 @@ The create script also creates some sample data for example:
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 12, 30, '2016-03-09 12:30:00', '1234123412341237', 1500.0, 'AMEX', {'clothes':1500}, 'New York', 'Ann Taylor', 'frequent customer', 'Approved', '876302', 'caroline', {'HighValue'});
 ```
 
-##Sample queries
+<h2>ample queries</h2>
 
 We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
 The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches and we don't update the transactions once they have been written.
@@ -171,11 +171,11 @@ The roll-up tables can also be queried - for example transactions for each merch
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
 
-##Searching Data in DSE
+<h2>Searching Data in DSE</h2>
 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data.
 
-###Create Solr Cores
+<h3>Create Solr Cores/h3>
 To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
@@ -203,7 +203,7 @@ The schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 We're using the docValues option on the time column to allow us to sort on the time field.
 
-###Using Solr with CQL
+<h3>sing Solr with CQL</h3>
 Now that we have created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
@@ -230,7 +230,7 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 These samples demonstrate that full, ad-hoc search on any of the transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
 
-##Querying Data Using A ReST Web Interface
+<h2>Querying Data Using A ReST Web Interface</h2>
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 
@@ -257,13 +257,13 @@ The queries demonstrate the use of both straightforward CQL and CQL-Solr but the
 
 You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md).
 
-## Analyzing data using DSE Spark Analytics
+<h2>Analyzing data using DSE Spark Analytics</h2>
 
 DSE provides integration with Spark out of the box. This allows for analysis of data in-place on the same cluster where the data is ingested with workload isolation and without the need to ETL the data. The data ingested in a Cassandra only (OLTP) data center is automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.
 
 This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture" .
 
-###Streaming Analytics
+<h3>Streaming Analytics</h3>
 
 The streaming analytics element of this application is made up of two parts:
 
@@ -274,7 +274,7 @@ Streaming analytics code can be found under the directory 'TransactionHandlers' 
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
 
-###Batch Analytics
+<h3>Batch Analytics</h3>
 
 Two Spark batch jobs have been included. 
 * `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
@@ -285,7 +285,7 @@ The roll up batch analytics code and submit scripts can be found under the direc
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
 
 
-##Stress yaml
+<h2>Stress yaml</h2>
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
@@ -364,7 +364,7 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ```
 
-##Visual Dashboard - Lucidworks Banana
+<h2>isual Dashboard - Lucidworks Banana</h2>
 
 The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It uses Kibana's powerful dashboard configuration capabilities, ports key panels to work with Solr, and provides significant additional capabilities, including new panels that leverage D3.js.
 
