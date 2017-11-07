@@ -157,7 +157,7 @@ The create script also creates some sample data for example:
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 12, 30, '2016-03-09 12:30:00', '1234123412341237', 1500.0, 'AMEX', {'clothes':1500}, 'New York', 'Ann Taylor', 'frequent customer', 'Approved', '876302', 'caroline', {'HighValue'});
 ```
 
-<h2>ample queries</h2>
+<h2>Sample queries</h2>
 
 We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
 The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches and we don't update the transactions once they have been written.
@@ -203,7 +203,7 @@ The schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 We're using the docValues option on the time column to allow us to sort on the time field.
 
-<h3>sing Solr with CQL</h3>
+<h3>Using Solr with CQL</h3>
 Now that we have created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
