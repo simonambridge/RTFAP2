@@ -82,10 +82,10 @@ $ KAFKA_HOME=/usr/share/kafka_2.10-0.10.1.0 export KAFKA_HOME
 
 ```
 $ cd $KAFKA_HOME
-$ ./bin/zookeeper-server-start.sh config/zookeeper.properties`
+$ ./bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
  
-For example:
+For example, to start keep zookeeper and keep it running:
 ```
 $ cd $KAFKA_HOME
 $ nohup ./bin/zookeeper-server-start.sh config/zookeeper.properties &
@@ -95,13 +95,13 @@ $ nohup ./bin/zookeeper-server-start.sh config/zookeeper.properties &
 
 ```
 $ cd $KAFKA_HOME
-$ ./bin/kafka-server-start.sh config/server.properties`
+$ ./bin/kafka-server-start.sh config/server.properties
 ```
 
 For example (using a different output file to the one created by the Zookeeper process):
 ```
 $ cd $KAFKA_HOME
-$ nohup ./bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1 &
+$ nohup ./bin/kafka-server-start.sh config/server.properties > nohupk.out 2>&1 &
 ```
 
 ### 4. Prepare a message topic for use.
