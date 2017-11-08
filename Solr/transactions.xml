@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema name="autoSolrSchema" version="1.5">
+  <types>
+    <fieldType class="org.apache.solr.schema.TrieDateField" name="TrieDateField"/>
+    <fieldType class="org.apache.solr.schema.TextField" name="TextField">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+    <fieldType class="org.apache.solr.schema.TrieDoubleField" name="TrieDoubleField"/>
+    <fieldType class="org.apache.solr.schema.TrieIntField" name="TrieIntField"/>
+    <fieldType class="org.apache.solr.schema.StrField" name="StrField"/>
+  </types>
+  <fields>
+    <field docValues="true" indexed="true" multiValued="false" name="txn_time" stored="true" type="TrieDateField"/>
+    <field indexed="true" multiValued="false" name="user_id" stored="true" type="TextField"/>
+    <dynamicField docValues="true" indexed="true" multiValued="false" name="items*" stored="true" type="TrieDoubleField"/>
+    <field indexed="true" multiValued="false" name="status" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="year" stored="true" type="TrieIntField"/>
+    <field indexed="true" multiValued="false" name="country" stored="true" type="TextField"/>
+    <field indexed="true" multiValued="true" name="tags" stored="true" type="TextField"/>
+    <field indexed="true" multiValued="false" name="txn_id" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="merchant" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="cc_provider" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="min" stored="true" type="TrieIntField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="amount" stored="true" type="TrieDoubleField"/>
+    <field indexed="true" multiValued="false" name="date_text" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="day" stored="true" type="TrieIntField"/>
+    <field indexed="true" multiValued="false" name="notes" stored="true" type="TextField"/>
+    <field indexed="true" multiValued="false" name="location" stored="true" type="TextField"/>
+    <field indexed="true" multiValued="false" name="cc_no" stored="true" type="StrField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="month" stored="true" type="TrieIntField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="hour" stored="true" type="TrieIntField"/>
+  </fields>
+  <uniqueKey>(cc_no,year,month,day,txn_time)</uniqueKey>
+</schema>
