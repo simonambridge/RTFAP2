@@ -213,7 +213,9 @@ This assumes you already have Kafka and DSE up and running and configured as in 
 
 From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
-    ```sbt producer/run```
+```
+sbt producer/run
+```
 
 After some initial output you will see card transactions being created and posted to Kafka:
 ```
@@ -261,7 +263,9 @@ You can leave this process running as you wish.
   ```
   2. From the root directory of the project start the consumer app:
   
-    ```dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar```
+    ```
+    dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar
+    ```
 
   After some initial output you will see records being consumed from Kafka by Spark:
   
