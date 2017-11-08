@@ -64,7 +64,7 @@ $ rm kafka_2.10-0.10.1.0.tar
 Move the kafka directory tree to your preferred location, e.g.:
 
 ```
-$ mv kafka_2.10-0.10.1.0 /Sogtware/Kafka
+$ mv kafka_2.10-0.10.1.0 /Software/Kafka
 $ KAFKA_HOME=/Software/Kafka/kafka_2.10-0.10.1.0 export KAFKA_HOME
 ```
 
