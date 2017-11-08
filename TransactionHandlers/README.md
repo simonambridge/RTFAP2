@@ -146,7 +146,8 @@ Describe the 'NewTransactions' Topic:
 
 ```
 $KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
-  Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
+
+Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
 	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
 ```
 	
@@ -166,6 +167,7 @@ Display topic configuration details:
 
 ```
 $KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
+
 Configs for topic 'NewTransactions' are retention.ms=3600000
 ```
 
