@@ -179,7 +179,13 @@ Configs for topic 'NewTransactions' are retention.ms=3600000
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
 
-1. Build the Producer with this command:
+1. Navigate to the project TransactionHandlers directory:
+
+    ```
+    cd <RTFAP2 nstall path>/RTFAP2/TransactionHandlers
+    ```
+
+2. Build the Producer with this command:
   
     ```sbt producer/package```
     
@@ -189,7 +195,7 @@ Configs for topic 'NewTransactions' are retention.ms=3600000
     [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
     ```
       
-2. Build the Consumer with this command:
+3. Build the Consumer with this command:
   
     ```sbt consumer/package```
     
