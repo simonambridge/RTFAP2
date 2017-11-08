@@ -151,6 +151,7 @@ By default Kafka will retain messages in the queue for 7 days - to change retent
 > Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 
   * `$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
+
 Updated config for entity: topic 'NewTransactions'.`
 
 Display topic configuration details:
