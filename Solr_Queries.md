@@ -73,7 +73,7 @@ Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudule
 
 http://[server_IP:Express_port]/fraudulenttransactionsinlast?period=YEAR
 ```
-SELECT * FROM transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
+SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1YEAR TO *]", "tags:Fraudulent"]}';
 ```
 ## CQL Queries On The Roll-Up Tables
 
