@@ -16,7 +16,7 @@
     <field docValues="true" indexed="true" multiValued="false" name="txn_time" stored="true" type="TrieDateField"/>
     <field indexed="true" multiValued="false" name="user_id" stored="true" type="TextField"/>
     <dynamicField docValues="true" indexed="true" multiValued="false" name="items*" stored="true" type="TrieDoubleField"/>
-    <field indexed="true" multiValued="false" name="status" stored="true" type="TextField"/>
+    <field docValues="true" indexed="true" multiValued="false" name="status" stored="true" type="TextField"/>
     <field docValues="true" indexed="true" multiValued="false" name="year" stored="true" type="TrieIntField"/>
     <field indexed="true" multiValued="false" name="country" stored="true" type="TextField"/>
     <field indexed="true" multiValued="true" name="tags" stored="true" type="TextField"/>
