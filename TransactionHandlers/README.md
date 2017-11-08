@@ -182,7 +182,7 @@ Configs for topic 'NewTransactions' are retention.ms=3600000
 1. Navigate to the project TransactionHandlers directory:
 
     ```
-    cd <RTFAP2 nstall path>/RTFAP2/TransactionHandlers
+    cd <RTFAP2 install path>/RTFAP2/TransactionHandlers
     ```
 
 2. Build the Producer with this command:
