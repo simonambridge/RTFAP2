@@ -47,28 +47,28 @@ http://[server_IP:Express_port]/transactionsbystatusinlast?period=MINUTE
 SELECT * FROM rtfap.transactions WHERE solr_query = '{"q":"*:*",  "fq":"txn_time:[NOW-1DAY TO *]","facet":{"field":"status"}}';
 ```
 
-### 6. - List all transaction success ratio (faceted by status) for a specified card in the last period e.g. year
+### 6. List all transaction success ratio (faceted by status) for a specified card in the last period e.g. year
 Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified card number and period
 
 http://[server_IP:Express_port]/transactionsbycardandstatusinlast?card=123*&period=YEAR
 ```
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"cc_no:123*",  "fq":"txn_time:[NOW-1MINUTE TO *]","facet":{"field":"status"}}';
 ```
-### 7. - List all transactions for a specific card
+### 7. List all transactions for a specific card
 Retrieve all transactions in the TRANSACTIONS table for a specified card number (optional wild card)
 
 http://[server_IP:Express_port]/alltransactionsbycard?card=123412*
 ```
 SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123*"}';
 ```
-### 8. - List all fraudulent transactions for a specific card
+### 8. List all fraudulent transactions for a specific card
 Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number
 
 http://[server_IP:Express_port]/fraudulenttransactionsbycard?card=123*
 ```
 SELECT * FROM rtfap.transactions where solr_query='{"q":"cc_no:123412*", "fq":["tags:Fraudulent"]}';
 ```
-### 9. - List all fraudulent transactions for a specified period-to-date
+### 9. List all fraudulent transactions for a specified period-to-date
 Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last year
 
 http://[server_IP:Express_port]/fraudulenttransactionsinlast?period=YEAR
