@@ -132,17 +132,23 @@ NewTransactions
 
 Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
-  ```$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions```
+```
+$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
+```
   
 Show all of the messages in a topic from the beginning:
 
-  ```$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning```
+```
+$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning
+```
   
 Describe the 'NewTransactions' Topic:
 
-  ```$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
+```
+$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
   Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
-	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0```
+	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
+```
 	
 Set message retention for 1 hour:
 
@@ -150,14 +156,18 @@ By default Kafka will retain messages in the queue for 7 days - to change retent
 
 > Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 
- ```$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
+```
+$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
 
-Updated config for entity: topic 'NewTransactions'.```
+Updated config for entity: topic 'NewTransactions'.
+```
 
 Display topic configuration details:
 
-  ```$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
-  Configs for topic 'NewTransactions' are retention.ms=3600000```
+```
+$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
+Configs for topic 'NewTransactions' are retention.ms=3600000
+```
 
 
 ## Build the demo
