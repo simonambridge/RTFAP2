@@ -1,6 +1,6 @@
-#Datastax Fraud Prevention Demo - Streaming Analytics
+# Datastax Fraud Prevention Demo - Streaming Analytics
 
-##Creating and Consuming Transactions
+## Creating and Consuming Transactions
 
 Based on an original creation by Cary Bourgeois. I'll use Cary's original description here as the underlying functionality is unchanged.
 
@@ -19,9 +19,9 @@ The second part of the Spark consumer job counts the number of records processed
   <img src="txnchart.png"/>
 </p>
 
-##Demo tech set up
+## Demo tech set up
 
-###Pre-requisites
+### Pre-requisites
 The following components must be installed and available on your machine.
 
 Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - Spark Direct Streams (Kafka in this demo) support is much improved in DSE 4.8+
@@ -39,9 +39,9 @@ apt-get update
 apt-get install sbt
 ```
 
-##Getting Started with Kafka
+## Getting Started with Kafka
 
-###1. Download Apache Kafka
+### 1. Download Apache Kafka
 
 Kafka can be downloaded from this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
@@ -50,7 +50,7 @@ Download and install the binary version for Scala 2.10 - you can use wget or cur
 curl --remote-name http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz
 ```
 
-###2. Install Apache Kafka
+### 2. Install Apache Kafka
 
 Once downloaded you will need to extract the file. It will create a folder/directory - you can then move this to a location of your choice.
 
@@ -75,7 +75,7 @@ $ KAFKA_HOME=/usr/share/kafka_2.10-0.10.1.0 export KAFKA_HOME
 ```
 
 
-###3. Start ZooKeeper and Kafka
+### 3. Start ZooKeeper and Kafka
 
 3.a. Start local copy of zookeeper (in its own terminal or use nohup):
 
@@ -103,7 +103,7 @@ $ cd $KAFKA_HOME
 $ nohup ./bin/kafka-server-start.sh config/server.properties > nohup2.out 2>&1 &
 ```
 
-###4. Prepare a message topic for use.
+### 4. Prepare a message topic for use.
 
 4.a. Create the topic we will use for the demo
 
@@ -127,7 +127,7 @@ $ ./bin/kafka-topics.sh --zookeeper localhost:2181 --list
 NewTransactions
 ```
 
-##Some more useful Kafka commands
+## Some more useful Kafka commands
 
 Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
@@ -160,7 +160,7 @@ Display topic configuration details:
 
 ## Build the demo
 
-###In order to run this demo navigate to the project TransactionHandlers directory
+### In order to run this demo navigate to the project TransactionHandlers directory
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
@@ -185,11 +185,11 @@ Display topic configuration details:
     [success] Total time: 32 s, completed Nov 21, 2016 10:10:32 PM
     ```
   
-##Run the demo
+## Run the demo
 
 This assumes you already have Kafka and DSE up and running and configured as in the steps above.
 
-###Start the Transaction Producer
+### Start the Transaction Producer
 
 From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
   
@@ -225,7 +225,7 @@ runDurationSeconds -1
 
 You can leave this process running as you wish.
 
-###Start the Transaction Consumer
+### Start the Transaction Consumer
  
   1. Identify the location of the SparkMaster node:
   
