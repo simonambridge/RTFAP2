@@ -32,7 +32,8 @@ Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - 
   4. An internet connection is required to download sbt dependencies
 
 * If you havent already installed sbt (as root or use sudo) do this now:
-  ```
+
+```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 apt-get update
