@@ -1,6 +1,6 @@
-#Datastax Fraud Prevention Demo - Batch Analytics
+# Datastax Fraud Prevention Demo - Batch Analytics
 
-##Running Batch Roll-up Reports
+## Running Batch Roll-up Reports
 
 Based on an original creation by Kuna Kusoorkar.
 
@@ -11,7 +11,7 @@ This project consists of two elements:
 
 The roll-up jobs will use the data in the Transactions table to generate aggregates by merchant and by credit card. These jobs can be run as frequently as necessary depending on the currency of the information required e.g. every 10 minutes or every hour etc.
 
-###Pre-requisites
+### Pre-requisites
 The following components must be installed and available on your machine.
 
   1. Datastax Enterprise 5.0.3 installed and working in Search Analytics mode
@@ -45,16 +45,16 @@ apt-get install sbt
     ```
 You can ignore the "Multiple main classes detected" warning - there are two roll-up jobs contained in the code.
 
-##Run the demo
+## Run the demo
 
 This assumes you already have DSE up and running and configured correctly.
 
-###Grant required access to the dse user
+### Grant required access to the dse user
 ```
 sudo dse hadoop fs -chmod 777 /tmp/hive
 ```
 
-###Run the transactions by merchant roll up: 
+### Run the transactions by merchant roll up: 
 
 ```
 ./run_rollupbymerchant.sh
@@ -68,7 +68,7 @@ Beginning RollUp Reporting By Merchant...
 Completed RollUps By Merchant...
 ```
 
-###Run the aggregates by credit card rollup: 
+### Run the aggregates by credit card rollup: 
 
 ```
 ./run_rollupbycc.sh
