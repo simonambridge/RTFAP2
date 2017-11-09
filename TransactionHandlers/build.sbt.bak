@@ -1,17 +1,15 @@
 val globalSettings = Seq(
   version := "0.1",
-  scalaVersion := "2.11.8"
+  scalaVersion := "2.10.6"
 )
 
 val akkaVersion = "2.3.15"
-val sparkVersion = "2.0.2"
-val sparkCassandraConnectorVersion = "2.0.5"
-val cassandraDriverVersion = "3.3.0"
+val sparkVersion = "1.6.2"
+val sparkCassandraConnectorVersion = "1.5.0"
+val cassandraDriverVersion = "3.1.0"
 val kafkaVersion = "1.0.0"
 val scalaTestVersion = "3.0.0"
-val configVersion = "1.3.2"
-val sparkCsvVersion = "1.5.0"
-val sskVersion = "1.6.3"
+val configVersion = "1.3.1"
 
 lazy val producer = (project in file("producer"))
   .settings(name := "producer")
@@ -33,13 +31,13 @@ lazy val producerDeps = Seq(
 )
 
 lazy val consumerDeps = Seq(
-  "com.datastax.spark" %% "spark-cassandra-connector" % sparkCassandraConnectorVersion,
-  "org.apache.spark"  %% "spark-mllib"           % sparkVersion,
-  "org.apache.spark"  %% "spark-graphx"          % sparkVersion,
-  "org.apache.spark"  %% "spark-sql"             % sparkVersion,
-  "org.apache.spark"  %% "spark-streaming"       % sparkVersion,
-  "org.apache.spark"  %% "spark-streaming-kafka" % sskVersion,
-  "com.typesafe"      %  "config"                % configVersion,
-  "com.databricks"    %% "spark-csv"             % sparkCsvVersion
+  "com.datastax.spark" % "spark-cassandra-connector_2.10" % sparkCassandraConnectorVersion,
+  "org.apache.spark"  %% "spark-mllib"           % sparkVersion  % "provided",
+  "org.apache.spark"  %% "spark-graphx"          % sparkVersion  % "provided",
+  "org.apache.spark"  %% "spark-sql"             % sparkVersion  % "provided",
+  "org.apache.spark"  %% "spark-streaming"       % sparkVersion  % "provided",
+  "org.apache.spark"  %% "spark-streaming-kafka" % sparkVersion  % "provided",
+  "com.typesafe"      %  "config"                % configVersion  % "provided",
+  "com.databricks"    %% "spark-csv"             % "1.5.0"
 )
 
