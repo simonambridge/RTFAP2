@@ -29,7 +29,7 @@ apt-get install sbt
 
 ## Build the demo
 
-###In order to run this demo navigate to the project RollUpReports directory
+### In order to run this demo navigate to the project RollUpReports directory
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * Ensure that you've run the streaming transaction producer/consumer jobs before you run the roll-ups so that there is data in the Transaction table to be rolled up
