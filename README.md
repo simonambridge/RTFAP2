@@ -42,80 +42,27 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 
 <h2>Install information</h2>
 
-Note down the IP's of the node(s)
-
-To setup your environment, you'll also need the following resources:
-- Python 2.7
-- Java 8
-- For Red Hat, CentOS and Fedora, install EPEL (Extra Packages for Enterprise Linux).
-
 Set up and install DataStax Enterprise with Spark and Solr enabled
 - This demo is based upon DSE 5.4.1.x with Spark 2.0.2, Scala 2.11, Kafka 1.0.0 and Akka 2.3.15
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
-- You can find installation guides for other platforms here:
-  - Ubuntu/Debian - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installDEBdse.html
-  - Red Hat/Fedora/CentOS/Oracle Linux - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installRHELdse.html
-  - Tarball install - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installTARdse.html
 
-Your URL's will be: 
-- Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
+Follow the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
+
+After DSE has been installed your URL's will be: 
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
+If you install DataSTax OpsCenter:
+- Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
+
+When the ReST service is available:
 - Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000
+
+When the dashboard has been configured:
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
-<h3>Solr Documentation (Search):</h3>
-https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/srch/searchOverview.html
-
-<h3>Spark Documentation (Analytics):</h3>
-https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/ana/analyticsTOC.html
-
-<h2>Run DSE in Search Analytics mode</h2>
-
-If you havent yet started DSE on this node you can skip to the section "Clone the RTFAP2 repository"
-
-If you **have** already started the DSE service on this node, follow the instructions below to remove the default (Cassandra-only) database:
-
-1. Stop the service.
-<pre>
-$ sudo service dse stop
-Stopping DSE daemon : dse                                  [  OK  ]
-</pre>
-
-2. Enable Solr and Spark
-Change the flag from "0" to "1" for Solr and Spark in /etc/default/dse:
-<pre>
-$ sudo vi /etc/default/dse
-</pre>
-e.g.:
-<pre>
-# Start the node in DSE Search mode
-SOLR_ENABLED=1
-# Start the node in Spark mode
-SPARK_ENABLED=1
-</pre>
-
-3. Delete the default (Cassandra-only) datacentre databases:
-<pre>
-$ sudo rm -rf /var/lib/cassandra/data/*
-$ sudo rm -rf /var/lib/cassandra/saved_caches/*
-$ sudo rm -rf /var/lib/cassandra/commitlog/*
-$ sudo rm -rf /var/lib/cassandra/hints/*
-</pre>
-
-4. Remove the old system.log:
-<pre>
-$ sudo rm /var/log/cassandra/system.log 
-rm: remove regular file `/var/log/cassandra/system.log'? y
-</pre>
-
-5. Restart DSE
-<pre>
-$ sudo service dse start
-</pre>
-<br>
+At this point your datacentre should be running in SearchAnalytics mode, nodetool status reports no errors and you can run cqlsh.
 
 <h2>Clone the RTFAP2 repository</h2>
 
