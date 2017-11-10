@@ -50,20 +50,17 @@ After DSE has been installed your URLs will be:
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
 <br>
-
 If you install DataStax OpsCenter:
 - Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
 <br>
-
 When the ReST service is available:
 - Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000
 <br>
-
 When the dashboard has been configured:
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
-
+<br>
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
-
+<br>
 At this point your datacentre should be running in SearchAnalytics mode, nodetool status reports no errors and you can run cqlsh.
 
 <h2>Clone the RTFAP2 repository</h2>
