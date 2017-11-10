@@ -42,21 +42,20 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 
 <h2>Install information</h2>
 
-Set up and install DataStax Enterprise with Spark and Solr enabled
+Set up and install DataStax Enterprise with Spark and Solr enabled using the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
 - This demo is based upon DSE 5.4.1.x with Spark 2.0.2, Scala 2.11, Kafka 1.0.0 and Akka 2.3.15
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
 
-Follow the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
-
-After DSE has been installed your URL's will be: 
+After DSE has been installed your URLs will be: 
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
-If you install DataSTax OpsCenter:
+<br>
+If you install DataStax OpsCenter:
 - Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
-
+<br>
 When the ReST service is available:
 - Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000
-
+<br>
 When the dashboard has been configured:
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
