@@ -1,7 +1,7 @@
 # RTFAP2 - Real-time Fraud Analysis Platform
 
 Based on the original RTFAP at https://github.com/simonambridge/RTFAP
->Improvements include: Node.js/D3 ReST interface instead of Java, enhanced producer/consumer, real time charts etc
+>Improvements include: Node.js/D3 ReST interface replacing of Java, enhanced producer/consumer, real time charts etc
 
 
 <h2>Use Case</h2>
@@ -29,21 +29,27 @@ They also want a graphic visualisation - a dashboard - of the data.
 </p>
 
 <h2>Setup</h2>
-DataStax Enterprise supplies built-in enterprise search functionality on Cassandra data that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
-Using this search functionality allows the volume of transactions to grow without a loss in performance. DSE Search also allows for live indexing for improved index throughput, and reduced reader latency. 
+DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
+Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency. 
 
 We will need to start DSE in Analytics and Search mode
 - Analytics to allow us to use the integrated Spark feature, and 
 - Search mode to allow us to use the search functionalities that we need on top of Cassandra. 
 
-We want to use Search (Solr) and Analytics (Spark) so we need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
+An install of DataStax Enterprise 5.1.4 will default to an installation configuration that enables Search (Solr), Analytics (Spark) and Graph. 
+
+>If you are  changing the enabled products on a node you will need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
 
 <h2>Install information</h2>
 
-- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 5.0.3.x with Spark 1.6.1 and Scala 2.10, using the packaged install method:
- - Ubuntu/Debian - https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/install/installDEBdse.html
- - Red Hat/Fedora/CentOS/Oracle Linux - https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/install/installRHELdse.html
-- Note down the IP's of the node(s)
+- Set up and install DataStax Enterprise with Spark and Solr enabled - this demo is based upon DSE 5.4.1.x with Spark 2.0.2 and Scala 2.11.
+- This demo is based on an installation running on MacOS Sierra 10.12, using the packaged install method.
+- You can find installation guides for other platforms here:
+ - Ubuntu/Debian - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installDEBdse.html
+ - Red Hat/Fedora/CentOS/Oracle Linux - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installRHELdse.html
+ - Tarball install - Installing DataStax Enterprise 5.1 using the binary tarball
+
+Note down the IP's of the node(s)
 
 To setup your environment, you'll also need the following resources:
 - Python 2.7
