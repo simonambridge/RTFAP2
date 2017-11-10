@@ -46,9 +46,9 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 - This demo is based upon DSE 5.4.1.x with Spark 2.0.2, Scala 2.11, Kafka 1.0.0 and Akka 2.3.15
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
 - You can find installation guides for other platforms here:
--- Ubuntu/Debian - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installDEBdse.html
--- Red Hat/Fedora/CentOS/Oracle Linux - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installRHELdse.html
--- Tarball install - Installing DataStax Enterprise 5.1 using the binary tarball
+  - Ubuntu/Debian - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installDEBdse.html
+  - Red Hat/Fedora/CentOS/Oracle Linux - http://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installRHELdse.html
+  - Tarball install - Installing DataStax Enterprise 5.1 using the binary tarball
 
 Note down the IP's of the node(s)
 
