@@ -63,7 +63,8 @@ UN  127.0.0.1  623.33 KiB  ?       580ed10f-47b4-40fb-9b15-e4fe7f15279d  -852629
 Note: Non-system keyspaces don't have the same replication settings, effective ownership information is meaningless
 ```
 <br>
-Now try logging in to clash to ensure that Cassandra is available:
+Now try logging in to cqlsh to ensure that Cassandra is available:
+
 ```
 $ cqlsh
 Connected to Test Cluster at 127.0.0.1:9042.
@@ -73,8 +74,9 @@ cqlsh>
 ```
 <br>
 Check That Spark is working and available:
+
 ```
-$DSE_HOME/bin/dse spark
+$ $DSE_HOME/bin/dse spark
 
 The log file is at /Users/simonambridge/.spark-shell.log
 WARN  2017-11-07 13:44:27,161 com.datastax.driver.core.NettyUtil: Found Netty's native epoll transport, but not running on linux-based operating system. Using NIO instead.
