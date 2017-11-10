@@ -102,10 +102,10 @@ Type :help for more information.
 scala> :quit
 ```
 <br>
-Check That the Spark Master is Available at ```http://localhost:7080```
+Check That the Spark Master is available at ```http://localhost:7080```
 <br>
 <br>
-Check That Solr is Available at ```http://localhost:8983/solr/#/```
+Check That Solr is available at ```http://localhost:8983/solr/#/```
 <br>
 <br>
 ## Set Your Datacentre To SearchAnalytics Mode
