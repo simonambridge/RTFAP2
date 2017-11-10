@@ -50,12 +50,15 @@ After DSE has been installed your URLs will be:
 - Spark Master => http://[DSE_NODE_IP]:7080/
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/
 <br>
+
 If you install DataStax OpsCenter:
 - Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html
 <br>
+
 When the ReST service is available:
 - Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000
 <br>
+
 When the dashboard has been configured:
 - Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard
 
