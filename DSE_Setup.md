@@ -46,7 +46,7 @@ INFO  [main] 2017-11-09 18:22:17,610  TokenMetadata.java:479 - Updating topology
 INFO  [main] 2017-11-09 18:22:17,644  VersionBarrier.java:65 - DigestTokensManager unlocked after upgrade!
 ```
 <br>
-When the services are running you can check the cluster status with the ```nodetool``` command. 
+When the services are running you can check the cluster status with the ```nodetool status``` command. 
 Here we can see that:
 - the datacenter is running in SearchGraphAnalytics mode
 - The IP for this node is 127.0.0.1
@@ -104,12 +104,13 @@ Type :help for more information.
 scala> :quit
 ```
 <br>
-Check That the Spark Master is available at ```http://localhost:7080```
+Check That the Spark Master is available at: ```http://localhost:7080``` 
 <br>
 <br>
-Check That Solr is available at ```http://localhost:8983/solr/#/```
+Check That Solr is available at: ```http://localhost:8983/solr/#/``` 
 <br>
 <br>
+
 ## Set Your Datacentre To SearchAnalytics Mode
 
 If your datacenter is not running in SearchAnalytics mode on this node you will need to follow the instructions below to remove the existing configuration and recreate the database:
