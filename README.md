@@ -233,6 +233,8 @@ $ express --version
 
 
 ### Install Node Cassandra Driver
+Y
+ou will also need to install the Node Cassandra driver to allow the web application to communicate with the Cassandra database.
 
 ```
 $ npm install cassandra-driver
@@ -240,25 +242,34 @@ $ npm install cassandra-driver
 updated 2 packages in 12.379s
 ```
 
+### Test Access and data retrieval
+
+You can find more detailed instructions for installing Node, D3, and jquery using my example at https://github.com/simonambridge/chartDSE
+
+> The Node.js application directory structure in the restRTFAP directory was created with Express using the command ```$ express restRTFAP```.
 
 Navigate to the restRTFAP directory in the repo
 ```
 $ cd restRTFAP
 ```
 
-> This Node.js application directory structure was created with express using the command ```$ express restRTFAP```.
-You will also need to install the Node Cassandra driver ```$ npm install cassandra-driver```
-You can find more detailed instructions for installing Node using the example at https://github.com/simonambridge/chartDSE
-
 Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
 
-### Test Access and data retrieval
+Output is logged to the screen. You should see the console display the following:
 
-http://localhost:3000/
+```
+> restrtfap@0.0.0 start /Users/johndoe/Documents/My Projects/GitHub/RTFAP2/restRTFAP
+> node ./bin/www
 
-At this point you will be able to run some of the solr queries shown below.
+  restrtfap:server Listening on port 3000 +0ms
+```
+Don't exit the terminal session - keep it open for diagnostic output and to preserve the web service.
 
-The queries demonstrate the use of both straightforward CQL and CQL-Solr but the roll-up tables have not been populated yet so these will return no data.
+Now go to the service URL: http://localhost:3000/
+
+At this point you will be able to run some (but not all) of the Solr queries shown below.
+
+The queries demonstrate the use of both straightforward CQL, and CQL-Solr, but the roll-up tables have not been populated yet so these will return no data.
 
 You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md).
 
