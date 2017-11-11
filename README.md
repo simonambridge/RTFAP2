@@ -246,9 +246,9 @@ updated 2 packages in 12.379s
 
 You can find more detailed instructions for installing Node, D3, and jquery using my example at https://github.com/simonambridge/chartDSE
 
-> The Node.js application directory structure in the restRTFAP directory was created with Express using the command ```$ express restRTFAP```.
+> The Node.js application directory structure in the restRTFAP directory was originally created with Express, using the command ```$ express restRTFAP```.
 
-Navigate to the restRTFAP directory in the repo
+Navigate to the restRTFAP directory in the repo:
 ```
 $ cd restRTFAP
 ```
