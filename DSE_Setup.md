@@ -20,6 +20,7 @@ DSE_HOME=/Users/simonambridge/dse export DSE_HOME
 PATH=$PATH:$DSE_HOME/bin:$DSE_HOME/Cassandra/bin export PATH
 ```
 <br>
+
 ## Start DSE Services
 
 Now start the DSE services:
