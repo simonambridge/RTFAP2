@@ -21,6 +21,7 @@ PATH=$PATH:$DSE_HOME/bin:$DSE_HOME/Cassandra/bin export PATH
 ```
 <br>
 ## Start DSE Services
+
 Now start the DSE services:
 - MacOS: ```$DSE_HOME/bin/start_server```
 - Linux: ```sudo service dse start```
