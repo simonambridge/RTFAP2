@@ -42,7 +42,8 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 
 <h2>Install information</h2>
 
-Set up and install DataStax Enterprise with Spark and Solr enabled using the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
+>Set up and install DataStax Enterprise with Spark and Solr enabled using the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
+
 - This demo is based upon DSE 5.4.1.x with Spark 2.0.2, Scala 2.11, Kafka 1.0.0 and Akka 2.3.15
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
 
