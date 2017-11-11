@@ -104,10 +104,10 @@ Type :help for more information.
 scala> :quit
 ```
 <br>
-Check That the Spark Master status at ```http://localhost:7080``` (use the IP of your DSE install node if it's not the local machine)
+Check That the Spark Master status at http://localhost:7080 (use the IP of your DSE install node if it's not the local machine)
 <br>
 <br>
-Check That Solr is available at: ```http://localhost:8983/solr/#/``` (use the IP of your DSE install node if it's not the local machine)
+Check That Solr is available at: http://localhost:8983/solr/#/ (use the IP of your DSE install node if it's not the local machine)
 <br>
 <br>
 
