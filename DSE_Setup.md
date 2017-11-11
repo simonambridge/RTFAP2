@@ -124,7 +124,7 @@ Check That Solr is available at: http://localhost:8983/solr/#/ (use the IP of yo
 
 ## Set Your Datacentre To SearchAnalytics Mode
 
-If your datacentre is running in SearchAnalytics mode as reported by the ```nodetool status``` command then you are done with the DSE installation at this point.
+If your datacentre is running in SearchAnalytics mode or SearchGraphAnalytics mode as reported by the ```nodetool status``` command then you are done with the DSE installation at this point.
 
 If your datacenter is *not* running in SearchAnalytics mode on this node you will need to follow the instructions below to remove the existing configuration and recreate the database:
  
