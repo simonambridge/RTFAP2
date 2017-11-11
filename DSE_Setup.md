@@ -52,6 +52,10 @@ Here we can see that:
 - The IP for this node is 127.0.0.1
 - "State=normal" (UN also signifies Up, Normal)
 
+## Check Cassandra status
+
+Check that Cassandra is working and available:
+
 ```
 $ nodetool status
 
@@ -75,7 +79,10 @@ Use HELP for help.
 cqlsh>
 ```
 <br>
-Check That Spark is working and available:
+
+## Check Spark Status
+
+Check that Spark is working and available:
 
 ```
 $ $DSE_HOME/bin/dse spark
@@ -104,16 +111,22 @@ Type :help for more information.
 scala> :quit
 ```
 <br>
-Check That the Spark Master status at http://localhost:7080 (use the IP of your DSE install node if it's not the local machine)
+
+## Check Spark Master Status
+
+Check that the Spark Master status at http://localhost:7080 (use the IP of your DSE install node if it's not the local machine)
 <br>
-<br>
+## Check Solr Status
+
 Check That Solr is available at: http://localhost:8983/solr/#/ (use the IP of your DSE install node if it's not the local machine)
 <br>
 <br>
 
 ## Set Your Datacentre To SearchAnalytics Mode
 
-If your datacenter is not running in SearchAnalytics mode on this node you will need to follow the instructions below to remove the existing configuration and recreate the database:
+If your datacentre is running in SearchAnalytics mode as reported by the ```nodetool status``` command then you are done with the DSE installation at this point.
+
+If your datacenter is *not* running in SearchAnalytics mode on this node you will need to follow the instructions below to remove the existing configuration and recreate the database:
  
  1. Stop the DSE services
 - MacOS: ```$DSE_HOME/bin/stop_server```
