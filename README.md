@@ -164,7 +164,7 @@ The schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 We're using the docValues option on the time column to allow us to sort on the time field.
 
-<h3>Using Solr with CQL</h3>
+### Using Solr with CQL
 Now that we have created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
@@ -191,17 +191,17 @@ SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time
 These samples demonstrate that full, ad-hoc search on any of the transaction fields is possible including amounts, merchants etc.
 We will use queries like this to build the ReST interface.
 
-<h2>Querying Data Using A ReST Web Interface</h2>
+## Querying Data Using A ReST API with Node.js and D3
+
+The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
+ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 
-The code for this is in the restRTFAP directory provided in the repo.
+The code for a this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries.
 
-To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
+Use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
-## ReST API with Node.js and D3
-
-The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
 
 ### Install Node
 On my Mac Node I used brew to install node:
