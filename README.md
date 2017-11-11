@@ -156,16 +156,17 @@ dsetool reload_core rtfap.transactions schema=./transactions.xml reindex=true
 dsetool create_core rtfap.txn_count_min generateResources=true reindex=true
 dsetool reload_core rtfap.txn_count_min schema=./txn_count_min.xml reindex=true
 ```
-Note that we're using a custom schema definition for the core that we're creating on the txn_count_min table. We do this using a custom xml schema definition file. 
+Note that we're using custom schema definitions for the cores that we're creating on the transactions and txn_count_min tables. 
+We do this using custom xml schema definition files. 
 
-The schema definition file ```txn_count_min.xml``` file contains the line:
+For example the schema definition file ```txn_count_min.xml``` file contains the line:
 ```
 <field indexed="true" multiValued="false" name="time" stored="true" type="TrieDateField" docValues="true" />
 ```
 We're using the docValues option on the time column to allow us to sort on the time field.
 
 ### Using Solr with CQL
-Now that we have created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
+Now that we've created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
 Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
 
