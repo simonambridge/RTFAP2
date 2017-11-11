@@ -142,9 +142,16 @@ dsetool create_core rtfap.transactions generateResources=true reindex=true
 
 Navigate to the Solr directory to create the Solr cores for our transaction data.
 
+```
+$ cd solr
+$ ls
+build_solr_indexes.sh	transactions.xml	txn_count_min.xml
+```
+
 Run the script ```build_solr_indexes.sh``` to create the indexes. The script will run the following commands:
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
+dsetool reload_core rtfap.transactions schema=./transactions.xml reindex=true
 
 dsetool create_core rtfap.txn_count_min generateResources=true reindex=true
 dsetool reload_core rtfap.txn_count_min schema=./txn_count_min.xml reindex=true
@@ -192,7 +199,47 @@ The code for this is in the restRTFAP directory provided in the repo.
 
 To use the web service, use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
+## ReST API with Node.js and D3
+
 The sample queries are served by a web service written in Node.js. The code for this web service is provided in the repo.
+
+### Install Node
+On my Mac Node I used brew to install node:
+```
+$ brew install node
+```
+Installs node to ```/usr/local/Cellar/node/8.9.1/``` and sets up link to ```/usr/local/bin/node```
+
+Testing your node and npm installation:
+
+```
+$ node -v
+> v8.9.1
+
+$ npm -v
+> 5.5.1
+```
+### Install Express
+We can now npm to install all the Node.js tools needed, including Express.
+
+NPM 1.0 installs modules at the project-level. Command-line tools can be installed globally.
+
+Because Express is a project module and a command line toolwe can install it in both scopes it can be installed globally:
+
+$ npm install -g express
+$ npm install -g express-generator
+$ express --version
+4.15.5
+
+
+### Install Node Cassandra Driver
+
+```
+$ npm install cassandra-driver
++ cassandra-driver@3.3.0
+updated 2 packages in 12.379s
+```
+
 
 Navigate to the restRTFAP directory in the repo
 ```
@@ -205,19 +252,23 @@ You can find more detailed instructions for installing Node using the example at
 
 Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
 
+### Test Access and data retrieval
+
+http://localhost:3000/
+
 At this point you will be able to run some of the solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL and CQL-Solr but the roll-up tables have not been populated yet so these will return no data.
 
 You can explore the list of provided ReST queries [here](http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md).
 
-<h2>Analyzing data using DSE Spark Analytics</h2>
+## Analyzing data using DSE Spark Analytics
 
 DSE provides integration with Spark out of the box. This allows for analysis of data in-place on the same cluster where the data is ingested with workload isolation and without the need to ETL the data. The data ingested in a Cassandra only (OLTP) data center is automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.
 
 This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture" .
 
-<h3>Streaming Analytics</h3>
+### Streaming Analytics
 
 The streaming analytics element of this application is made up of two parts:
 
@@ -228,7 +279,7 @@ Streaming analytics code can be found under the directory 'TransactionHandlers' 
 
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
 
-<h3>Batch Analytics</h3>
+### Batch Analytics
 
 Two Spark batch jobs have been included. 
 * `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
@@ -239,7 +290,7 @@ The roll up batch analytics code and submit scripts can be found under the direc
 Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
 
 
-<h2>Stress yaml</h2>
+## Stress yaml 
 
 Running a cassandra-stress test with the appropriate YAML profile for the table helps show how DSE will perform in terms of latency and throughput for writes and reads to/from the system.
 
@@ -318,7 +369,7 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 
 
 ```
 
-<h2>Visual Dashboard - Lucidworks Banana</h2>
+## Visual Dashboard - Lucidworks Banana
 
 The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It uses Kibana's powerful dashboard configuration capabilities, ports key panels to work with Solr, and provides significant additional capabilities, including new panels that leverage D3.js.
 
