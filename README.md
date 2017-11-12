@@ -4,7 +4,7 @@ Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 >Improvements include: Node.js/D3 ReST interface replacing of Java, enhanced producer/consumer, real time charts etc
 
 
-<h2>Use Case</h2>
+## Use Case 
 A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
 
 The client wants a REST API to return:  
@@ -28,7 +28,7 @@ They also want a graphic visualisation - a dashboard - of the data.
   <img src="architecture-1.png"/>
 </p>
 
-<h2>Setup</h2>
+## Setup 
 DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
 Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency. 
 
@@ -40,9 +40,9 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 
 >If you are  changing the enabled products on a node you will need to delete the default datacentre and restart the cluster in SearchAnalytics mode.
 
-<h2>Install information</h2>
+## Install information 
 
->Set up and install DataStax Enterprise with Spark and Solr enabled using the DSE installation and set up instructions for your platform [here](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
+> Set up and install DataStax Enterprise with Spark and Solr enabled using the DSE installation and set up instructions for your platform [http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md](http://github.com/simonambridge/RTFAP2/tree/master/DSE_Setup.md).
 
 - This demo is based upon DSE 5.4.1.x with Spark 2.0.2, Scala 2.11, Kafka 1.0.0 and Akka 2.3.15
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
