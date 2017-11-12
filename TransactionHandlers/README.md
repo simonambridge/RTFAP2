@@ -2,7 +2,7 @@
 
 ## Creating and Consuming Transactions
 
-Based on an original creation by Cary Bourgeois. I'll use Cary's original description here as the underlying functionality is unchanged.
+Based on an original creation by Cary Bourgeois. 
 
 This project consists of two elements:
    
@@ -24,21 +24,13 @@ The second part of the Spark consumer job counts the number of records processed
 ### Pre-requisites
 The following components must be installed and available on your machine.
 
-Please note, this demo is built using the 5.0.3 branch of Datastax Enterprise - Spark Direct Streams (Kafka in this demo) support is much improved in DSE 4.8+
+Please note, this demo is built using the 5.1.4 branch of Datastax Enterprise - Spark Direct Streams (Kafka in this demo) support is much improved in DSE 4.8+
 
-  1. Datastax Enterprise 5.0.3 installed and working in Search Analytics mode (includes Spark 1.6.1)
-  2. Apache Kafka 0.10.1.0, I used the Scala 2.10 build
+  1. Datastax Enterprise 5.1.4 installed and working in Search Analytics mode (includes Spark 2.0.2)
+  2. Apache Kafka 1.0.0, I used the Scala 2.11 build
   3. sbt
   4. An internet connection is required to download sbt dependencies
 
-* If you havent already installed sbt (as root or use sudo) do this now:
-
-```
-echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-apt-get update
-apt-get install sbt
-```
 
 ## Getting Started with Kafka
 
@@ -46,9 +38,11 @@ apt-get install sbt
 
 Kafka can be downloaded from this URL: [http://kafka.apache.org/downloads.html](http://kafka.apache.org/downloads.html)
 
+Get the Scala 2.11 release (it matches the Spark Scala version)
+
 Download and install the binary version for Scala 2.10 - you can use wget or curl to download to the server e.g:
 ```
-curl --remote-name http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/0.10.1.0/kafka_2.10-0.10.1.0.tgz
+curl --remote-name http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/1.0.0/kafka_2.11-1.0.0.tgz
 ```
 
 ### 2. Install Apache Kafka
@@ -56,100 +50,86 @@ curl --remote-name http://mirror.ox.ac.uk/sites/rsync.apache.org/kafka/0.10.1.0/
 Once downloaded you will need to extract the file. It will create a folder/directory - you can then move this to a location of your choice.
 
 ```
-$ gunzip kafka_2.10-0.10.1.0.tgz
-$ tar xvf kafka_2.10-0.10.1.0.tar
-$ rm kafka_2.10-0.10.1.0.tar
+$ gunzip kafka_2.11-1.0.0.tgz
+```
+Now extract and create the directory ```kafka_2.11-1.0.0```
+
+```
+$ tar xvf kafka_2.11-1.0.0.tgz
+```
+Now delete the download if you don;t want to keep it
+```
+$ rm kafka_kafka_2.11-1.0.0.tgz
 ```
 
 Move the kafka directory tree to your preferred location, e.g.:
 
 ```
-$ mv kafka_2.10-0.10.1.0 /Software/Kafka
-$ KAFKA_HOME=/Software/Kafka/kafka_2.10-0.10.1.0 export KAFKA_HOME
+$ mv kafka_2.11-1.0.0 /Software/Kafka
+$ KAFKA_HOME=/Software/Kafka/kafka_2.11-1.0.0 export KAFKA_HOME
 ```
 
 For a more permanent installation you might want to move it to e.g. /usr/share:
 
 ```
-$ sudo mv kafka_2.10-0.10.1.0 /usr/share
-$ KAFKA_HOME=/usr/share/kafka_2.10-0.10.1.0 export KAFKA_HOME
+$ sudo mv kafka_2.11-1.0.0 /usr/local
+$ KAFKA_HOME=/usr/local/kafka_2.11-1.0.0 export KAFKA_HOME
 ```
 
 
 ### 3. Start ZooKeeper and Kafka
 
-3.a. Start local copy of zookeeper (in its own terminal or use nohup):
+3.a. Start a local copy of zookeeper (in its own terminal or use nohup):
 
 ```
 $ cd $KAFKA_HOME
-$ ./bin/zookeeper-server-start.sh config/zookeeper.properties
+$ $KAFKA_HOME/bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
  
 For example, to start keep zookeeper and keep it running:
 ```
 $ cd $KAFKA_HOME
-$ nohup ./bin/zookeeper-server-start.sh config/zookeeper.properties &
+$ sudo -b nohup $KAFKA_HOME/bin/zookeeper-server-start.sh config/zookeeper.properties > $KAFKA_HOME/logs/nohupz.out 2>&1
 ```
 
 3.b. Start local copy of Kafka (in its own terminal or use nohup):
 
 ```
 $ cd $KAFKA_HOME
-$ ./bin/kafka-server-start.sh config/server.properties
+$ $KAFKA_HOME/bin/kafka-server-start.sh config/server.properties
 ```
 
 For example (using a different output file to the one created by the Zookeeper process):
 ```
 $ cd $KAFKA_HOME
-$ nohup ./bin/kafka-server-start.sh config/server.properties > nohupk.out 2>&1 &
+$ sudo -b nohup $KAFKA_HOME/bin/kafka-server-start.sh config/server.properties > $KAFKA_HOME/logs/nohupk.out 2>&1 
 ```
 
 ### 4. Prepare a message topic for use.
 
 4.a. Create the topic we will use for the demo
 
-  * `$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
+  * `$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
 
 For example:
 ```
 $ cd $KAFKA_HOME
-$ ./bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions
+$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions
 Created topic "NewTransactions".
 ```
 
 4.b. Validate the topic was created:
 
-  * `$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list`
+  * `$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list`
 
 For example:
 ```
 $ cd $KAFKA_HOME
-$ ./bin/kafka-topics.sh --zookeeper localhost:2181 --list
+$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list
 NewTransactions
 ```
 
 ## Some more useful Kafka commands
-
-Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
-
-```
-$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
-```
-  
-Show all of the messages in a topic from the beginning:
-
-```
-$KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning
-```
-  
-Describe the 'NewTransactions' Topic:
-
-```
-$KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
-
-Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
-	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
-```
 	
 Set message retention for 1 hour:
 
@@ -158,7 +138,7 @@ By default Kafka will retain messages in the queue for 7 days - to change retent
 > Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 
 ```
-$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
+$ $KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
 
 Updated config for entity: topic 'NewTransactions'.
 ```
@@ -166,18 +146,60 @@ Updated config for entity: topic 'NewTransactions'.
 Display topic configuration details:
 
 ```
-$KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
+$ $KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entity-name NewTransactions --entity-type topics
 
 Configs for topic 'NewTransactions' are retention.ms=3600000
 ```
 
+Show all of the messages in a topic from the beginning:
 
-## Build the demo
+```
+$ $KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning
+```
+  
+Describe the 'NewTransactions' Topic:
 
-### In order to run this demo navigate to the project TransactionHandlers directory
+```
+$ $KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
+
+Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
+	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
+```
+
+Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
+
+```
+$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
+```
+
+
+## Build and run the demo
+
+### Pre-requisite: Install sbt
+
+If you havent done it already, install sbt (as root or use sudo). You will need sbt to compile the streaming and batch services written in Scala.
+
+On MacOS:
+```
+$ brew install sbt
+```
+
+On Debian Linux:
+```
+$ echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+$ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+$ apt-get update
+$ apt-get install sbt
+```
+
+When you first compile with sbt it may take some time to download the libraries and packages required.
+
+### Build the packages
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
-  * If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
+  * All components should be working e.g. Zookeeper, Kafka
+
+> If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
 
 1. Navigate to the project TransactionHandlers directory:
 
@@ -187,34 +209,39 @@ Configs for topic 'NewTransactions' are retention.ms=3600000
 
 2. Build the Producer with this command:
   
-    ```sbt producer/package```
+    ```$ sbt producer/package```
     
     Make sure the build is successful:
     ```
     [info] Done packaging.
     [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
     ```
-      
+
+    > If there are any errors reported, you must resolve them before continuing.
+
 3. Build the Consumer with this command:
   
-    ```sbt consumer/package```
+    ```$ sbt consumer/package```
     
     Make sure the build is successful:
     ```
     [info] Done packaging.
     [success] Total time: 32 s, completed Nov 21, 2016 10:10:32 PM
     ```
-  
+    > If there are any errors reported, you must resolve them before continuing.
+    
 ## Run the demo
 
-This assumes you already have Kafka and DSE up and running and configured as in the steps above.
+At this point the code has compiled successfully.
+
+The next step is to start the producer and consumer to start generating and receiving transactions.
 
 ### Start the Transaction Producer
 
-From the root directory of the project (`~/RTFAP2/TransactionHandlers`) start the producer app:
+From the root directory of the project (`<RTFAP2 install path>/RTFAP2/TransactionHandlers`) start the producer app:
   
 ```
-sbt producer/run
+$ sbt producer/run
 ```
 
 After some initial output you will see card transactions being created and posted to Kafka:
@@ -226,26 +253,22 @@ kafkaTopic NewTransactions
 maxNumTransPerWait 5
 waitMillis 500
 runDurationSeconds -1
-[DEBUG] [11/22/2016 13:39:37.061] [run-main-0] [EventStream(akka://TransactionProducer)] logger log1-Logging$DefaultLogger started
-[DEBUG] [11/22/2016 13:39:37.063] [run-main-0] [EventStream(akka://TransactionProducer)] Default Loggers started
+[DEBUG] [11/09/2017 22:31:09.061] [run-main-0] [EventStream(akka://TransactionProducer)] logger log1-Logging$DefaultLogger started
+[DEBUG] [11/09/2017 22:31:09.063] [run-main-0] [EventStream(akka://TransactionProducer)] Default Loggers started
 ...
-19845 Transactions created.
-(cc_no=,6557000040986661, txn_time=,2016-12-03 00:37:57.407, items=,Item_3240->237.76, amount=,237.76)
-(cc_no=,9963000035510891, txn_time=,2016-12-03 00:37:57.407, items=,Item_70347->463.65,Item_92354->797.65,Item_29626->76.39, amount=,1337.70)
-(cc_no=,8744000094938745, txn_time=,2016-12-03 00:37:57.407, items=,Item_52058->804.00,Item_56871->536.83,Item_50450->543.21, amount=,1884.04)
-(cc_no=,7554000058844783, txn_time=,2016-12-03 00:37:57.407, items=,Item_15281->824.13, amount=,824.13)
-(cc_no=,6835000071495639, txn_time=,2016-12-03 00:37:57.407, items=,Item_596->172.98,Item_81946->517.99,Item_23021->739.64, amount=,1430.60)
-19849 Transactions created.
-(cc_no=,2001000046589052, txn_time=,2016-12-03 00:37:57.908, items=,Item_80751->379.57,Item_61627->614.89,Item_76470->577.95,Item_22016->390.50, amount=,1962.91)
-(cc_no=,9048000013833608, txn_time=,2016-12-03 00:37:57.909, items=,Item_16779->438.04,Item_97042->172.26,Item_91668->523.98, amount=,1134.29)
-(cc_no=,9589000089111077, txn_time=,2016-12-03 00:37:57.909, items=,Item_59355->84.39,Item_7516->912.12,Item_63996->525.70, amount=,1522.21)
-(cc_no=,7653000040508112, txn_time=,2016-12-03 00:37:57.909, items=,Item_88972->597.19,Item_29442->508.24, amount=,1105.43)
-19851 Transactions created.
-(cc_no=,3472000068224395, txn_time=,2016-12-03 00:37:58.409, items=,Item_13700->54.50,Item_4441->177.90,Item_31018->607.78, amount=,840.18)
-(cc_no=,9470000056653610, txn_time=,2016-12-03 00:37:58.409, items=,Item_106->402.68,Item_19047->500.58,Item_33249->759.90, amount=,1663.16)
+...
+(cc_no=,2251000088321444, txn_time=,2017-11-09 22:31:09.735, items=,Item_28750->128.66, amount=,128.66)
+(cc_no=,9065000095025035, txn_time=,2017-11-09 22:31:09.735, items=,Item_94332->246.57,Item_16778->708.27,Item_89204->541.07, amount=,1495.91)
+(cc_no=,2195000009045559, txn_time=,2017-11-09 22:31:09.735, items=,Item_92502->194.22, amount=,194.22)
+196 Transactions created.
+(cc_no=,3531000024839480, txn_time=,2017-11-09 22:31:10.237, items=,Item_88890->564.97,Item_99369->404.01,Item_38980->827.30, amount=,1796.28)
+(cc_no=,7017000098496305, txn_time=,2017-11-09 22:31:10.238, items=,Item_45228->447.20, amount=,447.20)
+(cc_no=,8139000079813195, txn_time=,2017-11-09 22:31:10.238, items=,Item_56710->746.63,Item_76484->793.98, amount=,1540.61)
+201 Transactions created.
+...
 ```
 
-You can leave this process running as you wish.
+You can leave this process running as you wish.It will keep generating transactions.
 
 ### Start the Transaction Consumer
  
