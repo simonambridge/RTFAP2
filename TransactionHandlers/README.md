@@ -282,6 +282,7 @@ You can leave this process running as you wish.It will keep generating transacti
   Navigate to the consumer directory
   ```
   $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers/consumer
+  ```
   
   > You no longer need to specify a spark master address in the dse spark-submit command:
 
