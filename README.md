@@ -203,9 +203,9 @@ The code for a this is in the restRTFAP directory provided in the repo. You will
 
 Use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
-The ReST Server set up details are described here [here](http://github.com/simonambridge/RTFAP2/tree/master/ReST.md).
+The ReST Server set up details are described here: http://github.com/simonambridge/RTFAP2/tree/master/ReST.md
 
-You can explore the list of provided ReST queries  at http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
+You can explore the list of provided ReST queries here: http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
 
 ## Analyzing data using DSE Spark Analytics
 
@@ -222,7 +222,7 @@ The streaming analytics element of this application is made up of two parts:
 
 Streaming analytics code can be found under the directory `TransactionHandlers/producer` (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).
 
-Follow the Spark streaming installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
+Follow the Spark streaming installation and set up instructions here: https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers
 
 ### Batch Analytics
 
@@ -232,7 +232,7 @@ Two Spark batch jobs have been included.
 
 The roll up batch analytics code and submit scripts can be found under the directory `RollUpReports` (pre-requisite: run the streaming analytics first in order to populate the Transaction table with transactions).
 
-Follow the Spark batch job installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
+Follow the Spark batch job installation and set up instructions here:https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports
 
 
 ## Stress yaml 
