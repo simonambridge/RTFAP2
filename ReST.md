@@ -1,6 +1,6 @@
 # Create the RTFAP Node.js/D3 ReST Server
 
-## Install Node
+## Install Node.js
 On my Mac Node I used brew to install node:
 ```
 $ brew install node
