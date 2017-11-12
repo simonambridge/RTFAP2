@@ -203,7 +203,7 @@ The code for a this is in the restRTFAP directory provided in the repo. You will
 
 Use the example url’s supplied - these will return a json representation of the data using the ReST service.
 
-The ReST Server set up details are described here [here](http://github.com/simonambridge/RTFAP2/tree/master/ReST_Setup.md).
+The ReST Server set up details are described here [here](http://github.com/simonambridge/RTFAP2/tree/master/ReST.md).
 
 You can explore the list of provided ReST queries  at http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
 
