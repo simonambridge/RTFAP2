@@ -321,7 +321,7 @@ You can leave this process running as you wish.It will keep generating transacti
 
   You can leave this running if you wish.
 
-  3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
+  2. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
   ```
   cqlsh> select count(*) from rtfap.transactions;
@@ -331,7 +331,7 @@ You can leave this process running as you wish.It will keep generating transacti
     13657
   ```
 
-  4. Every 60 seconds you will also see the consumer process generate output similar to the following:
+  3. Every 60 seconds you will also see the consumer process generate output similar to the following:
 ```
   Time=Sat Dec 03 00:37:44 GMT 2016
   +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
@@ -371,5 +371,5 @@ You can leave this process running as you wish.It will keep generating transacti
   2016 |    12 |   3 |    0 |      3 |         96.11033 |          96.02273 |            1359 |              338 |       null | 2016-12-03 00:03:44+0000 |       1414 |         352
   ```
 
-  The txn_count_min table will be used to service the D3 chart displayed at the top of this page.
+  The txn_count_min table will be used to service a D3 chart similar to the one displayed at the top of this page.
 
