@@ -1,4 +1,4 @@
-#Creating the RTFAP Node.js/D3 ReST Server
+# Create the RTFAP Node.js/D3 ReST Server
 
 ## Install Node
 On my Mac Node I used brew to install node:
@@ -41,8 +41,6 @@ updated 2 packages in 12.379s
 
 ## Test Access and data retrieval
 
-You can find more detailed instructions for installing Node, D3, and jquery using my example at https://github.com/simonambridge/chartDSE
-
 > Note: the Node.js application directory structure in the restRTFAP directory was originally created with Express, using the command ```$ express restRTFAP```.
 
 Navigate to the restRTFAP directory in the repo:
@@ -71,3 +69,6 @@ Now go to the service URL: http://localhost:3000/
 At this point you will be able to run some (but not all) of the Solr queries shown below.
 
 The queries demonstrate the use of both straightforward CQL, and CQL-Solr, but the roll-up tables have not been populated yet so these will return no data.
+
+You can find more detailed instructions for installing Node, D3, and jquery using my example at https://github.com/simonambridge/chartDSE
+
