@@ -125,16 +125,16 @@ The roll-up tables can also be queried - for example transactions for each merch
 SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=20160317;
 ```
 
-<h2>Searching Data in DSE</h2>
+## Searching Data in DSE 
 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data.
 
-<h3>Create Solr Cores</h3>
+### Create Solr Cores 
 To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
 
-By default, when you create a Solr core resources will not be generated and existing data is not re-indexed - the idea behind this is so that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
+By default, when a Solr core is created, resources will not be generated and existing data is not re-indexed - the intention being that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
 
 ```
 dsetool create_core rtfap.transactions generateResources=true reindex=true
@@ -168,9 +168,9 @@ We're using the docValues option on the time column to allow us to sort on the t
 ### Using Solr with CQL
 Now that we've created the Solr cores (lucene indexes) we can query our data in a number of ways. One is through cql using the solr_query column. The other is through a third party library like SolrJ which will interact with the search tool through ReST.
 
-Below are the CQL Solr queries addressing some of the client requirements (&more) for searching the data in DSE:
+Below are the CQL Solr queries addressing some of the client requirements (and more) for searching the data in DSE. You can try these queries for yourself in cqlsh.
 
-Get counts (&records) of transactions faceted by merchant or cc_provider.
+Get counts of transactions faceted by merchant or cc_provider.
 ```
 SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 SELECT * FROM rtfap.transactions where solr_query='{"q":"*:*", "facet":{"field":"cc_provider"}}';
@@ -234,8 +234,8 @@ $ express --version
 
 
 ### Install Node Cassandra Driver
-Y
-ou will also need to install the Node Cassandra driver to allow the web application to communicate with the Cassandra database.
+
+You will also need to install the Node Cassandra driver to allow the Node web application to communicate with the Cassandra database.
 
 ```
 $ npm install cassandra-driver
@@ -254,9 +254,14 @@ Navigate to the restRTFAP directory in the repo:
 $ cd restRTFAP
 ```
 
-Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` alternatively use the simple shell script ```./run.sh```
+Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` 
+Alternatively use the simple shell script provided ```./run.sh```
 
-Output is logged to the screen. You should see the console display the following:
+Output is logged to the screen. 
+
+> Don't exit the terminal session - keep it open for diagnostic output and to preserve the web service.
+
+You should see the console display the following:
 
 ```
 > restrtfap@0.0.0 start /Users/johndoe/Documents/My Projects/GitHub/RTFAP2/restRTFAP
@@ -264,7 +269,6 @@ Output is logged to the screen. You should see the console display the following
 
   restrtfap:server Listening on port 3000 +0ms
 ```
-Don't exit the terminal session - keep it open for diagnostic output and to preserve the web service.
 
 Now go to the service URL: http://localhost:3000/
 
