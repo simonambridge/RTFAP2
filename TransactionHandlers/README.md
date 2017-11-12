@@ -191,6 +191,10 @@ $ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 $ apt-get update
 $ apt-get install sbt
 ```
+Run sbt update:
+```
+$ sbt update
+```
 
 When you first compile with sbt it may take some time to download the libraries and packages required.
 
@@ -204,7 +208,7 @@ When you first compile with sbt it may take some time to download the libraries 
 1. Navigate to the project TransactionHandlers directory:
 
     ```
-    cd <RTFAP2 install path>/RTFAP2/TransactionHandlers
+    $ cd <RTFAP2 install path>/RTFAP2/TransactionHandlers
     ```
 
 2. Build the Producer with this command:
@@ -214,7 +218,7 @@ When you first compile with sbt it may take some time to download the libraries 
     Make sure the build is successful:
     ```
     [info] Done packaging.
-    [success] Total time: 44 s, completed Nov 21, 2016 10:09:12 PM
+    [success] Total time: 44 s, completed Nov 8, 2017 10:09:12 PM
     ```
 
     > If there are any errors reported, you must resolve them before continuing.
@@ -226,7 +230,7 @@ When you first compile with sbt it may take some time to download the libraries 
     Make sure the build is successful:
     ```
     [info] Done packaging.
-    [success] Total time: 32 s, completed Nov 21, 2016 10:10:32 PM
+    [success] Total time: 32 s, completed Nov 8, 2017 10:10:32 PM
     ```
     > If there are any errors reported, you must resolve them before continuing.
     
@@ -241,6 +245,7 @@ The next step is to start the producer and consumer to start generating and rece
 From the root directory of the project (`<RTFAP2 install path>/RTFAP2/TransactionHandlers`) start the producer app:
   
 ```
+$ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers
 $ sbt producer/run
 ```
 
@@ -272,22 +277,16 @@ You can leave this process running as you wish.It will keep generating transacti
 
 ### Start the Transaction Consumer
  
-  1. Identify the location of the SparkMaster node:
+  1. Start the consumer app.
   
-  For DSE versions < 4.x:
+  Navigate to the consumer directory
   ```
-  $ dsetool sparkmaster
-  spark://127.0.0.1:7077
-  ```
-  For DSE 5.0.0 and above:
-  ```
-  dse client-tool spark master-address
-  spark://127.0.0.1:7077
-  ```
-  2. From the TransactionHandlers directory of the project start the consumer app:
+  $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers/consumer
   
+  > You no longer need to specify a spark master address in the dse spark-submit command:
+
   ```
-  dse spark-submit --master spark://[SparkMaster_IP]:7077 --packages org.apache.spark:spark-streaming-kafka_2.10:1.6.2 --class TransactionConsumer consumer/target/scala-2.10/consumer_2.10-0.1.jar
+  $ dse spark-submit --jars /Users/simonambridge/.ivy2/cache/com.typesafe/config/bundles/config-1.3.2.jar --packages org.apache.spark:spark-streaming-kafka_2.11:1.6.3 --class TransactionConsumer consumer/target/scala-2.11/consumer_2.11-0.1.jar
   ```
 
   After some initial output you will see records being consumed from Kafka by Spark:
@@ -319,7 +318,7 @@ You can leave this process running as you wish.It will keep generating transacti
   +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+---------------+--------+-------+-------+--------+---------+
   ```
 
-  You can leave this running as you wish.
+  You can leave this running if you wish.
 
   3. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
