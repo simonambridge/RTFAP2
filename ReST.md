@@ -41,12 +41,12 @@ updated 2 packages in 12.379s
 
 ## Test Access and data retrieval
 
-> Note: the Node.js application directory structure in the restRTFAP directory was originally created with Express, using the command ```$ express restRTFAP```.
-
 Navigate to the restRTFAP directory in the repo:
 ```
 $ cd restRTFAP
 ```
+
+> Note: the Node.js application directory structure in the restRTFAP directory was originally created with Express, using the command ```$ express restRTFAP```.
 
 Start the Node http server using the command ```DEBUG=restrtfap:* npm start``` 
 Alternatively use the simple shell script provided ```./run.sh```
