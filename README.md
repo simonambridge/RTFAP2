@@ -111,7 +111,7 @@ The create script also creates some sample data for example:
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 12, 30, '2016-03-09 12:30:00', '1234123412341237', 1500.0, 'AMEX', {'clothes':1500}, 'New York', 'Ann Taylor', 'frequent customer', 'Approved', '876302', 'caroline', {'HighValue'});
 ```
 
-<h2>Sample queries</h2>
+## Sample queries
 
 We can now run CQL queries to look up all transactions for a given credit card (`cc_no`). 
 The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches and we don't update the transactions once they have been written.
@@ -218,11 +218,11 @@ This tight integration between Cassandra and Spark offers huge value in terms of
 The streaming analytics element of this application is made up of two parts:
 
 * A transaction "producer" - a Scala/Akka app that generates random credit card transactions and then places those transactions onto a Kafka queue. 
-* A transaction "consumer" - also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table `transactions`. It also generates rolling summary lines into the ```txn_count_min``` table every minute.
+* A transaction "consumer" - also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table `transactions`. It also generates rolling summary lines into the `txn_count_min` table every minute.
 
 Streaming analytics code can be found under the directory `TransactionHandlers/producer` (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).
 
-Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
+Follow the Spark streaming installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers)
 
 ### Batch Analytics
 
@@ -230,9 +230,9 @@ Two Spark batch jobs have been included.
 * `run_rollupbymerchant.sh` provides a daily roll-up of all the transactions in the last day, by merchant. 
 * `run_rollupbycc.sh` populates the hourly/daily/monthly/yearly aggregate tables by credit card, calculating the total_amount, avg_amount and total_count.
 
-The roll up batch analytics code and submit scripts can be found under the directory 'RollUpReports' (pre-requisite: run the streaming analytics to populate the Transaction table with transaction data).
+The roll up batch analytics code and submit scripts can be found under the directory `RollUpReports` (pre-requisite: run the streaming analytics first in order to populate the Transaction table with transactions).
 
-Follow the installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
+Follow the Spark batch job installation and set up instructions [here:](https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports)
 
 
 ## Stress yaml 
