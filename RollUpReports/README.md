@@ -73,10 +73,8 @@ Beginning RollUp Reporting By Merchant...
 Completed RollUps By Merchant...
 ```
 
-> If you encounter a permissions problem with /tmp/hive run this command to grant the required access to the dse user
-```
-sudo dse hadoop fs -chmod 777 /tmp/hive
-```
+> If you encounter a permissions problem with /tmp/hive run this command to grant the required access to the dse user: ```
+$ sudo dse hadoop fs -chmod 777 /tmp/hive```
 
 ### Run the aggregates by credit card rollup: 
 
