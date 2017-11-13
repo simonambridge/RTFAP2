@@ -190,7 +190,7 @@ When we start generating some live data we'll be able to analyse up-to-date info
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
 ```
 These samples demonstrate that full, ad-hoc search on any of the transaction fields is possible including amounts, merchants etc.
-We will use queries like this to build the ReST interface.
+We will use queries like this to build the ReST interface. You can explore the list of provided ReST queries here: http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
 
 ## Querying Data Using A ReST API with Node.js and D3
 
@@ -201,11 +201,9 @@ A ReSTful web interface provides an API for calling programs to query the data i
 
 The code for a this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries.
 
-Use the example url’s supplied - these will return a json representation of the data using the ReST service.
+Use the example url’s supplied - these will return a json representation of the data using the ReST service. 
 
 The ReST Server set up details are described here: http://github.com/simonambridge/RTFAP2/tree/master/ReST.md
-
-You can explore the list of provided ReST queries here: http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
 
 ## Analyzing data using DSE Spark Analytics
 
