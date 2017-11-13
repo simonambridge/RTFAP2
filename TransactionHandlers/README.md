@@ -225,7 +225,9 @@ When you first compile with sbt it may take some time to download the libraries 
 
 3. Build the Consumer with this command:
   
-    ```$ sbt consumer/package```
+    ```
+    $ sbt consumer/package
+    ```
     
     Make sure the build is successful:
     ```
@@ -247,6 +249,7 @@ From the root directory of the project (`<RTFAP2 install path>/RTFAP2/Transactio
 Navigate to the TransactionHandlers directory
 ```
 $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers
+```
 
 Start the producer app:
 ```
@@ -264,7 +267,6 @@ waitMillis 500
 runDurationSeconds -1
 [DEBUG] [11/09/2017 22:31:09.061] [run-main-0] [EventStream(akka://TransactionProducer)] logger log1-Logging$DefaultLogger started
 [DEBUG] [11/09/2017 22:31:09.063] [run-main-0] [EventStream(akka://TransactionProducer)] Default Loggers started
-...
 ...
 (cc_no=,2251000088321444, txn_time=,2017-11-09 22:31:09.735, items=,Item_28750->128.66, amount=,128.66)
 (cc_no=,9065000095025035, txn_time=,2017-11-09 22:31:09.735, items=,Item_94332->246.57,Item_16778->708.27,Item_89204->541.07, amount=,1495.91)
