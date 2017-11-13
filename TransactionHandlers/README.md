@@ -200,8 +200,8 @@ When you first compile with sbt it may take some time to download the libraries 
 
 ### Build the packages
 
-  * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
-  * All components should be working e.g. Zookeeper, Kafka
+* You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
+* All components should be working e.g. Zookeeper, Kafka
 
 > If you are restarting the demo you can clear the RTFAP2 tables using the clear_tables.cql script
 
@@ -236,15 +236,16 @@ When you first compile with sbt it may take some time to download the libraries 
     
 ## Run the demo
 
-At this point the code has compiled successfully.
+  At this point the code has compiled successfully.
 
-The next step is to start the producer and consumer to start generating and receiving transactions.
+  The next step is to start the producer and consumer to start generating and receiving transactions.
 
 ### Start the Transaction Producer
 
 From the root directory of the project (`<RTFAP2 install path>/RTFAP2/TransactionHandlers`) start the producer app:
   
-```
+Navigate to the TransactionHandlers directory
+``
 $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers
 $ sbt producer/run
 ```
@@ -279,13 +280,14 @@ You can leave this process running as you wish.It will keep generating transacti
  
   1. Start the consumer app.
   
-  Navigate to the consumer directory
+  Navigate to the TransactionHandlers directory
   ```
-  $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers/consumer
+  $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers
   ```
   
   > You no longer need to specify a spark master address in the dse spark-submit command:
-
+  
+  Use the dse command to submit a spark job:
   ```
   $ dse spark-submit --jars /Users/simonambridge/.ivy2/cache/com.typesafe/config/bundles/config-1.3.2.jar --packages org.apache.spark:spark-streaming-kafka_2.11:1.6.3 --class TransactionConsumer consumer/target/scala-2.11/consumer_2.11-0.1.jar
   ```
