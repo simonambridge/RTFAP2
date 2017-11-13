@@ -279,7 +279,8 @@ runDurationSeconds -1
 ...
 ```
 
-You can leave this process running as you wish.It will keep generating transactions.
+ Leave this job running to continue to generate transactions.
+
 
 ### Start the Transaction Consumer
  
@@ -326,7 +327,7 @@ You can leave this process running as you wish.It will keep generating transacti
   +----------------+-----------+----+-----+---+----+---+--------------------+--------------------+---------------+--------+-------+-------+--------+---------+
   ```
 
-  You can leave this running if you wish.
+  Leave this job running to continue to process transactions.
 
   2. At this point you can use cqlsh to check the number of rows in the Transactions table - you should see that there are records appearing as they are posted by the consumer process:
 
@@ -380,5 +381,17 @@ You can leave this process running as you wish.It will keep generating transacti
   2016 |    12 |   3 |    0 |      3 |         96.11033 |          96.02273 |            1359 |              338 |       null | 2016-12-03 00:03:44+0000 |       1414 |         352
   ```
 
-  The txn_count_min table will be used to service a D3 chart similar to the one displayed at the top of this page.
 
+  Data in the ```txn_count_min``` table will be used to service a D3 chart.
+
+  4. View the transaction approval data as a graph
+  
+  Go to the service URL: http://localhost:3000/
+  
+  Select the Transaction Chart option. You should see something similar to the following:
+  
+  <p align="left">
+    <img src="txnchart2.png"/>
+  </p>
+
+You could add more detail to this chart if you wish.
