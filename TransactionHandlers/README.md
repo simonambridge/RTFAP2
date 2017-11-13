@@ -9,11 +9,17 @@ This project consists of two elements:
 * Transaction Producer
 * Transaction Consumer
 
-The transaction producer is a Scala application that leverages the Akka framework (lightly) to generate pseudo-random credit card transactions, and then place those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population. This is here strictly to make pretty graphs.
+The transaction producer is a Scala application that leverages the Akka framework (lightly) to generate pseudo-random credit card transactions, and then place those transactions on a Kafka queue. There is some fairly trivial yet fun logic for spreading the transactions proportionally across the top 100 retailers in the world based on total sales. It does a similar thing for the countries of the world based on population.
 
-The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes the messages put on the Kafka queue. It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application I could see a scoring model used to decide if a transaction should be accepted or rejected. You would also want to implement things like black-list lookups and that sort of thing. Finally, once evaluated, the records are then written to the Datastax/Cassandra table.
+The Transaction consumer, also written in Scala, is a Spark streaming job. This job performs two main tasks. First, it consumes the messages put on the Kafka queue.
 
-The second part of the Spark consumer job counts the number of records processed each minute, and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. The results can be displayed using the Node.js web service provided, for example:
+It then parses those messages, evalutes the data and flags each transaction as "APPROVED" or "REJECTED". This is the place in the job where more application specific (or complex) logic should be placed. In a real world application this could be a scoring that could decide whether a transaction should be accepted or rejected. 
+
+You would also want to implement things like black-list lookups and other validation or analysis. Finally, once evaluated, the records are then written to the Datastax/Cassandra ```transactions``` table.
+
+The second part of the Spark consumer job counts the number of records processed each minute, and stores that data to an aggregates table. The only unique aspect of this flow is that the job also reads back from from this table and builds a rolling count of the data. 
+
+The aggregated results can be displayed using the Node.js web service provided, for example:
 
 <p align="left">
   <img src="txnchart.png"/>
