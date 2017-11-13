@@ -1,4 +1,4 @@
-# Sample Solr ReST Queries
+# Datastax Card Fraud Prevention Demo - Solr ReST Queries
 
 The supplied Express-based Solr ReST interface provides a number of representative queries against the transaction table and roll-up/aggregate data tables.
 
