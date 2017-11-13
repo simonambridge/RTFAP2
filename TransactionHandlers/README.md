@@ -245,8 +245,11 @@ When you first compile with sbt it may take some time to download the libraries 
 From the root directory of the project (`<RTFAP2 install path>/RTFAP2/TransactionHandlers`) start the producer app:
   
 Navigate to the TransactionHandlers directory
-``
+```
 $ cd /<RTFAP2 install path>/RTFAP2/TransactionHandlers
+
+Start the producer app:
+```
 $ sbt producer/run
 ```
 
