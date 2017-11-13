@@ -210,8 +210,18 @@ When you first compile with sbt it may take some time to download the libraries 
     ```
     $ cd <RTFAP2 install path>/RTFAP2/TransactionHandlers
     ```
+    
+    Update sbt:
 
-2. Build the Producer with this command:
+    ```$ sbt update``
+    
+    
+    Clean up the build environment:
+
+    ```$ sbt clean```
+
+
+2. Build the Producer app with this command:
   
     ```$ sbt producer/package```
     
@@ -223,7 +233,7 @@ When you first compile with sbt it may take some time to download the libraries 
 
     > If there are any errors reported, you must resolve them before continuing.
 
-3. Build the Consumer with this command:
+3. Build the Consumer app with this command:
   
     ```
     $ sbt consumer/package
@@ -242,7 +252,7 @@ When you first compile with sbt it may take some time to download the libraries 
 
   The next step is to start the producer and consumer to start generating and receiving transactions.
 
-### Start the Transaction Producer
+### Start the Transaction Producer app
 
 From the root directory of the project (`<RTFAP2 install path>/RTFAP2/TransactionHandlers`) start the producer app:
   
@@ -282,7 +292,7 @@ runDurationSeconds -1
  Leave this job running to continue to generate transactions.
 
 
-### Start the Transaction Consumer
+### Start the Transaction Consumer app
  
   1. Start the consumer app.
   
