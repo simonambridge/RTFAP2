@@ -1,4 +1,4 @@
-#Visualizing Cassandra-Solr Data with Banana
+# Datastax Card Fraud Prevention Demo - Cassandra-Solr Data with Banana
 
 [Lucidworks Banana](https://github.com/lucidworks/banana) is a quick and easy way to visualize your Solr time series data.
 
