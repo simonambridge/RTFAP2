@@ -59,11 +59,6 @@ You can ignore the ```Multiple main classes detected``` warning - there are two 
 
 This assumes you already have DSE up and running and configured correctly.
 
-### Grant required access to the dse user
-```
-sudo dse hadoop fs -chmod 777 /tmp/hive
-```
-
 ### Run the transactions by merchant roll up: 
 
 ```
@@ -76,6 +71,11 @@ This will run the command:
 dse spark-submit --class RollUpReportsByMerchant ./target/scala-2.10/rollupreports_2.10-1.0.jar
 Beginning RollUp Reporting By Merchant...
 Completed RollUps By Merchant...
+```
+
+> If you encounter a permissions problem with /tmp/hive run this command to grant the required access to the dse user
+```
+sudo dse hadoop fs -chmod 777 /tmp/hive
 ```
 
 ### Run the aggregates by credit card rollup: 
