@@ -348,7 +348,9 @@ You can leave this process running as you wish.It will keep generating transacti
   +----+-----+---+----+------+-------------------+-----------------+-----------+----------------+-----------------+----------+---------------+
   ```
 
-  This is real-time analysis of the approved vs. rejected transactions rate and percentage. These records are stored in the txn_count_min table, for example:
+  This is real-time analysis of the approved vs. rejected transactions rate and percentage. 
+  
+  These records are stored in the ```txn_count_min``` table, for example:
   
   ```
   cqlsh:rtfap> SELECT * FROM rtfap.txn_count_min WHERE solr_query = '{"q":"*:*",  "fq":"time:[NOW-1HOUR TO *]","sort":"time asc"}';
