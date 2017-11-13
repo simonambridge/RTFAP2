@@ -1,4 +1,4 @@
-# Datastax Fraud Prevention Demo - Streaming Analytics
+# Datastax Card Fraud Prevention Demo - Streaming Analytics
 
 ## Creating and Consuming Transactions
 
