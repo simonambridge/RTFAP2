@@ -1,4 +1,4 @@
-<h1>Install And Configure DSE 5.1.4</h1>
+# Datastax Card Fraud Prevention Demo - Install And Configure DSE 5.1.4
 
 To setup your environment, you'll also need the following resources:
 - Python 2.7
