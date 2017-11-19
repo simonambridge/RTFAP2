@@ -219,7 +219,7 @@ When you first compile with sbt it may take some time to download the libraries 
     
     Update sbt:
 
-    ```$ sbt update``
+    ```$ sbt update```
     
     
     Clean up the build environment:
