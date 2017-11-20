@@ -73,9 +73,14 @@ This assumes you already have DSE up and running and configured correctly.
 This will run the command:
 
 ```
-dse spark-submit --class RollUpReportsByMerchant ./target/scala-2.10/rollupreports_2.10-1.0.jar
-Beginning RollUp Reporting By Merchant...
-Completed RollUps By Merchant...
+dse spark-submit --class RollUpReportsByMerchant ./target/scala-2.11/rollupreports_2.11-1.0.jar
+```
+Output will be 
+```
+- Populating dailytxns_bymerchant
+- Aggregating in dailytxns_bymerchant
+Completed RollUps By Merchant
+Shutting down...
 ```
 
 > If you encounter a permissions problem with /tmp/hive run this command to grant the required access to the dse user: ```
