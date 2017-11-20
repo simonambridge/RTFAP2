@@ -12,6 +12,9 @@ This project consists of two elements:
 The roll-up jobs will use the data in the Transactions table to generate aggregates by merchant and by credit card. 
 These jobs can be run as frequently as necessary depending on the currency of the information required e.g. every 10 minutes or every hour etc.
 
+The dailytxns_bymerchant table is the data in the transactions table but keyed on merchant and day with a clustering column ascending on credit card number.
+There are four static columns for example total_amount, min_amount, max_amount - so these are static for each merchant and day. This allows us to track daily transactions for each merchant at both a transaction level and at a summary level by merchant by day.
+
 ### Pre-requisites
 The following components must be installed and available on your machine.
 
@@ -20,6 +23,9 @@ The following components must be installed and available on your machine.
   3. An internet connection is required to download sbt dependencies
 
   * If you havent already installed sbt (as root or use sudo) do this now:
+
+> If you want to play with the sample Scalavcode interactively, you should install the DSE version of Zeppelin from the inestimabe Duy Hai Doan here: https://drive.google.com/open?id=0B6wR2aj4Cb6wcm10ZmJYV1dzUzQ 
+Once you have installed zeppelin, start it with the ```zeppelin-daemon.sh start``` command. Then load the notebook entitled "RTFAP2 RUP BY Merchant". It'n not a requirement for these excercises though, so you can skip and come bak later.
 
 On MacOS:
 ```
@@ -37,6 +43,8 @@ apt-get install sbt
 
   * You should have already created the Cassandra keyspaces and tables using the creates_and_inserts.cql script
   * Ensure that you've run the streaming transaction producer/consumer jobs before you run the roll-ups so that there is data in the Transaction table to be rolled up
+
+OK, so go to the Rollup Reports directory from the main project directory RTFAP2:
 
     ```$ cd RollUpReports```
     
