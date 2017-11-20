@@ -42,7 +42,7 @@ apt-get install sbt
     
   * Update sbt:
 
-    ```$ sbt update``
+    ```$ sbt update```
     
  * Clean up the build environment:
 
