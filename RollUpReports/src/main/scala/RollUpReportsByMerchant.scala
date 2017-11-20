@@ -12,8 +12,8 @@ object RollUpReportsByMerchant {
     def main (args: Array[String]){
       println("Beginning RollUp Reporting By Merchant...")
 
-      val conf = new SparkConf().setAppName("RollUpReportsByMerchant")
-
+//      val conf = new SparkConf().setAppName("RollUpReportsByMerchant")
+      val conf = new SparkConf().setAppName("NetworkWordCount").set("spark.ui.port", "40400" ).set("spark.driver.allowMultipleContexts", "true")
       val sc = SparkContext.getOrCreate(conf)
       val sqlContext = new HiveContext(sc)
 
@@ -29,18 +29,19 @@ object RollUpReportsByMerchant {
        pushdown "true"
      )""")
 
-      val rollup1= sqlContext.sql("select txn_time, " +
-        "cc_no, amount, " +
+      val rollup1= sqlContext.sql("select merchant, " +
+        "int(translate(string(date(txn_time)),'-','')) as day, " +
+        "cc_no, " +
+        "txn_id, " +
+        "txn_time, " +
+        "amount, " +
         "cc_provider, " +
         "items, " +
         "location, " +
-        "merchant, " +
         "notes, " +
         "status, " +
-        "txn_id, " +
-        "user_id, " +
-        "tags, " +
-        "int(translate(string(date(txn_time)),'-','')) as day " +
+        "tags, "  +
+        "user_id " +
         "from temp_transactions")
 
       rollup1.write.format("org.apache.spark.sql.cassandra")
@@ -61,14 +62,14 @@ object RollUpReportsByMerchant {
       )""")
 
       sqlContext.udf.register("now", () => System.currentTimeMillis)
-      val rollup2= sqlContext.sql("select date(timestamp(now())) as txn_time,  " +
-        "string(now()) as txn_id, " +
-        "merchant, day, count(*) as total_count, " +
+      val rollup2= sqlContext.sql("select merchant, " +
+        "day, " +
+        "count(*) as total_count, " +
         "sum(amount) as total_amount, " +
         "min(amount) as min_amount, " +
         "max(amount) as max_amount " +
         "from temp_dailytxns_bymerchant " +
-        "group by merchant, day")
+        "group by merchant, day order by merchant")
 
       rollup2.write.format("org.apache.spark.sql.cassandra")
         .mode(SaveMode.Append)

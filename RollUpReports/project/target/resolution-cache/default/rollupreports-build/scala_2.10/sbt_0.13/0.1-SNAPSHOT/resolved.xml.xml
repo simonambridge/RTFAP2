@@ -4,7 +4,7 @@
 		module="rollupreports-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20171113131315"
+		publication="20171120184127"
 		e:sbtVersion="0.13" e:scalaVersion="2.10"
 	>
 		<description>
