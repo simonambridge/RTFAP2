@@ -46,9 +46,7 @@ apt-get install sbt
 
 OK, so go to the Rollup Reports directory from the main project directory RTFAP2:
 
-    ```
-    $ cd RollUpReports
-    ```
+    ```$ cd RollUpReports```
     
   * Update sbt:
 
