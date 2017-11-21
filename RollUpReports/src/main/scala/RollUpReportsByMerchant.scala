@@ -12,8 +12,9 @@ object RollUpReportsByMerchant {
     def main (args: Array[String]){
       println("Beginning RollUp Reporting By Merchant...")
 
-//      val conf = new SparkConf().setAppName("RollUpReportsByMerchant")
-      val conf = new SparkConf().setAppName("NetworkWordCount").set("spark.ui.port", "40400" ).set("spark.driver.allowMultipleContexts", "true")
+//      val conf = new SparkConf().setAppName("RollUpReportsByMerchant
+//      specify a different spark ui port to avoid conflict with other spark processes acrive e.g. Zeppelin
+      val conf = new SparkConf().setAppName("RollUpReportsByMerchant").set("spark.ui.port", "40400" ).set("spark.driver.allowMultipleContexts", "true")
       val sc = SparkContext.getOrCreate(conf)
       val sqlContext = new HiveContext(sc)
 
