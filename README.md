@@ -243,74 +243,127 @@ The stress YAML files are in the [stress_yamls directory](https://github.com/sim
 
 The stress tool will inject synthetic data so we will use a different table specifically for the stress testing.
 
-To create the dummy table `txn_by_cc` navigate to the `stress_yamls` directory and run the create table script:
+When you originally ran the ```creates_and_inserts.cql``` script to create the transaction and rollup tables you also created the dummy table ```txn_by_cc``` that will be used by cassandra-stress.
 
-```
-cqlsh <node name or IP>
-cqlsh> source 'create_txn_by_cc_stress.cql'
-```
+The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc. The text fields are filled with unreadable gibberish :)
 
-The YAML tries to mirror real data, for example: month is a value between 1 and 12, year is between 2010 and 2016, credit card number is 16 characters in length, etc
+cassandra-stress generates a lot of output as it repeatedly runs the write test (10,000 records) while increasing the number of threads. This allows you to view the optimum number of threads required to run the task.
 
 An example of running the stress tool is shown below using [txn_by_cc_stress.yaml](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/txn_by_cc_stress.yaml):
 
 For inserts
 ```
-cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate auto -node 10.0.0.5
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate auto -node 127.0.0.1
+******************** Stress Settings ********************
+Command:
+  Type: user
+  Count: 100,000
+  No Warmup: false
+  Consistency Level: LOCAL_ONE
+  Target Uncertainty: not applicable
+  Command Ratios: {insert=1.0}
+  Command Clustering Distribution: clustering=gaussian(1..10)
+  Profile File: ./txn_by_cc_stress.yaml
+```
+...
+```
+Connected to cluster: Test Cluster, max pending requests per connection 128, max connections per host 8
+Datatacenter: SearchGraphAnalytics; Host: /127.0.0.1; Rack: rack1
+Generating batches with [1..1] partitions and [0..100] rows (of [1..1] total rows in the partitions)
+
+Sleeping 2s...
+Warming up insert with 25000 iterations...
+Thread count was not specified
+
+Running with 4 threadCount
+Running [insert] with 4 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          1957,    1957,    1957,    1957,     0.6,     0.6,     1.0,     1.4,     4.1,     4.2,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,          9200,    7243,    7243,    7243,     0.5,     0.5,     0.9,     1.4,     3.9,     8.5,    2.0,  0.40729,      0,      0,       0,       0,       0,       0
+total,         17843,    8643,    8643,    8643,     0.4,     0.4,     0.7,     1.0,     3.6,    12.9,    3.0,  0.28055,      0,      0,       0,       0,       0,       0
+total,         29181,   11338,   11338,   11338,     0.3,     0.3,     0.5,     0.6,     1.6,     4.1,    4.0,  0.23372,      0,      0,       0,       0,       0,       0
+total,         40477,   11296,   11296,   11296,     0.3,     0.3,     0.5,     0.7,     1.9,     9.5,    5.0,  0.19039,      0,      0,       0,       0,       0,       0
+total,         52611,   12134,   12134,   12134,     0.3,     0.3,     0.4,     0.4,     0.6,     4.0,    6.0,  0.16215,      0,      0,       0,       0,       0,       0
+total,         64166,   11555,   11555,   11555,     0.3,     0.3,     0.4,     0.5,     1.1,    29.1,    7.0,  0.13946,      0,      0,       0,       0,       0,       0
+total,         73958,    9792,    9792,    9792,     0.3,     0.3,     0.4,     0.4,     0.7,     4.1,    8.0,  0.12132,      0,      1,     285,     285,       0,    2037
+total,         84188,   10230,   10230,   10230,     0.5,     0.3,     0.5,     0.6,     1.1,   286.8,    9.0,  0.11473,      0,      0,       0,       0,       0,       0
+total,         95703,   11515,   11515,   11515,     0.3,     0.3,     0.4,     0.6,     1.1,     4.4,   10.0,  0.10276,      0,      0,       0,       0,       0,       0
+total,        100000,   11688,   11688,   11688,     0.3,     0.3,     0.4,     0.5,     1.0,     3.9,   10.4,  0.09315,      0,      0,       0,       0,       0,       0
+
 
 Results:
-op rate                   : 1846 [insert:1846]
-partition rate            : 1846 [insert:1846]
-row rate                  : 1846 [insert:1846]
-latency mean              : 2.1 [insert:2.1]
-latency median            : 1.4 [insert:1.4]
-latency 95th percentile   : 3.8 [insert:3.8]
-latency 99th percentile   : 11.0 [insert:11.0]
-latency 99.9th percentile : 28.0 [insert:28.0]
-latency max               : 1753.2 [insert:1753.2]
-Total partitions          : 100000 [insert:100000]
-Total errors              : 0 [insert:0]
-total gc count            : 0
-total gc mb               : 0
-total gc time (s)         : 0
-avg gc time(ms)           : NaN
-stdev gc time(ms)         : 0
-Total operation time      : 00:00:54
+Op rate                   :    9,645 op/s  [insert: 9,645 op/s]
+Partition rate            :    9,645 pk/s  [insert: 9,645 pk/s]
+Row rate                  :    9,645 row/s [insert: 9,645 row/s]
+Latency mean              :    0.4 ms [insert: 0.4 ms]
+Latency median            :    0.3 ms [insert: 0.3 ms]
+Latency 95th percentile   :    0.6 ms [insert: 0.6 ms]
+Latency 99th percentile   :    0.8 ms [insert: 0.8 ms]
+Latency 99.9th percentile :    2.5 ms [insert: 2.5 ms]
+Latency max               :  286.8 ms [insert: 286.8 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.989 GiB
+Total GC time             :    0.3 seconds
+Avg GC time               :  285.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:10
+
+Sleeping for 15s
 ```
     
-Increasing the number of threads increases the op rate as expected:
+You should see an improvement in op rate performance as the thread count increases:
 
 ```
-cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=8 -node 10.0.0.4,10.0.0.5,10.0.0.7
+Running with 8 threadCount
+Running [insert] with 8 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          8754,    8754,    8754,    8754,     0.5,     0.4,     1.2,     2.5,     8.7,    18.9,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         24726,   15972,   15972,   15972,     0.5,     0.4,     1.1,     2.3,     4.8,    10.1,    2.0,  0.20353,      0,      0,       0,       0,       0,       0
+total,         40459,   15733,   15733,   15733,     0.5,     0.4,     1.1,     2.2,     5.8,    32.4,    3.0,  0.14378,      0,      0,       0,       0,       0,       0
+total,         56556,   16097,   16097,   16097,     0.5,     0.4,     1.1,     2.0,     4.4,     7.3,    4.0,  0.10961,      0,      0,       0,       0,       0,       0
+total,         70403,   13847,   13847,   13847,     0.6,     0.4,     1.0,     1.9,     5.1,   140.8,    5.0,  0.08817,      0,      1,     138,     138,       0,    1961
+total,         86375,   15972,   15972,   15972,     0.5,     0.4,     1.0,     1.9,     4.9,    11.2,    6.0,  0.07374,      0,      0,       0,       0,       0,       0
+total,        100000,   15652,   15652,   15652,     0.5,     0.4,     1.0,     2.1,     6.0,    20.3,    6.9,  0.06326,      0,      0,       0,       0,       0,       0
+
 
 Results:
-op rate                   : 2639 [insert:2639]
-partition rate            : 2639 [insert:2639]
-row rate                  : 2639 [insert:2639]
-latency mean              : 3.0 [insert:3.0]
-latency median            : 1.7 [insert:1.7]
-latency 95th percentile   : 7.0 [insert:7.0]
-latency 99th percentile   : 11.3 [insert:11.3]
-latency 99.9th percentile : 26.6 [insert:26.6]
-latency max               : 722.7 [insert:722.7]
-Total partitions          : 100000 [insert:100000]
-Total errors              : 0 [insert:0]
-total gc count            : 0
-total gc mb               : 0
-total gc time (s)         : 0
-avg gc time(ms)           : NaN
-stdev gc time(ms)         : 0
-Total operation time      : 00:00:37
+Op rate                   :   14,555 op/s  [insert: 14,555 op/s]
+Partition rate            :   14,555 pk/s  [insert: 14,555 pk/s]
+Row rate                  :   14,555 row/s [insert: 14,555 row/s]
+Latency mean              :    0.5 ms [insert: 0.5 ms]
+Latency median            :    0.4 ms [insert: 0.4 ms]
+Latency 95th percentile   :    1.1 ms [insert: 1.1 ms]
+Latency 99th percentile   :    2.1 ms [insert: 2.1 ms]
+Latency 99.9th percentile :    5.6 ms [insert: 5.6 ms]
+Latency max               :  140.8 ms [insert: 140.8 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.915 GiB
+Total GC time             :    0.1 seconds
+Avg GC time               :  138.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:06
+
+Improvement over 4 threadCount: 51%
+Sleeping for 15s
 ```
 
+You can specify a fixed number of threads for a specific test, using multiple nodes:
+```
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(insert=1\) cl=LOCAL_ONE n=100000 -rate threads=8 -node 10.0.0.4,10.0.0.5,10.0.0.7
+```
 
 For reads
 ```
-cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node 10.0.0.4
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node 127.0.0.1
 
-cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 10.0.0.4
+cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 127.0.0.1
 
 ```
+Examples are provided for [read](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/stress_read.log) and [write](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/stress_write.log) stress tests from my Mac Pro.
 
 ## Visual Dashboard - Lucidworks Banana
 
