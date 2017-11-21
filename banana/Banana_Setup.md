@@ -4,22 +4,32 @@
 
 This guide will walk you through how to get Banana running with DataStax Enterprise. 
 
-##Download Banana
-Clone the Banana repo to `/usr/share/dse/solr/web`
-```
-cd  /usr/share/dse/solr/web
+## Download Banana
 
+Clone the Banana repo to ```$DSE_HOME/solr/web``` (where DSE_HOME points to the dse install parent directory).
+
+For example:
+```
+cd  $DSE_HOME/solr/web
+```
+You should see demos and solr in there:
+```
+ls /usr/share/dse/solr/web
+demos  solr
+```
+Clone the repo:
+```
 git clone https://github.com/lucidworks/banana
 
 ls /usr/share/dse/solr/web
 banana  demos  solr
 ```
 
-##Configure Banana
+## Configure Banana
 
-###Update `config.js`
+### Update `config.js`
 
-`cd  /usr/share/dse/solr/web/banana/src`
+```cd  /usr/share/dse/solr/web/banana/src```
 
 Edit config.js
 * set `solr_core` to `solr_core: "rtfap.transactions"`
@@ -48,7 +58,7 @@ Your `config.js` will look like this:
     banana_index: "banana.dashboards",
 ```
 
-###Generate Banana Solr Index
+### Generate Banana Solr Index
 
 Replace the default banana solrconfig.xml with the one generated when the RTFAP solr core was created using dsetool.
 ```
@@ -60,7 +70,7 @@ Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from th
 
 `http://[DSE_Host_IP]:8983/solr/#/rtfap.transactions/files?file=solrconfig.xml`
 
-###Create banana.dashboards Core
+### Create banana.dashboards Core
 
 ```
 curl --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/solrconfig.xml"
@@ -96,7 +106,7 @@ curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:898
 
 A Solr core called `banana.dashboards` should now appear in the Solr Admin UI in the drop-down list of available cores.
 
-###Update Tomcat conf
+### Update Tomcat conf
 
 `cd /usr/share/dse/tomcat/conf`
 
@@ -111,7 +121,7 @@ Delete the Tomcat work directory:
 rm /usr/share/dse/tomcat/work
 ```
 
-###Restart DSE
+### Restart DSE
 
 As root (or sudo) restart the DSE services:
 ```
@@ -131,7 +141,7 @@ Enter/check the data and press create:
 
 See Section 10 on Caroline's page [here](https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.jgeib56h5) for some hints on adding fields to a dashboard.
 
-###...Or Use The One We Made Earlier
+### ...Or Use The One We Made Earlier
 
 You can use the default supplied dashboard!!!
 ```
