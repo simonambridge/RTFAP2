@@ -6,22 +6,23 @@ This guide will walk you through how to get Banana running with DataStax Enterpr
 
 ## Download Banana
 
-Clone the Banana repo to ```$DSE_HOME/solr/web``` (where DSE_HOME points to the dse install parent directory).
+Clone the Banana repo to ```$DSE_HOME/resources/solr/web``` (where DSE_HOME points to the dse install parent directory).
 
 For example:
 ```
-cd  $DSE_HOME/solr/web
+cd  $DSE_HOME/resources/solr/web
 ```
-You should see demos and solr in there:
+You should see demos and solr in there - for example if dse is installed in ```/usr/share```:
+
 ```
-ls /usr/share/dse/solr/web
+ls /usr/share/dse/resources/solr/web
 demos  solr
 ```
 Clone the repo:
 ```
 git clone https://github.com/lucidworks/banana
 
-ls /usr/share/dse/solr/web
+ls /usr/share/dse/resources/solr/web
 banana  demos  solr
 ```
 
@@ -29,9 +30,13 @@ banana  demos  solr
 
 ### Update `config.js`
 
-```cd  /usr/share/dse/solr/web/banana/src```
+```
+cd  $DSE_HOME/resources/solr/web/banana/src
+cp config.js sconfig.js.original
+```
 
 Edit config.js
+We want to:
 * set `solr_core` to `solr_core: "rtfap.transactions"`
 * set `banana_index` to `banana_index: "banana.dashboards"`
 
@@ -68,10 +73,14 @@ cp solrconfig.xml solrconfig.xml.original
 
 Edit `solrconfig.xml` and replace the contents with the `solrconfig.xml` from the web page at: 
 
-`http://[DSE_Host_IP]:8983/solr/#/rtfap.transactions/files?file=solrconfig.xml`
+`http://[DSE_Host_IP]:8983/solr/#/rtfap.transactions/files?file=solrconfig.xml` - copy the entire test and paste it into the solrconfig.xml that you're editing.
+
+Change the IP address to your DSE node in the command URL above:
+
 
 ### Create banana.dashboards Core
 
+Change the IP address to your DSE node in the following command:
 ```
 curl --data-binary @solrconfig.xml -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/resource/banana.dashboards/solrconfig.xml"
 
@@ -96,39 +105,52 @@ e.g.
 
 ```
 curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards"
-
+```
+After a few seconds:
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <response>
-<lst name="responseHeader"><int name="status">400</int><int name="QTime">9</int></lst><lst name="error"><str name="msg">Core banana.dashboards does not exist, please use the CREATE action instead if you meant to create it.</str><int name="code">400</int></lst><str name="params">name=banana.dashboards&amp;action=RELOAD</str>
-</response>
-```
+<lst name="responseHeader"><int name="status">0</int><int name="QTime">20195</int></lst>
+</response>```
 
 
-A Solr core called `banana.dashboards` should now appear in the Solr Admin UI in the drop-down list of available cores.
+A Solr core called `banana.dashboards` should now appear in the Solr Admin UI in the drop-down list of available cores - Click "Core Admin".
 
 ### Update Tomcat conf
 
-`cd /usr/share/dse/tomcat/conf`
+```cd $DSE_HOME/resources/tomcat/conf```
 
 Edit server.xml.
+```
+cp server.xml server.xml.original
+```
+
 Add the following inside the `<Host>` tag:
 
-`<Context docBase="/usr/share/dse/solr/web/banana/src" path="/banana" />`
+```<Context docBase="<!your dse home location>!/solr/web/banana/src" path="/banana" />```
+
+Save the file.
 
 Delete the Tomcat work directory:
 
 ```
-rm /usr/share/dse/tomcat/work
+rm -rf $DSE_HOME/resources/tomcat/work
 ```
 
 ### Restart DSE
 
 As root (or sudo) restart the DSE services:
+On MacOs:
+```
+server_stop
+server_start
+```
+Linux:
 ```
 service dse restart
 ```
 
-###Create A Custom Dashboard
+### Create A Custom Dashboard
 
 In the browser go to `http://[DSE_Host_IP]:8983/banana`
 
@@ -145,9 +167,9 @@ See Section 10 on Caroline's page [here](https://medium.com/@carolinerg/visualiz
 
 You can use the default supplied dashboard!!!
 ```
-cd /usr/share/dse/solr/web/banana/src/app/dashboards
+cd $DSE_HOME/resources/solr/web/banana/src/app/dashboards
 cp default.json default.json.original
-cp /<RTFAP repo location>/banana/default.json .
+cp /<Your RTFAP repo location>/banana/default.json .
 ```
 
 Back in the browser hit refresh (or navigate to `http://[DSE_Node_IP]:8983/banana).
