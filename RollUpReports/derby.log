@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Mon Nov 20 23:10:10 GMT 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-015f-dbb2-3637-000033868cc0 
-on database directory /Users/simonambridge/Documents/My Projects/GitHub/RTFAP2/RollUpReports/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@11adca8f 
+Tue Nov 21 12:59:57 GMT 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-015f-dea9-e442-0000328fcfd8 
+on database directory /Users/simonambridge/Documents/My Projects/GitHub/RTFAP2/RollUpReports/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@4a204364 
 Loaded from file:/Users/simonambridge/zeppelin-0.7.1/interpreter/spark/dep/zeppelin-spark-dependencies_2.11-0.7.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_152-b16

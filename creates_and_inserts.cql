@@ -119,6 +119,28 @@ CREATE TABLE if not exists rtfap.txn_count_min (
 	PRIMARY KEY (( year, month, day, hour, minute ))
 );
 
+// Cassandra stress table
+
+CREATE TABLE if not exists rtfap.txn_by_cc (
+cc_no text,
+txn_year int,
+txn_month int,
+txn_day int,
+txn_time timestamp,
+amount double,
+cc_provider text,
+location text,
+merchant text,
+notes text,
+status text,
+tags set<text>,
+txn_id text,
+user_id text,
+	PRIMARY KEY (( cc_no, txn_year, txn_month, txn_day ), txn_time)
+) WITH CLUSTERING ORDER BY ( txn_time DESC )
+AND default_time_to_live = 86400;
+
+
 // Sample inserts
 
 insert into rtfap.transactions (year, month, day, hour, min, txn_time, cc_no, amount, cc_provider, items, location, merchant, notes, status, txn_id, user_id, tags) VALUES ( 2016, 03, 09, 11, 04, '2016-03-09 11:04:19', '1234123412341234', 200.0, 'VISA', {'tshirt':25, 'dressshirt':50, 'trousers':125}, 'San Francisco', 'Nordstrom', 'pretty good clothing', 'Approved', '098765', 'kunalak', {'Suspicious'});

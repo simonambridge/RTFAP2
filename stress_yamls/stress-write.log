@@ -1,0 +1,534 @@
+******************** Stress Settings ********************
+Command:
+  Type: user
+  Count: 100,000
+  No Warmup: false
+  Consistency Level: LOCAL_ONE
+  Target Uncertainty: not applicable
+  Command Ratios: {insert=1.0}
+  Command Clustering Distribution: clustering=gaussian(1..10)
+  Profile File: ./txn_by_cc_stress.yaml
+Rate:
+  Auto: true
+  Min Threads: 4
+  Max Threads: 1000
+Population:
+  Sequence: 1..100000
+  Order: ARBITRARY
+  Wrap: true
+Insert:
+  Revisits: Uniform:  min=1,max=1000000
+  Visits: Fixed:  key=1
+  Row Population Ratio: Ratio: divisor=1.000000;delegate=Fixed:  key=1
+  Batch Type: not batching
+Errors:
+  Ignore: false
+  Tries: 10
+Log:
+  No Summary: false
+  No Settings: false
+  No Progress: false
+  Show Queries: false
+  Query Log File: null
+  File: null
+  Interval Millis: 1000
+  Level: NORMAL
+Mode:
+  API: JAVA_DRIVER_NATIVE
+  Connection Style: CQL_PREPARED
+  CQL Version: CQL3
+  Protocol Version: DSE_V1
+  Username: null
+  Password: null
+  Auth Provide Class: null
+  Max Pending Per Connection: 128
+  Connections Per Host: 8
+  Compression: NONE
+Node:
+  Nodes: [127.0.0.1]
+  Is White List: false
+  Datacenter: null
+Schema:
+  Keyspace: rtfap
+  Replication Strategy: org.apache.cassandra.locator.SimpleStrategy
+  Replication Strategy Pptions: {replication_factor=1}
+  Table Compression: null
+  Table Compaction Strategy: null
+  Table Compaction Strategy Options: {}
+Transport:
+  factory=org.apache.cassandra.thrift.TFramedTransportFactory; truststore=null; truststore-password=null; keystore=null; keystore-password=null; ssl-protocol=TLS; ssl-alg=SunX509; store-type=JKS; ssl-ciphers=TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA;
+Port:
+  Native Port: 9042
+  Thrift Port: 9160
+  JMX Port: 9042
+Send To Daemon:
+  *not set*
+Graph:
+  File: null
+  Revision: unknown
+  Title: null
+  Operation: USER
+TokenRange:
+  Wrap: true
+  Split Factor: 1
+
+******************** Profile ********************
+  Keyspace Name: rtfap
+  Keyspace CQL:
+***
+null***
+
+  Table Name: txn_by_cc
+  Table CQL:
+***
+null***
+
+  Extra Schema Definitions: null
+  Generator Configs:
+    cc_no: Size: Fixed:  key=16;Identity: Gaussian:  min=1,max=9,mean=5.000000,stdev=1.333333;
+    amount: Size: Exponential:  min=3,max=10000,mean=2170.891689;Identity: Gaussian:  min=1,max=99999,mean=50000.000000,stdev=16666.333333;
+    notes: Size: Gaussian:  min=0,max=100,mean=50.000000,stdev=16.666667;Identity: Gaussian:  min=0,max=1000,mean=500.000000,stdev=166.666667;
+    txn_month: Size: Fixed:  key=2;Identity: Gaussian:  min=1,max=12,mean=6.500000,stdev=1.833333;
+    merchant: Size: Uniform:  min=4,max=100;Identity: Gaussian:  min=3,max=100,mean=51.500000,stdev=16.166667;
+    txn_year: Size: Fixed:  key=4;Identity: Gaussian:  min=2010,max=2016,mean=2013.000000,stdev=1.000000;
+    tags: Size: Gaussian:  min=0,max=20,mean=10.000000,stdev=3.333333;Identity: Gaussian:  min=0,max=100,mean=50.000000,stdev=16.666667;
+    txn_id: Size: Uniform:  min=4,max=100;Identity: Gaussian:  min=1,max=1000,mean=500.500000,stdev=166.500000;
+    cc_provider: Size: Uniform:  min=4,max=16;Identity: Uniform:  min=1,max=4;
+    txn_day: Size: Fixed:  key=2;Identity: Gaussian:  min=1,max=28,mean=14.500000,stdev=4.500000;
+    user_id: Size: Uniform:  min=4,max=50;Identity: Gaussian:  min=2,max=1000,mean=501.000000,stdev=166.333333;
+    txn_time: Size: Fixed:  key=18;Identity: Gaussian:  min=1,max=20,mean=10.500000,stdev=3.166667;
+    location: Size: Gaussian:  min=4,max=40,mean=22.000000,stdev=6.000000;Identity: Uniform:  min=3,max=100;
+    status: Size: Uniform:  min=4,max=20;Identity: Uniform:  min=2,max=20;
+  Query Definitions:
+    dailytrans: CQL:SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ?;Fields:samerow;
+    singletrans: CQL:SELECT * FROM rtfap.txn_by_cc WHERE cc_no = ? AND txn_year = ? AND txn_month = ? AND txn_day = ? AND txn_time = ?;Fields:samerow;
+  Token Range Queries:
+  Insert Settings:
+    partitions: fixed(1)
+    select: fixed(1)/1000
+    batchtype: UNLOGGED
+Connected to cluster: Test Cluster, max pending requests per connection 128, max connections per host 8
+Datatacenter: SearchGraphAnalytics; Host: /127.0.0.1; Rack: rack1
+Generating batches with [1..1] partitions and [0..100] rows (of [1..1] total rows in the partitions)
+
+Sleeping 2s...
+Warming up insert with 25000 iterations...
+Thread count was not specified
+
+Running with 4 threadCount
+Running [insert] with 4 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          1957,    1957,    1957,    1957,     0.6,     0.6,     1.0,     1.4,     4.1,     4.2,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,          9200,    7243,    7243,    7243,     0.5,     0.5,     0.9,     1.4,     3.9,     8.5,    2.0,  0.40729,      0,      0,       0,       0,       0,       0
+total,         17843,    8643,    8643,    8643,     0.4,     0.4,     0.7,     1.0,     3.6,    12.9,    3.0,  0.28055,      0,      0,       0,       0,       0,       0
+total,         29181,   11338,   11338,   11338,     0.3,     0.3,     0.5,     0.6,     1.6,     4.1,    4.0,  0.23372,      0,      0,       0,       0,       0,       0
+total,         40477,   11296,   11296,   11296,     0.3,     0.3,     0.5,     0.7,     1.9,     9.5,    5.0,  0.19039,      0,      0,       0,       0,       0,       0
+total,         52611,   12134,   12134,   12134,     0.3,     0.3,     0.4,     0.4,     0.6,     4.0,    6.0,  0.16215,      0,      0,       0,       0,       0,       0
+total,         64166,   11555,   11555,   11555,     0.3,     0.3,     0.4,     0.5,     1.1,    29.1,    7.0,  0.13946,      0,      0,       0,       0,       0,       0
+total,         73958,    9792,    9792,    9792,     0.3,     0.3,     0.4,     0.4,     0.7,     4.1,    8.0,  0.12132,      0,      1,     285,     285,       0,    2037
+total,         84188,   10230,   10230,   10230,     0.5,     0.3,     0.5,     0.6,     1.1,   286.8,    9.0,  0.11473,      0,      0,       0,       0,       0,       0
+total,         95703,   11515,   11515,   11515,     0.3,     0.3,     0.4,     0.6,     1.1,     4.4,   10.0,  0.10276,      0,      0,       0,       0,       0,       0
+total,        100000,   11688,   11688,   11688,     0.3,     0.3,     0.4,     0.5,     1.0,     3.9,   10.4,  0.09315,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :    9,645 op/s  [insert: 9,645 op/s]
+Partition rate            :    9,645 pk/s  [insert: 9,645 pk/s]
+Row rate                  :    9,645 row/s [insert: 9,645 row/s]
+Latency mean              :    0.4 ms [insert: 0.4 ms]
+Latency median            :    0.3 ms [insert: 0.3 ms]
+Latency 95th percentile   :    0.6 ms [insert: 0.6 ms]
+Latency 99th percentile   :    0.8 ms [insert: 0.8 ms]
+Latency 99.9th percentile :    2.5 ms [insert: 2.5 ms]
+Latency max               :  286.8 ms [insert: 286.8 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.989 GiB
+Total GC time             :    0.3 seconds
+Avg GC time               :  285.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:10
+
+Sleeping for 15s
+
+Running with 8 threadCount
+Running [insert] with 8 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          8754,    8754,    8754,    8754,     0.5,     0.4,     1.2,     2.5,     8.7,    18.9,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         24726,   15972,   15972,   15972,     0.5,     0.4,     1.1,     2.3,     4.8,    10.1,    2.0,  0.20353,      0,      0,       0,       0,       0,       0
+total,         40459,   15733,   15733,   15733,     0.5,     0.4,     1.1,     2.2,     5.8,    32.4,    3.0,  0.14378,      0,      0,       0,       0,       0,       0
+total,         56556,   16097,   16097,   16097,     0.5,     0.4,     1.1,     2.0,     4.4,     7.3,    4.0,  0.10961,      0,      0,       0,       0,       0,       0
+total,         70403,   13847,   13847,   13847,     0.6,     0.4,     1.0,     1.9,     5.1,   140.8,    5.0,  0.08817,      0,      1,     138,     138,       0,    1961
+total,         86375,   15972,   15972,   15972,     0.5,     0.4,     1.0,     1.9,     4.9,    11.2,    6.0,  0.07374,      0,      0,       0,       0,       0,       0
+total,        100000,   15652,   15652,   15652,     0.5,     0.4,     1.0,     2.1,     6.0,    20.3,    6.9,  0.06326,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   14,555 op/s  [insert: 14,555 op/s]
+Partition rate            :   14,555 pk/s  [insert: 14,555 pk/s]
+Row rate                  :   14,555 row/s [insert: 14,555 row/s]
+Latency mean              :    0.5 ms [insert: 0.5 ms]
+Latency median            :    0.4 ms [insert: 0.4 ms]
+Latency 95th percentile   :    1.1 ms [insert: 1.1 ms]
+Latency 99th percentile   :    2.1 ms [insert: 2.1 ms]
+Latency 99.9th percentile :    5.6 ms [insert: 5.6 ms]
+Latency max               :  140.8 ms [insert: 140.8 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.915 GiB
+Total GC time             :    0.1 seconds
+Avg GC time               :  138.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:06
+
+Improvement over 4 threadCount: 51%
+Sleeping for 15s
+
+Running with 16 threadCount
+Running [insert] with 16 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          1243,    1243,    1243,    1243,     1.2,     1.2,     2.1,     2.7,     3.2,     3.3,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         21211,   19968,   19968,   19968,     0.8,     0.5,     1.6,     6.2,    36.1,    51.0,    2.0,  0.62797,      0,      0,       0,       0,       0,       0
+total,         40204,   18993,   18993,   18993,     0.8,     0.4,     2.2,     8.2,    34.4,    95.0,    3.0,  0.37295,      0,      0,       0,       0,       0,       0
+total,         59712,   19508,   19508,   19508,     0.8,     0.4,     2.3,     6.8,    39.0,   125.2,    4.0,  0.26720,      0,      0,       0,       0,       0,       0
+total,         77452,   17740,   17740,   17740,     0.9,     0.5,     2.0,     7.3,    81.0,    90.2,    5.0,  0.20853,      0,      1,      79,      79,       0,    2041
+total,         95564,   18112,   18112,   18112,     0.9,     0.4,     1.9,     9.2,    50.4,   110.9,    6.0,  0.17073,      0,      0,       0,       0,       0,       0
+total,        100000,   18185,   18185,   18185,     0.9,     0.4,     2.3,    10.3,    47.2,    78.3,    6.2,  0.15065,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   16,016 op/s  [insert: 16,016 op/s]
+Partition rate            :   16,016 pk/s  [insert: 16,016 pk/s]
+Row rate                  :   16,016 row/s [insert: 16,016 row/s]
+Latency mean              :    0.8 ms [insert: 0.8 ms]
+Latency median            :    0.4 ms [insert: 0.4 ms]
+Latency 95th percentile   :    2.0 ms [insert: 2.0 ms]
+Latency 99th percentile   :    7.5 ms [insert: 7.5 ms]
+Latency 99.9th percentile :   41.3 ms [insert: 41.3 ms]
+Latency max               :  125.2 ms [insert: 125.2 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.993 GiB
+Total GC time             :    0.1 seconds
+Avg GC time               :   79.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:06
+
+Improvement over 8 threadCount: 10%
+Sleeping for 15s
+
+Running with 24 threadCount
+Running [insert] with 24 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,         16743,   16743,   16743,   16743,     1.0,     0.6,     2.6,     9.5,    25.4,    55.5,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         38501,   21758,   21758,   21758,     1.1,     0.5,     2.2,    11.9,    76.2,   126.3,    2.0,  0.11904,      0,      0,       0,       0,       0,       0
+total,         60599,   22098,   22098,   22098,     1.1,     0.5,     2.4,    11.7,    60.0,   127.2,    3.0,  0.08884,      0,      0,       0,       0,       0,       0
+total,         82722,   22123,   22123,   22123,     1.1,     0.4,     2.3,    13.4,    79.8,   125.1,    4.0,  0.06922,      0,      1,      21,      21,       0,    2038
+total,        100000,   22247,   22247,   22247,     1.1,     0.5,     2.7,    13.6,    49.4,   125.9,    4.8,  0.05907,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   20,935 op/s  [insert: 20,935 op/s]
+Partition rate            :   20,935 pk/s  [insert: 20,935 pk/s]
+Row rate                  :   20,935 row/s [insert: 20,935 row/s]
+Latency mean              :    1.1 ms [insert: 1.1 ms]
+Latency median            :    0.5 ms [insert: 0.5 ms]
+Latency 95th percentile   :    2.5 ms [insert: 2.5 ms]
+Latency 99th percentile   :   11.9 ms [insert: 11.9 ms]
+Latency 99.9th percentile :   59.7 ms [insert: 59.7 ms]
+Latency max               :  127.2 ms [insert: 127.2 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.990 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   21.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 16 threadCount: 31%
+Sleeping for 15s
+
+Running with 36 threadCount
+Running [insert] with 36 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          4237,    4237,    4237,    4237,     1.5,     1.0,     3.5,     7.6,    25.5,    26.6,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         29225,   24988,   24988,   24988,     1.4,     0.5,     3.7,    14.8,   126.6,   222.4,    2.0,  0.53841,      0,      0,       0,       0,       0,       0
+total,         54523,   25298,   25298,   25298,     1.4,     0.5,     3.0,    20.4,   106.0,   165.7,    3.0,  0.32902,      0,      0,       0,       0,       0,       0
+total,         80574,   26051,   26051,   26051,     1.4,     0.5,     3.4,    18.5,    81.4,   135.5,    4.0,  0.23738,      0,      1,      17,      17,       0,    2050
+total,        100000,   24519,   24519,   24519,     1.5,     0.6,     3.4,    15.8,    83.6,   165.0,    4.8,  0.18597,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   20,867 op/s  [insert: 20,867 op/s]
+Partition rate            :   20,867 pk/s  [insert: 20,867 pk/s]
+Row rate                  :   20,867 row/s [insert: 20,867 row/s]
+Latency mean              :    1.4 ms [insert: 1.4 ms]
+Latency median            :    0.5 ms [insert: 0.5 ms]
+Latency 95th percentile   :    3.4 ms [insert: 3.4 ms]
+Latency 99th percentile   :   17.1 ms [insert: 17.1 ms]
+Latency 99.9th percentile :  104.3 ms [insert: 104.3 ms]
+Latency max               :  222.4 ms [insert: 222.4 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 2.002 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   17.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 24 threadCount: -0%
+Sleeping for 15s
+
+Running with 54 threadCount
+Running [insert] with 54 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          3624,    3624,    3624,    3624,     2.2,     1.5,     4.2,     8.5,    76.7,    84.7,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         31647,   28023,   28023,   28023,     1.9,     0.7,     3.9,    17.8,   131.1,   249.8,    2.0,  0.57158,      0,      0,       0,       0,       0,       0
+total,         59661,   28014,   28014,   28014,     1.9,     0.7,     4.5,    31.4,   102.0,   199.8,    3.0,  0.34540,      0,      0,       0,       0,       0,       0
+total,         86823,   27162,   27162,   27162,     2.0,     0.6,     4.9,    29.7,   126.0,   231.2,    4.0,  0.24825,      0,      1,      28,      28,       0,    2050
+total,        100000,   27504,   27504,   27504,     2.0,     0.6,     4.0,    20.8,   129.7,   131.9,    4.5,  0.19476,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   22,326 op/s  [insert: 22,326 op/s]
+Partition rate            :   22,326 pk/s  [insert: 22,326 pk/s]
+Row rate                  :   22,326 row/s [insert: 22,326 row/s]
+Latency mean              :    1.9 ms [insert: 1.9 ms]
+Latency median            :    0.7 ms [insert: 0.7 ms]
+Latency 95th percentile   :    4.3 ms [insert: 4.3 ms]
+Latency 99th percentile   :   26.1 ms [insert: 26.1 ms]
+Latency 99.9th percentile :  126.9 ms [insert: 126.9 ms]
+Latency max               :  249.8 ms [insert: 249.8 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 2.002 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   28.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 36 threadCount: 7%
+Sleeping for 15s
+
+Running with 81 threadCount
+Running [insert] with 81 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,         10739,   10739,   10739,   10739,     3.2,     1.1,     7.8,    60.3,    94.3,   142.3,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         35703,   24964,   24964,   24964,     3.2,     0.9,     5.7,    65.2,   182.1,   295.2,    2.0,  0.33773,      0,      0,       0,       0,       0,       0
+total,         67143,   31440,   31440,   31440,     2.6,     1.2,     5.1,    34.6,   127.2,   256.5,    3.0,  0.24429,      0,      0,       0,       0,       0,       0
+total,         95828,   28685,   28685,   28685,     2.7,     1.0,     5.7,    51.6,   134.0,   187.8,    4.0,  0.17925,      0,      1,      23,      23,       0,    2028
+total,        100000,   26931,   26931,   26931,     3.7,     0.8,    15.3,    78.1,   115.3,   208.9,    4.2,  2.06441,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   24,068 op/s  [insert: 24,068 op/s]
+Partition rate            :   24,068 pk/s  [insert: 24,068 pk/s]
+Row rate                  :   24,068 row/s [insert: 24,068 row/s]
+Latency mean              :    2.9 ms [insert: 2.9 ms]
+Latency median            :    1.1 ms [insert: 1.1 ms]
+Latency 95th percentile   :    6.1 ms [insert: 6.1 ms]
+Latency 99th percentile   :   57.2 ms [insert: 57.2 ms]
+Latency 99.9th percentile :  143.1 ms [insert: 143.1 ms]
+Latency max               :  295.2 ms [insert: 295.2 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.980 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   23.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 54 threadCount: 8%
+Sleeping for 15s
+
+Running with 121 threadCount
+Running [insert] with 121 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,         22581,   22581,   22581,   22581,     4.0,     1.0,    14.4,    68.9,   172.0,   221.5,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         51045,   28464,   28464,   28464,     4.2,     1.2,     7.2,    88.5,   273.4,   407.1,    2.0,  0.17447,      0,      0,       0,       0,       0,       0
+total,         83170,   32125,   32125,   32125,     3.6,     1.1,     9.0,    62.5,   187.0,   362.3,    3.0,  0.13004,      0,      1,      20,      20,       0,    2064
+total,        100000,   30864,   30864,   30864,     4.2,     1.3,    15.7,    91.9,   156.9,   231.1,    3.5,  0.10585,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   28,206 op/s  [insert: 28,206 op/s]
+Partition rate            :   28,206 pk/s  [insert: 28,206 pk/s]
+Row rate                  :   28,206 row/s [insert: 28,206 row/s]
+Latency mean              :    4.0 ms [insert: 4.0 ms]
+Latency median            :    1.1 ms [insert: 1.1 ms]
+Latency 95th percentile   :   10.3 ms [insert: 10.3 ms]
+Latency 99th percentile   :   74.4 ms [insert: 74.4 ms]
+Latency 99.9th percentile :  231.1 ms [insert: 231.1 ms]
+Latency max               :  407.1 ms [insert: 407.1 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 2.016 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   20.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:03
+
+Improvement over 81 threadCount: 17%
+Sleeping for 15s
+
+Running with 181 threadCount
+Running [insert] with 181 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,         11404,   11404,   11404,   11404,     4.7,     2.0,     9.9,   102.4,   135.0,   144.3,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         40311,   28907,   28907,   28907,     6.3,     1.6,    14.5,   132.8,   252.3,   376.7,    2.0,  0.39143,      0,      0,       0,       0,       0,       0
+total,         74199,   33888,   33888,   33888,     5.2,     1.8,    12.5,   119.5,   170.3,   258.3,    3.0,  0.25342,      0,      0,       0,       0,       0,       0
+total,        100000,   31227,   31227,   31227,     6.3,     2.1,    17.8,   125.6,   251.0,   420.5,    3.8,  0.21505,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   26,135 op/s  [insert: 26,135 op/s]
+Partition rate            :   26,135 pk/s  [insert: 26,135 pk/s]
+Row rate                  :   26,135 row/s [insert: 26,135 row/s]
+Latency mean              :    5.8 ms [insert: 5.8 ms]
+Latency median            :    1.8 ms [insert: 1.8 ms]
+Latency 95th percentile   :   14.7 ms [insert: 14.7 ms]
+Latency 99th percentile   :  124.5 ms [insert: 124.5 ms]
+Latency 99.9th percentile :  237.6 ms [insert: 237.6 ms]
+Latency max               :  420.5 ms [insert: 420.5 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 0
+Total GC memory           : 0.000 KiB
+Total GC time             :    0.0 seconds
+Avg GC time               :    NaN ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:03
+
+Improvement over 121 threadCount: -7%
+Sleeping for 15s
+
+Running with 271 threadCount
+Running [insert] with 271 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          1532,    1532,    1532,    1532,     4.1,     4.1,     6.0,     6.5,     7.3,     7.6,    1.0,  0.00000,      0,      0,       0,       0,       0,       0
+total,         33497,   31965,   31965,   31965,     7.9,     2.7,    21.4,   129.1,   252.6,   293.3,    2.0,  0.66043,      0,      0,       0,       0,       0,       0
+total,         63940,   30443,   30443,   30443,     9.3,     2.3,    24.6,   187.6,   374.9,   446.7,    3.0,  0.39556,      0,      0,       0,       0,       0,       0
+total,         98342,   34402,   34402,   34402,     8.0,     2.3,    30.9,   139.5,   250.1,   380.1,    4.0,  0.28219,      0,      0,       0,       0,       0,       0
+total,        100000,   28702,   28702,   28702,    10.0,     6.8,    20.4,    65.6,   137.0,   147.5,    4.1,  0.49093,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   24,644 op/s  [insert: 24,644 op/s]
+Partition rate            :   24,644 pk/s  [insert: 24,644 pk/s]
+Row rate                  :   24,644 row/s [insert: 24,644 row/s]
+Latency mean              :    8.3 ms [insert: 8.3 ms]
+Latency median            :    2.5 ms [insert: 2.5 ms]
+Latency 95th percentile   :   24.3 ms [insert: 24.3 ms]
+Latency 99th percentile   :  144.7 ms [insert: 144.7 ms]
+Latency 99.9th percentile :  315.4 ms [insert: 315.4 ms]
+Latency max               :  446.7 ms [insert: 446.7 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 0
+Total GC memory           : 0.000 KiB
+Total GC time             :    0.0 seconds
+Avg GC time               :    NaN ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 181 threadCount: -6%
+Sleeping for 15s
+
+Running with 406 threadCount
+Running [insert] with 406 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,         21177,   21177,   21177,   21177,     9.9,     2.3,    41.2,   144.0,   340.8,   354.2,    1.0,  0.00000,      0,      1,      26,      26,       0,    2071
+total,         46452,   25275,   25275,   25275,    19.0,     2.7,    74.5,   449.6,   600.8,   727.2,    2.0,  0.33742,      0,      0,       0,       0,       0,       0
+total,         80585,   34133,   34133,   34133,    12.0,     2.2,    34.8,   251.8,   501.0,   609.2,    3.0,  0.22022,      0,      0,       0,       0,       0,       0
+total,        100000,   35149,   35149,   35149,    12.6,     2.6,    53.4,   256.8,   380.4,   392.2,    3.6,  0.19151,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   28,150 op/s  [insert: 28,150 op/s]
+Partition rate            :   28,150 pk/s  [insert: 28,150 pk/s]
+Row rate                  :   28,150 row/s [insert: 28,150 row/s]
+Latency mean              :   13.4 ms [insert: 13.4 ms]
+Latency median            :    2.4 ms [insert: 2.4 ms]
+Latency 95th percentile   :   49.2 ms [insert: 49.2 ms]
+Latency 99th percentile   :  253.5 ms [insert: 253.5 ms]
+Latency 99.9th percentile :  527.2 ms [insert: 527.2 ms]
+Latency max               :  727.2 ms [insert: 727.2 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 2.022 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   26.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:03
+
+Improvement over 271 threadCount: 14%
+Sleeping for 15s
+
+Running with 609 threadCount
+Running [insert] with 609 threads for 100000 iteration
+type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+total,          5515,    5515,    5515,    5515,    17.9,     4.2,   133.8,   180.4,   192.5,   201.1,    1.0,  0.00000,      0,      1,      22,      22,       0,    2037
+total,         39823,   34308,   34308,   34308,    16.5,     2.9,    98.8,   253.1,   431.8,   495.2,    2.0,  0.57671,      0,      0,       0,       0,       0,       0
+total,         51816,   11993,   11993,   11993,    21.9,     4.2,   111.1,   300.9,   502.8,   613.9,    3.0,  0.41053,      0,      0,       0,       0,       0,       0
+total,         80857,   29041,   29041,   29041,    33.2,     3.9,   142.9,   755.0,   916.5,  1141.9,    4.0, -2.15054,      0,      0,       0,       0,       0,       0
+total,        100000,   31030,   31030,   31030,    22.6,     3.6,   138.8,   264.9,   504.4,   519.3,    4.6,  2.97769,      0,      0,       0,       0,       0,       0
+
+
+Results:
+Op rate                   :   21,659 op/s  [insert: 21,659 op/s]
+Partition rate            :   21,659 pk/s  [insert: 21,659 pk/s]
+Row rate                  :   21,659 row/s [insert: 21,659 row/s]
+Latency mean              :   23.2 ms [insert: 23.2 ms]
+Latency median            :    3.4 ms [insert: 3.4 ms]
+Latency 95th percentile   :  126.9 ms [insert: 126.9 ms]
+Latency 99th percentile   :  381.4 ms [insert: 381.4 ms]
+Latency 99.9th percentile :  804.8 ms [insert: 804.8 ms]
+Latency max               : 1141.9 ms [insert: 1,141.9 ms]
+Total partitions          :    100,000 [insert: 100,000]
+Total errors              :          0 [insert: 0]
+Total GC count            : 1
+Total GC memory           : 1.989 GiB
+Total GC time             :    0.0 seconds
+Avg GC time               :   22.0 ms
+StdDev GC time            :    0.0 ms
+Total operation time      : 00:00:04
+
+Improvement over 406 threadCount: -23%
+Sleeping for 15s
+             id, type       total ops,    op/s,    pk/s,   row/s,    mean,     med,     .95,     .99,    .999,     max,   time,   stderr, errors,  gc: #,  max ms,  sum ms,  sdv ms,      mb
+  4 threadCount, insert,       100000,    9645,    9645,    9645,     0.4,     0.3,     0.6,     0.8,     2.5,   286.8,   10.4,  0.09315,      0,      1,     285,     285,       0,    2037
+  4 threadCount, total,        100000,    9645,    9645,    9645,     0.4,     0.3,     0.6,     0.8,     2.5,   286.8,   10.4,  0.09315,      0,      1,     285,     285,       0,    2037
+  8 threadCount, insert,       100000,   14555,   14555,   14555,     0.5,     0.4,     1.1,     2.1,     5.6,   140.8,    6.9,  0.06326,      0,      1,     138,     138,       0,    1961
+  8 threadCount, total,        100000,   14555,   14555,   14555,     0.5,     0.4,     1.1,     2.1,     5.6,   140.8,    6.9,  0.06326,      0,      1,     138,     138,       0,    1961
+ 16 threadCount, insert,       100000,   16016,   16016,   16016,     0.8,     0.4,     2.0,     7.5,    41.3,   125.2,    6.2,  0.15065,      0,      1,      79,      79,       0,    2041
+ 16 threadCount, total,        100000,   16016,   16016,   16016,     0.8,     0.4,     2.0,     7.5,    41.3,   125.2,    6.2,  0.15065,      0,      1,      79,      79,       0,    2041
+ 24 threadCount, insert,       100000,   20935,   20935,   20935,     1.1,     0.5,     2.5,    11.9,    59.7,   127.2,    4.8,  0.05907,      0,      1,      21,      21,       0,    2038
+ 24 threadCount, total,        100000,   20935,   20935,   20935,     1.1,     0.5,     2.5,    11.9,    59.7,   127.2,    4.8,  0.05907,      0,      1,      21,      21,       0,    2038
+ 36 threadCount, insert,       100000,   20867,   20867,   20867,     1.4,     0.5,     3.4,    17.1,   104.3,   222.4,    4.8,  0.18597,      0,      1,      17,      17,       0,    2050
+ 36 threadCount, total,        100000,   20867,   20867,   20867,     1.4,     0.5,     3.4,    17.1,   104.3,   222.4,    4.8,  0.18597,      0,      1,      17,      17,       0,    2050
+ 54 threadCount, insert,       100000,   22326,   22326,   22326,     1.9,     0.7,     4.3,    26.1,   126.9,   249.8,    4.5,  0.19476,      0,      1,      28,      28,       0,    2050
+ 54 threadCount, total,        100000,   22326,   22326,   22326,     1.9,     0.7,     4.3,    26.1,   126.9,   249.8,    4.5,  0.19476,      0,      1,      28,      28,       0,    2050
+ 81 threadCount, insert,       100000,   24068,   24068,   24068,     2.9,     1.1,     6.1,    57.2,   143.1,   295.2,    4.2,  2.06441,      0,      1,      23,      23,       0,    2028
+ 81 threadCount, total,        100000,   24068,   24068,   24068,     2.9,     1.1,     6.1,    57.2,   143.1,   295.2,    4.2,  2.06441,      0,      1,      23,      23,       0,    2028
+121 threadCount, insert,       100000,   28206,   28206,   28206,     4.0,     1.1,    10.3,    74.4,   231.1,   407.1,    3.5,  0.10585,      0,      1,      20,      20,       0,    2064
+121 threadCount, total,        100000,   28206,   28206,   28206,     4.0,     1.1,    10.3,    74.4,   231.1,   407.1,    3.5,  0.10585,      0,      1,      20,      20,       0,    2064
+181 threadCount, insert,       100000,   26135,   26135,   26135,     5.8,     1.8,    14.7,   124.5,   237.6,   420.5,    3.8,  0.21505,      0,      0,       0,       0,       0,       0
+181 threadCount, total,        100000,   26135,   26135,   26135,     5.8,     1.8,    14.7,   124.5,   237.6,   420.5,    3.8,  0.21505,      0,      0,       0,       0,       0,       0
+271 threadCount, insert,       100000,   24644,   24644,   24644,     8.3,     2.5,    24.3,   144.7,   315.4,   446.7,    4.1,  0.49093,      0,      0,       0,       0,       0,       0
+271 threadCount, total,        100000,   24644,   24644,   24644,     8.3,     2.5,    24.3,   144.7,   315.4,   446.7,    4.1,  0.49093,      0,      0,       0,       0,       0,       0
+406 threadCount, insert,       100000,   28150,   28150,   28150,    13.4,     2.4,    49.2,   253.5,   527.2,   727.2,    3.6,  0.19151,      0,      1,      26,      26,       0,    2071
+406 threadCount, total,        100000,   28150,   28150,   28150,    13.4,     2.4,    49.2,   253.5,   527.2,   727.2,    3.6,  0.19151,      0,      1,      26,      26,       0,    2071
+609 threadCount, insert,       100000,   21659,   21659,   21659,    23.2,     3.4,   126.9,   381.4,   804.8,  1141.9,    4.6,  2.97769,      0,      1,      22,      22,       0,    2037
+609 threadCount, total,        100000,   21659,   21659,   21659,    23.2,     3.4,   126.9,   381.4,   804.8,  1141.9,    4.6,  2.97769,      0,      1,      22,      22,       0,    2037
+END
+ 
+

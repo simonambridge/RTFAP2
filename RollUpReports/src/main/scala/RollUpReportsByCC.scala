@@ -34,7 +34,7 @@ object RollUpReportsByCC {
     rollupDF.registerTempTable("my_transactions")
 
     // 1. hourlyaggregates_bycc
-    println(" - Populating hourlyaggregates_bycc")
+    println(" - 1. Populating hourlyaggregates_bycc")
 
     val rollup1= sqlContext.sql("select cc_no, " +
       "int(concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day), if(length(hour)=1, concat('0',hour), hour))) as hour, " +
@@ -52,12 +52,13 @@ object RollUpReportsByCC {
       .save()
 
     // 2. dailyaggregates_bycc
-    println(" - Populating dailyaggregates_bycc")
+    println(" - 2. Populating dailyaggregates_bycc")
     val rollup2= sqlContext.sql("select cc_no, " +
       "int(concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day))) as day, " +
       "sum(amount) as total_amount, " +
       "min(amount) as min_amount, " +
-      "max(amount) as max_amount " +
+      "max(amount) as max_amount, " +
+      "count(*) as total_count " +
       "from my_transactions " +
       "group by cc_no, " +
       "concat(year, if(length(month)=1, concat('0',month), month),if(length(day)=1, concat('0',day), day))")
@@ -68,12 +69,13 @@ object RollUpReportsByCC {
       .save()
 
     // 3. monthlyaggregates_bycc
-    println(" - Populating monthlyaggregates_bycc")
+    println(" - 3. Populating monthlyaggregates_bycc")
     val rollup3= sqlContext.sql("select cc_no, " +
       "int(concat(year, if(length(month)=1, concat('0',month), month))) as month, " +
       "sum(amount) as total_amount, " +
       "min(amount) as min_amount, " +
-      "max(amount) as max_amount " +
+      "max(amount) as max_amount, " +
+      "count(*) as total_count " +
       "from my_transactions " +
       "group by cc_no, concat(year, if(length(month)=1, concat('0',month), month))")
 
@@ -83,7 +85,7 @@ object RollUpReportsByCC {
       .save()
 
     // 4. yearlyaggregates_bycc
-    println(" - Populating yearlyaggregates_bycc")
+    println(" - 4. Populating yearlyaggregates_bycc")
     val rollup4= sqlContext.sql("select cc_no, " +
       "int(year) as year, " +
       "sum(amount) as total_amount, " +
