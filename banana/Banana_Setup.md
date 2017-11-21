@@ -106,19 +106,22 @@ e.g.
 ```
 curl -X POST -H 'Content-type:text/xml; charset=utf-8' "http://[DSE_Host_IP]:8983/solr/admin/cores?action=RELOAD&name=banana.dashboards"
 ```
+
 After a few seconds:
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <response>
 <lst name="responseHeader"><int name="status">0</int><int name="QTime">20195</int></lst>
 </response>```
-
+```
 
 A Solr core called `banana.dashboards` should now appear in the Solr Admin UI in the drop-down list of available cores - Click "Core Admin".
 
 ### Update Tomcat conf
 
-```cd $DSE_HOME/resources/tomcat/conf```
+```
+cd $DSE_HOME/resources/tomcat/conf
+```
 
 Edit server.xml.
 ```
@@ -127,7 +130,9 @@ cp server.xml server.xml.original
 
 Add the following inside the `<Host>` tag:
 
-```<Context docBase="<!your dse home location>!/solr/web/banana/src" path="/banana" />```
+```
+<Context docBase="<!your dse home location>!/solr/web/banana/src" path="/banana" />
+```
 
 Save the file.
 
@@ -140,6 +145,7 @@ rm -rf $DSE_HOME/resources/tomcat/work
 ### Restart DSE
 
 As root (or sudo) restart the DSE services:
+
 On MacOs:
 ```
 server_stop
