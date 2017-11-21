@@ -399,6 +399,9 @@ runDurationSeconds -1
 
 
   Data in the ```txn_count_min``` table will be used to service a D3 chart.
+  
+  > !! Remember - there is a TTL on the transactions table, so the data will gradually age out after 24 hours!! :)
+
 
   4. View the transaction approval data as a graph
   
