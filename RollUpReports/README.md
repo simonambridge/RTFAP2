@@ -2,7 +2,7 @@
 
 ## Running Batch Roll-up Reports
 
-Based on an original creation by Kunal Kusoorkar.
+Redesigned and rewritten from an original creation by Kunal Kusoorkar.
 
 This project consists of two elements:
    
@@ -12,8 +12,35 @@ This project consists of two elements:
 The roll-up jobs will use the data in the Transactions table to generate aggregates by merchant and by credit card. 
 These jobs can be run as frequently as necessary depending on the currency of the information required e.g. every 10 minutes or every hour etc.
 
-The dailytxns_bymerchant table is the data in the transactions table but keyed on merchant and day with a clustering column ascending on credit card number.
-There are four static columns for example total_amount, min_amount, max_amount - so these are static for each merchant and day. This allows us to track daily transactions for each merchant at both a transaction level and at a summary level by merchant by day.
+### dailytxns_bymerchant
+The dailytxns_bymerchant table is the data in the transactions table, but keyed on merchant and day with a clustering column ascending on credit card number.
+There are four static columns - total_amount, min_amount, max_amount and total_count. Static columns are a powerful feature of Cassandra - the static values are static for each partition key (merchant and day). This allows us to track daily transactions for each merchant at both a transaction level and (using the static columns) at a summary level by merchant by day.
+
+### aggregate tables 
+The aggregate tables are rolled up by credit card e.g. hourlyaggregates_bycc:
+```
++----------------+----------+------------+----------+----------+-----------+
+|           cc_no|      hour|total_amount|min_amount|max_amount|total_count|
++----------------+----------+------------+----------+----------+-----------+
+|1234123412341234|2016030911|       200.0|     200.0|     200.0|          1|
+|1234123412341234|2016031721|       200.0|     200.0|     200.0|          1|
+|1234123412341235|2016030911|      1200.0|     400.0|     800.0|          2|
+|1234123412341236|2016030911|       750.0|     750.0|     750.0|          1|
+|1234123412341237|2016030912|      1500.0|    1500.0|    1500.0|          1|
++----------------+----------+------------+----------+----------+-----------+
+```
+versus e.g. yearlyaggregates_bycc:
+```
++----------------+----+------------+----------+----------+-----------+
+|           cc_no|year|total_amount|min_amount|max_amount|total_count|
++----------------+----+------------+----------+----------+-----------+
+|1234123412341234|2016|       400.0|     200.0|     200.0|          2|
+|1234123412341235|2016|      1200.0|     400.0|     800.0|          2|
+|1234123412341236|2016|       750.0|     750.0|     750.0|          1|
+|1234123412341237|2016|      1500.0|    1500.0|    1500.0|          1|
++----------------+----+------------+----------+----------+-----------+
+```
+
 
 ### Pre-requisites
 The following components must be installed and available on your machine.
