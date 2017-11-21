@@ -145,7 +145,8 @@ On MacOs:
 server_stop
 server_start
 ```
-Linux:
+
+On Debian Linux:
 ```
 service dse restart
 ```
