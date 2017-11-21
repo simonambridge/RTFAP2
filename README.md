@@ -363,7 +363,7 @@ cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(singletrans=1\) -node
 cassandra-stress user profile=./txn_by_cc_stress.yaml ops\(dailytrans=1\) -node 127.0.0.1
 
 ```
-Examples are provided for [read](https://github.com/simonambridge/RTFAP2/stress_yamls/stress_read.log) and [write](https://github.com/simonambridge/RTFAP2/stress_yamls/stress_write.log) stress tests from my Mac Pro.
+Examples are provided for [read](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/stress-write.logstress_yamls/stress_read.log) and [write](https://github.com/simonambridge/RTFAP2/blob/master/stress_yamls/stress-write.logstress_yamls/stress_write.log) stress tests from my Mac Pro.
 
 ## Visual Dashboard - Lucidworks Banana
 
