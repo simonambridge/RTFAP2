@@ -102,9 +102,18 @@ $ sudo dse hadoop fs -chmod 777 /tmp/hive```
 
 This will run the command:
 ```
-dse spark-submit --class RollUpReportsByCC ./target/scala-2.10/rollupreports_2.10-1.0.jar
-Beginning RollUp Reporting By CC...
-Completed RollUps By CC...  
+dse spark-submit --class RollUpReportsByCC ./target/scala-2.11/rollupreports_2.11-1.0.jar
+```
+Output will be 
+```
+Beginning RollUp Reporting By Credit Card number...
+WARN  2017-11-21 13:37:35,329 org.apache.spark.SparkContext: Use an existing SparkContext, some configuration may not take effect.
+ - 1. Populating hourlyaggregates_bycc
+ - 2. Populating dailyaggregates_bycc
+ - 3. Populating monthlyaggregates_bycc
+ - 4. Populating yearlyaggregates_bycc
+Completed RollUps By CC
+Shutting down... 
 ```
 
 When these jobs have completed you will be able to run the ReST queries that interrogate the rollup and aggregate tables.
