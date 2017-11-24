@@ -62,12 +62,12 @@ Now extract and create the directory ```kafka_2.11-1.0.0```
 ```
 $ tar xvf kafka_2.11-1.0.0.tgz
 ```
-Now delete the download if you don;t want to keep it
+Delete the download archive if you don't want to keep it
 ```
 $ rm kafka_kafka_2.11-1.0.0.tgz
 ```
 
-Move the kafka directory tree to your preferred location, e.g.:
+Move the extracted Kafka directory tree to your preferred location, e.g.:
 
 ```
 $ mv kafka_2.11-1.0.0 /Software/Kafka
@@ -136,11 +136,10 @@ NewTransactions
 
 ## Some more useful Kafka commands
 	
+> Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 Set message retention for 1 hour:
 
 By default Kafka will retain messages in the queue for 7 days - to change retention to e.g. 1 hour (360000 milliseconds) 
-
-> Kafka does not automatically remove messages from the queue after they have been read. This allows for the possibility of recovery in the event that the consumer dies
 
 ```
 $ $KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --alter --add-config retention.ms=3600000 --entity-name NewTransactions
