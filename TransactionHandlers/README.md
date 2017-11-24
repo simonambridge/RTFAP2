@@ -114,7 +114,7 @@ $ sudo -b nohup $KAFKA_HOME/bin/kafka-server-start.sh config/server.properties >
 
 4.a. Create the topic we will use for the demo
 
-  * `$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions`
+```$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic NewTransactions```
 
 For example:
 ```
@@ -125,7 +125,7 @@ Created topic "NewTransactions".
 
 4.b. Validate the topic was created:
 
-  * `$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list`
+```$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list```
 
 For example:
 ```
