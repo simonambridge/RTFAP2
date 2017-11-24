@@ -17,17 +17,18 @@ $ npm -v
 > 5.5.1
 ```
 ## Install Express
-We can now npm to install all the Node.js tools needed, including Express.
+We can now use npm to install all the Node.js tools needed, including Express.
 
 NPM 1.0 installs modules at the project-level. Command-line tools can be installed globally.
 
-Because Express is a project module and a command line toolwe can install it in both scopes it can be installed globally:
+Because Express is a project module and a command line tool we can install it in both scopes, so we will install it globally:
 
+```
 $ npm install -g express
 $ npm install -g express-generator
 $ express --version
 4.15.5
-
+```
 
 ## Install Node Cassandra Driver
 
@@ -66,9 +67,9 @@ You should see the console display the following:
 
 Now go to the service URL: http://localhost:3000/
 
-At this point you will be able to run some (but not all) of the Solr queries shown below.
+At this point you will be able to run some (but not all) of the Solr queries.
 
-The queries demonstrate the use of both straightforward CQL, and CQL-Solr, but the roll-up tables have not been populated yet so these will return no data.
+The web page demonstrates the use of both straightforward CQL queries, and CQL-Solr queries, but the roll-up tables have not been populated yet so these will return no data at this point.
 
 You can find more detailed instructions for installing Node, D3, and jquery using my example at https://github.com/simonambridge/chartDSE
 
