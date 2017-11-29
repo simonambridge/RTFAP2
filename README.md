@@ -24,6 +24,8 @@ They also want a graphic visualisation - a dashboard - of the data.
 <h2>Performance SLAs:</h2>
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
+
+
 <p align="center">
   <img src="architecture-1.png"/>
 </p>
