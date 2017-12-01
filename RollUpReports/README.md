@@ -51,14 +51,6 @@ The following components must be installed and available on your machine.
 
   * If you havent already installed sbt (as root or use sudo) do this now:
 
-> If you want to play with the sample Scala code interactively, you should install the DSE version of Zeppelin from the inestimable Duy Hai Doan here: https://drive.google.com/open?id=0B6wR2aj4Cb6wcm10ZmJYV1dzUzQ 
-Once you have installed Zeppelin, start it with the ```zeppelin-daemon.sh start``` command. Then load the notebook entitled "RTFAP2 RUP BY Merchant". Setting up Zeppelin isn't a requirement for these excercises though, so you can skip and come back later if you want to try it out.
-<p>
-<p align="center">
-  <img src="zeppelin_example.png"/>
-</p>
-<BR>
-
 On MacOS:
 ```
 $ brew install sbt
@@ -70,6 +62,13 @@ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 apt-get update
 apt-get install sbt
 ```
+> If you want to play with the sample Scala code interactively, you should install the DSE version of Zeppelin from the inestimable Duy Hai Doan here: https://drive.google.com/open?id=0B6wR2aj4Cb6wcm10ZmJYV1dzUzQ 
+Once you have installed Zeppelin, start it with the ```zeppelin-daemon.sh start``` command. Then load the notebook entitled "RTFAP2 RUP BY Merchant". Setting up Zeppelin isn't a requirement for these excercises though, so you can skip and come back later if you want to try it out.
+<p>
+<p align="center">
+  <img src="zeppelin_example.png"/>
+</p>
+<BR>
 
 ## Build the demo
 
