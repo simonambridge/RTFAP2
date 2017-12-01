@@ -27,7 +27,8 @@ The client wants a REST API to return:
 They also want a graphic visualisation - a dashboard - of the data.
 
 ## Performance SLAs:
-- The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
+- The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies.
+- The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 
 ## Setup 
