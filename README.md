@@ -26,10 +26,10 @@ The client wants a REST API to return:
 
 They also want a graphic visualisation - a dashboard - of the data.
 
-<h2>Performance SLAs:</h2>
+## Performance SLAs:
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
-<p>
+
 ## Setup 
 DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
 Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency. 
