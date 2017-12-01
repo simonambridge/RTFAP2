@@ -3,6 +3,11 @@
 Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 >Improvements include: Node.js/D3 ReST interface replacing of Java, enhanced producer/consumer, real time charts etc
 
+<p>
+<p align="center">
+  <img src="architecture-1.png"/>
+</p>
+
 
 ## Use Case 
 A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
@@ -25,11 +30,6 @@ They also want a graphic visualisation - a dashboard - of the data.
 - The client wants an assurance that the data model can handle 1,000 transactions a second with stable latencies. The client currently handles accounts for over 15000 merchants and hopes to grow to 50,000 in a year.
 
 <p>
-<p>
-<p align="center">
-  <img src="architecture-1.png"/>
-</p>
-
 ## Setup 
 DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications. 
 Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency. 
