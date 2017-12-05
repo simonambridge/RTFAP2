@@ -2,13 +2,13 @@
 
 How to use modern, real-time, distributed streaming technologies to build a working model of a scalable fraud-detection platform. This demo will use these technologies:
 
--Cassandra
--Spark
--Scala
--Akka
--Solr
--Banana
--Zeppelin
+- Cassandra
+- Spark
+- Scala
+- Akka
+- Solr
+- Banana
+- Zeppelin
 
 Based on the original RTFAP at https://github.com/simonambridge/RTFAP
 >Improvements include: Node.js/D3 ReST interface replacing of Java, enhanced producer/consumer, real time charts etc
