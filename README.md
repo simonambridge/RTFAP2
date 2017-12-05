@@ -223,7 +223,7 @@ The streaming analytics element of this application is made up of two parts:
 
 Streaming analytics code can be found under the directory `TransactionHandlers/producer` (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).
 
-Follow the Spark streaming installation and set up instructions here: https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers
+Follow the Spark streaming installation and set up instructions here: https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers/README.md
 
 ### Batch Analytics
 
@@ -233,7 +233,7 @@ Two Spark batch jobs have been included.
 
 The roll up batch analytics code and submit scripts can be found under the directory `RollUpReports` (pre-requisite: run the streaming analytics first in order to populate the Transaction table with transactions).
 
-Follow the Spark batch job installation and set up instructions here:https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports
+Follow the Spark batch job installation and set up instructions here:https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports/README.md
 
 
 ## Stress yaml 
