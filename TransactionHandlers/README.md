@@ -133,6 +133,8 @@ $ cd $KAFKA_HOME
 $ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --list
 NewTransactions
 ```
+You can now leave Kafka and Zookeeper running while you set up the streaming part of the demo.
+
 
 ## Some more useful Kafka commands
 	
@@ -170,11 +172,12 @@ Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=
 	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
 ```
 
-Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
+Warning!!! Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
 ```
 $ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
 ```
+Hopefully you didn't do that and we can carry on with building the next part of the demo.
 
 
 ## Build and run the demo
