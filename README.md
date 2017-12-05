@@ -392,5 +392,5 @@ The dashboard below was created using Banana.
 ![alt dashboard](https://github.com/simonambridge/RTFAP2/blob/master/banana/TransactionDashboard.png)
 
 
-<sub><sup>Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
-Improvements since then include a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc</sub></sup>
+<sub>Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
+RTFAP2 a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc</sub>
