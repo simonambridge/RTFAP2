@@ -215,9 +215,11 @@ A ReSTful web interface provides an API for calling programs to query the data i
 <p align="center">
   <img src="restRTFAP/ReST_Solr.png"/>
 </p>
-The code for a this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries. Use the example url’s supplied - these will return a json representation of the data using the ReST service. 
+You can use a web browser interface to run the queries. Use the example url’s supplied - these will return a json representation of the data using the ReST service. ALternatively you can paste the queries into cqlsh and run them from there.
 
 The ReST Server set up details are described here: http://github.com/simonambridge/RTFAP2/tree/master/ReST.md
+
+The nexy section moves on to batch and streaming analytics with Spark!
 
 ## Analyzing data using DSE Spark Analytics
 
@@ -246,6 +248,7 @@ The roll up batch analytics code and submit scripts can be found under the direc
 
 Follow the Spark batch job installation and set up instructions here:https://github.com/simonambridge/RTFAP2/tree/master/RollUpReports/README.md
 
+At this point the system should be setup and functioning. Now you'll want to know what the capabilities of this platform are so that you can begin to understand what kind of hardware you might need to build a real system. We can use the Cassandra Stress Tool to help us measure.
 
 ## Stress yaml 
 
