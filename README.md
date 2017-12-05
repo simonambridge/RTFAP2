@@ -10,9 +10,6 @@ How to use modern, real-time, distributed streaming technologies to build a work
 - Banana
 - Zeppelin
 
->Based on the original RTFAP with help from colleagues at DataStax.
->Improvements include: Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, real time charts, demo ReST UI, etc
-
 <p>
 <p align="center">
   <img src="architecture-1.png"/>
@@ -396,3 +393,5 @@ The dashboard below was created using Banana.
 Follow this [guide](https://github.com/simonambridge/RTFAP2/tree/master/banana/Banana_Setup.md) to set it up.
 
 
+<size="small">Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
+Improvements since then include a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc
