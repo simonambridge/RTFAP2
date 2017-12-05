@@ -172,7 +172,7 @@ Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=
 	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
 ```
 
-Warning!!! Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
+Warning!!! If you ever need to delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
 
 ```
 $ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
