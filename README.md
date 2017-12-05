@@ -139,7 +139,7 @@ SELECT * FROM rtfap.dailytxns_bymerchant where merchant='Nordstrom' and day=2016
 
 The above queries allow us to query on the partition key and some or all of the clustering columns in the table definition. To query more generically on the other columns we will use DSE Search to index and search our data.
 
-### Create Solr Cores 
+### Create Solr Cores (Indexes)
 To do this we use the dsetool to create a Solr core based on the Transactions table. In a production environment we would only index the columns that we would want to query on (pre-requisite: run the CQL schema create script as described above to create the necessary tables).
 
 To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
