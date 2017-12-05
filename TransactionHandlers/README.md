@@ -440,7 +440,7 @@ cqlsh:rtfap> select count (*) from rtfap.transactions ;
   
   Go to the service URL: http://localhost:3000/
   
-  Select the Transaction Chart option. You should see something similar to the following:
+  Select the Transaction Chart option. After a while you should see something similar to the following:
   
   <p align="left">
     <img src="txnchart2.png"/>
