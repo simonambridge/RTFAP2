@@ -204,6 +204,10 @@ ReST Web Interface
 
 A ReSTful web interface provides an API for calling programs to query the data in Cassandra.
 
+<p>
+<p align="center">
+  <img src="restRTFAP/ReST_Solr.png"/>
+</p>
 The code for a this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries.
 
 Use the example url’s supplied - these will return a json representation of the data using the ReST service. 
