@@ -393,4 +393,4 @@ The dashboard below was created using Banana.
 
 
 <sub>Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
-RTFAP2 a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc</sub>
+<BR>RTFAP2 now has a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer codebase, new roll-up reports, real time charts, a new demo ReST UI, improved documentation, etc</sub>
