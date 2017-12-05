@@ -113,7 +113,7 @@ We will create a Solr index on transactions to support a variety of ReST API que
 
 - Table txn_count_min - track transactions in a rolling window for analytics
 
-We will create a Solr index on txn_count_min to enable flexible reporting and charting.
+We will create Solr cores (indexes) on the transactions and txn_count_min tables to enable flexible reporting and charting.
 
 The create script also creates some sample data for example:
 
