@@ -137,6 +137,8 @@ To do this we use the dsetool to create a Solr core based on the Transactions ta
 
 To check that DSE Search is up and running sucessfully go to http://[DSE node]:8983/solr/
 
+For example ```http://127.0.0.1:8983/solr/```
+
 By default, when a Solr core is created, resources will not be generated and existing data is not re-indexed - the intention being that you can check and customize the resources before indexing. To override the default and reindex existing data, use the reindex=true option, for example:
 
 ```
@@ -193,7 +195,7 @@ When we start generating some live data we'll be able to analyse up-to-date info
 SELECT * FROM rtfap.transactions where solr_query = '{"q":"*:*", "fq":["txn_time:[NOW-1MINUTE TO *]", "tags:Fraudulent"]}';
 ```
 These samples demonstrate that full, ad-hoc search on any of the transaction fields is possible including amounts, merchants etc.
-We will use queries like this to build the ReST interface. You can explore the list of provided ReST queries here: http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
+We will use queries like this to build the ReST interface. You can use cqlsh to explore the list of provided ReST queries here: http://github.com/simonambridge/RTFAP2/tree/master/Solr_Queries.md 
 
 ## Querying Data Using A ReST API with Node.js and D3
 
