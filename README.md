@@ -393,5 +393,5 @@ The dashboard below was created using Banana.
 Follow this [guide](https://github.com/simonambridge/RTFAP2/tree/master/banana/Banana_Setup.md) to set it up.
 
 
-<size="small">Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
+Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
 Improvements since then include a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc
