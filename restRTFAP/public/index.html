@@ -1,78 +1,303 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Real-Time Fraud Analysis and Prevention Using Kafka, Spark and Cassandra</title>
-  <script src="d3.v3.js"></script>
-  <style type="text/css">
-    div.bar {
-        display: inline-block;
-        width: 20px;
-        height: 75px;/* Gets overriden by D3-assigned height below */
-        margin-right: 2px;
-        background-color: teal;
-    }
-  </style>
-</head>
-<body>
-  <h1>Real-Time Fraud Analysis and Prevention</h1>
-  <h2>Using Kafka, Spark and Cassandra</h2>
-  <br>
-  <p>
-  <h2>CQL Queries</h2>
-  <a href="http://localhost:3000/transactions">1. ReST: transactions</a>
-  <br>
-  <h2>CQL/Solr Queries</h2>
-  <a href="http://localhost:3000/transactionsover?amount=2500">2. ReST: transactionsover - e.g. http://localhost:3000/transactionsover?amount=2500</a>
-  <br>
-  <a href="http://localhost:3000/rejectedtransactions">3. ReST: rejectedtransactions</a>
-  <br>
-  <a href="http://localhost:3000/transactionsfacetedbymerchant">4. ReST: transactionsfacetedbymerchant</a>
-  <br>
-  <a href="http://localhost:3000/transactionsbystatusinlast?period=DAY">5. ReST: transactionsbystatusinlast - e.g. http://localhost:3000/transactionsbystatusinlast?period=DAY</a>
-  <br>
-  <a href="http://localhost:3000/transactionsbycardandstatusinlast?card=123*&period=YEAR">6. ReST: transactionsbycardandstatusinlast - e.g. http://localhost:3000/transactionsbycardandstatusinlast?card=123*?period=YEAR</a>
-  <br>
-  <a href="http://localhost:3000/transactionsbycard?card=123*">7. ReST: transactionsbycard - e.g. http://localhost:3000/transactionsbycard?card=123*</a>
-  <br>
-  <a href="http://localhost:3000/fraudulenttransactionsbycard?card=123*">8. ReST: fraudulenttransactionsbycard - e.g. http://localhost:3000/fraudulenttransactionsbycard?card=123*</a>
-  <br>
-  <a href="http://localhost:3000/fraudulenttransactionsinlast?period=YEAR">9. ReST: fraudulenttransactionsinlast - e.g. http://localhost:3000/fraudulenttransactionsinlast?period=YEAR</a>
-  <br>
-  <h3>CQL Queries On The Roll-Up Tables</h3>
-  <a href="http://localhost:3000/dailytransactionsbymerchant?merchant=Safeway&day=20161123">10. ReST: dailytransactionsbymerchant - e.g. http://localhost:3000/dailytransactionsbymerchant?merchant=GAP&day=20161123</a>
-  <br>
-  <br>
-  <h3>Transaction Charts</h3>
-  <a href="http://localhost:3000/txnchart.html">Transaction Chart</a>
-  <br>
-  <p>
 
-  <h2>Open In New Windows</h2>
-  <form>
-    <h2>CQL Queries</h2>
-    <input type="button" value="1. ReST: transactions" onclick="window.open('http://localhost:3000/transactions')">
-    <BR>
-  <h2>CQL/Solr Queries</h2>
-    <input type="button" value="2. ReST: transactionsover" onclick="window.open('http://localhost:3000/transactionsover?amount=2500')">
-    <BR>
-    <input type="button" value="3. ReST: rejectedtransactions" onclick="window.open('http://localhost:3000/rejectedtransactions')">
-    <BR>
-    <input type="button" value="4. ReST: transactionsfacetedbymerchant" onclick="window.open('http://localhost:3000/transactionsfacetedbymerchant')">
-    <BR>
-    <input type="button" value="5. ReST: transactionsbystatusinlast" onclick="window.open('http://localhost:3000/transactionsbystatusinlast?period=DAY')">
-    <BR>
-    <input type="button" value="6. ReST: transactionsbycardandstatusinlast" onclick="window.open('http://localhost:3000/transactionsbycardandstatusinlast?card=123*&period=YEAR')">
-    <BR>
-    <input type="button" value="7. ReST: transactionsbycard" onclick="window.open('http://localhost:3000/transactionsbycard?card=123*')">
-    <BR>
-    <input type="button" value="8. ReST: fraudulenttransactionsbycard" onclick="window.open('http://localhost:3000/fraudulenttransactionsbycard?card=123*')">
-    <BR>
-    <input type="button" value="9. ReST: fraudulenttransactionsinlast" onclick="window.open('http://localhost:3000/fraudulenttransactionsinlast?period=YEAR')">
-    <BR>
-    <h3>CQL Queries On The Roll-Up Tables</h3>
-    <input type="button" value="10. ReST: dailytransactionsbymerchant" onclick="window.open('http://localhost:3000/dailytransactionsbymerchant?merchant=Safeway&day=20161123')">
-    <BR>
-  </form>
- </body>
- </html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+
+    <title>Real-Time Card Fraud Analysis and Prevention</title>
+
+    <style type="text/css">
+body {
+  margin: 0px;
+  padding: 0px;
+  color: #c2bead;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 12px;
+  line-height: 1.5em; 
+  background-color: #302d2b;
+  background-repeat: repeat-y;
+  background-position: left;
+}
+
+.service_list { margin: 40px 0 0 30px; padding: 0; list-style: none; }
+.service_list li { margin: 0; padding: 0; }
+.service_list li a { display: block; height: 25px; margin-bottom: 20px; padding-left: 35px; }
+.service_list li .service_one { background: url(images/option.png) center left no-repeat; }
+.service_list li .service_two { background: url(images/option.png) center left no-repeat; }
+.service_list li .service_three { background: url(images/option.png) center left no-repeat; }
+.service_list li .service_four { background: url(images/option.png) center left no-repeat; }
+.service_list li .service_five { background: url(images/option.png) center left no-repeat; }
+
+h1, h2, h3, h4, h5, h6 { color: #e2c934; }
+h1 { font-size: 24px; font-weight: normal; margin: 0 0 30px 0; padding: 5px 0; }
+h2 { font-size: 20px; font-weight: normal; margin: 0 0 30px 0; font-weight: normal; }
+h3 { font-size: 16px; margin: 0 0 15px 0; padding: 0; padding: 0; font-weight: normal;  }
+h4 { font-size: 14px; margin: 0 0 15px 0; padding: 0; }
+
+em { color: #f9a834; }
+em2 { color: #58f7c4; }
+gr { color: white; }
+co { color: rgb(31, 230, 13); }
+
+a, a:link, a:visited { color: #34baf9; text-decoration: none; }
+a:hover { color: #CCFF00; text-decoration: underline; }
+
+.float_l { float: left; }
+.float_r { float: right; }
+
+.image_wrapper { display: inline-block; border: 1px solid #000; background: #333; padding: 4px; margin-bottom: 10px; }
+.image_fl { float: left; margin: 3px 15px 0 0; }
+.image_fr { float: right; margin: 3px 0 0 15px; }
+
+p { margin: 0 0 10px 0; padding: 0; }
+img { border: none; }
+blockquote { font-style: italic; margin: 0 0 0 10px;}
+cite { font-weight: bold; color:#333; }
+cite span { color: #666; }
+
+my_footer {
+  clear: both;
+  width: 600px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+      ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
+      ul#tabs li { display: inline; }
+      ul#tabs li a { color: #31302a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
+      ul#tabs li a:hover { background-color: #f1f0ee; }
+      ul#tabs li a.selected { color: #c2bead; background-color: #2f2e28; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
+      div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #2f2e28; }
+      div.tabContent.hide { display: none; }
+    </style>
+
+    <script type="text/javascript">
+    //<![CDATA[
+
+    var tabLinks = new Array();
+    var contentDivs = new Array();
+
+    function init() {
+
+      // Grab the tab links and content divs from the page
+      var tabListItems = document.getElementById('tabs').childNodes;
+      for ( var i = 0; i < tabListItems.length; i++ ) {
+        if ( tabListItems[i].nodeName == "LI" ) {
+          var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+          var id = getHash( tabLink.getAttribute('href') );
+          tabLinks[id] = tabLink;
+          contentDivs[id] = document.getElementById( id );
+        }
+      }
+
+      // Assign onclick events to the tab links, and
+      // highlight the first tab
+      var i = 0;
+
+      for ( var id in tabLinks ) {
+        tabLinks[id].onclick = showTab;
+        tabLinks[id].onfocus = function() { this.blur() };
+        if ( i == 0 ) tabLinks[id].className = 'selected';
+        i++;
+      }
+
+      // Hide all content divs except the first
+      var i = 0;
+
+      for ( var id in contentDivs ) {
+        if ( i != 0 ) contentDivs[id].className = 'tabContent hide';
+        i++;
+      }
+    }
+
+    function showTab() {
+      var selectedId = getHash( this.getAttribute('href') );
+
+      // Highlight the selected tab, and dim all others.
+      // Also show the selected content div, and hide all others.
+      for ( var id in contentDivs ) {
+        if ( id == selectedId ) {
+          tabLinks[id].className = 'selected';
+          contentDivs[id].className = 'tabContent';
+        } else {
+          tabLinks[id].className = '';
+          contentDivs[id].className = 'tabContent hide';
+        }
+      }
+
+      // Stop the browser following the link
+      return false;
+    }
+
+    function getFirstChildWithTagName( element, tagName ) {
+      for ( var i = 0; i < element.childNodes.length; i++ ) {
+        if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+      }
+    }
+
+    function getHash( url ) {
+      var hashPos = url.lastIndexOf ( '#' );
+      return url.substring( hashPos + 1 );
+    }
+
+    //]]>
+    </script>
+  </head>
+
+
+
+  <body onload="init()">
+    <div><img src="images/zscale_small.png" alt="image" width="7.5%" align="right"/>
+      <h1>RTFAP2 - Real-Time Card Fraud Analysis and Prevention</h1>
+    </div>    
+    <p></p>
+    <br>
+    <ul id="tabs">
+      <li><a href="#about">ReST Server For Apache Cassandra</a></li>
+      <li><a href="#cql">CQL Queries</a></li>
+      <li><a href="#solr">CQL/Solr Queries</a></li>
+      <li><a href="#spark">Spark</a></li>
+    </ul>
+
+    <div class="tabContent" id="about">
+      <div>
+         <h1>ReST Server For Apache Cassandra</h1>    
+         <div><img src="images/RTFAP2_architecture.png" alt="image" width="40%"/></div>
+         <p><h3><em>Real-Time Card Fraud Analysis and Prevention <a href="https://github.com/simonambridge/RTFAP2" rel="nofollow">RTFAP2 on GitHub</a>.</em></h3></p>
+         <p>RTFAP2 is a Real-Time Fraud Analysis and Prevention demonstration platform created using Kafka, Spark and Cassandra</p>
+         <p><gr>Use Case:</gr> A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. </p>
+         <p>They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.</p>
+
+        <p>The client wants a REST API to:
+         <ul >
+           <li><em2>Identify all transactions</em2> tagged as fraudulent in the last minute/day/month/year</li>
+           <li><em2>Identify all transactions</em2> tagged as fraudulent for a specific card</li>
+           <li><em2>Report all transactions</em2> for a merchant on a specific day</li>
+           <li><em2>Report roll-up of all transactions</em2> by card and year</li> 
+           <li><em2>Search the entire transaction database</em2> by merchant, cc_no, amounts</a></li>   
+           <li><em2>Provide the ratio</em2> of transaction success based on the first 6 digits of their credit card no.</li>
+           <li><em2>Provide the ratio</em2> of confirmed transactions against fraudulent transactions in the last minute</a></li> 
+           <li><em2>Provide a moving ratio</em2> of approved transactions per minute, per hour</li>   
+           <li><em2>Provide a count</em2> of approved transactions per minute, per hour</li>   
+        </ul>
+        <p>The sample queries are served by a web service written in <a href="https://nodejs.org/en/">Node.js</a>.</p>
+        <ul >
+          <li>A ReSTful web interface provides an API for calling programs to query the data in Cassandra.</li>
+          <li>The code for this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries.</li>
+          <li>Use the example url’s supplied - these will return a json representation of the data using the ReST service.</li>
+        </ul>
+
+       <p>The ReST Server set up details are described <a href="http://github.com/simonambridge/RTFAP2/tree/master/ReST.md">here</a> on Github</p>
+
+      </div>
+    </div>
+
+
+    <div class="tabContent" id="cql">
+      <div>
+        <h1>CQL Queries with Cassandra</h1>
+        <div><img src="images/Cassandra_logo_white.png" alt="image" width="10%"/></div>
+        <p></p>
+        <p><h2><em>Simple ReST queries with CQL, the Cassandra Query Language</em></h2></p>
+        <p>We can run CQL queries to look up all transactions for a given credit card (cc_no). </p>
+        <p>The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.</p>
+        <p>We don't update the transactions in the Transactions table once they have been written. </p>
+        <p>To run a simple query to return all transactions click <a title="SELECT * FROM rtfap.transactions;" href="http://localhost:3000/transactions">http://localhost:3000/transactions</a></p>
+        <p><em>Tip:</em> hover over the link to vire the CQL query that will be run</p>
+      </div>
+    </div>
+
+
+    <div class="tabContent" id="solr">
+      <div>
+       <h1>CQL & Solr QUeries</h1>
+       <img src="images/Solr_logo_white.png" alt="image" width="10%" />
+       <p></p>
+       <p><h2><em>Solr brings Enterprise Search on Cassandra data</em></h2></p>
+       
+       <p>DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications.</p>
+       <p>Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency.</p>
+       <p></p>   
+       <p>The Transactions table has a primary key and clustering columns, so a typical query would look like this:</p>
+       <pre><co>> SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;</co></pre>
+       <p>But that doesn't provide a very flexible search capability. For this we need an Enterprise Search capability like Solr. We create Solr "cores" (indexes) on the data in Cassandra.</p>
+       <p>Then we aren't restricted by the limitations of the Cassandra table index structure :)</p>
+       <p></p>
+       <p>Examine how CQL and Solr are used together in the following queries that use Solr indexing on Cassandra tables:</p>
+       <ul >
+         <li><a href="http://localhost:3000/transactionsover?amount=2500" class="service_one"><em>Identify transactions over a certain amount</em></a></li>
+         <p><co>> SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + amount + ' TO *]"\}\';</co></p>
+
+         <li><a href="http://localhost:3000/rejectedtransactions" class="service_two">Retrieve all transactions in the TRANSACTIONS table where status="Rejected"</a></li>
+         <p><co>> SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';</co></p>
+
+         <li><a href="http://localhost:3000/transactionsfacetedbymerchant" class="service_three">Retrieve all transactions in the TRANSACTIONS table, faceted by merchant</a></li>
+         <p><co>> SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\';</co></p>
+
+         <li><a href="http://localhost:3000/transactionsbystatusinlast?period=DAY" class="service_four">Retrieve all transactions in the TRANSACTIONS table, faceted by status, over the last year/month/minute</a></li> 
+         <p><co>> SELECT * FROM rtfap.transactions WHERE solr_query = \'\{"q":"*:*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';</co></p>
+
+         <li><a href="http://localhost:3000/transactionsbycardandstatusinlast?card=123*&period=YEAR" class="service_five">Retrieve all transactions in the TRANSACTIONS table, faceted by status, for the specified card number and period</a></li>   
+         <p><co>> SELECT * FROM rtfap.transactions where solr_query = \'{"q":"cc_no:' + req.query.card + '*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';</co></p>
+
+         <li><a href="http://localhost:3000/transactionsbycard?card=123*" class="service_three">Retrieve all transactions in the TRANSACTIONS table for a specified card number (optional wild card)</a></li>
+         <p><co>> SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '"}\';</co></p>
+
+         <li><a href="http://localhost:3000/fraudulenttransactionsbycard?card=123*" class="service_four">Retrieve all transactions in the TRANSACTIONS table tagged as "Fraudulent" for a specified card number</a></li> 
+         <p><co>> SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\';</co></p>
+
+         <li><a href="http://localhost:3000/fraudulenttransactionsinlast?period=YEAR" class="service_five">Retrieve data for all transactions in the TRANSACTIONS table tagged as "Fraudulent" over the last year</a></li>   
+         <p><co>> SELECT * FROM transactions where solr_query = \'{"q":"*:*", "fq":["txn_time:[NOW-1' + req.query.period + ' TO *]", "tags:Fraudulent"]}\';</co></p>
+        </ul>
+      </div>
+    </div>
+
+
+     <div class="tabContent" id="spark">
+      <div>
+        <h1>Spark & Querying Roll Up Tables</h1>
+        <img src="images/Spark_logo_white.png" alt="image" width="10%" align="left"/>
+        <div><img src="images/Kafka_logo_white.png" alt="image" width="10%"/></div>
+        <p></p>
+        <p><h2><em>Streaming Real-Time Analytics with Spark & Kafka</em></h2></p>
+
+        <p>DSE provides integration with Spark out-of-the box to enable analysis of data in-place on the same cluster where the data is ingested and stored.</p>
+        <p>Workloads can be isolated and there is no need to ETL the data. The data ingested in a Cassandra-only (OLTP) data center can be automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.</p>
+          
+        <p>This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture"</p>
+        
+        <p>Streaming Analytics
+        
+        <p>The streaming analytics element of this application is made up of two parts:
+        
+        <p>A transaction "producer" - a Scala/Akka app that generates random credit card transactions and then places those transactions onto a Kafka queue.</p>
+        <p>A transaction "consumer" - also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table transactions.</p>
+        </p>It also generates rolling summary lines into the txn_count_min table every minute.</p>
+        <p>Streaming analytics code can be found under the directory TransactionHandlers/producer (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).</p>
+
+        <p>Follow the Spark streaming installation and set up instructions  <a href="https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers/README.md">here</a> on Github</p>
+        
+
+          <ul class="service_list">
+           <li><a href="http://localhost:3000/txnchart.html" class="service_five">Transaction Chart</a></li>   
+        </ul>
+      </div>
+    </div>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    
+
+    <div id="my_footer">
+        <p></p>
+        <p></p>
+        <p></p>
+        Copyright © 2017 <a href="http://zscale.uk">ZScale UK Limited</a> <!-- Credit: www.templatemo.com --> 
+       <p></p>
+       <p></p>
+       <p></p>       
+    </div> <!-- end of my_footer -->
+
+  </body>
+</html>
