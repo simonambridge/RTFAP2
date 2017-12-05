@@ -1,6 +1,6 @@
 //
 // PLEASE NOTE: The Keyspace creation command will need to reflect the topology of your
-//              environment. As presented it will only work in a single data center test deployment.
+//              environment. SimpleStrategy is only intended to be used in a single data center test deployment.
 
 CREATE KEYSPACE if not exists rtfap
 WITH durable_writes = true
@@ -45,7 +45,7 @@ CREATE TABLE if not exists rtfap.hourlyaggregates_bycc(
 	min_amount double,
 	total_count bigint,
     PRIMARY KEY ((cc_no, hour))
-);
+) WITH default_time_to_live = 86400;
 
 DROP TABLE IF EXISTS  rtfap.dailyaggregates_bycc;
 CREATE TABLE if not exists rtfap.dailyaggregates_bycc(
@@ -56,7 +56,7 @@ CREATE TABLE if not exists rtfap.dailyaggregates_bycc(
 	min_amount double,
 	total_count bigint,
     PRIMARY KEY ((cc_no, day))
-);
+) WITH default_time_to_live = 86400;
 
 DROP TABLE IF EXISTS  rtfap.monthlyaggregates_bycc;
 CREATE TABLE if not exists rtfap.monthlyaggregates_bycc(
@@ -67,7 +67,7 @@ CREATE TABLE if not exists rtfap.monthlyaggregates_bycc(
 	min_amount double,
 	total_count bigint,
     PRIMARY KEY ((cc_no, month))
-);
+) WITH default_time_to_live = 86400;
 
 DROP TABLE IF EXISTS  rtfap.yearlyaggregates_bycc;
 CREATE TABLE if not exists rtfap.yearlyaggregates_bycc(
@@ -78,7 +78,7 @@ CREATE TABLE if not exists rtfap.yearlyaggregates_bycc(
 	min_amount double,
 	total_count bigint,
     PRIMARY KEY ((cc_no, year))
-);
+) WITH default_time_to_live = 86400;
 
 DROP TABLE IF EXISTS  rtfap.dailytxns_bymerchant;
 CREATE TABLE rtfap.dailytxns_bymerchant (
@@ -100,7 +100,7 @@ CREATE TABLE rtfap.dailytxns_bymerchant (
     tags set<text>,
     user_id text,
     PRIMARY KEY ((merchant, day), cc_no)
-) WITH CLUSTERING ORDER BY (cc_no ASC);
+) WITH CLUSTERING ORDER BY (cc_no ASC) AND default_time_to_live = 86400;
 
 DROP TABLE IF EXISTS  rtfap.txn_count_min;
 CREATE TABLE if not exists rtfap.txn_count_min (
@@ -117,10 +117,11 @@ CREATE TABLE if not exists rtfap.txn_count_min (
 	ttl_txn_hr int,
 	ttl_txn_min int,
 	PRIMARY KEY (( year, month, day, hour, minute ))
-);
+) WITH default_time_to_live = 86400;
 
 // Cassandra stress table
 
+DROP TABLE IF EXISTS rtfap.txn_by_cc;
 CREATE TABLE if not exists rtfap.txn_by_cc (
 cc_no text,
 txn_year int,
@@ -149,7 +150,8 @@ AND replication = {
 	'replication_factor' : 1
 };
 
-CREATE TABLE banana.dashboards (id text PRIMARY KEY,
+DROP TABLE IF EXISTS banana.dashboards;
+CREATE TABLE if not exists banana.dashboards (id text PRIMARY KEY,
 "_version_" bigint, dashboard text, group text, solr_query text, title text, user text);
 
 

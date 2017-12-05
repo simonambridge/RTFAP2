@@ -266,14 +266,14 @@ my_footer {
           
         <p>This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture"</p>
         
-        <p>Streaming Analytics
+        <p><h2>Streaming Analytics</h2></p>
         
         <p>The streaming analytics element of this application is made up of two parts:
         
-        <p>A transaction "producer" - a Scala/Akka app that generates random credit card transactions and then places those transactions onto a Kafka queue.</p>
-        <p>A transaction "consumer" - also written in Scala, is a Spark streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table transactions.</p>
-        </p>It also generates rolling summary lines into the txn_count_min table every minute.</p>
-        <p>Streaming analytics code can be found under the directory TransactionHandlers/producer (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).</p>
+        <p>A transaction <em>"producer"</em> - a <em2>Scala/Akka</em2> app that generates random credit card transactions and then places those transactions onto a Kafka queue.</p>
+        <p>A transaction <em>"consumer"</em> - also written in <em2>Scala</em2>, is a <gr>Spark</gr> streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table transactions.</p>
+        </p>It also generates <em>rolling summary lines</em> into the txn_count_min table every minute.</p>
+        <p><em>Streaming analytics code</em> can be found under the directory <gr>TransactionHandlers/producer</gr> (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).</p>
 
         <p>Follow the Spark streaming installation and set up instructions  <a href="https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers/README.md">here</a> on Github</p>
         
