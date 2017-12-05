@@ -385,13 +385,12 @@ The Banana project was forked from Kibana, and works with all kinds of time seri
 
 Banana allows you to create rich and flexible UIs, enabling users to rapidly develop end-to-end applications that leverage the power of Apache Solr.
 
+Follow this [guide](https://github.com/simonambridge/RTFAP2/tree/master/banana/Banana_Setup.md) to set it up.
+
 The dashboard below was created using Banana.
 
 ![alt dashboard](https://github.com/simonambridge/RTFAP2/blob/master/banana/TransactionDashboard.png)
 
- 
-Follow this [guide](https://github.com/simonambridge/RTFAP2/tree/master/banana/Banana_Setup.md) to set it up.
 
-
-Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
-Improvements since then include a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc
+<small>Acknowldegements: Based on the original RTFAP created with help from colleagues at DataStax.
+Improvements since then include a Node.js/D3 ReST interface replacing Java, enhanced producer/consumer code, new roll-up reports, real time charts, demo ReST UI, etc</small>
