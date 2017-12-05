@@ -157,6 +157,23 @@ $ $KAFKA_HOME/bin/kafka-configs.sh --zookeeper localhost:2181 --describe --entit
 Configs for topic 'NewTransactions' are retention.ms=3600000
 ```
 
+Describe the 'NewTransactions' Topic:
+
+```
+$ $KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
+
+Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
+	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
+```
+
+> Warning!!! 
+If you ever need to delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
+```
+$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
+```
+Hopefully you didn't do that and we can carry on with building the next part of the demo.
+
+
 Show all of the messages in a topic from the beginning:
 
 ```
@@ -173,22 +190,6 @@ Using the ConsoleConsumer with old consumer is deprecated and will be removed in
 0885000026563684;0885;2017-12-05 21:15:48.559;95499955-dcd0-45e1-a1ec-4af948017579;Wal-Mart Stores;;AU;Item_98422->192.47,Item_96991->340.10;532.57;34
 0660000006438110;0660;2017-12-05 21:15:48.56;9d67f0f2-ddcd-40de-83ee-9b8168dec5e7;Gap;MD;US;Item_22347->760.93,Item_17992->176.15,Item_17441->459.07;1396.14;56
 ```
-
-Describe the 'NewTransactions' Topic:
-
-```
-$ $KAFKA_HOME/bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic NewTransactions
-
-Topic:NewTransactions	PartitionCount:1	ReplicationFactor:1	Configs:retention.ms=1680000
-	Topic: NewTransactions	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
-```
-
-Warning!!! If you ever need to delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work):
-
-```
-$ $KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic NewTransactions
-```
-Hopefully you didn't do that and we can carry on with building the next part of the demo.
 
 
 ## Build and run the demo
@@ -307,7 +308,27 @@ runDurationSeconds -1
 ...
 ```
 
- Leave this job running to continue to generate transactions.
+Leave this job running to continue to generate transactions.
+
+The records for each transaction are consumed and stored in a Cassandra table.You can view the records that are being created. Start cqlsh and run the following query:
+```
+cqlsh:rtfap> select * from rtfap.transactions ;
+
+cc_no            | year | month | day | txn_time                        | amount  | cc_provider | country | date_text | hour | items | location | merchant                  | min | notes | solr_query | status   | tags | txn_id                               | user_id
+------------------+------+-------+-----+---------------------------------+---------+-------------+---------+-----------+------+-------+----------+---------------------------+-----+-------+------------+----------+------+--------------------------------------+---------
+ 1640000007096559 | 2017 |    11 |   5 | 2017-12-05 21:19:24.096000+0000 | 1044.02 |        1640 |      CN |  20171105 |    9 |  null |          |           AVB Brandsource |  19 |  null |       null | APPROVED | null | e96da250-0c58-4d9e-9765-b331c6d6fcc2 |    null
+ 1847000039868834 | 2017 |    11 |   5 | 2017-12-05 21:20:20.365000+0000 | 1535.59 |        1847 |      NG |  20171105 |    9 |  null |          |           Wal-Mart Stores |  20 |  null |       null | REJECTED | null | cd9c157c-56ff-4799-9511-37a680f7e817 |    null
+```
+The number of records will increase - re-run this command in cqlsh a few times:
+```
+cqlsh:rtfap> select count (*) from rtfap.transactions ;
+
+ count
+-------
+  3832
+
+(1 rows)
+```
 
 
 ### Start the Transaction Consumer app
