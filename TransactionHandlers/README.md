@@ -162,7 +162,18 @@ Show all of the messages in a topic from the beginning:
 ```
 $ $KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning
 ```
-  
+Leave it running wHen the producer is running you'll see output like this:
+```
+$ $KAFKA_HOME/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic NewTransactions --from-beginning
+Using the ConsoleConsumer with old consumer is deprecated and will be removed in a future major release. Consider using the new consumer by passing [bootstrap-server] instead of [zookeeper].
+0009000009814738;0009;2017-12-05 21:15:48.065;3bc27951-d9de-456e-88d0-8b1f185a7f79;Rite Aid;;BD;Item_14024->465.98,Item_45596->851.84,Item_289->661.89;1979.71;36
+6135000096830767;6135;2017-12-05 21:15:48.072;1886c216-e2da-4f04-ad62-c84c19e40310;McDonald's;;IN;Item_63884->333.87;333.87;50
+9449000021756283;9449;2017-12-05 21:15:48.558;6075f09f-6621-470f-8726-531150aab121;Wal-Mart Stores;;BD;Item_70557->177.29,Item_68655->701.42,Item_61007->818.01;1696.73;58
+8708000096315232;8708;2017-12-05 21:15:48.559;b713cd53-4a82-43da-a77b-4e4b77bbfe92;Starbucks;;EG;Item_29895->171.05,Item_8024->17.93,Item_63002->647.52,Item_42622->536.01;1372.51;48
+0885000026563684;0885;2017-12-05 21:15:48.559;95499955-dcd0-45e1-a1ec-4af948017579;Wal-Mart Stores;;AU;Item_98422->192.47,Item_96991->340.10;532.57;34
+0660000006438110;0660;2017-12-05 21:15:48.56;9d67f0f2-ddcd-40de-83ee-9b8168dec5e7;Gap;MD;US;Item_22347->760.93,Item_17992->176.15,Item_17441->459.07;1396.14;56
+```
+
 Describe the 'NewTransactions' Topic:
 
 ```
