@@ -148,10 +148,10 @@ my_footer {
 
   <body onload="init()">
     <div><img src="images/zscale_small.png" alt="image" width="7.5%" align="right"/>
+    <br>
+    <br>
       <h1>RTFAP2 - Real-Time Card Fraud Analysis and Prevention</h1>
     </div>    
-    <p></p>
-    <br>
     <ul id="tabs">
       <li><a href="#about">ReST Server For Apache Cassandra</a></li>
       <li><a href="#cql">CQL Queries</a></li>
@@ -164,8 +164,8 @@ my_footer {
          <h1>ReST Server For Apache Cassandra</h1>    
          <div><img src="images/RTFAP2_architecture.png" alt="image" width="40%"/></div>
          <p><h3><em>Real-Time Card Fraud Analysis and Prevention <a href="https://github.com/simonambridge/RTFAP2" rel="nofollow">RTFAP2 on GitHub</a>.</em></h3></p>
-         <p>RTFAP2 is a Real-Time Fraud Analysis and Prevention demonstration platform created using Kafka, Spark and Cassandra</p>
-         <p><gr>Use Case:</gr> A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. </p>
+         <p>RTFAP2 is a Real-Time Fraud Analysis and Prevention demonstration platform created using <gr>Kafka</gr>, <gr>Spark</gr>, <gr>Solr</gr> and <gr>Cassandra</gr></p>
+         <p><em>Use Case:</em> A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. </p>
          <p>They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.</p>
 
         <p>The client wants a REST API to:
@@ -181,10 +181,11 @@ my_footer {
            <li><em2>Provide a count</em2> of approved transactions per minute, per hour</li>   
         </ul>
         <p>The sample queries are served by a web service written in <a href="https://nodejs.org/en/">Node.js</a>.</p>
-        <ul >
+        <ul ><gr>
           <li>A ReSTful web interface provides an API for calling programs to query the data in Cassandra.</li>
           <li>The code for this is in the restRTFAP directory provided in the repo. You will use a web browser interface to run the queries.</li>
           <li>Use the example url’s supplied - these will return a json representation of the data using the ReST service.</li>
+          </ul></gr>
         </ul>
 
        <p>The ReST Server set up details are described <a href="http://github.com/simonambridge/RTFAP2/tree/master/ReST.md">here</a> on Github</p>
@@ -200,8 +201,8 @@ my_footer {
         <p></p>
         <p><h2><em>Simple ReST queries with CQL, the Cassandra Query Language</em></h2></p>
         <p>We can run CQL queries to look up all transactions for a given credit card (cc_no). </p>
-        <p>The Transactions table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.</p>
-        <p>We don't update the transactions in the Transactions table once they have been written. </p>
+        <p>The <co>transactions</co> table is primarily write-oriented - it's the destination table for the streamed transactions and used for searches.</p>
+        <p>We don't update the transactions in the <co>transactions</co> table once they have been written. </p>
         <p>To run a simple query to return all transactions click <a title="SELECT * FROM rtfap.transactions;" href="http://localhost:3000/transactions">http://localhost:3000/transactions</a></p>
         <p><em>Tip:</em> hover over the link to vire the CQL query that will be run</p>
       </div>
@@ -215,13 +216,14 @@ my_footer {
        <p></p>
        <p><h2><em>Solr brings Enterprise Search on Cassandra data</em></h2></p>
        
-       <p>DataStax Enterprise provides a built-in enterprise search capability on data, stored in Cassandra, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications.</p>
-       <p>Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput. DSE Search also supports live indexing for improved index throughput and reduced reader latency.</p>
+       <p>DataStax Enterprise provides a built-in enterprise search capability on data, stored in <gr>Cassandra</gr>, that scales and performs in a way that meets the search requirements of modern Internet Enterprise applications.</p>
+       <p>Using this search functionality allows the volume of transactions to grow without a reduction in performance or throughput.</p>
+       <p> DSE Search also supports live indexing for improved index throughput and reduced reader latency.</p>
        <p></p>   
-       <p>The Transactions table has a primary key and clustering columns, so a typical query would look like this:</p>
+       <p>The <co>transactions</co> table has a primary key and clustering columns, so a typical query would look like this:</p>
        <pre><co>> SELECT * FROM rtfap.transactions WHERE cc_no='1234123412341234' and year=2016 and month=3 and day=9;</co></pre>
-       <p>But that doesn't provide a very flexible search capability. For this we need an Enterprise Search capability like Solr. We create Solr "cores" (indexes) on the data in Cassandra.</p>
-       <p>Then we aren't restricted by the limitations of the Cassandra table index structure :)</p>
+       <p>But that doesn't provide a very flexible search capability. For this we need an Enterprise Search capability like <gr>Solr</gr>. We create <gr>Solr</gr> "cores" (indexes) on the data in <gr>Cassandra</gr>.</p>
+       <p>Then we aren't restricted by the limitations of the <gr>Cassandra</gr> table index structure :)</p>
        <p></p>
        <p>Examine how CQL and Solr are used together in the following queries that use Solr indexing on Cassandra tables:</p>
        <ul >
@@ -261,18 +263,18 @@ my_footer {
         <p></p>
         <p><h2><em>Streaming Real-Time Analytics with Spark & Kafka</em></h2></p>
 
-        <p>DSE provides integration with Spark out-of-the box to enable analysis of data in-place on the same cluster where the data is ingested and stored.</p>
-        <p>Workloads can be isolated and there is no need to ETL the data. The data ingested in a Cassandra-only (OLTP) data center can be automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.</p>
+        <p>DSE provides integration with <gr>Spark</gr> out-of-the box to enable analysis of data in-place on the same cluster where the data is ingested and stored.</p>
+        <p>Workloads can be isolated and there is no need to ETL the data.</p> 
+        <p>Data ingested in a <gr>Cassandra</gr>-only (OLTP) data center can be automatically replicated to a logical data center of Cassandra nodes also hosting Spark Workers.</p>
           
-        <p>This tight integration between Cassandra and Spark offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters) and thus reducing time to insight from your data through a much less complex "cohesive lambda architecture"</p>
-        
+        <p>This tight integration between <gr>Cassandra</gr> and <gr>Spark</gr> offers huge value in terms of significantly reduced ETL complexity (no data movement to different clusters)</p> 
+        <p>Co-locating the data and analytics means there is no latency from moving data, so reducing the time to insight from your data through a much less complex lambda architecture.</p>
+        <br>
         <p><h2>Streaming Analytics</h2></p>
-        
         <p>The streaming analytics element of this application is made up of two parts:
-        
         <p>A transaction <em>"producer"</em> - a <em2>Scala/Akka</em2> app that generates random credit card transactions and then places those transactions onto a Kafka queue.</p>
         <p>A transaction <em>"consumer"</em> - also written in <em2>Scala</em2>, is a <gr>Spark</gr> streaming job that (a) consumes the messages put on the Kafka queue, and then (b) parses those messages, evalutes the transaction status and then writes them to the Datastax/Cassandra table transactions.</p>
-        </p>It also generates <em>rolling summary lines</em> into the txn_count_min table every minute.</p>
+        </p>It also generates <em>rolling summary lines</em> into the <co>txn_count_min</co> table every minute.</p>
         <p><em>Streaming analytics code</em> can be found under the directory <gr>TransactionHandlers/producer</gr> (pre-requisite: make sure you have run the CQL schema create script as described above to create the necessary tables).</p>
 
         <p>Follow the Spark streaming installation and set up instructions  <a href="https://github.com/simonambridge/RTFAP2/tree/master/TransactionHandlers/README.md">here</a> on Github</p>
