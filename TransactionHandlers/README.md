@@ -437,7 +437,8 @@ cqlsh:rtfap> select count (*) from rtfap.transactions ;
   
   > Note - if you get an error like this on a single-node install it may because you've exceeded the numbner of tombstones:
   ```
-  ReadFailure: Error from server: code=1300 [Replica(s) failed to execute read] message="Operation failed - received 0 responses and 1 failures" info={'failures': 1, 'received_responses': 0, 'error_code_map': {'127.0.0.1': '0x0001'}, 'required_responses': 1, 'consistency': 'ONE'}```
+  ReadFailure: Error from server: code=1300 [Replica(s) failed to execute read] message="Operation failed - received 0 responses and 1 failures" info={'failures': 1, 'received_responses': 0, 'error_code_map': {'127.0.0.1': '0x0001'}, 'required_responses': 1, 'consistency': 'ONE'}
+  ```
   In this case run the following command in cqlsh:
   ```
   cqlsh:rtfap> ALTER TABLE transactions WITH GC_GRACE_SECONDS = 0;
