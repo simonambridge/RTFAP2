@@ -58,17 +58,17 @@ An install of DataStax Enterprise 5.1.4 will default to an installation configur
 - This demo uses an installation running on MacOS Sierra 10.12, using the packaged install method from http://academy.datastax.com/downloads
 
 After DSE has been installed your URLs will be: 
-- Spark Master => http://[DSE_NODE_IP]:7080/ e.g. ```http://localhost:7080/```
-- Solr admin page => http://[DSE_NODE_IP]:8983/solr/ e.g. ```http://localhost:8983/solr```
+- Spark Master: http://[DSE_NODE_IP]:7080/ e.g. ```http://localhost:7080/```
+- Solr admin page: http://[DSE_NODE_IP]:8983/solr/ e.g. ```http://localhost:8983/solr```
 
 If you install DataStax OpsCenter:
-- Opscenter => <pre>http://[DSE_NODE_IP]:8888/opscenter/index.html</pre> e.g. ```http://localhost:8888/opscenter/index.html```
+- Opscenter: http://[DSE_NODE_IP]:8888/opscenter/index.html e.g. ```http://localhost:8888/opscenter/index.html```
 
 When the ReST service is available:
-- Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000 e.g. ```http://localhost:3000``` 
+- Node.js ReST: http://[DSE_NODE_IP]:3000 e.g. ```http://localhost:3000``` 
 
 When the dashboard has been configured:
-- Visual Dashboard => http://[DSE_NODE_IP]:8983/banana/#/dashboard e.g. ```http://localhost:8983/banana/#/dashboard```
+- Visual dashboard: http://[DSE_NODE_IP]:8983/banana/#/dashboard e.g. ```http://localhost:8983/banana/#/dashboard```
 
 (where [DSE_NODE_IP] is the public IP address of your single node DSE installation)
 
