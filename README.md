@@ -62,7 +62,7 @@ After DSE has been installed your URLs will be:
 - Solr admin page => http://[DSE_NODE_IP]:8983/solr/ e.g. ```http://localhost:8983/solr```
 
 If you install DataStax OpsCenter:
-- Opscenter => http://[DSE_NODE_IP]:8888/opscenter/index.html e.g. ```http://localhost:8888/opscenter/index.html```
+- Opscenter => <pre>http://[DSE_NODE_IP]:8888/opscenter/index.html</pre> e.g. ```http://localhost:8888/opscenter/index.html```
 
 When the ReST service is available:
 - Node.js ReST interface => e.g. http://[DSE_NODE_IP]:3000 e.g. ```http://localhost:3000``` 
