@@ -227,10 +227,11 @@ object TransactionConsumer extends App {
 //          .select("ttl_txn_hr", "approved_txn_hr")
 
         val totalTxnHr = totalTxnMin + (if (result.count() > 0) result.first.getInt(0) else 0)
-        // debug:
-        // println("ttl_txn_hr="+(if (result.count() > 0) result.first.getInt(0) else 0))
         val approvedTxnHr = approvedTxnMin + (if (result.count() > 0) result.first.getInt(1) else 0)
         val pctApprovedHr = if (totalTxnHr > 0) ((approvedTxnHr/totalTxnHr.toDouble)*100.0) else 0.0
+
+        // debug:
+        // println("ttl_txn_hr="+(if (result.count() > 0) result.first.getInt(0) else 0))
 
         // Format a timestamp value
 
@@ -262,7 +263,7 @@ object TransactionConsumer extends App {
 //        val tsTime = unix_timestamp(time, "MM/dd/yyyy HH:mm:ss").cast("timestamp")
 
         /*
-         * Make a new DataFrame with tour results
+         * Make a new DataFrame with our results
          */
         val dfCount = sc.makeRDD(Seq((year, month, day, hour, min, time, pctApprovedMin, totalTxnMin, approvedTxnMin, pctApprovedHr, totalTxnHr, approvedTxnHr)))
           .toDF("year", "month", "day", "hour", "minute", "time", "approved_rate_min", "ttl_txn_min", "approved_txn_min", "approved_rate_hr", "ttl_txn_hr", "approved_txn_hr")

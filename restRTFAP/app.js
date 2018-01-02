@@ -63,7 +63,7 @@ app.get('/transactionsover', function(req, res) {
 
   console.log("Amount = " + amount);
 
-  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + amount + ' TO *]"\}\'';
+  const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'\{"q":"*:*",  "fq":"amount:[' + amount + ' TO *]"\}\' ALLOW FILTERING;';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
@@ -88,7 +88,7 @@ app.get('/rejectedtransactions', function(req, res) {
 // SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"status: Rejected"}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\';';
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"status: Rejected"\}\' ALLOW FILTERING;';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result)
@@ -114,7 +114,7 @@ app.get('/transactionsfacetedbymerchant', function(req, res) {
 // SELECT * FROM rtfap.transactions WHERE solr_query='{"q":"*:*", "facet":{"field":"merchant"}}';
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
-  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\';';
+  const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query=\'\{"q":"*:*", "facet":{"field":"merchant"}\}\' ALLOW FILTERING;';
   console.log("Query = " + queryString);
 
   client.execute(queryString, function(err, result)
@@ -146,7 +146,7 @@ app.get('/transactionsbystatusinlast', function(req, res) {
 
   if (req.query.period !== undefined) {
 
-    const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query = \'\{"q":"*:*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
+    const queryString = 'SELECT * FROM rtfap.transactions WHERE solr_query = \'\{"q":"*:*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\' ALLOW FILTERING;';
     console.log("Query = " + queryString);
 
     client.execute(queryString, { prepare: true }, function(err, result)
@@ -184,7 +184,7 @@ app.get('/transactionsbycardandstatusinlast', function(req, res) {
 
   if (req.query.card !== undefined && req.query.period !== undefined) {
 
-    const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'{"q":"cc_no:' + req.query.card + '*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\';';
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query = \'{"q":"cc_no:' + req.query.card + '*",  "fq":"txn_time:[NOW-1' + req.query.period + ' TO *]","facet":{"field":"status"}}\' ALLOW FILTERING;';
     console.log("Query = " + queryString);
 
     client.execute(queryString, { prepare: true }, function(err, result)
@@ -221,7 +221,7 @@ app.get('/transactionsbycard', function(req, res) {
 
   if (req.query.card !== undefined) {
 
-    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '"}\';';
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '"}\' ALLOW FILTERING;';
 
     console.log("Query = " + queryString);
 
@@ -259,7 +259,7 @@ app.get('/fraudulenttransactionsbycard', function(req, res) {
 
   if (req.query.card !== undefined) {
 
-    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\';';
+    const queryString = 'SELECT * FROM rtfap.transactions where solr_query=\'{"q":"cc_no:' + req.query.card + '", "fq":["tags:Fraudulent"]}\' ALLOW FILTERING;';
 
     console.log("Query = " + queryString);
 
@@ -298,7 +298,7 @@ app.get('/fraudulenttransactionsinlast', function(req, res) {
 
   if (req.query.period !== undefined) {
 
-    const queryString = 'SELECT * FROM transactions where solr_query = \'{"q":"*:*", "fq":["txn_time:[NOW-1' + req.query.period + ' TO *]", "tags:Fraudulent"]}\';';
+    const queryString = 'SELECT * FROM transactions ;';
 
     console.log("Query = " + queryString);
 
@@ -379,7 +379,7 @@ app.get('/transactionsperminute', function(req, res) {
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 //  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
-  const queryString = 'SELECT ttl_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT ttl_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\' ALLOW FILTERING;';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
@@ -406,7 +406,7 @@ app.get('/approvedtransactionsperminute', function(req, res) {
 
   var client = new cassandra.Client({ contactPoints: ['localhost'] , keyspace: 'rtfap'});
 //  const queryString = 'SELECT ttl_txn_hr, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-24HOUR TO *]","sort":"time asc"}\';';
-  const queryString = 'SELECT approved_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\';';
+  const queryString = 'SELECT approved_txn_min, time FROM rtfap.txn_count_min WHERE solr_query = \'{"q":"*:*",  "fq":"time:[NOW-1YEAR TO *]","sort":"time asc"}\' ALLOW FILTERING;';
   console.log("Query = " + queryString);
 
   client.execute(queryString, { prepare: true }, function(err, result)
