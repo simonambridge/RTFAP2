@@ -123,7 +123,7 @@ object TransactionConsumer extends App {
           val amount = payload(8).toDouble
 
           //
-          // In a real app this sould need to be updated to include more evaluation rules.
+          // In a real app this should need to be updated to include more evaluation rules.
           //
           val initStatus = payload(9).toInt
           val status = if (initStatus < 5) s"REJECTED" else s"APPROVED"
@@ -157,7 +157,7 @@ object TransactionConsumer extends App {
     .foreachRDD {
       /*
        * Here we take the records and parse just the last value to be able to count them.
-       * NOTE: we reapply the score here which is hugely inefficinet and need to be worked out in a btter way.
+       * NOTE: we re-apply the score here which is hugely inefficient and needs to be worked out in a btter way.
        */
       (message: RDD[(String, String)], batchTime: Time) => {
         val df = message.map {
