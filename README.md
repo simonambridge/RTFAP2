@@ -17,7 +17,7 @@ How to use modern, real-time, distributed streaming technologies to build a work
 
 
 ## Use Case 
-A large bank wants to monitor its customers creditcard transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
+A large bank wants to monitor its customers credit card transactions to detect and deter fraud attempts. They want the ability to search and group transactions by credit card, period, merchant, credit card provider, amounts, status etc.
 
 The client wants a REST API to return:  
 
